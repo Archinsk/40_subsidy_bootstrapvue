@@ -1,13 +1,67 @@
 <template>
-
+    <div class="search-section row justify-content-end">
+        <div class="col-10">
+            <b-form @submit="onSubmit" @reset="onReset">
+                <div class="row">
+                    <div class="col">
+                        <b-form-group id="input-group-2" label="" label-for="input-2">
+                            <b-form-input
+                                    id="input-1"
+                                    v-model="form.email"
+                                    type="email"
+                                    placeholder="Enter email"
+                                    required
+                                    @focus="$emit('focus-input')"
+                            ></b-form-input>
+                        </b-form-group>
+                    </div>
+                    <div class="col-2">
+                        <b-button block>Submit</b-button>
+                    </div>
+                </div>
+            </b-form>
+        </div>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "SearchForm"
+        name: "SearchForm",
+        data() {
+            return {
+
+                form: {
+                    email: '',
+                    name: '',
+                    food: null,
+                    checked: []
+                },
+                foods: [{text: 'Select One', value: null}, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+                show: true
+            }
+        },
+        methods: {
+            onSubmit(event) {
+                event.preventDefault()
+                alert(JSON.stringify(this.form))
+            },
+            onReset(event) {
+                event.preventDefault()
+                // Reset our form values
+                this.form.email = ''
+                this.form.name = ''
+                this.form.food = null
+                this.form.checked = []
+                // Trick to reset/clear native browser form validation state
+                this.show = false
+                this.$nextTick(() => {
+                    this.show = true
+                })
+            }
+        }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>
