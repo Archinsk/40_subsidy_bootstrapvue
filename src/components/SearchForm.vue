@@ -7,16 +7,17 @@
                         <b-form-group id="input-group-2" label="" label-for="input-2">
                             <b-form-input
                                     id="input-1"
-                                    v-model="form.email"
+                                    v-model="inputText"
                                     type="email"
-                                    placeholder="Enter email"
+                                    placeholder="Просто напишите то, что ищете..."
                                     required
                                     @focus="$emit('focus-input')"
                             ></b-form-input>
                         </b-form-group>
                     </div>
                     <div class="col-2">
-                        <b-button block>Submit</b-button>
+                        <b-button block
+                        @click="$emit('add-quest', )">Спросить</b-button>
                     </div>
                 </div>
             </b-form>
@@ -29,15 +30,18 @@
         name: "SearchForm",
         data() {
             return {
-
-                form: {
-                    email: '',
-                    name: '',
-                    food: null,
-                    checked: []
-                },
-                foods: [{text: 'Select One', value: null}, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-                show: true
+                // inputText: this.quest,
+            }
+        },
+        props: [
+            'quest'
+        ],
+        computed: {
+            inputText() {
+                if (this.quest) {
+                    this.$emit('focus-input');
+                }
+                return this.quest
             }
         },
         methods: {

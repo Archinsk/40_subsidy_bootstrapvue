@@ -10,7 +10,9 @@
                         aria-hidden="true"
                 ></b-icon>
             </b-button>
-            <b-alert show>Привет, я робот Фёдор! Напишите мне...</b-alert>
+            <b-alert v-for="message of messages" :key="message.id" :variant="getAuthor(message.author)" show>{{
+                message.content }}
+            </b-alert>
         </div>
     </div>
 </template>
@@ -20,14 +22,21 @@
         name: "ChatBoard",
         data() {
             return {
-                chatActive: false
+                chatActive: false,
+
             }
         },
+        computed: {
+
+        },
         props: [
-            'isActive'
+            'isActive',
+            'messages'
         ],
         methods: {
-
+            getAuthor(author) {
+                return author === 'bot' ? 'success' : 'warning'
+            }
         }
     }
 </script>
@@ -44,6 +53,7 @@
             background-color: lightskyblue;
             height: 150px;
             transition: height 2.0s;
+            overflow: hidden;
 
             &.active {
                 height: 500px;

@@ -2,9 +2,9 @@
     <div id="app">
         <HeaderOffcavas></HeaderOffcavas>
         <div class="container">
-            <ChatBoard :isActive="chatActive" @close-chat="closeChat"></ChatBoard>
-            <SearchForm @focus-input="focusInput"></SearchForm>
-            <AnswersBlock></AnswersBlock>
+            <ChatBoard :isActive="chatActive()" @close-chat="closeChat" :messages="replics"></ChatBoard>
+            <SearchForm @focus-input="focusInput" :quest="inputText"></SearchForm>
+            <AnswersBlock @quick-question="enterQuestion($event)"></AnswersBlock>
             <FeaturesBlock></FeaturesBlock>
         </div>
         <hr>
@@ -28,8 +28,19 @@
         name: 'App',
         data() {
             return {
-              chatActive: false
+                inputText: '',
+                replics: [
+                    {id: 1, author: "bot", content: "Поиск на пол-федора",},
+                    {id: 2, author: "user", content: "Найди слово охота",},
+                    {id: 3, author: "bot", content: "Вот что найдено по слову",},
+                    {id: 4, author: "user", content: "А теперь рыбалка",},
+                    {id: 5, author: "bot", content: "К сожалению, ничего не найдено",},
+                ],
+                chatIsActive: false
             }
+        },
+        computed: {
+
         },
         components: {
             HeaderOffcavas,
@@ -38,18 +49,26 @@
             AnswersBlock,
             FeaturesBlock,
         },
-      methods: {
-        focusInput() {
-          this.chatActive = true
-        },
-          closeChat() {
-              console.log(this.chatActive)
+        methods: {
+            focusInput() {
+                this.chatIsActive = true
+            },
+            closeChat() {
+                this.inputText = '';
+                if (this.chatIsActive) {
+                    this.chatIsActive = !this.chatIsActive
+                }
+            },
+            enterQuestion(question) {
+                // console.log(this.inputText);
+                this.inputText = question;
+                // console.log(this.inputText);
 
-              if (this.chatActive) {
-                  this.chatActive = !this.chatActive
-              }
-          }
-      }
+            },
+            chatActive() {
+                return this.replics.length > 1 && this.chatIsActive
+            },
+        }
     }
 </script>
 

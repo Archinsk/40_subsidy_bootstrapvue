@@ -2,7 +2,13 @@
     <div class="answer-section row justify-content-end">
         <div class="col-10">
             <div class="row">
-                <b-button v-for="item of faq" :key="item.id" variant="outline-secondary" class="mr-2">{{ item.question }}</b-button>
+                <b-button class="mr-2" variant="outline-secondary"
+                        v-for="item of faq"
+                        :key="item.id"
+                        @click="$emit('quick-question', item.question)"
+                        >
+                    {{ item.question }}
+                </b-button>
             </div>
         </div>
     </div>
