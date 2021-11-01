@@ -4,7 +4,7 @@
             <img id="botWaiting" class="position-absolute" src="@/assets/default.jpg" alt="">
         </div>
         <div class="chatField col-10 position-relative" :class="{active: isActive}">
-            <b-button @click="$emit('close-chat')">
+            <b-button v-if="chatActive" @click="$emit('close-chat')">
                 <b-icon
                         icon="x-circle"
                         aria-hidden="true"
@@ -23,7 +23,11 @@
         data() {
             return {
                 chatActive: false,
-
+            }
+        },
+        watch: {
+            isActive: function () {
+                this.chatActive = this.isActive
             }
         },
         computed: {
@@ -53,7 +57,7 @@
             background-color: lightskyblue;
             height: 150px;
             transition: height 2.0s;
-            overflow: hidden;
+            overflow: scroll;
 
             &.active {
                 height: 500px;

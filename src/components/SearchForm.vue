@@ -1,14 +1,14 @@
 <template>
     <div class="search-section row justify-content-end">
         <div class="col-10">
-            <b-form @submit="onSubmit" @reset="onReset">
+            <b-form @submit="onSubmit">
                 <div class="row">
                     <div class="col">
                         <b-form-group id="input-group-2" label="" label-for="input-2">
                             <b-form-input
                                     id="input-1"
-                                    v-model="inputText"
-                                    type="email"
+                                    v-model="inputValue"
+                                    type="text"
                                     placeholder="Просто напишите то, что ищете..."
                                     required
                                     @focus="$emit('focus-input')"
@@ -16,8 +16,7 @@
                         </b-form-group>
                     </div>
                     <div class="col-2">
-                        <b-button block
-                        @click="$emit('add-quest', )">Спросить</b-button>
+                        <b-button block type="submit">Отправить</b-button>
                     </div>
                 </div>
             </b-form>
@@ -27,41 +26,35 @@
 
 <script>
     export default {
-        name: "SearchForm",
-        data() {
-            return {
-                // inputText: this.quest,
+        watch: {
+            quest: function () {
+                this.inputValue = this.quest
             }
         },
+        name: "SearchForm",
         props: [
             'quest'
         ],
-        computed: {
-            inputText() {
-                if (this.quest) {
-                    this.$emit('focus-input');
-                }
-                return this.quest
+        data() {
+            return {
+                inputValue: '',
             }
         },
+        computed: {
+
+        },
         methods: {
-            onSubmit(event) {
-                event.preventDefault()
-                alert(JSON.stringify(this.form))
+            inputText (event) {
+                this.inputValue = event
             },
-            onReset(event) {
-                event.preventDefault()
-                // Reset our form values
-                this.form.email = ''
-                this.form.name = ''
-                this.form.food = null
-                this.form.checked = []
-                // Trick to reset/clear native browser form validation state
-                this.show = false
-                this.$nextTick(() => {
-                    this.show = true
-                })
-            }
+            onSubmit(event) {
+                event.preventDefault();
+                if (this.inputValue.trim()) {
+                    this.$emit('add-quest', this.inputValue);
+                    this.inputValue = '';
+                }
+            },
+
         }
     }
 </script>

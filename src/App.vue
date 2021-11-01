@@ -2,10 +2,10 @@
     <div id="app">
         <HeaderOffcavas></HeaderOffcavas>
         <div class="container">
-            <ChatBoard :isActive="chatActive()" @close-chat="closeChat" :messages="replics"></ChatBoard>
-            <SearchForm @focus-input="focusInput" :quest="inputText"></SearchForm>
-            <AnswersBlock @quick-question="enterQuestion($event)"></AnswersBlock>
-            <FeaturesBlock></FeaturesBlock>
+            <ChatBoard :isActive="chatActive()" :messages="replics" @close-chat="closeChat"></ChatBoard>
+            <SearchForm :quest="inputText" @focus-input="focusInput" @add-quest="addQuest($event)"></SearchForm>
+            <AnswersBlock v-if="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock>
+            <FeaturesBlock v-if="!chatIsActive"></FeaturesBlock>
         </div>
         <hr>
         <div id="nav">
@@ -30,18 +30,39 @@
             return {
                 inputText: '',
                 replics: [
-                    {id: 1, author: "bot", content: "Поиск на пол-федора",},
+                    {id: 1, author: "bot", content: "Напишите, то что ищете...",},
                     {id: 2, author: "user", content: "Найди слово охота",},
                     {id: 3, author: "bot", content: "Вот что найдено по слову",},
                     {id: 4, author: "user", content: "А теперь рыбалка",},
                     {id: 5, author: "bot", content: "К сожалению, ничего не найдено",},
                 ],
+                faq: [
+                    {
+                        id: 1, keywords: ['covid', 'ковид', 'корона'], answers: [
+                            {content: 'Запись на вакцинацию', link: 'https://google.com'},
+                            {content: 'Сертификат вакцинированного', link: 'https://ya.ru'},
+                            {content: 'Мои QR-коды', link: 'https://ya.ru'}
+                        ]
+                    },
+                    {
+                        id: 2, keywords: ['спорт'], answers: [
+                            {content: 'Присвоение спортивных разрядов', link: 'https://google.com'},
+                            {
+                                content: 'Присвоение квалификационных категорий спортивных судей',
+                                link: 'https://google.com'
+                            },
+                            {
+                                content: 'Государственная регистрация региональных общественных организаций или структурных подразделений (региональных отделений) общероссийской спортивной федерации',
+                                link: 'https://google.com'
+                            },
+                        ]
+                    },
+
+                ],
                 chatIsActive: false
             }
         },
-        computed: {
-
-        },
+        computed: {},
         components: {
             HeaderOffcavas,
             ChatBoard,
@@ -60,10 +81,36 @@
                 }
             },
             enterQuestion(question) {
-                // console.log(this.inputText);
                 this.inputText = question;
-                // console.log(this.inputText);
-
+                console.log('eq ', this.inputText)
+            },
+            addQuest(inputValue) {
+                let quest = {
+                    id: this.replics.length + 1, author: "user", content: inputValue
+                };
+                this.replics.push(quest);
+                let answer;
+                this.faq.forEach(function (item) {
+                    console.log('В первом цикле');
+                    console.log(item.keywords);
+                    // let id=item.id;
+                    item.keywords.forEach(function (i) {
+                        console.log('второй цикл i = ' + i);
+                        console.log('this = ' + this);
+                        if (inputValue.trim().toLowerCase() === i ) {
+                            answer = {
+                                author: "bot", content: 'Вот что я нашел по слову "' + inputValue +'":'
+                            };
+                        }
+                    });
+                });
+                if (!answer) {
+                    answer = {
+                        author: "bot", content: 'Извините, я ничего не нашел'
+                    };
+                }
+                answer.id = this.replics.length + 1;
+                this.replics.push(answer);
             },
             chatActive() {
                 return this.replics.length > 1 && this.chatIsActive
