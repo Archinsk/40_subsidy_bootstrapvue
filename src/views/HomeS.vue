@@ -7,48 +7,102 @@
             <FeaturesBlock v-if="!chatIsActive"></FeaturesBlock>
         </div>
         <section class="slider">
-            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="@/assets/default.jpg" class="d-block" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Агрегатор мер поддержки</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur corporis, deleniti eum
-                                numquam quas suscipit.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="@/assets/default.jpg" class="d-block" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Поддержка юридических лиц</h5>
-                            <p>Ipsa libero maxime molestias possimus quaerat quis recusandae rerum sed sequi sit vitae
-                                voluptates! Nisi.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="@/assets/default.jpg" class="d-block" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Поддержка физических лиц</h5>
-                            <p>Tempora tenetur velit veniam veritatis voluptatem? Aliquam ducimus maiores natus odit soluta
-                                veritatis! Architecto, aut!</p>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions"
-                        data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions"
-                        data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </button>
+<!--            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">-->
+<!--                <ol class="carousel-indicators">-->
+<!--                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>-->
+<!--                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>-->
+<!--                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>-->
+<!--                </ol>-->
+<!--                <div class="carousel-inner">-->
+<!--                    <div class="carousel-item active">-->
+<!--                        <img src="@/assets/default.jpg" class="d-block" alt="...">-->
+<!--                        <div class="carousel-caption d-none d-md-block">-->
+<!--                            <h5>Агрегатор мер поддержки</h5>-->
+<!--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur corporis, deleniti eum-->
+<!--                                numquam quas suscipit.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="carousel-item">-->
+<!--                        <img src="@/assets/default.jpg" class="d-block" alt="...">-->
+<!--                        <div class="carousel-caption d-none d-md-block">-->
+<!--                            <h5>Поддержка юридических лиц</h5>-->
+<!--                            <p>Ipsa libero maxime molestias possimus quaerat quis recusandae rerum sed sequi sit vitae-->
+<!--                                voluptates! Nisi.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="carousel-item">-->
+<!--                        <img src="@/assets/default.jpg" class="d-block" alt="...">-->
+<!--                        <div class="carousel-caption d-none d-md-block">-->
+<!--                            <h5>Поддержка физических лиц</h5>-->
+<!--                            <p>Tempora tenetur velit veniam veritatis voluptatem? Aliquam ducimus maiores natus odit soluta-->
+<!--                                veritatis! Architecto, aut!</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions"-->
+<!--                        data-slide="prev">-->
+<!--                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--                    <span class="sr-only">Previous</span>-->
+<!--                </button>-->
+<!--                <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions"-->
+<!--                        data-slide="next">-->
+<!--                    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--                    <span class="sr-only">Next</span>-->
+<!--                </button>-->
+<!--            </div>-->
+
+            <div>
+                <b-carousel
+                        id="carousel-1"
+                        v-model="slide"
+                        :interval="4000"
+                        controls
+                        indicators
+                        background="#ababab"
+                        img-width="1024"
+                        img-height="480"
+                        style="text-shadow: 1px 1px 2px #333;"
+                        @sliding-start="onSlideStart"
+                        @sliding-end="onSlideEnd"
+                >
+                    <!-- Текстовые слайды с изображением -->
+                    <b-carousel-slide
+                            caption="Первый слайд"
+                            text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+                            img-src="https://picsum.photos/1024/480/?image=52"
+                    ></b-carousel-slide>
+
+                    <!-- Слайды с произвольным текстом -->
+                    <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
+                        <h1>Привет мир!</h1>
+                    </b-carousel-slide>
+
+                    <!-- Слайды только с изображением -->
+                    <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
+
+                    <!-- Слайды со слотом img -->
+                    <!-- Обратите внимание на классы .d-block и .img-fluid, чтобы предотвратить выравнивание изображений по умолчанию в браузере -->
+                    <b-carousel-slide>
+                        <template #img>
+                            <img
+                                    class="d-block img-fluid w-100"
+                                    width="1024"
+                                    height="480"
+                                    src="https://picsum.photos/1024/480/?image=55"
+                                    alt="слот изображения"
+                            >
+                        </template>
+                    </b-carousel-slide>
+
+                    <!-- Слайд с пустым плавным изображением для сохранения пропорций слайда -->
+                    <b-carousel-slide caption="Пустое изображение" img-blank img-alt="Пустое изображение">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
+                            a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
+                        </p>
+                    </b-carousel-slide>
+                </b-carousel>
+
             </div>
         </section>
 
@@ -240,6 +294,9 @@
         },
         data() {
             return {
+                slide: 0,
+                sliding: null,
+
                 inputText: '',
                 replics: [
                     {id: 1, author: "bot", content: "Напишите, то что ищете...",},
@@ -277,6 +334,13 @@
         computed: {},
 
         methods: {
+            // onSlideStart(slide) {
+            //     this.sliding = true
+            // },
+            // onSlideEnd(slide) {
+            //     this.sliding = false
+            // },
+
             focusInput() {
                 this.chatIsActive = true
             },

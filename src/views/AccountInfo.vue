@@ -18,20 +18,8 @@
                         </button>
                     </section>
 
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-link active" id="personal-info-tab" data-toggle="tab"
-                                   href="#personal-info" role="tab"
-                                   aria-controls="personal-info"
-                                   aria-selected="true">Личные данные
-                                </a>
-                                <a class="nav-link" id="requests-tab" data-toggle="tab" href="#requests"
-                                   role="tab" aria-controls="requests" aria-selected="false">Заявки
-                                </a>
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="personal-info" role="tabpanel" aria-labelledby="personal-info-tab">
+                    <b-tabs content-class="mt-3">
+                        <b-tab title="Личные данные" active>
                             <section class="user__basic__info">
                                 <h3 class="user__basic__info__title">Основная информация</h3>
                                 <div class="user__about term__block">
@@ -183,8 +171,8 @@
                                     </div>
                                 </div>
                             </section>
-                        </div>
-                        <div class="tab-pane fade" id="requests" role="tabpanel" aria-labelledby="requests-tab">
+                        </b-tab>
+                        <b-tab title="Заявки">
                             <h2 class="measures__heading py-2">Заявки<span class="badge badge-secondary">15</span></h2>
 
                             <div class="row row-cols-1 g-2 mb-2">
@@ -400,10 +388,8 @@
                                 </div>
 
                             </div>
-
-                        </div>
-                    </div>
-
+                        </b-tab>
+                    </b-tabs>
                 </div>
             </article>
         </div>
@@ -473,7 +459,7 @@
         margin: -0.5em -0.25em;
     }
 
-    .row>* {
+    .row > * {
         margin-top: 0.5em;
         padding-left: 0.25em;
         padding-right: 0.25em;
