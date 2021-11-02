@@ -1,28 +1,14 @@
 <template>
     <div id="app">
         <HeaderOffcavas></HeaderOffcavas>
-        <div class="container">
-            <ChatBoard :isActive="chatActive()" :messages="replics" @close-chat="closeChat"></ChatBoard>
-            <SearchForm :quest="inputText" @focus-input="focusInput" @add-quest="addQuest($event)"></SearchForm>
-            <AnswersBlock v-if="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock>
-            <FeaturesBlock v-if="!chatIsActive"></FeaturesBlock>
-        </div>
-        <hr>
-        <div id="nav">
-            <router-link to="/">Home</router-link>
-            |
-            <router-link to="/about">About</router-link>
-        </div>
         <router-view/>
+        <Footer/>
     </div>
 </template>
 
 <script>
     import HeaderOffcavas from "@/components/HeaderOffcavas";
-    import ChatBoard from "@/components/ChatBoard";
-    import SearchForm from "@/components/SearchForm";
-    import AnswersBlock from "@/components/AnswersBlock";
-    import FeaturesBlock from "@/components/FeaturesBlock";
+    import Footer from "@/components/Footer";
 
     export default {
         name: 'App',
@@ -65,10 +51,7 @@
         computed: {},
         components: {
             HeaderOffcavas,
-            ChatBoard,
-            SearchForm,
-            AnswersBlock,
-            FeaturesBlock,
+            Footer,
         },
         methods: {
             focusInput() {
@@ -119,11 +102,20 @@
     }
 </script>
 
-<style>
+<style lang="scss">
+    body {
+        background-color: grey;
+    }
+
+    .container {
+        @media (min-width: 1400px) {
+            max-width: 1320px;
+        }
+    }
     #app {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
+        /*color: #2c3e50;*/
+        background-color: Lavender;
     }
 </style>

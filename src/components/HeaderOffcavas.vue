@@ -2,107 +2,64 @@
     <header class="header bg-light">
         <div class="header__wrapper container">
             <div>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <a class="logo logo_left navbar-brand" href="https://yandex.ru">
-                            <img src="@/assets/default.jpg" alt="" class="logo__image">
-                            Агрегатор мер поддержки
-                        </a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="d-flex gap-2">
-                            <button class="Button btn btn-outline-secondary Button_icon-only-square d-lg-none"
-                                    type="button" data-bs-toggle="offcanvas" data-bs-target="#sideBar"
-                                    aria-controls="sideBar"><span class="Icon material-icons">menu</span></button>
-                            <div class="offcanvas offcanvas-start" tabindex="-1" id="sideBar"
-                                 aria-labelledby="sideBarLabel" style="visibility: hidden;" aria-hidden="true">
-                                <div class="offcanvas-header"><h5 class="offcanvas-title" id="offcanvasExampleLabel">
-                                    Меню</h5>
-                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="offcanvas-body">
-                                    <ul class="navbar-nav list-group list-group-flush">
-                                        <li class="nav-item list-group-item"><a href="#"
-                                                                                class=" nav-link list-group-item-action">Программы</a>
-                                        </li>
-                                        <li class="nav-item list-group-item"><a href="#"
-                                                                                class=" nav-link list-group-item-action">Новости</a>
-                                        </li>
-                                        <li class="nav-item list-group-item">
-                                            <div class="accordion accordion-flush" id="accordionFlushExample">
-                                                <div class="accordion-item">
-                                                    <div class="accordion-header" id="flush-headingOne"><a
-                                                            class="list-group-item-action nav-link accordion-button"
-                                                            data-bs-toggle="collapse" href="#flush-collapseOne"
-                                                            role="button" aria-expanded="true"
-                                                            aria-controls="flush-collapseOne" style="">Меры
-                                                        поддержки</a></div>
-                                                    <div id="flush-collapseOne" class="accordion-collapse collapse show"
-                                                         aria-labelledby="flush-headingOne"
-                                                         data-bs-parent="#accordionFlushExample" style="">
-                                                        <div class="accordion-body nav-link">
-                                                            <ul class="list-group list-group-flush"><a href="#"
-                                                                                                       class="list-group-item list-group-item-action">Все
-                                                                меры поддержки</a><a href="#"
-                                                                                     class="list-group-item list-group-item-action">Юридическим
-                                                                лицам</a><a href="#"
-                                                                            class="list-group-item list-group-item-action">Индивидуальным
-                                                                предпринимателям</a><a href="#"
-                                                                                       class="list-group-item list-group-item-action">Физическим
-                                                                лицам</a></ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <button class="Button btn btn-outline-secondary Button_icon-only-square" type="button"><span
-                                    class="Icon material-icons">login</span></button>
-                            <button class="Button btn btn-outline-secondary Button_icon-only-square" type="submit"><span
-                                    class="Icon material-icons">search</span></button>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-
-            <hr>
-
-            <div>
                 <b-navbar toggleable="lg" type="dark" variant="info">
                     <b-navbar-brand href="#">
-                        <img src="@/assets/default.jpg" class="d-inline-block align-top logo__image" alt="logo">
-                        Навигатор мер поддержки
+                        <router-link to="/homes">
+                            <img src="@/assets/iss_logo.png" class="d-inline-block align-top logo__image" alt="logo">
+                            Навигатор мер поддержки
+                        </router-link>
                     </b-navbar-brand>
-                    <div class="d-flex gap-2">
-                        <b-button v-b-toggle.sidebar>
-                            <b-icon icon="list" aria-hidden="true"></b-icon>
-                        </b-button>
 
-                        <b-sidebar id="sidebar" title="Меню" shadow>
-                            <b-nav vertical>
-                                <b-nav-item active>Программы</b-nav-item>
-                                <b-nav-item href="#link-1">Новости</b-nav-item>
-                                <b-nav-item-dropdown text="Меры поддержки" right>
-                                    <b-dropdown-item href="#">Все меры поддержки</b-dropdown-item>
-                                    <b-dropdown-item href="#">Юридическим лицам</b-dropdown-item>
-                                    <b-dropdown-item href="#">Индивидуальным предпринимателям</b-dropdown-item>
-                                    <b-dropdown-item href="#">Физическим лицам</b-dropdown-item>
-                                </b-nav-item-dropdown>
-                            </b-nav>
-                        </b-sidebar>
-                        <b-nav-form>
-                            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-                            <b-button size="sm" class="my-2 my-sm-0" type="submit">Поиск</b-button>
-                            <b-button size="sm" class="my-2 my-sm-0" type="submit">Вход</b-button>
-                        </b-nav-form>
+                    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+                    <b-collapse id="nav-collapse" is-nav>
+                        <b-navbar-nav>
 
-                    </div>
+                            <b-nav-item href="#">
+                                <router-link to="/news">Новости</router-link>
+                            </b-nav-item>
+                            <b-nav-item-dropdown text="Меры поддержки" right>
+                                <b-dropdown-item href="#">
+                                    <router-link to="/measures">Все меры поддержки</router-link>
+                                </b-dropdown-item>
+                                <b-dropdown-item href="#">
+                                    <router-link to="/measures">Юридическим лицам</router-link>
+                                </b-dropdown-item>
+                                <b-dropdown-item href="#">
+                                    <router-link to="/measures">Индивидуальным предпринимателям</router-link>
+                                </b-dropdown-item>
+                                <b-dropdown-item href="#">
+                                    <router-link to="/measures">Физическим лицам</router-link>
+                                </b-dropdown-item>
+                            </b-nav-item-dropdown>
+                            <b-nav-item href="#">
+                                <router-link to="/accountinfo">Личный кабинет</router-link>
+                            </b-nav-item>
+                        </b-navbar-nav>
+                    </b-collapse>
+
+<!--                    <div class="d-flex gap-2">-->
+<!--                        <b-button v-b-toggle.sidebar>-->
+<!--                            <b-icon icon="list" aria-hidden="true"></b-icon>-->
+<!--                        </b-button>-->
+<!--                        <b-sidebar id="sidebar" title="Меню" shadow>-->
+<!--                            <b-nav vertical>-->
+<!--                                <b-nav-item active>Программы</b-nav-item>-->
+<!--                                <b-nav-item href="#link-1">Новости</b-nav-item>-->
+<!--                                <b-nav-item-dropdown text="Меры поддержки" right>-->
+<!--                                    <b-dropdown-item href="#">Все меры поддержки</b-dropdown-item>-->
+<!--                                    <b-dropdown-item href="#">Юридическим лицам</b-dropdown-item>-->
+<!--                                    <b-dropdown-item href="#">Индивидуальным предпринимателям</b-dropdown-item>-->
+<!--                                    <b-dropdown-item href="#">Физическим лицам</b-dropdown-item>-->
+<!--                                </b-nav-item-dropdown>-->
+<!--                            </b-nav>-->
+<!--                        </b-sidebar>-->
+<!--                        <b-nav-form>-->
+<!--                            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>-->
+<!--                            <b-button size="sm" class="my-2 my-sm-0" type="submit">Поиск</b-button>-->
+<!--                            <b-button size="sm" class="my-2 my-sm-0" type="submit">Вход</b-button>-->
+<!--                        </b-nav-form>-->
+<!--                    </div>-->
+
                 </b-navbar>
             </div>
         </div>

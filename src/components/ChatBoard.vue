@@ -1,7 +1,7 @@
 <template>
     <div class="chat-section row">
         <div class="col-2 position-relative">
-            <img id="botWaiting" class="position-absolute" src="@/assets/default.jpg" alt="">
+            <img id="botWaiting" class="position-absolute" src="@/assets/chat_bot.png" alt="">
         </div>
         <div class="chatField col-10 position-relative" :class="{active: isActive}">
             <b-button v-if="chatActive" @click="$emit('close-chat')">
