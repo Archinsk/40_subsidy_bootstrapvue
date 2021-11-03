@@ -1,10 +1,10 @@
 <template>
-    <header class="header bg-light">
+    <header class="header">
         <div class="header__wrapper container">
             <div>
-                <b-navbar toggleable="lg" type="dark" variant="info">
+                <b-navbar toggleable="lg" type="dark">
                     <b-navbar-brand href="#">
-                        <router-link to="/homes">
+                        <router-link to="/">
                             <img src="@/assets/iss_logo.png" class="d-inline-block align-top logo__image" alt="logo">
                             Навигатор мер поддержки
                         </router-link>
@@ -37,28 +37,28 @@
                         </b-navbar-nav>
                     </b-collapse>
 
-<!--                    <div class="d-flex gap-2">-->
-<!--                        <b-button v-b-toggle.sidebar>-->
-<!--                            <b-icon icon="list" aria-hidden="true"></b-icon>-->
-<!--                        </b-button>-->
-<!--                        <b-sidebar id="sidebar" title="Меню" shadow>-->
-<!--                            <b-nav vertical>-->
-<!--                                <b-nav-item active>Программы</b-nav-item>-->
-<!--                                <b-nav-item href="#link-1">Новости</b-nav-item>-->
-<!--                                <b-nav-item-dropdown text="Меры поддержки" right>-->
-<!--                                    <b-dropdown-item href="#">Все меры поддержки</b-dropdown-item>-->
-<!--                                    <b-dropdown-item href="#">Юридическим лицам</b-dropdown-item>-->
-<!--                                    <b-dropdown-item href="#">Индивидуальным предпринимателям</b-dropdown-item>-->
-<!--                                    <b-dropdown-item href="#">Физическим лицам</b-dropdown-item>-->
-<!--                                </b-nav-item-dropdown>-->
-<!--                            </b-nav>-->
-<!--                        </b-sidebar>-->
-<!--                        <b-nav-form>-->
-<!--                            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>-->
-<!--                            <b-button size="sm" class="my-2 my-sm-0" type="submit">Поиск</b-button>-->
-<!--                            <b-button size="sm" class="my-2 my-sm-0" type="submit">Вход</b-button>-->
-<!--                        </b-nav-form>-->
-<!--                    </div>-->
+                    <!--                    <div class="d-flex gap-2">-->
+                    <!--                        <b-button v-b-toggle.sidebar>-->
+                    <!--                            <b-icon icon="list" aria-hidden="true"></b-icon>-->
+                    <!--                        </b-button>-->
+                    <!--                        <b-sidebar id="sidebar" title="Меню" shadow>-->
+                    <!--                            <b-nav vertical>-->
+                    <!--                                <b-nav-item active>Программы</b-nav-item>-->
+                    <!--                                <b-nav-item href="#link-1">Новости</b-nav-item>-->
+                    <!--                                <b-nav-item-dropdown text="Меры поддержки" right>-->
+                    <!--                                    <b-dropdown-item href="#">Все меры поддержки</b-dropdown-item>-->
+                    <!--                                    <b-dropdown-item href="#">Юридическим лицам</b-dropdown-item>-->
+                    <!--                                    <b-dropdown-item href="#">Индивидуальным предпринимателям</b-dropdown-item>-->
+                    <!--                                    <b-dropdown-item href="#">Физическим лицам</b-dropdown-item>-->
+                    <!--                                </b-nav-item-dropdown>-->
+                    <!--                            </b-nav>-->
+                    <!--                        </b-sidebar>-->
+                    <!--                        <b-nav-form>-->
+                    <!--                            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>-->
+                    <!--                            <b-button size="sm" class="my-2 my-sm-0" type="submit">Поиск</b-button>-->
+                    <!--                            <b-button size="sm" class="my-2 my-sm-0" type="submit">Вход</b-button>-->
+                    <!--                        </b-nav-form>-->
+                    <!--                    </div>-->
 
                 </b-navbar>
             </div>
@@ -73,85 +73,125 @@
 </script>
 
 <style lang="scss" scoped>
-    .navbar-expand-lg {
-        .logo__image {
-            height: 2rem;
-        }
+    .header {
+        background-color: #003399;
+        color: #CCCCCC;
+        border-bottom: 1px solid white;
 
-        button[data-bs-toggle="offcanvas"] {
+        a {
+            text-decoration: none;
+            color: #e4e4e4;
 
-            @media (min-width: 992px) {
-                display: none;
+            &:hover {
+                color: white;
+            }
+
+            &.dropdown-item > * {
+                color: #003399;
+
+                &:hover {
+                    color: white;
+                }
             }
         }
 
-        .offcanvas {
-            display: inline-flex;
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: #003399 !important;
+        }
 
-            @media (min-width: 992px) {
-                transition: transform 0s;
-                position: static;
-                visibility: visible !important;
-                flex-direction: row;
-                width: auto;
-                transform: none;
-                border-right-width: 0;
+        .navbar-collapse {
+            justify-content: flex-end;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            text-decoration: none;
+            color: #e4e4e4;
+
+            &:hover {
+                color: white;
+            }
+        }
+
+        .navbar-expand-lg {
+            .logo__image {
+                height: 2rem;
             }
 
-            .offcanvas-header {
+            button[data-bs-toggle="offcanvas"] {
 
                 @media (min-width: 992px) {
                     display: none;
                 }
             }
 
-            .offcanvas-body {
+            .offcanvas {
+                display: inline-flex;
 
                 @media (min-width: 992px) {
-                    overflow-y: visible;
+                    transition: transform 0s;
+                    position: static;
+                    visibility: visible !important;
+                    flex-direction: row;
+                    width: auto;
+                    transform: none;
+                    border-right-width: 0;
                 }
 
-                .navbar-nav {
+                .offcanvas-header {
 
                     @media (min-width: 992px) {
-                        flex-direction: row;
+                        display: none;
+                    }
+                }
+
+                .offcanvas-body {
+
+                    @media (min-width: 992px) {
+                        overflow-y: visible;
                     }
 
-                    .nav-item {
+                    .navbar-nav {
 
                         @media (min-width: 992px) {
-                            border-bottom-width: 0;
-                        }
-                    }
-
-                    .accordion-item {
-
-                        @media (min-width: 992px) {
-                            position: relative;
+                            flex-direction: row;
                         }
 
-                        //.accordion-body {
+                        .nav-item {
 
-                        //.list-group {
-
-                        @media (min-width: 992px) {
-                            .accordion-body {
-                                .list-group {
-                                    position: absolute;
-                                }
+                            @media (min-width: 992px) {
+                                border-bottom-width: 0;
                             }
                         }
-                        //}
-                        //}
+
+                        .accordion-item {
+
+                            @media (min-width: 992px) {
+                                position: relative;
+                            }
+
+                            //.accordion-body {
+
+                            //.list-group {
+
+                            @media (min-width: 992px) {
+                                .accordion-body {
+                                    .list-group {
+                                        position: absolute;
+                                    }
+                                }
+                            }
+                            //}
+                            //}
+                        }
                     }
                 }
             }
-        }
 
-        .modal-backdrop {
+            .modal-backdrop {
 
-            @media (min-width: 992px) {
-                display: none;
+                @media (min-width: 992px) {
+                    display: none;
+                }
             }
         }
     }

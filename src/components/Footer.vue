@@ -9,16 +9,16 @@
                     </div>
                     <div class="footer__social mb-2">
                         <a href="" class="footer__social__link">
-                            <img src="@/assets/default.jpg" alt="" class="footer__social__logo">
+                            <img src="https://novosibirsk.rus-buket.ru/images/socials/alt/fb.svg" alt="" class="footer__social__logo">
                         </a>
                         <a href="" class="footer__social__link">
-                            <img src="@/assets/default.jpg" alt="" class="footer__social__logo">
+                            <img src="https://novosibirsk.rus-buket.ru/images/socials/instagram.svg" alt="" class="footer__social__logo">
                         </a>
                         <a href="" class="footer__social__link">
-                            <img src="@/assets/default.jpg" alt="" class="footer__social__logo">
+                            <img src="https://novosibirsk.rus-buket.ru/images/socials/alt/youtube.svg" alt="" class="footer__social__logo">
                         </a>
                         <a href="" class="footer__social__link">
-                            <img src="@/assets/default.jpg" alt="" class="footer__social__logo">
+                            <img src="https://novosibirsk.rus-buket.ru/images/socials/alt/vk.svg" alt="" class="footer__social__logo">
                         </a>
                     </div>
                     <div class="footer__contacts mb-2">
@@ -62,7 +62,8 @@
 
 <style lang="scss" scoped>
     .footer {
-        background-color: white;
+        background-color: #003399;
+        color: #e4e4e4;
 
         .footer__main {
             margin-top: 0;
@@ -110,9 +111,17 @@
 
                 a {
                     text-decoration: none;
-                    color: #212529;
+                    color: #e4e4e4;
+
+                    &:hover {
+                        color: #fff;
+                    }
                 }
             }
+        }
+
+        hr {
+            border-top: 1px solid #e4e4e4;
         }
 
     }

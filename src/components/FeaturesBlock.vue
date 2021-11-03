@@ -1,7 +1,7 @@
 <template>
     <div class="feature-section row justify-content-end">
-        <div class="col-10">
-            <div class="features-title">Я только учусь, но могу предложить</div>
+        <div class="col-9">
+            <h4 class="features-title text-white mt-3 mb-4">Я только учусь, но могу предложить</h4>
             <div v-for="n in rows" :key="n" class="row mb-2">
                 <div v-for="feature of partOfArray(features, (n-1)*columns+1, columns)" :key="feature.id" class="feature col">
                     <b-button block :href="feature.link">

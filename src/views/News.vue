@@ -22,8 +22,8 @@
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
-                                        <img src="@/assets/default.jpg" alt="" class="news-source__logo">
-                                        <a href="#" class="news-source__link">Источник 1</a>
+                                        <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
+                                        <a href="#" class="news-source__link">РИА Новости</a>
                                     </div>
                                     <span>10:15</span>
                                 </div>
@@ -48,8 +48,8 @@
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
-                                        <img src="@/assets/default.jpg" alt="" class="news-source__logo">
-                                        <a href="#" class="news-source__link">Источник 1</a>
+                                        <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
+                                        <a href="#" class="news-source__link">РИА Новости</a>
                                     </div>
                                     <span>10:15</span>
                                 </div>
@@ -73,8 +73,8 @@
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
-                                        <img src="@/assets/default.jpg" alt="" class="news-source__logo">
-                                        <a href="#" class="news-source__link">Источник 1</a>
+                                        <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
+                                        <a href="#" class="news-source__link">РИА Новости</a>
                                     </div>
                                     <span>10:15</span>
                                 </div>
@@ -97,8 +97,8 @@
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
-                                        <img src="@/assets/default.jpg" alt="" class="news-source__logo">
-                                        <a href="#" class="news-source__link">Источник 1</a>
+                                        <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
+                                        <a href="#" class="news-source__link">РИА Новости</a>
                                     </div>
                                     <span>10:15</span>
                                 </div>
@@ -121,8 +121,8 @@
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
-                                        <img src="@/assets/default.jpg" alt="" class="news-source__logo">
-                                        <a href="#" class="news-source__link">Источник 1</a>
+                                        <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
+                                        <a href="#" class="news-source__link">РИА Новости</a>
                                     </div>
                                     <span>10:15</span>
                                 </div>
@@ -145,8 +145,8 @@
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
-                                        <img src="@/assets/default.jpg" alt="" class="news-source__logo">
-                                        <a href="#" class="news-source__link">Источник 1</a>
+                                        <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
+                                        <a href="#" class="news-source__link">РИА Новости</a>
                                     </div>
                                     <span>10:15</span>
                                 </div>
@@ -168,8 +168,8 @@
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
-                                        <img src="@/assets/default.jpg" alt="" class="news-source__logo">
-                                        <a href="#" class="news-source__link">Источник 1</a>
+                                        <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
+                                        <a href="#" class="news-source__link">РИА Новости</a>
                                     </div>
                                     <span>10:15</span>
                                 </div>
@@ -193,8 +193,8 @@
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
-                                        <img src="@/assets/default.jpg" alt="" class="news-source__logo">
-                                        <a href="#" class="news-source__link">Источник 1</a>
+                                        <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
+                                        <a href="#" class="news-source__link">РИА Новости</a>
                                     </div>
                                     <span>10:15</span>
                                 </div>
@@ -218,8 +218,8 @@
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
-                                        <img src="@/assets/default.jpg" alt="" class="news-source__logo">
-                                        <a href="#" class="news-source__link">Источник 1</a>
+                                        <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
+                                        <a href="#" class="news-source__link">РИА Новости</a>
                                     </div>
                                     <span>10:15</span>
                                 </div>
@@ -243,8 +243,8 @@
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
-                                        <img src="@/assets/default.jpg" alt="" class="news-source__logo">
-                                        <a href="#" class="news-source__link">Источник 1</a>
+                                        <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
+                                        <a href="#" class="news-source__link">РИА Новости</a>
                                     </div>
                                     <span>10:15</span>
                                 </div>

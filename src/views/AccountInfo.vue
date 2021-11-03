@@ -5,9 +5,9 @@
             <article class="profile">
                 <h2 class="profile__title">Личный кабинет</h2>
                 <div class="profile__body">
-                    <section class="profile__user__info">
+                    <section class="profile__user__info mb-3">
                         <div class="profile__user__info__details">
-                            <img class="profile__avatar mr-2" src="@/assets/default.jpg" alt="">
+                            <img class="profile__avatar mr-2" src="@/assets/avatar.jpg" alt="">
                             <div class="profile__text">
                                 <div class="profile__user__name">Васильев Михаил Анатольевич</div>
                                 <div class="profile__user__snils">СНИЛС: 073-976-837 25</div>
@@ -18,7 +18,7 @@
                         </button>
                     </section>
 
-                    <b-tabs content-class="mt-3">
+                    <b-tabs content-class="mt-3 mb-4">
                         <b-tab title="Личные данные" active>
                             <section class="user__basic__info">
                                 <h3 class="user__basic__info__title">Основная информация</h3>
@@ -173,7 +173,7 @@
                             </section>
                         </b-tab>
                         <b-tab title="Заявки">
-                            <h2 class="measures__heading py-2">Заявки<span class="badge badge-secondary">15</span></h2>
+                            <h2 class="measures__heading py-2 ">Заявки <span class="badge badge-secondary">15</span></h2>
 
                             <div class="row row-cols-1 g-2 mb-2">
                                 <div class="col">
@@ -463,6 +463,19 @@
         margin-top: 0.5em;
         padding-left: 0.25em;
         padding-right: 0.25em;
+    }
+
+    .tab-content .user__basic__info .row {
+
+            margin: 0;
+
+
+        &> * {
+            margin-top: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
     }
 
     .profile {

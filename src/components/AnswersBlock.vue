@@ -1,6 +1,6 @@
 <template>
-    <div class="answer-section row justify-content-end">
-        <div class="col-10">
+    <div class="answer-section row justify-content-end mb-3">
+        <div class="col-9">
             <div class="row">
                 <b-button class="mr-2" variant="outline-secondary"
                         v-for="item of faq"

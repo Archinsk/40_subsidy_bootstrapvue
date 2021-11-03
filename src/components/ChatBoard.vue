@@ -1,18 +1,20 @@
 <template>
-    <div class="chat-section row">
-        <div class="col-2 position-relative">
-            <img id="botWaiting" class="position-absolute" src="@/assets/chat_bot.png" alt="">
+    <div class="chat-section row mb-3">
+        <div class="col-3 position-relative">
+            <img id="botWaiting" class="position-absolute" :class="{active: isActive}" src="@/assets/robot.png" alt="">
         </div>
-        <div class="chatField col-10 position-relative" :class="{active: isActive}">
-            <b-button v-if="chatActive" @click="$emit('close-chat')">
+        <div class="chatField col-6 position-relative" :class="{active: isActive}">
+            <b-button v-if="chatActive" @click="$emit('close-chat')" class="closeBtn mt-3">
                 <b-icon
                         icon="x-circle"
                         aria-hidden="true"
                 ></b-icon>
             </b-button>
-            <b-alert v-for="message of messages" :key="message.id" :variant="getAuthor(message.author)" show>{{
-                message.content }}
-            </b-alert>
+            <div class="position-absolute replics-list">
+                <b-alert v-for="message of messages" :key="message.id" :variant="getAuthor(message.author)" show>{{
+                    message.content }}
+                </b-alert>
+            </div>
         </div>
     </div>
 </template>
@@ -30,16 +32,14 @@
                 this.chatActive = this.isActive
             }
         },
-        computed: {
-
-        },
+        computed: {},
         props: [
             'isActive',
             'messages'
         ],
         methods: {
             getAuthor(author) {
-                return author === 'bot' ? 'success' : 'warning'
+                return author === 'bot' ? 'primary' : 'danger'
             }
         }
     }
@@ -48,19 +48,46 @@
 <style lang="scss" scoped>
     .chat-section {
         #botWaiting {
-            width: 150px;
-            bottom: 0;
-            left: 0;
+            width: 60%;
+            bottom: -100%;
+            left: 20%;
+            margin: auto;
+
+            &.active {
+                bottom: -10%;
+            }
         }
 
         .chatField {
-            background-color: lightskyblue;
-            height: 150px;
+            background-color: #6688cc;
+            height: 100px;
             transition: height 2.0s;
-            overflow: scroll;
+            overflow-y: auto;
 
             &.active {
-                height: 500px;
+                background-color: #003399;
+                height: 600px;
+            }
+
+            .replics-list {
+                bottom: 0;
+                width: 95%;
+                margin-top: auto;
+
+                .alert-primary {
+                    width: 75%;
+                    border-bottom-left-radius: 0;
+                }
+
+                .alert-danger {
+                    width: 75%;
+                    margin-left: auto;
+                    border-bottom-right-radius: 0;
+                }
+            }
+
+            .closeBtn {
+                margin-left: auto;
             }
         }
     }

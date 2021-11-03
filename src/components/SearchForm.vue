@@ -1,6 +1,6 @@
 <template>
     <div class="search-section row justify-content-end">
-        <div class="col-10">
+        <div class="col-9">
             <b-form @submit="onSubmit">
                 <div class="row">
                     <div class="col">
@@ -10,6 +10,7 @@
                                     v-model="inputValue"
                                     type="text"
                                     placeholder="Просто напишите то, что ищете..."
+                                    autocomplete="off"
                                     required
                                     @focus="$emit('focus-input')"
                             ></b-form-input>

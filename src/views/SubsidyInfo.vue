@@ -1,15 +1,6 @@
 <template>
     <main class="content">
 
-        <div class="breadcrumb__wrapper container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Главная</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Меры поддержки</li>
-                </ol>
-            </nav>
-        </div>
-
         <section class="support">
             <div class="support__wrapper container">
 
@@ -58,7 +49,7 @@
                     <hr>
 
                     <b-card no-body>
-                        <b-tabs pills card vertical>
+                        <b-tabs pills card vertical nav-wrapper-class="w-25">
                             <b-tab title="Описание" active>
                                 <b-card-text>
                                     <h3>Описание</h3>
@@ -246,7 +237,7 @@
                                 </b-card-text>
                             </b-tab>
                             <b-tab title="Нормативная правовая баз">
-                                <b-card-text>>
+                                <b-card-text>
                                     <h3>Нормативно-правовая база</h3>
                                     <ul>
                                         <li><a href="#">Постановление Правительства Москвы от 27.12.2019 № 1863-ПП</a>
@@ -262,28 +253,6 @@
                         </b-tabs>
                     </b-card>
 
-<!--                    <div class="support__card__body row mb-2">-->
-
-
-<!--                        <div class="tab-content col-12 col-sm-9" id="v-pills-tabContent">-->
-<!--                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"-->
-<!--                                 aria-labelledby="v-pills-home-tab">-->
-
-<!--                            </div>-->
-<!--                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"-->
-<!--                                 aria-labelledby="v-pills-profile-tab">-->
-
-<!--                            </div>-->
-<!--                            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"-->
-<!--                                 aria-labelledby="v-pills-messages-tab">-->
-
-<!--                            </div>-->
-<!--                            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"-->
-<!--                                 aria-labelledby="v-pills-settings-tab">-->
-
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
 
                 <div class="support__info__additional row justify-content-end">

@@ -21,7 +21,7 @@
                             </div>
                             <div class="card-footer bg-transparent measure__card__footer">
                                 <div class="measure__owner__logo">
-                                    <img src="@/assets/default.jpg" alt="" class="measure__owner__logo__image mr-2">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
                                     <div class="measure__owner__logo__text">
                                         <div class="logo__header__comment text-muted">Инициатор</div>
                                         <div class="logo__name">Фонд МИК</div>
@@ -32,7 +32,7 @@
                                         <div class="measure__size__header text-muted">Размер поддержки</div>
                                         <div class="measure__size__value">до 600 млн.руб</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/default.jpg" alt="">
+                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
                                     <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                             </div>
                             <div class="card-footer bg-transparent measure__card__footer text-muted">
                                 <div class="measure__owner__logo">
-                                    <img src="@/assets/default.jpg" alt="" class="measure__owner__logo__image mr-2">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
                                     <div class="measure__owner__logo__text">
                                         <div class="logo__header__comment text-muted">Инициатор</div>
                                         <div class="logo__name">Фонд МИК</div>
@@ -65,7 +65,7 @@
                                         <div class="measure__size__header text-muted">Размер поддержки</div>
                                         <div class="measure__size__value">до 600 млн.руб</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/default.jpg" alt="">
+                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
                                     <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                             </div>
                             <div class="card-footer bg-transparent measure__card__footer text-muted">
                                 <div class="measure__owner__logo">
-                                    <img src="@/assets/default.jpg" alt="" class="measure__owner__logo__image mr-2">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
                                     <div class="measure__owner__logo__text">
                                         <div class="logo__header__comment text-muted">Инициатор</div>
                                         <div class="logo__name">ДПИИР ГОРОДА МОСКВЫ</div>
@@ -93,7 +93,7 @@
                                     <div class="measure__size ms-4">
                                         <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/default.jpg" alt="">
+                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
                                     <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
                             </div>
                             <div class="card-footer bg-transparent measure__card__footer text-muted">
                                 <div class="measure__owner__logo">
-                                    <img src="@/assets/default.jpg" alt="" class="measure__owner__logo__image mr-2">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
                                     <div class="measure__owner__logo__text">
                                         <div class="logo__header__comment text-muted">Инициатор</div>
                                         <div class="logo__name">ДПИИР ГОРОДА МОСКВЫ</div>
@@ -137,7 +137,7 @@
                             </div>
                             <div class="card-footer bg-transparent measure__card__footer text-muted">
                                 <div class="measure__owner__logo">
-                                    <img src="@/assets/default.jpg" alt="" class="measure__owner__logo__image mr-2">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
                                     <div class="measure__owner__logo__text">
                                         <div class="logo__header__comment text-muted">Инициатор</div>
                                         <div class="logo__name">ДПИИР ГОРОДА МОСКВЫ</div>
@@ -147,7 +147,7 @@
                                     <div class="measure__size ms-4">
                                         <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/default.jpg" alt="">
+                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
                                     <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                 </div>
                             </div>
@@ -166,7 +166,7 @@
                             </div>
                             <div class="card-footer bg-transparent measure__card__footer text-muted">
                                 <div class="measure__owner__logo">
-                                    <img src="@/assets/default.jpg" alt="" class="measure__owner__logo__image mr-2">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
                                     <div class="measure__owner__logo__text">
                                         <div class="logo__header__comment text-muted">Инициатор</div>
                                         <div class="logo__name">ДПИИР ГОРОДА МОСКВЫ</div>
@@ -176,7 +176,7 @@
                                     <div class="measure__size ms-4">
                                         <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/default.jpg" alt="">
+                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
                                     <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                 </div>
                             </div>
@@ -197,7 +197,7 @@
                             </div>
                             <div class="card-footer bg-transparent measure__card__footer text-muted">
                                 <div class="measure__owner__logo">
-                                    <img src="@/assets/default.jpg" alt="" class="measure__owner__logo__image mr-2">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
                                     <div class="measure__owner__logo__text">
                                         <div class="logo__header__comment text-muted">Инициатор</div>
                                         <div class="logo__name">Фонд МИК</div>
@@ -208,7 +208,7 @@
                                         <div class="measure__size__header text-muted">Размер поддержки</div>
                                         <div class="measure__size__value">до 600 млн.руб</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/default.jpg" alt="">
+                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
                                     <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                 </div>
                             </div>
@@ -226,7 +226,7 @@
                             </div>
                             <div class="card-footer bg-transparent measure__card__footer text-muted">
                                 <div class="measure__owner__logo">
-                                    <img src="@/assets/default.jpg" alt="" class="measure__owner__logo__image mr-2">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
                                     <div class="measure__owner__logo__text">
                                         <div class="logo__header__comment text-muted">Инициатор</div>
                                         <div class="logo__name">Фонд МИК</div>
@@ -252,7 +252,7 @@
                             </div>
                             <div class="card-footer bg-transparent measure__card__footer text-muted">
                                 <div class="measure__owner__logo">
-                                    <img src="@/assets/default.jpg" alt="" class="measure__owner__logo__image mr-2">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
                                     <div class="measure__owner__logo__text">
                                         <div class="logo__header__comment text-muted">Инициатор</div>
                                         <div class="logo__name">Фонд МИК</div>
@@ -279,7 +279,7 @@
                             </div>
                             <div class="card-footer bg-transparent measure__card__footer text-muted">
                                 <div class="measure__owner__logo">
-                                    <img src="@/assets/default.jpg" alt="" class="measure__owner__logo__image mr-2">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
                                     <div class="measure__owner__logo__text">
                                         <div class="logo__header__comment text-muted">Инициатор</div>
                                         <div class="logo__name">Фонд МИК</div>
@@ -289,7 +289,7 @@
                                     <div class="measure__size ms-4">
                                         <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/default.jpg" alt="">
+                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
                                     <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                 </div>
                             </div>

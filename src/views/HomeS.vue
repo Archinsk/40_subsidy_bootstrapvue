@@ -1,56 +1,7 @@
 <template>
     <main class="content">
-        <div class="container">
-            <ChatBoard :isActive="chatActive()" :messages="replics" @close-chat="closeChat"></ChatBoard>
-            <SearchForm :quest="inputText" @focus-input="focusInput" @add-quest="addQuest($event)"></SearchForm>
-            <AnswersBlock v-if="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock>
-            <FeaturesBlock v-if="!chatIsActive"></FeaturesBlock>
-        </div>
-        <section class="slider">
-<!--            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">-->
-<!--                <ol class="carousel-indicators">-->
-<!--                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>-->
-<!--                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>-->
-<!--                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>-->
-<!--                </ol>-->
-<!--                <div class="carousel-inner">-->
-<!--                    <div class="carousel-item active">-->
-<!--                        <img src="@/assets/default.jpg" class="d-block" alt="...">-->
-<!--                        <div class="carousel-caption d-none d-md-block">-->
-<!--                            <h5>Агрегатор мер поддержки</h5>-->
-<!--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur corporis, deleniti eum-->
-<!--                                numquam quas suscipit.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="carousel-item">-->
-<!--                        <img src="@/assets/default.jpg" class="d-block" alt="...">-->
-<!--                        <div class="carousel-caption d-none d-md-block">-->
-<!--                            <h5>Поддержка юридических лиц</h5>-->
-<!--                            <p>Ipsa libero maxime molestias possimus quaerat quis recusandae rerum sed sequi sit vitae-->
-<!--                                voluptates! Nisi.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="carousel-item">-->
-<!--                        <img src="@/assets/default.jpg" class="d-block" alt="...">-->
-<!--                        <div class="carousel-caption d-none d-md-block">-->
-<!--                            <h5>Поддержка физических лиц</h5>-->
-<!--                            <p>Tempora tenetur velit veniam veritatis voluptatem? Aliquam ducimus maiores natus odit soluta-->
-<!--                                veritatis! Architecto, aut!</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions"-->
-<!--                        data-slide="prev">-->
-<!--                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--                    <span class="sr-only">Previous</span>-->
-<!--                </button>-->
-<!--                <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions"-->
-<!--                        data-slide="next">-->
-<!--                    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--                    <span class="sr-only">Next</span>-->
-<!--                </button>-->
-<!--            </div>-->
 
+        <section v-if="!chatIsActive" class="slider">
             <div>
                 <b-carousel
                         id="carousel-1"
@@ -59,58 +10,73 @@
                         controls
                         indicators
                         background="#ababab"
-                        img-width="1024"
-                        img-height="480"
+                        img-width="1920"
+                        img-height="400"
                         style="text-shadow: 1px 1px 2px #333;"
                         @sliding-start="onSlideStart"
                         @sliding-end="onSlideEnd"
                 >
                     <!-- Текстовые слайды с изображением -->
                     <b-carousel-slide
-                            caption="Первый слайд"
-                            text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-                            img-src="https://picsum.photos/1024/480/?image=52"
-                    ></b-carousel-slide>
-
-                    <!-- Слайды с произвольным текстом -->
-                    <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-                        <h1>Привет мир!</h1>
-                    </b-carousel-slide>
-
-                    <!-- Слайды только с изображением -->
-                    <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
-
-                    <!-- Слайды со слотом img -->
-                    <!-- Обратите внимание на классы .d-block и .img-fluid, чтобы предотвратить выравнивание изображений по умолчанию в браузере -->
-                    <b-carousel-slide>
+                            caption="Поддержка физических лиц"
+                            text="С помощью нашего ресурса вы сможете подобрать необходимую меру поддержки"
+                    >
                         <template #img>
                             <img
                                     class="d-block img-fluid w-100"
-                                    width="1024"
-                                    height="480"
-                                    src="https://picsum.photos/1024/480/?image=55"
+                                    width="1920"
+                                    height="400"
+                                    src="@/assets/banner11.jpg"
                                     alt="слот изображения"
                             >
                         </template>
                     </b-carousel-slide>
-
-                    <!-- Слайд с пустым плавным изображением для сохранения пропорций слайда -->
-                    <b-carousel-slide caption="Пустое изображение" img-blank img-alt="Пустое изображение">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
-                            a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
-                        </p>
+                    <b-carousel-slide
+                            caption="Калькулятор мер поддержки"
+                            text="Рассчитайте размер доступной субсидии с помощью нашего онлайн-калькулятора"
+                    >
+                        <template #img>
+                            <img
+                                    class="d-block img-fluid w-100"
+                                    width="1920"
+                                    height="400"
+                                    src="@/assets/banner22.jpg"
+                                    alt="слот изображения"
+                            >
+                        </template>
+                    </b-carousel-slide>
+                    <b-carousel-slide
+                            caption="Поддержка юридических лиц"
+                            text="Субъекты малого и среднего бизнеса смогут подобрать субсидию на развитие своего дела с помощью навигатора мер поддержки"
+                    >
+                        <template #img>
+                            <img
+                                    class="d-block img-fluid w-100"
+                                    width="1920"
+                                    height="400"
+                                    src="@/assets/banner33.jpg"
+                                    alt="слот изображения"
+                            >
+                        </template>
                     </b-carousel-slide>
                 </b-carousel>
-
             </div>
         </section>
 
-        <section class="advantages">
+        <section class="bot py-3">
+            <div class="container">
+                <ChatBoard :isActive="chatIsActive" :messages="replics" @close-chat="closeChat"></ChatBoard>
+                <SearchForm :quest="inputText" @focus-input="focusInput" @add-quest="addQuest($event)"></SearchForm>
+                <AnswersBlock v-if="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock>
+                <FeaturesBlock v-if="!chatIsActive"></FeaturesBlock>
+            </div>
+        </section>
+
+        <section v-if="!chatIsActive" class="advantages">
             <div class="advantages__wrapper container">
                 <h2 class="advantages__header text-center py-2">Наши преимущества</h2>
 
-                <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-2">
+                <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4">
                     <div class="col">
                         <div class="h-100">
                             <img src="@/assets/default.jpg" class="advantage__image" alt="...">
@@ -149,7 +115,8 @@
                             <img src="@/assets/default.jpg" class="advantage__image" alt="...">
                             <div class="advantage__comment text-center">
                                 <h5 class="card-title">Поиск</h5>
-                                <p class="card-text">Открывайте новые возможности с помощью поиска на основе искусственного
+                                <p class="card-text">Открывайте новые возможности с помощью поиска на основе
+                                    искусственного
                                     интеллекта</p>
                             </div>
                         </div>
@@ -159,7 +126,7 @@
             </div>
         </section>
 
-        <section class="news mb-2">
+        <section v-if="!chatIsActive" class="news mb-2">
             <div class="news__wrapper container">
                 <h2 class="news__header text-center py-2">Новости</h2>
 
@@ -185,7 +152,8 @@
                                 <p class="card-text">
                                     Конференция по Стратегии комплексного развития территорий соберет
                                     экспертное сообщество и реальные кейсы на примере которых будут рассмотрены вопросы
-                                    территориального планирования, земельного администрирования, технического регулирования
+                                    территориального планирования, земельного администрирования, технического
+                                    регулирования
                                     и деятельности по улучшению бизнес-климата
                                 </p>
                             </div>
@@ -211,7 +179,8 @@
                                 <h5 class="card-title">МАСТЕР - КЛАСС "ОСНОВЫ ИНВЕСТИЦИОННОЙ ГРАМОТНОСТИ В 21 ВЕКЕ" от
                                     Rocket University</h5>
                                 <p class="card-text">
-                                    Погружение в мир современных финансов. Инструменты инвестиций. Игра - симуляция работы
+                                    Погружение в мир современных финансов. Инструменты инвестиций. Игра - симуляция
+                                    работы
                                     инвестиционного аналитика
                                 </p>
                             </div>
@@ -263,7 +232,8 @@
                                     командой"</h5>
                                 <p class="card-text">
                                     Обучающее мероприятие, направленное на разработку общественных
-                                    инициатив участников проекта, посредством образовательной составляющей, подкрепленной
+                                    инициатив участников проекта, посредством образовательной составляющей,
+                                    подкрепленной
                                     ключевыми навыками и практическими приемами.
                                 </p>
                             </div>
@@ -300,10 +270,10 @@
                 inputText: '',
                 replics: [
                     {id: 1, author: "bot", content: "Напишите, то что ищете...",},
-                    {id: 2, author: "user", content: "Найди слово охота",},
-                    {id: 3, author: "bot", content: "Вот что найдено по слову",},
-                    {id: 4, author: "user", content: "А теперь рыбалка",},
-                    {id: 5, author: "bot", content: "К сожалению, ничего не найдено",},
+                    // {id: 2, author: "user", content: "Найди слово охота",},
+                    // {id: 3, author: "bot", content: "Вот что найдено по слову",},
+                    // {id: 4, author: "user", content: "А теперь рыбалка",},
+                    // {id: 5, author: "bot", content: "К сожалению, ничего не найдено",},
                 ],
                 faq: [
                     {
@@ -367,9 +337,9 @@
                     item.keywords.forEach(function (i) {
                         console.log('второй цикл i = ' + i);
                         console.log('this = ' + this);
-                        if (inputValue.trim().toLowerCase() === i ) {
+                        if (inputValue.trim().toLowerCase() === i) {
                             answer = {
-                                author: "bot", content: 'Вот что я нашел по слову "' + inputValue +'":'
+                                author: "bot", content: 'Вот что я нашел по слову "' + inputValue + '":'
                             };
                         }
                     });
@@ -424,7 +394,7 @@
                 margin: -0.5em -0.25em 0;
             }
 
-            .row>* {
+            .row > * {
                 margin-top: 0.5em;
                 padding-left: 0.25em;
                 padding-right: 0.25em;
@@ -839,6 +809,10 @@
                     }
                 }
             }
+        }
+
+        .bot {
+            background-color: #6688cc;
         }
 
     }
