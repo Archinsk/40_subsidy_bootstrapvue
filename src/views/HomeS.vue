@@ -2,70 +2,70 @@
     <main class="content">
 
         <section v-if="!chatIsActive" class="slider">
-            <div>
-                <b-carousel
-                        id="carousel-1"
-                        v-model="slide"
-                        :interval="4000"
-                        controls
-                        indicators
-                        background="#ababab"
-                        img-width="1920"
-                        img-height="400"
-                        style="text-shadow: 1px 1px 2px #333;"
-                        @sliding-start="onSlideStart"
-                        @sliding-end="onSlideEnd"
-                >
-                    <!-- Текстовые слайды с изображением -->
-                    <b-carousel-slide
-                            caption="Поддержка физических лиц"
-                            text="С помощью нашего ресурса вы сможете подобрать необходимую меру поддержки"
-                    >
-                        <template #img>
-                            <img
-                                    class="d-block img-fluid w-100"
-                                    width="1920"
-                                    height="400"
-                                    src="@/assets/banner11.jpg"
-                                    alt="слот изображения"
-                            >
-                        </template>
-                    </b-carousel-slide>
-                    <b-carousel-slide
-                            caption="Калькулятор мер поддержки"
-                            text="Рассчитайте размер доступной субсидии с помощью нашего онлайн-калькулятора"
-                    >
-                        <template #img>
-                            <img
-                                    class="d-block img-fluid w-100"
-                                    width="1920"
-                                    height="400"
-                                    src="@/assets/banner22.jpg"
-                                    alt="слот изображения"
-                            >
-                        </template>
-                    </b-carousel-slide>
-                    <b-carousel-slide
-                            caption="Поддержка юридических лиц"
-                            text="Субъекты малого и среднего бизнеса смогут подобрать субсидию на развитие своего дела с помощью навигатора мер поддержки"
-                    >
-                        <template #img>
-                            <img
-                                    class="d-block img-fluid w-100"
-                                    width="1920"
-                                    height="400"
-                                    src="@/assets/banner33.jpg"
-                                    alt="слот изображения"
-                            >
-                        </template>
-                    </b-carousel-slide>
-                </b-carousel>
-            </div>
+            <!--            <div>-->
+            <!--                <b-carousel-->
+            <!--                        id="carousel-1"-->
+            <!--                        v-model="slide"-->
+            <!--                        :interval="4000"-->
+            <!--                        controls-->
+            <!--                        indicators-->
+            <!--                        background="#ababab"-->
+            <!--                        img-width="1920"-->
+            <!--                        img-height="400"-->
+            <!--                        style="text-shadow: 1px 1px 2px #333;"-->
+            <!--                        @sliding-start="onSlideStart"-->
+            <!--                        @sliding-end="onSlideEnd"-->
+            <!--                >-->
+            <!--                    &lt;!&ndash; Текстовые слайды с изображением &ndash;&gt;-->
+            <!--                    <b-carousel-slide-->
+            <!--                            caption="Поддержка физических лиц"-->
+            <!--                            text="С помощью нашего ресурса вы сможете подобрать необходимую меру поддержки"-->
+            <!--                    >-->
+            <!--                        <template #img>-->
+            <!--                            <img-->
+            <!--                                    class="d-block img-fluid w-100"-->
+            <!--                                    width="1920"-->
+            <!--                                    height="400"-->
+            <!--                                    src="@/assets/banner11.jpg"-->
+            <!--                                    alt="слот изображения"-->
+            <!--                            >-->
+            <!--                        </template>-->
+            <!--                    </b-carousel-slide>-->
+            <!--                    <b-carousel-slide-->
+            <!--                            caption="Калькулятор мер поддержки"-->
+            <!--                            text="Рассчитайте размер доступной субсидии с помощью нашего онлайн-калькулятора"-->
+            <!--                    >-->
+            <!--                        <template #img>-->
+            <!--                            <img-->
+            <!--                                    class="d-block img-fluid w-100"-->
+            <!--                                    width="1920"-->
+            <!--                                    height="400"-->
+            <!--                                    src="@/assets/banner22.jpg"-->
+            <!--                                    alt="слот изображения"-->
+            <!--                            >-->
+            <!--                        </template>-->
+            <!--                    </b-carousel-slide>-->
+            <!--                    <b-carousel-slide-->
+            <!--                            caption="Поддержка юридических лиц"-->
+            <!--                            text="Субъекты малого и среднего бизнеса смогут подобрать субсидию на развитие своего дела с помощью навигатора мер поддержки"-->
+            <!--                    >-->
+            <!--                        <template #img>-->
+            <!--                            <img-->
+            <!--                                    class="d-block img-fluid w-100"-->
+            <!--                                    width="1920"-->
+            <!--                                    height="400"-->
+            <!--                                    src="@/assets/banner33.jpg"-->
+            <!--                                    alt="слот изображения"-->
+            <!--                            >-->
+            <!--                        </template>-->
+            <!--                    </b-carousel-slide>-->
+            <!--                </b-carousel>-->
+            <!--            </div>-->
         </section>
 
         <section class="bot py-3">
             <div class="container">
-                <ChatBoard :isActive="chatIsActive" :messages="replics" @close-chat="closeChat"></ChatBoard>
+                <ChatBoard :isActive="chatIsActive" :messages="replicsList" @close-chat="closeChat"></ChatBoard>
                 <SearchForm :quest="inputText" @focus-input="focusInput" @add-quest="addQuest($event)"></SearchForm>
                 <AnswersBlock v-if="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock>
                 <FeaturesBlock v-if="!chatIsActive"></FeaturesBlock>
@@ -269,9 +269,9 @@
 
                 inputText: '',
                 replics: [
-                    {id: 1, author: "bot", content: "Напишите, то что ищете...",},
-                    // {id: 2, author: "user", content: "Найди слово охота",},
-                    // {id: 3, author: "bot", content: "Вот что найдено по слову",},
+                    {id: 1, author: "bot", content: "Напишите, то что ищете..."},
+                    {id: 2, author: "user", content: "Найди слово охота"},
+                    {id: 3, author: "bot", content: "Вот что найдено по слову"},
                     // {id: 4, author: "user", content: "А теперь рыбалка",},
                     // {id: 5, author: "bot", content: "К сожалению, ничего не найдено",},
                 ],
@@ -296,12 +296,27 @@
                             },
                         ]
                     },
+                    {
+                        id: 3, keywords: ['грант'], answers: [
+                            {content: 'Грант для ученых', link: 'https://google.com'},
+                            {content: 'Грант для медиков', link: 'https://ya.ru'},
+                            {content: 'Грант для бизнеса', link: 'https://ya.ru'}
+                        ]
+                    },
 
                 ],
                 chatIsActive: false
             }
         },
-        computed: {},
+        computed: {
+            replicsList: function () {
+                if (this.chatIsActive) {
+                    return this.replics;
+                } else {
+                    return this.replics.filter(item => item.id === 1)
+                }
+            }
+        },
 
         methods: {
             // onSlideStart(slide) {
@@ -323,6 +338,9 @@
             enterQuestion(question) {
                 this.inputText = question;
                 console.log('eq ', this.inputText)
+                if (!this.chatIsActive) {
+                    this.chatIsActive = true;
+                }
             },
             addQuest(inputValue) {
                 let quest = {
@@ -330,21 +348,29 @@
                 };
                 this.replics.push(quest);
                 let answer;
+                let answers;
                 this.faq.forEach(function (item) {
                     console.log('В первом цикле');
                     console.log(item.keywords);
                     // let id=item.id;
                     item.keywords.forEach(function (i) {
                         console.log('второй цикл i = ' + i);
-                        console.log('this = ' + this);
                         if (inputValue.trim().toLowerCase() === i) {
-                            answer = {
-                                author: "bot", content: 'Вот что я нашел по слову "' + inputValue + '":'
-                            };
+                            answers = item.answers;
                         }
                     });
                 });
-                if (!answer) {
+                if (answers) {
+                    let links = answers.map(function (someth) {
+                        let ans = {link: someth.link, content: someth.content};
+                        console.log(ans);
+                        return ans;
+                    });
+                    console.log(links);
+                    answer = {
+                        author: "bot", content: '', findedAnswers: links
+                    };
+                } else {
                     answer = {
                         author: "bot", content: 'Извините, я ничего не нашел'
                     };

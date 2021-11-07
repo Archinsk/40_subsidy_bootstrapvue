@@ -11,8 +11,12 @@
                 ></b-icon>
             </b-button>
             <div class="position-absolute replics-list">
-                <b-alert v-for="message of messages" :key="message.id" :variant="getAuthor(message.author)" show>{{
-                    message.content }}
+                <b-alert v-for="message of messages" :key="message.id" :variant="getAuthor(message.author)" show>
+                    <div v-if="message.findedAnswers">
+                        Вот, что я нашел:
+                        <AnswerLink v-for="answ of message.findedAnswers" :key="answ.content" :link="answ.link" :text="answ.content"></AnswerLink>
+                    </div>
+                    {{ message.content }}
                 </b-alert>
             </div>
         </div>
@@ -20,22 +24,35 @@
 </template>
 
 <script>
+    import AnswerLink from "@/components/AnswerLink";
+
     export default {
         name: "ChatBoard",
+        components: {
+            AnswerLink,
+        },
         data() {
             return {
-                chatActive: false,
+                linked: "https://ya.ru",
+                texted: "Грант для ученых",
+
+                // chatActive: false,
             }
         },
-        watch: {
-            isActive: function () {
-                this.chatActive = this.isActive
+        // watch: {
+        //     isActive: function () {
+        //         console.log('Смена состояния чата')
+        //         this.chatActive = this.isActive
+        //     }
+        // },
+        computed: {
+            chatActive: function () {
+                return this.isActive
             }
         },
-        computed: {},
         props: [
             'isActive',
-            'messages'
+            'messages',
         ],
         methods: {
             getAuthor(author) {
@@ -88,6 +105,10 @@
 
             .closeBtn {
                 margin-left: auto;
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 100;
             }
         }
     }
