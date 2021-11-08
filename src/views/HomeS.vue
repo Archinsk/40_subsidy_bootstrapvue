@@ -2,65 +2,7 @@
     <main class="content">
 
         <section v-if="!chatIsActive" class="slider">
-            <!--            <div>-->
-            <!--                <b-carousel-->
-            <!--                        id="carousel-1"-->
-            <!--                        v-model="slide"-->
-            <!--                        :interval="4000"-->
-            <!--                        controls-->
-            <!--                        indicators-->
-            <!--                        background="#ababab"-->
-            <!--                        img-width="1920"-->
-            <!--                        img-height="400"-->
-            <!--                        style="text-shadow: 1px 1px 2px #333;"-->
-            <!--                        @sliding-start="onSlideStart"-->
-            <!--                        @sliding-end="onSlideEnd"-->
-            <!--                >-->
-            <!--                    &lt;!&ndash; Текстовые слайды с изображением &ndash;&gt;-->
-            <!--                    <b-carousel-slide-->
-            <!--                            caption="Поддержка физических лиц"-->
-            <!--                            text="С помощью нашего ресурса вы сможете подобрать необходимую меру поддержки"-->
-            <!--                    >-->
-            <!--                        <template #img>-->
-            <!--                            <img-->
-            <!--                                    class="d-block img-fluid w-100"-->
-            <!--                                    width="1920"-->
-            <!--                                    height="400"-->
-            <!--                                    src="@/assets/banner11.jpg"-->
-            <!--                                    alt="слот изображения"-->
-            <!--                            >-->
-            <!--                        </template>-->
-            <!--                    </b-carousel-slide>-->
-            <!--                    <b-carousel-slide-->
-            <!--                            caption="Калькулятор мер поддержки"-->
-            <!--                            text="Рассчитайте размер доступной субсидии с помощью нашего онлайн-калькулятора"-->
-            <!--                    >-->
-            <!--                        <template #img>-->
-            <!--                            <img-->
-            <!--                                    class="d-block img-fluid w-100"-->
-            <!--                                    width="1920"-->
-            <!--                                    height="400"-->
-            <!--                                    src="@/assets/banner22.jpg"-->
-            <!--                                    alt="слот изображения"-->
-            <!--                            >-->
-            <!--                        </template>-->
-            <!--                    </b-carousel-slide>-->
-            <!--                    <b-carousel-slide-->
-            <!--                            caption="Поддержка юридических лиц"-->
-            <!--                            text="Субъекты малого и среднего бизнеса смогут подобрать субсидию на развитие своего дела с помощью навигатора мер поддержки"-->
-            <!--                    >-->
-            <!--                        <template #img>-->
-            <!--                            <img-->
-            <!--                                    class="d-block img-fluid w-100"-->
-            <!--                                    width="1920"-->
-            <!--                                    height="400"-->
-            <!--                                    src="@/assets/banner33.jpg"-->
-            <!--                                    alt="слот изображения"-->
-            <!--                            >-->
-            <!--                        </template>-->
-            <!--                    </b-carousel-slide>-->
-            <!--                </b-carousel>-->
-            <!--            </div>-->
+            <Slider></Slider>
         </section>
 
         <section class="bot py-3">
@@ -249,6 +191,7 @@
 </template>
 
 <script>
+    import Slider from "@/components/Slider";
     import ChatBoard from "@/components/ChatBoard";
     import SearchForm from "@/components/SearchForm";
     import AnswersBlock from "@/components/AnswersBlock";
@@ -257,6 +200,7 @@
     export default {
         name: "HomeS",
         components: {
+            Slider,
             ChatBoard,
             SearchForm,
             AnswersBlock,
@@ -264,14 +208,11 @@
         },
         data() {
             return {
-                slide: 0,
-                sliding: null,
-
                 inputText: '',
                 replics: [
-                    {id: 1, author: "bot", content: "Напишите, то что ищете..."},
-                    {id: 2, author: "user", content: "Найди слово охота"},
-                    {id: 3, author: "bot", content: "Вот что найдено по слову"},
+                    {id: 1, author: "bot", content: "Я - робот Василий. Давайте я помогу Вам с поиском."},
+                    // {id: 2, author: "user", content: "Найди слово охота"},
+                    // {id: 3, author: "bot", content: "Вот что найдено по слову"},
                     // {id: 4, author: "user", content: "А теперь рыбалка",},
                     // {id: 5, author: "bot", content: "К сожалению, ничего не найдено",},
                 ],
@@ -319,13 +260,6 @@
         },
 
         methods: {
-            // onSlideStart(slide) {
-            //     this.sliding = true
-            // },
-            // onSlideEnd(slide) {
-            //     this.sliding = false
-            // },
-
             focusInput() {
                 this.chatIsActive = true
             },
@@ -337,10 +271,7 @@
             },
             enterQuestion(question) {
                 this.inputText = question;
-                console.log('eq ', this.inputText)
-                if (!this.chatIsActive) {
-                    this.chatIsActive = true;
-                }
+                this.chatIsActive = true;
             },
             addQuest(inputValue) {
                 let quest = {
@@ -350,11 +281,7 @@
                 let answer;
                 let answers;
                 this.faq.forEach(function (item) {
-                    console.log('В первом цикле');
-                    console.log(item.keywords);
-                    // let id=item.id;
                     item.keywords.forEach(function (i) {
-                        console.log('второй цикл i = ' + i);
                         if (inputValue.trim().toLowerCase() === i) {
                             answers = item.answers;
                         }
@@ -363,10 +290,8 @@
                 if (answers) {
                     let links = answers.map(function (someth) {
                         let ans = {link: someth.link, content: someth.content};
-                        console.log(ans);
                         return ans;
                     });
-                    console.log(links);
                     answer = {
                         author: "bot", content: '', findedAnswers: links
                     };
@@ -390,16 +315,8 @@
 
     .content {
 
-        .slider {
-
-            .carousel-item {
-                background-color: #ddd;
-
-                img {
-                    height: 400px;
-                    margin: 0 auto;
-                }
-            }
+        .bot {
+            background-color: #b3c3e6;
         }
 
         .advantages {
@@ -837,9 +754,7 @@
             }
         }
 
-        .bot {
-            background-color: #6688cc;
-        }
+
 
     }
 </style>

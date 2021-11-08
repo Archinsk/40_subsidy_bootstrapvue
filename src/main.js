@@ -5,8 +5,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-import "@/custom.scss";
 import App from './App.vue';
+import "@/custom.scss";
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);

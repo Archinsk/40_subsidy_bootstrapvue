@@ -76,7 +76,7 @@
         }
 
         .chatField {
-            background-color: #6688cc;
+            background-color: #b3c3e6;
             height: 100px;
             transition: height 2.0s;
             overflow-y: auto;

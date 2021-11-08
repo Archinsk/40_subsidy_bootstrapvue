@@ -27,11 +27,7 @@
 
 <script>
     export default {
-        watch: {
-            quest: function () {
-                this.inputValue = this.quest
-            }
-        },
+
         name: "SearchForm",
         props: [
             'quest'
@@ -42,12 +38,22 @@
             }
         },
         computed: {
-
+            // inputValue: function () {
+            //     console.log('computed inputValue:', this.inputValue);
+            //     if (this.quest && !this.inputValue) {
+            //         return this.quest
+            //     } else {
+            //         return this.inputValue
+            //     }
+            // }
+        },
+        watch: {
+            props.quest: function () {
+                console.log('Prop changed: ' + this.quest );
+                // this.inputValue = this.quest;
+            }
         },
         methods: {
-            inputText (event) {
-                this.inputValue = event
-            },
             onSubmit(event) {
                 event.preventDefault();
                 if (this.inputValue.trim()) {

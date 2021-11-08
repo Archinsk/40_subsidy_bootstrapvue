@@ -28,10 +28,6 @@
 </script>
 
 <style lang="scss">
-    body {
-        background-color: #e4e4e4;
-    }
-
     #app {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
