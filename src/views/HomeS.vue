@@ -186,6 +186,135 @@
             </div>
         </section>
 
+        <section class="news-test mb-2">
+            <div class="news__wrapper container">
+                <h2 class="news__header text-center py-2">Новости</h2>
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">ArchGlass 2021 - Международный форум индустрии архитектурного
+                                    стекла</h5>
+                                <p class="card-text">
+                                    Союз архитекторов России и Союз московских архитекторов приглашают на
+                                    3-й международный форум индустрии архитектурного стекла ArchGlass 2021.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Territorial development strategy</h5>
+                                <p class="card-text">
+                                    Конференция по Стратегии комплексного развития территорий соберет
+                                    экспертное сообщество и реальные кейсы на примере которых будут рассмотрены вопросы
+                                    территориального планирования, земельного администрирования, технического
+                                    регулирования
+                                    и деятельности по улучшению бизнес-климата
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Цифровизация транспорта 2021. Процесс трансформации: оценка и
+                                    перспективы</h5>
+                                <p class="card-text">
+                                    Лидеры отрасли уже реализуют свои собственные стратегии и внедряют
+                                    новые бизнес-модели на основе цифровых технологий.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">МАСТЕР - КЛАСС "ОСНОВЫ ИНВЕСТИЦИОННОЙ ГРАМОТНОСТИ В 21 ВЕКЕ" от
+                                    Rocket University</h5>
+                                <p class="card-text">
+                                    Погружение в мир современных финансов. Инструменты инвестиций. Игра - симуляция
+                                    работы
+                                    инвестиционного аналитика
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Digital Transformation Day 2021</h5>
+                                <p class="card-text">
+                                    В ходе конференции предлагается обсудить следующий круг вопросов:
+                                    Цифровая трансформация бизнеса крупной компании как комплексный взгляд на сложную
+                                    многоаспектную структуру деятельности.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">ODSC APAC Virtual Conference 2021</h5>
+                                <p class="card-text">
+                                    ODSC APAC Virtual Conference 2021 is one of the largest applied data
+                                    science conferences. Our speakers include core contributors to many open source
+                                    libraries and languages.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">ChipEXPO-2021</h5>
+                                <p class="card-text">
+                                    Выставка включена в план официальных выставочных мероприятий
+                                    Министерства промышленности и торговли Российской Федерации.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Мастер-класс по личностному росту на тему: "Мотивация в работе с
+                                    командой"</h5>
+                                <p class="card-text">
+                                    Обучающее мероприятие, направленное на разработку общественных
+                                    инициатив участников проекта, посредством образовательной составляющей,
+                                    подкрепленной
+                                    ключевыми навыками и практическими приемами.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="test">
+            <div class="container">
+                <div>Элемент в контейнере</div>
+                <div class="row">
+                    <div class="col test-col">Первая колонка</div>
+                    <div class="col test-col">Вторая колонка</div>
+                    <div class="col test-col">Третья колонка</div>
+                </div>
+            </div>
+        </section>
+
 
     </main>
 </template>
@@ -198,7 +327,9 @@
     import FeaturesBlock from "@/components/FeaturesBlock";
 
     export default {
+
         name: "HomeS",
+
         components: {
             Slider,
             ChatBoard,
@@ -206,6 +337,7 @@
             AnswersBlock,
             FeaturesBlock,
         },
+
         data() {
             return {
                 inputText: '',
@@ -249,6 +381,7 @@
                 chatIsActive: false
             }
         },
+
         computed: {
             replicsList: function () {
                 if (this.chatIsActive) {
@@ -306,7 +439,8 @@
             chatActive() {
                 return this.replics.length > 1 && this.chatIsActive
             },
-        }
+        },
+
     }
 </script>
 
@@ -753,7 +887,6 @@
                 }
             }
         }
-
 
 
     }

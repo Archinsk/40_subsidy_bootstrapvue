@@ -1,15 +1,13 @@
 <template>
     <div class="answer-section row justify-content-end mb-3">
         <div class="col-9">
-            <div class="row">
-                <b-button class="mr-2" variant="outline-secondary"
-                        v-for="item of faq"
-                        :key="item.id"
-                        @click="$emit('quick-question', item.question)"
-                        >
-                    {{ item.question }}
-                </b-button>
-            </div>
+            <b-button class="mr-2" variant="outline-secondary"
+                      v-for="item of faq"
+                      :key="item.id"
+                      @click="$emit('quick-question', item.question)"
+            >
+                {{ item.question }}
+            </b-button>
         </div>
     </div>
 </template>
@@ -24,6 +22,10 @@
                     {id: 2, question: "Перепись населения"},
                     {id: 3, question: "Пособия"},
                     {id: 4, question: "Как зарегистрироваться"},
+                    {id: 5, question: "Как зарегистрироваться"},
+                    {id: 6, question: "Как зарегистрироваться"},
+                    {id: 7, question: "Как зарегистрироваться"},
+                    {id: 8, question: "Как зарегистрироваться"},
                 ],
             }
         }

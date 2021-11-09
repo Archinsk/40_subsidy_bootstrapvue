@@ -1,67 +1,41 @@
 <template>
     <header class="header">
         <div class="header__wrapper container">
-            <div>
-                <b-navbar toggleable="lg" type="dark">
-                    <b-navbar-brand href="#">
-                        <router-link to="/">
-                            <img src="@/assets/iss_logo.png" class="d-inline-block align-top logo__image" alt="logo">
-                            Навигатор мер поддержки
-                        </router-link>
-                    </b-navbar-brand>
+            <b-navbar toggleable="md" type="dark">
+                <b-navbar-brand href="#">
+                    <router-link to="/">
+                        <img src="@/assets/iss_logo.png" class="d-inline-block align-top logo__image" alt="logo">
+                        Навигатор мер поддержки
+                    </router-link>
+                </b-navbar-brand>
 
-                    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-                    <b-collapse id="nav-collapse" is-nav>
-                        <b-navbar-nav>
+                <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+                <b-collapse id="nav-collapse" is-nav>
+                    <b-navbar-nav>
+                        <b-nav-item href="#">
+                            <router-link to="/news">Новости</router-link>
+                        </b-nav-item>
+                        <b-nav-item-dropdown text="Меры поддержки" right>
+                            <b-dropdown-item href="#">
+                                <router-link to="/measures">Все меры поддержки</router-link>
+                            </b-dropdown-item>
+                            <b-dropdown-item href="#">
+                                <router-link to="/measures">Юридическим лицам</router-link>
+                            </b-dropdown-item>
+                            <b-dropdown-item href="#">
+                                <router-link to="/measures">Индивидуальным предпринимателям</router-link>
+                            </b-dropdown-item>
+                            <b-dropdown-item href="#">
+                                <router-link to="/measures">Физическим лицам</router-link>
+                            </b-dropdown-item>
+                        </b-nav-item-dropdown>
+                        <b-nav-item href="#">
+                            <router-link to="/accountinfo">Личный кабинет</router-link>
+                        </b-nav-item>
+                    </b-navbar-nav>
+                </b-collapse>
 
-                            <b-nav-item href="#">
-                                <router-link to="/news">Новости</router-link>
-                            </b-nav-item>
-                            <b-nav-item-dropdown text="Меры поддержки" right>
-                                <b-dropdown-item href="#">
-                                    <router-link to="/measures">Все меры поддержки</router-link>
-                                </b-dropdown-item>
-                                <b-dropdown-item href="#">
-                                    <router-link to="/measures">Юридическим лицам</router-link>
-                                </b-dropdown-item>
-                                <b-dropdown-item href="#">
-                                    <router-link to="/measures">Индивидуальным предпринимателям</router-link>
-                                </b-dropdown-item>
-                                <b-dropdown-item href="#">
-                                    <router-link to="/measures">Физическим лицам</router-link>
-                                </b-dropdown-item>
-                            </b-nav-item-dropdown>
-                            <b-nav-item href="#">
-                                <router-link to="/accountinfo">Личный кабинет</router-link>
-                            </b-nav-item>
-                        </b-navbar-nav>
-                    </b-collapse>
-
-                    <!--                    <div class="d-flex gap-2">-->
-                    <!--                        <b-button v-b-toggle.sidebar>-->
-                    <!--                            <b-icon icon="list" aria-hidden="true"></b-icon>-->
-                    <!--                        </b-button>-->
-                    <!--                        <b-sidebar id="sidebar" title="Меню" shadow>-->
-                    <!--                            <b-nav vertical>-->
-                    <!--                                <b-nav-item active>Программы</b-nav-item>-->
-                    <!--                                <b-nav-item href="#link-1">Новости</b-nav-item>-->
-                    <!--                                <b-nav-item-dropdown text="Меры поддержки" right>-->
-                    <!--                                    <b-dropdown-item href="#">Все меры поддержки</b-dropdown-item>-->
-                    <!--                                    <b-dropdown-item href="#">Юридическим лицам</b-dropdown-item>-->
-                    <!--                                    <b-dropdown-item href="#">Индивидуальным предпринимателям</b-dropdown-item>-->
-                    <!--                                    <b-dropdown-item href="#">Физическим лицам</b-dropdown-item>-->
-                    <!--                                </b-nav-item-dropdown>-->
-                    <!--                            </b-nav>-->
-                    <!--                        </b-sidebar>-->
-                    <!--                        <b-nav-form>-->
-                    <!--                            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>-->
-                    <!--                            <b-button size="sm" class="my-2 my-sm-0" type="submit">Поиск</b-button>-->
-                    <!--                            <b-button size="sm" class="my-2 my-sm-0" type="submit">Вход</b-button>-->
-                    <!--                        </b-nav-form>-->
-                    <!--                    </div>-->
-
-                </b-navbar>
-            </div>
+            </b-navbar>
         </div>
     </header>
 </template>
@@ -73,124 +47,79 @@
 </script>
 
 <style lang="scss" scoped>
+    $gap: 1rem;
+    $basic-color: #003399;
+    $passive-color: #e4e4e4;
+    $active-color: #fff;
+
     .header {
-        background-color: #003399;
-        color: #CCCCCC;
-        border-bottom: 1px solid white;
+        background-color: $basic-color;
+        border-bottom: 1px solid $passive-color;
 
-        a {
-            text-decoration: none;
-            color: #e4e4e4;
+        .navbar {
+            padding-left: 0;
+            padding-right: 0;
+            padding-bottom: 0;
 
-            &:hover {
-                color: white;
+            & > * {
+                margin-bottom: $gap/2;
             }
 
-            &.dropdown-item > * {
-                color: #003399;
+            .navbar-brand {
 
-                &:hover {
-                    color: white;
-                }
-            }
-        }
+                a {
+                    text-decoration: none;
+                    color: $passive-color;
 
-        .dropdown-item:hover, .dropdown-item:focus {
-            background-color: #003399 !important;
-        }
-
-        .navbar-collapse {
-            justify-content: flex-end;
-        }
-
-        .navbar-dark .navbar-nav .nav-link {
-            text-decoration: none;
-            color: #e4e4e4;
-
-            &:hover {
-                color: white;
-            }
-        }
-
-        .navbar-expand-lg {
-            .logo__image {
-                height: 2rem;
-            }
-
-            button[data-bs-toggle="offcanvas"] {
-
-                @media (min-width: 992px) {
-                    display: none;
-                }
-            }
-
-            .offcanvas {
-                display: inline-flex;
-
-                @media (min-width: 992px) {
-                    transition: transform 0s;
-                    position: static;
-                    visibility: visible !important;
-                    flex-direction: row;
-                    width: auto;
-                    transform: none;
-                    border-right-width: 0;
-                }
-
-                .offcanvas-header {
-
-                    @media (min-width: 992px) {
-                        display: none;
-                    }
-                }
-
-                .offcanvas-body {
-
-                    @media (min-width: 992px) {
-                        overflow-y: visible;
+                    &:hover {
+                        color: $active-color;
                     }
 
-                    .navbar-nav {
+                    .logo__image {
+                        height: 2rem;
+                        margin-right: $gap/2;
+                    }
+                }
+            }
 
-                        @media (min-width: 992px) {
-                            flex-direction: row;
-                        }
+            .navbar-toggler {
+                border-color: $passive-color;
+                padding: $gap/4;
 
-                        .nav-item {
+                .navbar-toggler-icon {
+                    /*Здесь не работает*/
+                    /*background-color: orangered;*/
+                }
+            }
 
-                            @media (min-width: 992px) {
-                                border-bottom-width: 0;
+            .navbar-collapse {
+                justify-content: flex-end;
+
+                .navbar-nav {
+                    /*background-color: yellow;*/
+
+                    .nav-item {
+
+                        a {
+                            text-decoration: none;
+                            color: $passive-color;
+
+                            &:hover {
+                                color: $active-color;
                             }
                         }
 
-                        .accordion-item {
+                        .dropdown-menu {
+                            /*Здесь и далее не работает*/
+                            background-color: #b3c3e6;
 
-                            @media (min-width: 992px) {
-                                position: relative;
-                            }
-
-                            //.accordion-body {
-
-                            //.list-group {
-
-                            @media (min-width: 992px) {
-                                .accordion-body {
-                                    .list-group {
-                                        position: absolute;
-                                    }
+                            li {
+                                .dropdown-item {
                                 }
                             }
-                            //}
-                            //}
                         }
                     }
-                }
-            }
 
-            .modal-backdrop {
-
-                @media (min-width: 992px) {
-                    display: none;
                 }
             }
         }

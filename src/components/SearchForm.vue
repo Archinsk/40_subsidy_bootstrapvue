@@ -29,30 +29,21 @@
     export default {
 
         name: "SearchForm",
+
         props: [
             'quest'
         ],
+
         data() {
             return {
                 inputValue: '',
             }
         },
+
         computed: {
-            // inputValue: function () {
-            //     console.log('computed inputValue:', this.inputValue);
-            //     if (this.quest && !this.inputValue) {
-            //         return this.quest
-            //     } else {
-            //         return this.inputValue
-            //     }
-            // }
+
         },
-        watch: {
-            props.quest: function () {
-                console.log('Prop changed: ' + this.quest );
-                // this.inputValue = this.quest;
-            }
-        },
+
         methods: {
             onSubmit(event) {
                 event.preventDefault();
@@ -61,7 +52,10 @@
                     this.inputValue = '';
                 }
             },
+        },
 
+        mounted() {
+            this.inputValue = this.quest;
         }
     }
 </script>
