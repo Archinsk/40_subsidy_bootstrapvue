@@ -5,10 +5,10 @@
             <div class="support__wrapper container">
 
                 <div class="support__header">
-                    <h2 class="support__name">Грант участникам инновационного кластера на территории города Москвы на
+                    <h4 class="support__name">Грант участникам инновационного кластера на территории города Москвы на
                         возмещение затрат в целях реализации комплексных инновационных проектов (КИП – собственные
                         средства)
-                    </h2>
+                    </h4>
                     <div class="support__details">
                         <div class="support__date">Приём заявок до 01.11.2021</div>
                         <div class="support__manual">

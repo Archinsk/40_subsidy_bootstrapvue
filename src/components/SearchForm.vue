@@ -1,7 +1,7 @@
 <template>
     <div class="search-section row justify-content-end">
-        <div class="col-9">
-            <b-form @submit="onSubmit">
+        <div class="col col-lg-9">
+            <b-form inline @submit="onSubmit">
                 <div class="row">
                     <div class="col">
                         <b-form-group id="input-group-2" label="" label-for="input-2">
@@ -14,10 +14,8 @@
                                     required
                                     @focus="$emit('focus-input')"
                             ></b-form-input>
+                            <b-button type="submit">Отправить</b-button>
                         </b-form-group>
-                    </div>
-                    <div class="col-2">
-                        <b-button block type="submit">Отправить</b-button>
                     </div>
                 </div>
             </b-form>

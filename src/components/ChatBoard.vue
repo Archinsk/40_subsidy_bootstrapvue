@@ -1,9 +1,9 @@
 <template>
     <div class="chat-section row mb-3">
-        <div class="col-3 position-relative">
+        <div class="col-3 d-none d-lg-block position-relative">
             <img id="botWaiting" class="position-absolute" :class="{active: isActive}" src="@/assets/robot.png" alt="">
         </div>
-        <div class="chatField col-6 position-relative" :class="{active: isActive}">
+        <div class="chatField col col-lg-6 position-relative" :class="{active: isActive}">
             <b-button v-if="chatActive" @click="$emit('close-chat')" class="closeBtn mt-3">
                 <b-icon
                         icon="x-circle"

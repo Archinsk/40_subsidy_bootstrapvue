@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <div class="header__wrapper container">
-            <b-navbar toggleable="md" type="dark">
+            <b-navbar toggleable="lg" type="dark">
                 <b-navbar-brand href="#">
                     <router-link to="/">
                         <img src="@/assets/iss_logo.png" class="d-inline-block align-top logo__image" alt="logo">

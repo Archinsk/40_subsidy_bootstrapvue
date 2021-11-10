@@ -29,10 +29,22 @@ const routes = [
       import("../views/Measures"),
   },
   {
-    path: "/subsidyinfo",
-    name: "SubsidyInfo",
+    path: "/subsidyinfo1",
+    name: "SubsidyInfo1",
     component: () =>
-      import("../views/SubsidyInfo"),
+      import("../views/SubsidyInfo1"),
+  },
+  {
+    path: "/subsidyinfo2",
+    name: "SubsidyInfo2",
+    component: () =>
+      import("../views/SubsidyInfo2"),
+  },
+  {
+    path: "/subsidyinfo3",
+    name: "SubsidyInfo3",
+    component: () =>
+      import("../views/SubsidyInfo3"),
   },
   {
     path: "/accountinfo",

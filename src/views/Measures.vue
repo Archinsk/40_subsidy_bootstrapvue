@@ -7,97 +7,111 @@
 
                 <div class="row row-cols-1 g-2 mb-2">
                     <div class="col">
-                        <router-link to="/subsidyinfo">
-                        <div class="card measure__card">
-                            <div class="card-body row">
-                                <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
-                                    <a href="subsidy.html">
-                                        <span class="badge badge-secondary mr-2">1</span>Грант участникам
-                                        инновационного кластера на территории города Москвы на возмещение затрат в целях
-                                        реализации комплексных инновационных проектов (КИП – собственные средства)
-                                    </a>
-                                </h5>
-                                <p class="card-text col-12 col-md-3 col-xxl-2">Прием заявок до 01.11.2021</p>
-                            </div>
-                            <div class="card-footer bg-transparent measure__card__footer">
-                                <div class="measure__owner__logo">
-                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
-                                    <div class="measure__owner__logo__text">
-                                        <div class="logo__header__comment text-muted">Инициатор</div>
-                                        <div class="logo__name">Фонд МИК</div>
+                        <router-link to="/subsidyinfo1">
+                            <div class="card measure__card">
+                                <div class="card-body row">
+                                    <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                        <a href="subsidy.html">
+                                            <span class="badge badge-secondary mr-2">1</span>Гранты в форме субсидий в
+                                            сфере научной и инновационной деятельности
+                                        </a>
+                                    </h5>
+                                    <p class="card-text col-12 col-md-3 col-xxl-2">
+                                        Приём заявок с 11.02.2021 по 12.03.2021 года
+                                    </p>
+                                </div>
+                                <div class="card-footer bg-transparent measure__card__footer">
+                                    <div class="measure__owner__logo">
+                                        <img src="@/assets/nsk_gerb.png" alt="" class="measure__owner__logo__image mr-2">
+                                        <div class="measure__owner__logo__text">
+                                            <div class="logo__header__comment text-muted">Инициатор</div>
+                                            <div class="logo__name">
+                                                Департамент промышленности, инноваций и предпринимательства
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="measure__details">
+                                        <div class="measure__size ms-4">
+                                            <div class="measure__size__header text-muted">Размер поддержки</div>
+                                            <div class="measure__size__value">до 500 000 рублей</div>
+                                        </div>
+                                        <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
+                                        <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                     </div>
                                 </div>
-                                <div class="measure__details">
-                                    <div class="measure__size ms-4">
-                                        <div class="measure__size__header text-muted">Размер поддержки</div>
-                                        <div class="measure__size__value">до 600 млн.руб</div>
-                                    </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
-                                    <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
-                                </div>
                             </div>
-                        </div>
                         </router-link>
                     </div>
                     <div class="col">
-                        <div class="card measure__card">
-                            <div class="card-body row">
-                                <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
-                                    <a href="subsidy.html">
-                                        <span class="badge badge-secondary mr-2">2</span>Грант участникам
-                                        инновационного кластера на территории города Москвы на возмещение затрат на уплату % по
-                                        кредитам в целях реализации комплексных инновационных проектов (КИП – проценты по
-                                        кредиту)
-                                    </a>
-                                </h5>
-                                <p class="card-text col-12 col-md-3 col-xxl-2">Прием заявок до 01.11.2021</p>
-                            </div>
-                            <div class="card-footer bg-transparent measure__card__footer text-muted">
-                                <div class="measure__owner__logo">
-                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
-                                    <div class="measure__owner__logo__text">
-                                        <div class="logo__header__comment text-muted">Инициатор</div>
-                                        <div class="logo__name">Фонд МИК</div>
+                        <router-link to="/subsidyinfo2">
+                            <div class="card measure__card">
+                                <div class="card-body row">
+                                    <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                        <a href="subsidy.html">
+                                            <span class="badge badge-secondary mr-2">2</span>Гранты в форме субсидии на
+                                            развитие инновационного проекта
+                                        </a>
+                                    </h5>
+                                    <p class="card-text col-12 col-md-3 col-xxl-2">
+                                        Приём заявок с 11.02.2021 по 12.03.2021 года
+                                    </p>
+                                </div>
+                                <div class="card-footer bg-transparent measure__card__footer text-muted">
+                                    <div class="measure__owner__logo">
+                                        <img src="@/assets/mineco_logo.png" alt="" class="measure__owner__logo__image mr-2">
+                                        <div class="measure__owner__logo__text">
+                                            <div class="logo__header__comment text-muted">Инициатор</div>
+                                            <div class="logo__name">Министерство экономического развития</div>
+                                        </div>
+                                    </div>
+                                    <div class="measure__details">
+                                        <div class="measure__size ms-4">
+                                            <div class="measure__size__header text-muted">Размер поддержки</div>
+                                            <div class="measure__size__value">до 400 000 рублей</div>
+                                        </div>
+                                        <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
+                                        <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                     </div>
                                 </div>
-                                <div class="measure__details">
-                                    <div class="measure__size ms-4">
-                                        <div class="measure__size__header text-muted">Размер поддержки</div>
-                                        <div class="measure__size__value">до 600 млн.руб</div>
-                                    </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
-                                    <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
-                                </div>
                             </div>
-                        </div>
+                        </router-link>
                     </div>
                     <div class="col">
-                        <div class="card measure__card">
-                            <div class="card-body row">
-                                <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
-                                    <a href="subsidy.html">
-                                        <span class="badge badge-secondary mr-2">3</span>Льготные кредиты 2021
-                                    </a>
-                                </h5>
-                                <p class="card-text col-12 col-md-3 col-xxl-2">Прием заявок до 31.12.2021</p>
-                            </div>
-                            <div class="card-footer bg-transparent measure__card__footer text-muted">
-                                <div class="measure__owner__logo">
-                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
-                                    <div class="measure__owner__logo__text">
-                                        <div class="logo__header__comment text-muted">Инициатор</div>
-                                        <div class="logo__name">ДПИИР ГОРОДА МОСКВЫ</div>
+                        <router-link to="/subsidyinfo3">
+                            <div class="card measure__card">
+                                <div class="card-body row">
+                                    <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                        <a href="subsidy.html">
+                                            <span class="badge badge-secondary mr-2">3</span>Гранты субъектам малого и
+                                            среднего предпринимательства на реализацию проектов в приоритетных
+                                            сферах экономики
+                                        </a>
+                                    </h5>
+                                    <p class="card-text col-12 col-md-3 col-xxl-2">
+                                        Приём заявок с 11.02.2021 по 12.03.2021 года
+                                    </p>
+                                </div>
+                                <div class="card-footer bg-transparent measure__card__footer text-muted">
+                                    <div class="measure__owner__logo">
+                                        <img src="@/assets/altbus_logo.png" alt="" class="measure__owner__logo__image mr-2">
+                                        <div class="measure__owner__logo__text">
+                                            <div class="logo__header__comment text-muted">Инициатор</div>
+                                            <div class="logo__name">Управление по развитию предпринимательства и
+                                                рыночной инфраструктуры
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="measure__details">
+                                        <div class="measure__size ms-4">
+                                            <div class="measure__size__header text-muted">Размер поддержки</div>
+                                            <div class="measure__size__value">до 2 000 000 рублей</div>
+                                        </div>
+                                        <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
+                                        <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                     </div>
                                 </div>
-                                <div class="measure__details">
-                                    <div class="measure__size ms-4">
-                                        <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
-                                    </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
-                                    <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
-                                </div>
                             </div>
-                        </div>
+                        </router-link>
                     </div>
                     <div class="col">
                         <div class="card measure__card">
@@ -147,7 +161,7 @@
                                     <div class="measure__size ms-4">
                                         <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
+                                    <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
                                     <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                 </div>
                             </div>
@@ -159,7 +173,8 @@
                                 <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
                                     <a href="subsidy.html">
                                         <span class="badge badge-secondary mr-2">6</span>Предоставление отчета
-                                        «Финансовый отчет об осуществлении затрат» по субсидии на оплату коммунальных услуг и
+                                        «Финансовый отчет об осуществлении затрат» по субсидии на оплату коммунальных
+                                        услуг и
                                         приобретение оборудования
                                     </a>
                                 </h5>
@@ -176,7 +191,7 @@
                                     <div class="measure__size ms-4">
                                         <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
+                                    <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
                                     <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                 </div>
                             </div>
@@ -189,7 +204,8 @@
                                     <a href="subsidy.html">
                                         <span class="badge badge-secondary mr-2">7</span>Грант участникам
                                         инновационного кластера на территории города Москвы на возмещение затрат в целях
-                                        реализации кооперационных комплексных инновационных проектов (кооперационные КИП –
+                                        реализации кооперационных комплексных инновационных проектов (кооперационные КИП
+                                        –
                                         собственные средства)
                                     </a>
                                 </h5>
@@ -208,7 +224,7 @@
                                         <div class="measure__size__header text-muted">Размер поддержки</div>
                                         <div class="measure__size__value">до 600 млн.руб</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
+                                    <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
                                     <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                 </div>
                             </div>
@@ -289,7 +305,7 @@
                                     <div class="measure__size ms-4">
                                         <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/ruble.jpg" alt="">
+                                    <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
                                     <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
                                 </div>
                             </div>
@@ -336,7 +352,7 @@
         margin: -0.5em -0.25em;
     }
 
-    .row>* {
+    .row > * {
         margin-top: 0.5em;
         padding-left: 0.25em;
         padding-right: 0.25em;
