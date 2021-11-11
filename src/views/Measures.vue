@@ -3,74 +3,89 @@
 
         <section class="measures">
             <div class="measures__wrapper container">
-                <h2 class="measures__heading py-2">Меры поддержки <span class="badge badge-secondary">160</span></h2>
+                <h2 class="measures__heading">Меры поддержки <span class="badge badge-secondary">160</span></h2>
 
-                <div class="row row-cols-1 g-2 mb-2">
+                <div class="row row-cols-1">
+
                     <div class="col">
                         <router-link to="/subsidyinfo1">
                             <div class="card measure__card">
                                 <div class="card-body row">
-                                    <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                    <h5 class="card-title col-12 col-md-9">
                                         <a href="subsidy.html">
-                                            <span class="badge badge-secondary mr-2">1</span>Гранты в форме субсидий в
+                                            <span class="badge badge-secondary">1</span>Гранты в форме субсидий в
                                             сфере научной и инновационной деятельности
                                         </a>
                                     </h5>
-                                    <p class="card-text col-12 col-md-3 col-xxl-2">
-                                        Приём заявок с 11.02.2021 по 12.03.2021 года
-                                    </p>
+                                    <div class="card-text col-12 col-md-3">
+                                        Приём заявок<br>
+                                        <b>с 11.02.2021 по 12.03.2021</b>
+                                    </div>
                                 </div>
-                                <div class="card-footer bg-transparent measure__card__footer">
-                                    <div class="measure__owner__logo">
-                                        <img src="@/assets/nsk_gerb.png" alt="" class="measure__owner__logo__image mr-2">
+                                <hr>
+                                <div class="card-footer bg-transparent measure__card__footer row">
+                                    <div class="measure__owner__logo col-md-6 col-lg-5">
+                                        <img src="@/assets/nsk_gerb.png" alt=""
+                                             class="measure__owner__logo__image">
                                         <div class="measure__owner__logo__text">
-                                            <div class="logo__header__comment text-muted">Инициатор</div>
+                                            <div class="logo__header__comment">Инициатор</div>
                                             <div class="logo__name">
                                                 Департамент промышленности, инноваций и предпринимательства
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="measure__details">
-                                        <div class="measure__size ms-4">
-                                            <div class="measure__size__header text-muted">Размер поддержки</div>
+                                    <div class="measure__details col-md-6 col-lg-3">
+                                        <div class="measure__size">
+                                            <div class="measure__size__header">Размер поддержки</div>
                                             <div class="measure__size__value">до 500 000 рублей</div>
                                         </div>
-                                        <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
-                                        <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
+                                    </div>
+                                    <div class="measure__buttons col">
+                                        <img class="measure__web__accessibility" src="@/assets/electronic.png"
+                                             title="По данной мере поддержки есть возможность электронной подачи"
+                                             alt="">
+                                        <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
                                     </div>
                                 </div>
                             </div>
                         </router-link>
                     </div>
+
                     <div class="col">
                         <router-link to="/subsidyinfo2">
                             <div class="card measure__card">
                                 <div class="card-body row">
-                                    <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                    <h5 class="card-title col-12 col-md-9">
                                         <a href="subsidy.html">
-                                            <span class="badge badge-secondary mr-2">2</span>Гранты в форме субсидии на
+                                            <span class="badge badge-secondary">2</span>Гранты в форме субсидии на
                                             развитие инновационного проекта
                                         </a>
                                     </h5>
-                                    <p class="card-text col-12 col-md-3 col-xxl-2">
-                                        Приём заявок с 11.02.2021 по 12.03.2021 года
-                                    </p>
+                                    <div class="card-text col-12 col-md-3">
+                                        Приём заявок<br>
+                                        <b>с 11.02.2021 по 12.03.2021</b>
+                                    </div>
                                 </div>
-                                <div class="card-footer bg-transparent measure__card__footer text-muted">
-                                    <div class="measure__owner__logo">
-                                        <img src="@/assets/mineco_logo.png" alt="" class="measure__owner__logo__image mr-2">
+                                <hr>
+                                <div class="card-footer bg-transparent measure__card__footer row">
+                                    <div class="measure__owner__logo col-md-6 col-lg-5">
+                                        <img src="@/assets/mineco_logo.png" alt=""
+                                             class="measure__owner__logo__image">
                                         <div class="measure__owner__logo__text">
-                                            <div class="logo__header__comment text-muted">Инициатор</div>
+                                            <div class="logo__header__comment">Инициатор</div>
                                             <div class="logo__name">Министерство экономического развития</div>
                                         </div>
                                     </div>
-                                    <div class="measure__details">
-                                        <div class="measure__size ms-4">
-                                            <div class="measure__size__header text-muted">Размер поддержки</div>
+                                    <div class="measure__details col-md-6 col-lg-3">
+                                        <div class="measure__size">
+                                            <div class="measure__size__header">Размер поддержки</div>
                                             <div class="measure__size__value">до 400 000 рублей</div>
                                         </div>
-                                        <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
-                                        <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
+                                    </div>
+                                    <div class="measure__buttons col">
+                                        <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи"
+                                             alt="">
+                                        <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
                                     </div>
                                 </div>
                             </div>
@@ -80,34 +95,40 @@
                         <router-link to="/subsidyinfo3">
                             <div class="card measure__card">
                                 <div class="card-body row">
-                                    <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                    <h5 class="card-title col-12 col-md-9">
                                         <a href="subsidy.html">
-                                            <span class="badge badge-secondary mr-2">3</span>Гранты субъектам малого и
+                                            <span class="badge badge-secondary">3</span>Гранты субъектам малого и
                                             среднего предпринимательства на реализацию проектов в приоритетных
                                             сферах экономики
                                         </a>
                                     </h5>
-                                    <p class="card-text col-12 col-md-3 col-xxl-2">
-                                        Приём заявок с 11.02.2021 по 12.03.2021 года
-                                    </p>
+                                    <div class="card-text col-12 col-md-3">
+                                        Приём заявок<br>
+                                        <b>с 11.02.2021 по 12.03.2021</b>
+                                    </div>
                                 </div>
-                                <div class="card-footer bg-transparent measure__card__footer text-muted">
-                                    <div class="measure__owner__logo">
-                                        <img src="@/assets/altbus_logo.png" alt="" class="measure__owner__logo__image mr-2">
+                                <hr>
+                                <div class="card-footer bg-transparent measure__card__footer row">
+                                    <div class="measure__owner__logo col-md-6 col-lg-5">
+                                        <img src="@/assets/altbus_logo.png" alt=""
+                                             class="measure__owner__logo__image">
                                         <div class="measure__owner__logo__text">
-                                            <div class="logo__header__comment text-muted">Инициатор</div>
+                                            <div class="logo__header__comment">Инициатор</div>
                                             <div class="logo__name">Управление по развитию предпринимательства и
                                                 рыночной инфраструктуры
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="measure__details">
-                                        <div class="measure__size ms-4">
-                                            <div class="measure__size__header text-muted">Размер поддержки</div>
+                                    <div class="measure__details col-md-6 col-lg-3">
+                                        <div class="measure__size">
+                                            <div class="measure__size__header">Размер поддержки</div>
                                             <div class="measure__size__value">до 2 000 000 рублей</div>
                                         </div>
-                                        <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
-                                        <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
+                                    </div>
+                                    <div class="measure__buttons col">
+                                        <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи"
+                                             alt="">
+                                        <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
                                     </div>
                                 </div>
                             </div>
@@ -116,26 +137,29 @@
                     <div class="col">
                         <div class="card measure__card">
                             <div class="card-body row">
-                                <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary mr-2">4</span>Заявка на включение фудкорта
+                                        <span class="badge badge-secondary">4</span>Заявка на включение фудкорта
                                         в реестр
                                     </a>
                                 </h5>
                             </div>
-                            <div class="card-footer bg-transparent measure__card__footer text-muted">
-                                <div class="measure__owner__logo">
-                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
+                            <hr>
+                            <div class="card-footer bg-transparent measure__card__footer row">
+                                <div class="measure__owner__logo col-md-6 col-lg-5">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image">
                                     <div class="measure__owner__logo__text">
-                                        <div class="logo__header__comment text-muted">Инициатор</div>
+                                        <div class="logo__header__comment">Инициатор</div>
                                         <div class="logo__name">ДПИИР ГОРОДА МОСКВЫ</div>
                                     </div>
                                 </div>
-                                <div class="measure__details">
-                                    <div class="measure__size ms-4">
-                                        <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
+                                <div class="measure__details col-md-6 col-lg-3">
+                                    <div class="measure__size">
+                                        <div class="measure__size__header">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
+                                </div>
+                                <div class="measure__buttons col">
+                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -143,26 +167,29 @@
                     <div class="col">
                         <div class="card measure__card">
                             <div class="card-body row">
-                                <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary mr-2">5</span>Заявка на включение в реестр
+                                        <span class="badge badge-secondary">5</span>Заявка на включение в реестр
                                     </a>
                                 </h5>
                             </div>
-                            <div class="card-footer bg-transparent measure__card__footer text-muted">
-                                <div class="measure__owner__logo">
-                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
+                            <hr>
+                            <div class="card-footer bg-transparent measure__card__footer row">
+                                <div class="measure__owner__logo col-md-6 col-lg-5">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image">
                                     <div class="measure__owner__logo__text">
-                                        <div class="logo__header__comment text-muted">Инициатор</div>
+                                        <div class="logo__header__comment">Инициатор</div>
                                         <div class="logo__name">ДПИИР ГОРОДА МОСКВЫ</div>
                                     </div>
                                 </div>
-                                <div class="measure__details">
-                                    <div class="measure__size ms-4">
-                                        <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
+                                <div class="measure__details col-md-6 col-lg-3">
+                                    <div class="measure__size">
+                                        <div class="measure__size__header">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
-                                    <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
+                                </div>
+                                <div class="measure__buttons col">
+                                    <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи" alt="">
+                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -170,29 +197,32 @@
                     <div class="col">
                         <div class="card measure__card">
                             <div class="card-body row">
-                                <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary mr-2">6</span>Предоставление отчета
+                                        <span class="badge badge-secondary">6</span>Предоставление отчета
                                         «Финансовый отчет об осуществлении затрат» по субсидии на оплату коммунальных
                                         услуг и
                                         приобретение оборудования
                                     </a>
                                 </h5>
                             </div>
-                            <div class="card-footer bg-transparent measure__card__footer text-muted">
-                                <div class="measure__owner__logo">
-                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
+                            <hr>
+                            <div class="card-footer bg-transparent measure__card__footer row">
+                                <div class="measure__owner__logo col-md-6 col-lg-5">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image">
                                     <div class="measure__owner__logo__text">
-                                        <div class="logo__header__comment text-muted">Инициатор</div>
+                                        <div class="logo__header__comment">Инициатор</div>
                                         <div class="logo__name">ДПИИР ГОРОДА МОСКВЫ</div>
                                     </div>
                                 </div>
-                                <div class="measure__details">
-                                    <div class="measure__size ms-4">
-                                        <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
+                                <div class="measure__details col-md-6 col-lg-3">
+                                    <div class="measure__size">
+                                        <div class="measure__size__header">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
-                                    <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
+                                </div>
+                                <div class="measure__buttons col">
+                                    <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи" alt="">
+                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -200,32 +230,38 @@
                     <div class="col">
                         <div class="card measure__card">
                             <div class="card-body row">
-                                <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary mr-2">7</span>Грант участникам
+                                        <span class="badge badge-secondary">7</span>Грант участникам
                                         инновационного кластера на территории города Москвы на возмещение затрат в целях
                                         реализации кооперационных комплексных инновационных проектов (кооперационные КИП
                                         –
                                         собственные средства)
                                     </a>
                                 </h5>
-                                <p class="card-text col-12 col-md-3 col-xxl-2">Прием заявок до 01.11.2021</p>
+                                <div class="card-text col-12 col-md-3">
+                                    Приём заявок<br>
+                                    <b>с 11.02.2021 по 12.03.2021</b>
+                                </div>
                             </div>
-                            <div class="card-footer bg-transparent measure__card__footer text-muted">
-                                <div class="measure__owner__logo">
-                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
+                            <hr>
+                            <div class="card-footer bg-transparent measure__card__footer row">
+                                <div class="measure__owner__logo col-md-6 col-lg-5">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image">
                                     <div class="measure__owner__logo__text">
-                                        <div class="logo__header__comment text-muted">Инициатор</div>
+                                        <div class="logo__header__comment">Инициатор</div>
                                         <div class="logo__name">Фонд МИК</div>
                                     </div>
                                 </div>
-                                <div class="measure__details">
-                                    <div class="measure__size ms-4">
-                                        <div class="measure__size__header text-muted">Размер поддержки</div>
+                                <div class="measure__details col-md-6 col-lg-3">
+                                    <div class="measure__size">
+                                        <div class="measure__size__header">Размер поддержки</div>
                                         <div class="measure__size__value">до 600 млн.руб</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
-                                    <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
+                                </div>
+                                <div class="measure__buttons col">
+                                    <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи" alt="">
+                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -233,26 +269,29 @@
                     <div class="col">
                         <div class="card measure__card">
                             <div class="card-body row">
-                                <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary mr-2">8</span>Обратная связь Кузница
+                                        <span class="badge badge-secondary">8</span>Обратная связь Кузница
                                         успеха
                                     </a>
                                 </h5>
                             </div>
-                            <div class="card-footer bg-transparent measure__card__footer text-muted">
-                                <div class="measure__owner__logo">
-                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
+                            <hr>
+                            <div class="card-footer bg-transparent measure__card__footer row">
+                                <div class="measure__owner__logo col-md-6 col-lg-5">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image">
                                     <div class="measure__owner__logo__text">
-                                        <div class="logo__header__comment text-muted">Инициатор</div>
+                                        <div class="logo__header__comment">Инициатор</div>
                                         <div class="logo__name">Фонд МИК</div>
                                     </div>
                                 </div>
-                                <div class="measure__details">
-                                    <div class="measure__size ms-4">
-                                        <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
+                                <div class="measure__details col-md-6 col-lg-3">
+                                    <div class="measure__size">
+                                        <div class="measure__size__header">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
+                                </div>
+                                <div class="measure__buttons col">
+                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -260,25 +299,28 @@
                     <div class="col">
                         <div class="card measure__card">
                             <div class="card-body row">
-                                <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary mr-2">9</span>Стать партнером StartHub
+                                        <span class="badge badge-secondary">9</span>Стать партнером StartHub
                                     </a>
                                 </h5>
                             </div>
-                            <div class="card-footer bg-transparent measure__card__footer text-muted">
-                                <div class="measure__owner__logo">
-                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
+                            <hr>
+                            <div class="card-footer bg-transparent measure__card__footer row">
+                                <div class="measure__owner__logo col-md-6 col-lg-5">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image">
                                     <div class="measure__owner__logo__text">
-                                        <div class="logo__header__comment text-muted">Инициатор</div>
+                                        <div class="logo__header__comment">Инициатор</div>
                                         <div class="logo__name">Фонд МИК</div>
                                     </div>
                                 </div>
-                                <div class="measure__details">
-                                    <div class="measure__size ms-4">
-                                        <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
+                                <div class="measure__details col-md-6 col-lg-3">
+                                    <div class="measure__size">
+                                        <div class="measure__size__header">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
+                                </div>
+                                <div class="measure__buttons col">
+                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -286,27 +328,30 @@
                     <div class="col">
                         <div class="card measure__card">
                             <div class="card-body row">
-                                <h5 class="card-title col-12 col-md-9 col-xxl-10 mb-0">
+                                <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary mr-2">10</span>Заявка на вступление в клуб
+                                        <span class="badge badge-secondary">10</span>Заявка на вступление в клуб
                                         инвесторов МИК - Фонды
                                     </a>
                                 </h5>
                             </div>
-                            <div class="card-footer bg-transparent measure__card__footer text-muted">
-                                <div class="measure__owner__logo">
-                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image mr-2">
+                            <hr>
+                            <div class="card-footer bg-transparent measure__card__footer row">
+                                <div class="measure__owner__logo col-md-6 col-lg-5">
+                                    <img src="@/assets/rialogo.jpg" alt="" class="measure__owner__logo__image">
                                     <div class="measure__owner__logo__text">
-                                        <div class="logo__header__comment text-muted">Инициатор</div>
+                                        <div class="logo__header__comment">Инициатор</div>
                                         <div class="logo__name">Фонд МИК</div>
                                     </div>
                                 </div>
-                                <div class="measure__details">
-                                    <div class="measure__size ms-4">
-                                        <div class="measure__size__header text-muted">Нефинансовая мера поддержки</div>
+                                <div class="measure__details col-md-6 col-lg-3">
+                                    <div class="measure__size">
+                                        <div class="measure__size__header">Нефинансовая мера поддержки</div>
                                     </div>
-                                    <img class="measure__web__accessibility ml-2" src="@/assets/electronic.png" alt="">
-                                    <a href="#" class="btn btn-outline-secondary ml-2">Получить поддержку</a>
+                                </div>
+                                <div class="measure__buttons col">
+                                    <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи" alt="">
+                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -348,63 +393,137 @@
 </script>
 
 <style lang="scss" scoped>
-    .row {
-        margin: -0.5em -0.25em;
-    }
-
-    .row > * {
-        margin-top: 0.5em;
-        padding-left: 0.25em;
-        padding-right: 0.25em;
-    }
+    $gap: 1rem;
+    $basic-color: #003399;
+    $text-color: #212529;
+    $support-color: grey;
+    $passive-color: #e4e4e4;
+    $active-color: #fff;
 
     .measures {
 
+        .measures__heading {
+            margin: $gap 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
         .measure__card {
+            padding: $gap 0 0;
+            margin-bottom: $gap;
+
+            &:hover {
+                box-shadow: 0 4px 20px rgb(0 46 69 / 10%);
+            }
 
             .card-body {
-                display: flex;
+                justify-content: space-between;
+                margin: 0;
+                padding: 0;
+
+                & > * {
+                    margin-bottom: $gap;
+                }
 
                 .card-title {
 
                     a {
                         text-decoration: none;
                         color: #212529;
+
+                        span {
+                            margin-right: $gap/2;
+                        }
+                    }
+                }
+
+                .card-text {
+                    color: $support-color;
+                    text-align: left;
+
+                    @media (min-width: 768px) {
+                        text-align: right;
+                    }
+
+                    b {
+                        color: $text-color;
                     }
                 }
             }
 
+            hr {
+                margin-top: 0;
+            }
+
             .card-footer {
-                display: flex;
                 justify-content: space-between;
+                margin: 0;
+                padding: 0;
+                border: none;
+
+                & > * {
+                    margin-bottom: $gap;
+                }
 
                 .measure__owner__logo {
                     display: flex;
-                    align-items: center;
 
                     .measure__owner__logo__image {
                         height: 38px;
+                        margin-right: $gap/2;
+                        margin-top: $gap/2;
                     }
 
                     .measure__owner__logo__text {
-                        font-size: 0.75rem;
+
+                        .logo__header__comment {
+                            color: $support-color;
+                        }
+
+                        .logo__name {
+                            color: $text-color;
+                            font-weight: bolder;
+                        }
                     }
                 }
 
                 .measure__details {
-                    display: flex;
-                    align-items: center;
 
                     .measure__size {
-                        font-size: 0.75rem;
+                        text-align: left;
+
+                        @media (min-width: 768px) {
+                            text-align: right;
+                        }
+
+                        .measure__size__header {
+                            color: $support-color;
+                        }
+
+                        .measure__size__value {
+                            color: $text-color;
+                            font-weight: bolder;
+                        }
+                    }
+
+
+                }
+
+                .measure__buttons {
+                    display: flex;
+                    align-items: start;
+
+                    @media (min-width: 992px) {
+                        justify-content: flex-end;
                     }
 
                     .measure__web__accessibility {
                         height: 38px;
-                    }
-
-                    .btn {
-
+                        border: 1px solid $basic-color;
+                        border-radius: 0.25rem;
+                        margin-right: $gap/2;
                     }
                 }
             }

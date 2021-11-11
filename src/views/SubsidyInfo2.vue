@@ -9,10 +9,12 @@
                         Гранты в форме субсидии на развитие инновационного проекта
                     </h4>
                     <div class="support__details">
-                        <div class="support__date">Приём заявок с 11.02.2021 по 12.03.2021 года</div>
+                        <div class="support__date">Приём заявок<br>
+                            <b>с 11.02.2021 по 12.03.2021</b>
+                        </div>
                         <div class="support__manual">
-                            <div class="support__manual__heading mb-2">Инструкция по онлайн подаче заявок</div>
-                            <button class="support__manual__button btn btn-outline-secondary">Посмотреть инструкцию
+                            <button class="support__manual__button btn btn-outline-secondary">
+                                Как подать заявку?
                             </button>
                         </div>
                     </div>
@@ -22,7 +24,7 @@
 
                 <div class="support__card">
                     <div class="support__card__header row">
-                        <div class="support__owner col-12 col-sm-3">
+                        <div class="support__owner col-md-6 col-xl-4">
                             <div class="support__owner__header">
                                 Инициатор
                             </div>
@@ -33,21 +35,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="support__conditions col-12 col-sm-6">
+                        <div class="support__conditions col-12 col-md-6 col-xl-5">
                             <div class="support__conditions__header">Размер поддержки</div>
                             <div class="support__size">до 400 000 рублей</div>
                             <div class="support__size__info">(включая сумму налога на доходы физических лиц)</div>
                         </div>
-                        <div class="support__buttons col-12 col-sm-3">
+                        <div class="support__buttons col">
                             <img class="support__icon" src="@/assets/electronic.png" alt="">
-                            <button class="btn btn-outline-secondary ms-2">Подать заявку</button>
+                            <button class="btn btn-outline-secondary">Подать заявку</button>
                         </div>
                     </div>
 
                     <hr>
 
                     <b-card no-body>
-                        <b-tabs pills card vertical nav-wrapper-class="w-25">
+                        <b-tabs pills card vertical nav-wrapper-class="col-12 col-md-4">
                             <b-tab title="Описание" active>
                                 <b-card-text>
                                     <h3>Описание</h3>
@@ -211,8 +213,153 @@
     }
 </script>
 
-<style scoped>
-    .org-logo {
-        height: 38px;
+<style lang="scss">
+    $gap: 1rem;
+    $basic-color: #003399;
+    $text-color: #212529;
+    $support-color: grey;
+    $passive-color: #e4e4e4;
+    $active-color: #fff;
+
+    .support {
+        padding-top: $gap/2;
+
+        .support__header {
+
+            .support__name {
+                margin-bottom: $gap;
+            }
+
+            .support__details {
+                &>* {
+                    margin-bottom: $gap;
+                }
+
+                @media (min-width: 768px) {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .support__date {
+                    color: $support-color;
+
+                    b {
+                        color: $text-color;
+                    }
+                }
+            }
+        }
+
+        hr {
+            margin-top: 0;
+        }
+
+        .support__card {
+
+            .support__card__header {
+                display: flex;
+                justify-content: space-between;
+
+                &>* {
+                    margin-bottom: $gap;
+                }
+
+                .support__owner {
+
+                    .support__owner__header {
+                        color: $support-color;
+                    }
+
+                    .support__owner__logo {
+                        display: flex;
+                        font-weight: bolder;
+
+                        .org-logo {
+                            height: 38px;
+                            margin-right: $gap/2;
+                            margin-top: $gap/2;
+                        }
+                    }
+                }
+
+                .support__conditions {
+
+                    @media (min-width: 768px) {
+                        text-align: right;
+                    }
+
+                    .support__conditions__header {
+                        color: $support-color;
+                    }
+
+                    .support__size {
+                        font-size: 1.75rem;
+                        font-weight: 500;
+                    }
+
+                    .support__size__info {
+                        color: $support-color;
+                    }
+                }
+
+                .support__buttons {
+                    display: flex;
+                    align-items: start;
+
+                    @media (min-width: 768px) {
+                        justify-content: flex-end;
+                    }
+
+
+                    .support__icon {
+                        height: 38px;
+                        border: 1px solid $basic-color;
+                        border-radius: 0.25rem;
+                        margin-right: $gap/2;
+                    }
+                }
+            }
+
+            hr {
+                margin-top: 0;
+            }
+
+            .card {
+                border: none;
+
+                .nav {
+                    background-color: transparent;
+                    padding: 0;
+                    margin-bottom: $gap;
+
+                    @media (min-width: 768px) {
+                        padding-right: 1.25rem;
+                    }
+                }
+
+                .tab-content {
+                    margin-bottom: $gap;
+
+                    .tab-pane {
+                        padding: 0;
+
+                        @media (min-width: 768px) {
+                            padding-left: 1.25rem;
+                        }
+
+                    }
+
+                    ul {
+                        padding-left: 1.25rem;
+                    }
+
+                    :nth-last-child(1) {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
     }
+
 </style>
