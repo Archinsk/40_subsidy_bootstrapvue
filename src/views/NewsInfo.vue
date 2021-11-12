@@ -1,4 +1,7 @@
 <template>
+    <div>
+        <HeaderOffcavas/>
+
     <main class="content">
 
         <article class="news-article">
@@ -76,11 +79,22 @@
 
 
     </main>
+
+        <Footer/>
+    </div>
 </template>
 
 <script>
+    import HeaderOffcavas from "@/components/HeaderOffcavas";
+    import Footer from "@/components/Footer";
+
     export default {
-        name: "NewsInfo"
+        name: "NewsInfo",
+
+        components: {
+            HeaderOffcavas,
+            Footer,
+        },
     }
 </script>
 

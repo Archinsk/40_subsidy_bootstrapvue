@@ -1,4 +1,7 @@
 <template>
+    <div>
+        <HeaderOffcavas/>
+
     <main class="content">
 
         <section class="measures">
@@ -384,11 +387,22 @@
 
 
     </main>
+
+        <Footer/>
+    </div>
 </template>
 
 <script>
+    import HeaderOffcavas from "@/components/HeaderOffcavas";
+    import Footer from "@/components/Footer";
+
     export default {
-        name: "Measures"
+        name: "Measures",
+
+        components: {
+            HeaderOffcavas,
+            Footer,
+        },
     }
 </script>
 

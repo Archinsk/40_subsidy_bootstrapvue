@@ -1,4 +1,7 @@
 <template>
+    <div>
+        <HeaderOffcavas/>
+
     <main class="content">
 
         <div class="profile__wrapper container">
@@ -446,11 +449,22 @@
         </div>
 
     </main>
+
+        <Footer/>
+    </div>
 </template>
 
 <script>
+    import HeaderOffcavas from "@/components/HeaderOffcavas";
+    import Footer from "@/components/Footer";
+
     export default {
-        name: "AccountInfo"
+        name: "AccountInfo",
+
+        components: {
+            HeaderOffcavas,
+            Footer,
+        },
     }
 </script>
 

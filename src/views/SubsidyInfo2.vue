@@ -1,4 +1,7 @@
 <template>
+    <div>
+        <HeaderOffcavas/>
+
     <main class="content">
 
         <section class="support">
@@ -205,11 +208,22 @@
 
 
     </main>
+
+        <Footer/>
+    </div>
 </template>
 
 <script>
+    import HeaderOffcavas from "@/components/HeaderOffcavas";
+    import Footer from "@/components/Footer";
+
     export default {
-        name: "SubsidyInfo"
+        name: "SubsidyInfo",
+
+        components: {
+            HeaderOffcavas,
+            Footer,
+        },
     }
 </script>
 

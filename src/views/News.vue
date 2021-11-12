@@ -1,4 +1,7 @@
 <template>
+    <div>
+        <HeaderOffcavas/>
+
     <main class="content">
 
         <section class="news-page mb-2">
@@ -257,11 +260,22 @@
         </section>
 
     </main>
+
+        <Footer/>
+    </div>
 </template>
 
 <script>
+    import HeaderOffcavas from "@/components/HeaderOffcavas";
+    import Footer from "@/components/Footer";
+
     export default {
-        name: "News"
+        name: "News",
+
+        components: {
+            HeaderOffcavas,
+            Footer,
+        },
     }
 </script>
 

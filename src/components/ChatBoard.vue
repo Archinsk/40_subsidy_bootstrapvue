@@ -1,5 +1,5 @@
 <template>
-    <div class="chat-section row mb-3">
+    <div class="chat-section row">
         <div class="col-3 d-none d-lg-block position-relative">
             <img id="botWaiting" class="position-absolute" :class="{active: isActive}" src="@/assets/robot.png" alt="">
         </div>
@@ -14,7 +14,8 @@
                 <b-alert v-for="message of messages" :key="message.id" :variant="getAuthor(message.author)" show>
                     <div v-if="message.findedAnswers">
                         Вот, что я нашел:
-                        <AnswerLink v-for="answ of message.findedAnswers" :key="answ.content" :link="answ.link" :text="answ.content"></AnswerLink>
+                        <AnswerLink v-for="answ of message.findedAnswers" :key="answ.content" :link="answ.link"
+                                    :text="answ.content"></AnswerLink>
                     </div>
                     {{ message.content }}
                 </b-alert>
@@ -63,7 +64,13 @@
 </script>
 
 <style lang="scss" scoped>
+    $back-color: #6688CC;
+    $bot-color: #fff;
+    $user-color: #ACC0E6;
+
     .chat-section {
+
+
         #botWaiting {
             width: 60%;
             bottom: -100%;
@@ -82,7 +89,7 @@
             overflow-y: auto;
 
             &.active {
-                background-color: #003399;
+                background-color: #6688CC;
                 height: 600px;
             }
 
@@ -91,15 +98,24 @@
                 width: 95%;
                 margin-top: auto;
 
+                .alert {
+                    border: none;
+                    padding-top: 0.375rem;
+                    padding-bottom: 0.375rem;
+                    margin-bottom: 0.5rem;
+                }
+
                 .alert-primary {
+                    background-color: $bot-color;
                     width: 75%;
-                    border-bottom-left-radius: 0;
+                    border-radius: 0 0.75rem 0.75rem;
                 }
 
                 .alert-danger {
+                    background-color: $user-color;
                     width: 75%;
                     margin-left: auto;
-                    border-bottom-right-radius: 0;
+                    border-radius: 0.75rem 0.75rem 0;
                 }
             }
 

@@ -4,7 +4,7 @@
             <div class="footer__main row">
                 <div class="footer__info col-12 col-sm-4">
                     <div class="footer__brend">
-                        <img src="@/assets/iss_logo.png" alt="" class="footer__brend__logo">
+                        <img src="@/assets/iss_logo_white.svg" alt="" class="footer__brend__logo">
                         <div class="footer__brend__name">Навигатор мер поддержки</div>
                     </div>
                     <div class="footer__social">

@@ -1,29 +1,24 @@
 <template>
     <div id="app">
-        <HeaderOffcavas></HeaderOffcavas>
         <router-view/>
-        <Footer/>
     </div>
 </template>
 
 <script>
-    import HeaderOffcavas from "@/components/HeaderOffcavas";
-    import Footer from "@/components/Footer";
+    // import HeaderOffcavas from "@/components/HeaderOffcavas";
+    // import Footer from "@/components/Footer";
 
     export default {
         name: 'App',
         data() {
-            return {
-
-            }
+            return {}
         },
         computed: {},
         components: {
-            HeaderOffcavas,
-            Footer,
+            // HeaderOffcavas,
+            // Footer,
         },
-        methods: {
-        }
+        methods: {}
     }
 </script>
 

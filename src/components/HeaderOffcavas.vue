@@ -4,7 +4,7 @@
             <b-navbar toggleable="lg" type="dark">
                 <b-navbar-brand href="#">
                     <router-link to="/">
-                        <img src="@/assets/iss_logo.png" class="d-inline-block align-top logo__image" alt="logo">
+                        <img src="@/assets/iss_logo_white.svg" class="d-inline-block align-top logo__image" alt="logo">
                         Навигатор мер поддержки
                     </router-link>
                 </b-navbar-brand>

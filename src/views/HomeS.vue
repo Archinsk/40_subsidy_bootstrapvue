@@ -1,11 +1,14 @@
 <template>
+    <div>
+    <HeaderOffcavas v-if="!chatIsActive"/>
+
     <main class="content">
 
         <section v-if="!chatIsActive" class="slider">
             <Slider></Slider>
         </section>
 
-        <section class="bot py-3">
+        <section class="bot">
             <div class="container">
                 <ChatBoard :isActive="chatIsActive" :messages="replicsList" @close-chat="closeChat"></ChatBoard>
                 <SearchForm :quest="inputText" @focus-input="focusInput" @add-quest="addQuest($event)"></SearchForm>
@@ -187,25 +190,31 @@
         </section>
 
     </main>
+    <Footer v-if="!chatIsActive"/>
+    </div>
 </template>
 
 <script>
+    import HeaderOffcavas from "@/components/HeaderOffcavas";
     import Slider from "@/components/Slider";
     import ChatBoard from "@/components/ChatBoard";
     import SearchForm from "@/components/SearchForm";
     import AnswersBlock from "@/components/AnswersBlock";
     import FeaturesBlock from "@/components/FeaturesBlock";
+    import Footer from "@/components/Footer";
 
     export default {
 
         name: "HomeS",
 
         components: {
+            HeaderOffcavas,
             Slider,
             ChatBoard,
             SearchForm,
             AnswersBlock,
             FeaturesBlock,
+            Footer,
         },
 
         data() {
@@ -300,7 +309,8 @@
                     };
                 } else {
                     answer = {
-                        author: "bot", content: 'Извините, я ничего не нашел'
+                        author: "bot", content: 'Извините'
+                        // , я ничего не нашел
                     };
                 }
                 answer.id = this.replics.length + 1;
@@ -320,6 +330,7 @@
     .content {
 
         .bot {
+            overflow: hidden;
             background-color: #b3c3e6;
         }
 
