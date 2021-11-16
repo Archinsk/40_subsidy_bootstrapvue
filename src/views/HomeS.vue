@@ -1,204 +1,205 @@
 <template>
     <div>
-    <HeaderOffcavas v-if="!chatIsActive"/>
+        <HeaderOffcavas v-if="!chatIsActive"/>
 
-    <main class="content">
+        <main class="content">
 
-        <section v-if="!chatIsActive" class="slider">
-            <Slider></Slider>
-        </section>
+            <section v-show="!chatIsActive" class="slider">
+                <Slider></Slider>
+            </section>
 
-        <section class="bot">
-            <div class="container">
-                <ChatBoard :isActive="chatIsActive" :messages="replicsList" @close-chat="closeChat"></ChatBoard>
-                <SearchForm :quest="inputText" @focus-input="focusInput" @add-quest="addQuest($event)"></SearchForm>
-                <AnswersBlock v-if="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock>
-                <FeaturesBlock v-if="!chatIsActive"></FeaturesBlock>
-            </div>
-        </section>
+            <section class="bot">
+                <Chat :isActive="chatIsActive" :isFlying="flyingRobot" :messages="replicsList" @close-chat="closeChat" :quest="inputText"
+                      @focus-input="focusInput" @add-quest="addQuest($event)"></Chat>
+                <AnswersBlock v-show="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock>
+                <FeaturesBlock v-show="!chatIsActive"></FeaturesBlock>
+            </section>
 
-        <section v-if="!chatIsActive" class="advantages">
-            <div class="advantages__wrapper container">
-                <h2 class="advantages__header text-center py-2">Наши преимущества</h2>
+            <section v-show="!chatIsActive" class="advantages">
+                <div class="advantages__wrapper container">
+                    <h2 class="advantages__header text-center py-2">Наши преимущества</h2>
 
-                <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4">
-                    <div class="col">
-                        <div class="h-100">
-                            <img src="@/assets/default.jpg" class="advantage__image" alt="...">
-                            <div class="advantage__comment text-center">
-                                <h5 class="card-title">Контракты</h5>
-                                <p class="card-text">
-                                    Заключайте контракты с другими участниками прямо в личном кабинете
-                                </p>
+                    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4">
+                        <div class="col">
+                            <div class="h-100">
+                                <img src="@/assets/default.jpg" class="advantage__image" alt="...">
+                                <div class="advantage__comment text-center">
+                                    <h5 class="card-title">Контракты</h5>
+                                    <p class="card-text">
+                                        Заключайте контракты с другими участниками прямо в личном кабинете
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="h-100">
+                                <img src="@/assets/default.jpg" class="advantage__image" alt="...">
+                                <div class="advantage__comment text-center">
+                                    <h5 class="card-title">Партнеры</h5>
+                                    <p class="card-text">
+                                        Находите партнеров из других отраслей
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="h-100">
+                                <img src="@/assets/default.jpg" class="advantage__image" alt="...">
+                                <div class="advantage__comment text-center">
+                                    <h5 class="card-title">Поддержка</h5>
+                                    <p class="card-text">
+                                        Получайте поддержку и консультации с консьерж-сервисом
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="h-100">
+                                <img src="@/assets/default.jpg" class="advantage__image" alt="...">
+                                <div class="advantage__comment text-center">
+                                    <h5 class="card-title">Поиск</h5>
+                                    <p class="card-text">Открывайте новые возможности с помощью поиска на основе
+                                        искусственного
+                                        интеллекта</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="h-100">
-                            <img src="@/assets/default.jpg" class="advantage__image" alt="...">
-                            <div class="advantage__comment text-center">
-                                <h5 class="card-title">Партнеры</h5>
-                                <p class="card-text">
-                                    Находите партнеров из других отраслей
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="h-100">
-                            <img src="@/assets/default.jpg" class="advantage__image" alt="...">
-                            <div class="advantage__comment text-center">
-                                <h5 class="card-title">Поддержка</h5>
-                                <p class="card-text">
-                                    Получайте поддержку и консультации с консьерж-сервисом
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="h-100">
-                            <img src="@/assets/default.jpg" class="advantage__image" alt="...">
-                            <div class="advantage__comment text-center">
-                                <h5 class="card-title">Поиск</h5>
-                                <p class="card-text">Открывайте новые возможности с помощью поиска на основе
-                                    искусственного
-                                    интеллекта</p>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
+            </section>
 
-            </div>
-        </section>
+            <section v-show="!chatIsActive" class="news mb-2">
+                <div class="news__wrapper container">
+                    <h2 class="news__header text-center py-2">Новости</h2>
 
-        <section v-if="!chatIsActive" class="news mb-2">
-            <div class="news__wrapper container">
-                <h2 class="news__header text-center py-2">Новости</h2>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-2">
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">ArchGlass 2021 - Международный форум индустрии архитектурного
+                                        стекла</h5>
+                                    <p class="card-text">
+                                        Союз архитекторов России и Союз московских архитекторов приглашают на
+                                        3-й международный форум индустрии архитектурного стекла ArchGlass 2021.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Territorial development strategy</h5>
+                                    <p class="card-text">
+                                        Конференция по Стратегии комплексного развития территорий соберет
+                                        экспертное сообщество и реальные кейсы на примере которых будут рассмотрены
+                                        вопросы
+                                        территориального планирования, земельного администрирования, технического
+                                        регулирования
+                                        и деятельности по улучшению бизнес-климата
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Цифровизация транспорта 2021. Процесс трансформации: оценка и
+                                        перспективы</h5>
+                                    <p class="card-text">
+                                        Лидеры отрасли уже реализуют свои собственные стратегии и внедряют
+                                        новые бизнес-модели на основе цифровых технологий.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">МАСТЕР - КЛАСС "ОСНОВЫ ИНВЕСТИЦИОННОЙ ГРАМОТНОСТИ В 21 ВЕКЕ"
+                                        от
+                                        Rocket University</h5>
+                                    <p class="card-text">
+                                        Погружение в мир современных финансов. Инструменты инвестиций. Игра - симуляция
+                                        работы
+                                        инвестиционного аналитика
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Digital Transformation Day 2021</h5>
+                                    <p class="card-text">
+                                        В ходе конференции предлагается обсудить следующий круг вопросов:
+                                        Цифровая трансформация бизнеса крупной компании как комплексный взгляд на
+                                        сложную
+                                        многоаспектную структуру деятельности.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">ODSC APAC Virtual Conference 2021</h5>
+                                    <p class="card-text">
+                                        ODSC APAC Virtual Conference 2021 is one of the largest applied data
+                                        science conferences. Our speakers include core contributors to many open source
+                                        libraries and languages.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">ChipEXPO-2021</h5>
+                                    <p class="card-text">
+                                        Выставка включена в план официальных выставочных мероприятий
+                                        Министерства промышленности и торговли Российской Федерации.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="@/assets/default.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Мастер-класс по личностному росту на тему: "Мотивация в
+                                        работе с
+                                        командой"</h5>
+                                    <p class="card-text">
+                                        Обучающее мероприятие, направленное на разработку общественных
+                                        инициатив участников проекта, посредством образовательной составляющей,
+                                        подкрепленной
+                                        ключевыми навыками и практическими приемами.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-2">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">ArchGlass 2021 - Международный форум индустрии архитектурного
-                                    стекла</h5>
-                                <p class="card-text">
-                                    Союз архитекторов России и Союз московских архитекторов приглашают на
-                                    3-й международный форум индустрии архитектурного стекла ArchGlass 2021.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Territorial development strategy</h5>
-                                <p class="card-text">
-                                    Конференция по Стратегии комплексного развития территорий соберет
-                                    экспертное сообщество и реальные кейсы на примере которых будут рассмотрены вопросы
-                                    территориального планирования, земельного администрирования, технического
-                                    регулирования
-                                    и деятельности по улучшению бизнес-климата
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Цифровизация транспорта 2021. Процесс трансформации: оценка и
-                                    перспективы</h5>
-                                <p class="card-text">
-                                    Лидеры отрасли уже реализуют свои собственные стратегии и внедряют
-                                    новые бизнес-модели на основе цифровых технологий.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">МАСТЕР - КЛАСС "ОСНОВЫ ИНВЕСТИЦИОННОЙ ГРАМОТНОСТИ В 21 ВЕКЕ" от
-                                    Rocket University</h5>
-                                <p class="card-text">
-                                    Погружение в мир современных финансов. Инструменты инвестиций. Игра - симуляция
-                                    работы
-                                    инвестиционного аналитика
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Digital Transformation Day 2021</h5>
-                                <p class="card-text">
-                                    В ходе конференции предлагается обсудить следующий круг вопросов:
-                                    Цифровая трансформация бизнеса крупной компании как комплексный взгляд на сложную
-                                    многоаспектную структуру деятельности.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">ODSC APAC Virtual Conference 2021</h5>
-                                <p class="card-text">
-                                    ODSC APAC Virtual Conference 2021 is one of the largest applied data
-                                    science conferences. Our speakers include core contributors to many open source
-                                    libraries and languages.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">ChipEXPO-2021</h5>
-                                <p class="card-text">
-                                    Выставка включена в план официальных выставочных мероприятий
-                                    Министерства промышленности и торговли Российской Федерации.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="@/assets/default.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Мастер-класс по личностному росту на тему: "Мотивация в работе с
-                                    командой"</h5>
-                                <p class="card-text">
-                                    Обучающее мероприятие, направленное на разработку общественных
-                                    инициатив участников проекта, посредством образовательной составляющей,
-                                    подкрепленной
-                                    ключевыми навыками и практическими приемами.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+            </section>
 
-            </div>
-        </section>
-
-    </main>
-    <Footer v-if="!chatIsActive"/>
+        </main>
+        <Footer v-show="!chatIsActive"/>
     </div>
 </template>
 
 <script>
     import HeaderOffcavas from "@/components/HeaderOffcavas";
     import Slider from "@/components/Slider";
-    import ChatBoard from "@/components/ChatBoard";
-    import SearchForm from "@/components/SearchForm";
+    import Chat from "@/components/Chat";
     import AnswersBlock from "@/components/AnswersBlock";
     import FeaturesBlock from "@/components/FeaturesBlock";
     import Footer from "@/components/Footer";
@@ -210,8 +211,7 @@
         components: {
             HeaderOffcavas,
             Slider,
-            ChatBoard,
-            SearchForm,
+            Chat,
             AnswersBlock,
             FeaturesBlock,
             Footer,
@@ -250,14 +250,24 @@
                     },
                     {
                         id: 3, keywords: ['грант'], answers: [
-                            {content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности', link: './subsidyinfo1'},
-                            {content: 'Гранты в форме субсидии на развитие инновационного проекта', link: './subsidyinfo2'},
-                            {content: 'Гранты субъектам малого и среднего предпринимательства на реализацию проектов в приоритетных сферах экономики', link: './subsidyinfo3'}
+                            {
+                                content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+                                link: './subsidyinfo1'
+                            },
+                            {
+                                content: 'Гранты в форме субсидии на развитие инновационного проекта',
+                                link: './subsidyinfo2'
+                            },
+                            {
+                                content: 'Гранты субъектам малого и среднего предпринимательства на реализацию проектов в приоритетных сферах экономики',
+                                link: './subsidyinfo3'
+                            }
                         ]
                     },
 
                 ],
-                chatIsActive: false
+                chatIsActive: false,
+                flyingRobot: false,
             }
         },
 
@@ -273,17 +283,26 @@
 
         methods: {
             focusInput() {
-                this.chatIsActive = true
+                this.chatIsActive = true;
+                setTimeout(this.fly, 1000);
+            },
+            fly() {
+                this.flyingRobot=true;
+            },
+            dontfly() {
+                this.chatIsActive = !this.chatIsActive
             },
             closeChat() {
                 this.inputText = '';
                 if (this.chatIsActive) {
-                    this.chatIsActive = !this.chatIsActive
+                    this.flyingRobot=false;
+                    setTimeout(this.dontfly, 1000);
                 }
             },
             enterQuestion(question) {
                 this.inputText = question;
                 this.chatIsActive = true;
+                setTimeout(this.fly, 1000);
             },
             addQuest(inputValue) {
                 let quest = {
@@ -309,7 +328,7 @@
                     };
                 } else {
                     answer = {
-                        author: "bot", content: 'Извините'
+                        author: "bot", content: 'Извините, я ничего не нашёл.'
                         // , я ничего не нашел
                     };
                 }
@@ -325,13 +344,13 @@
 </script>
 
 <style lang="scss" scoped>
-
+    $back-color: #6688CC;
 
     .content {
 
         .bot {
             overflow: hidden;
-            background-color: #b3c3e6;
+            background-color: $back-color;
         }
 
         .advantages {

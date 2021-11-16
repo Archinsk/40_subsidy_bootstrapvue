@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <router-link :to="this.link" class="answer-link">{{this.text}}</router-link>
-    </div>
+        <router-link :to="this.link" class="answer-link btn btn-primary">{{this.text}}</router-link>
 </template>
 
 <script>

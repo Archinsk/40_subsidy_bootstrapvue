@@ -1,7 +1,7 @@
 <template>
     <div class="search-section row justify-content-end">
 
-        <div class="col-lg-9">
+        <div class="searchBlock col-lg-9">
             <b-form :class="textInField" @submit="onSubmit">
                 <b-form-group id="inputGroupQuestion" label="" label-for="inputGroupQuestion">
                     <b-form-input
@@ -14,7 +14,6 @@
                             :class="roundedPill"
                             @focus="$emit('focus-input')"
                     ></b-form-input>
-
                 </b-form-group>
                 <b-button type="submit" class="rounded-circle">
                     <b-icon icon="arrow-right-short" aria-hidden="true"></b-icon>
@@ -58,7 +57,8 @@
                 if (this.inputValue.trim()) {
                     console.log('Работает');
                     this.textInField = "isActive"
-                } else {
+                }
+                else {
                     console.log('В поле пусто')
                     this.textInField = ""
                 }
@@ -73,50 +73,67 @@
 
 <style lang="scss">
     $form-gap: 0.3125rem;
+    $chat-color: #6688CC;
 
     .search-section {
-        background-color: #6688CC;
-        overflow: hidden;
+        background-color: $chat-color;
 
-        form {
-            display: flex;
-            padding: $form-gap 0;
+        .searchBlock {
+            overflow: hidden;
 
-            #inputGroupQuestion {
-                margin-bottom: 0;
-                margin-right: 1.5625rem;
-                transition: margin-right 1s;
-                flex-grow: 1;
 
-                #inputQuestion {
-                    height: 2.875rem;
-                    width: 100%;
-                }
-            }
+            form {
+                display: flex;
+                padding: $form-gap 0;
 
-            &.isActive {
                 #inputGroupQuestion {
-                    margin-right: $form-gap;
+                    margin-bottom: 0;
+                    margin-right: 1.5625rem;
+                    transition: margin-right 1s;
                     flex-grow: 1;
 
-                    &>div {
-                        flex-grow: 1;
+                    #inputQuestion {
+                        height: 2.875rem;
+                        width: 100%;
+
+                        @media (min-width: 992px) {
+                            border-radius: 0.25rem!important;
+                        }
+
+                        &:focus {
+                            box-shadow: none;
+                            border-color: #ced4da;
+                        }
                     }
                 }
-            }
 
-            .btn {
-                padding-top: 0.625rem;
-                padding-bottom: 0.625rem;
-                margin-right: -4.4375rem;
-                transition: margin-right 1s;
-            }
+                &.isActive {
+                    #inputGroupQuestion {
+                        margin-right: $form-gap*2;
+                        flex-grow: 1;
 
-            &.isActive {
-                .btn {
-                    margin-right: 0;
+                        & > div {
+                            flex-grow: 1;
+                        }
+                    }
                 }
 
+                .btn {
+                    padding-top: 0.625rem;
+                    padding-bottom: 0.625rem;
+                    margin-right: -4.4375rem;
+                    transition: margin-right 1s;
+
+                    @media (min-width: 992px) {
+                        border-radius: 0.25rem!important;
+                    }
+                }
+
+                &.isActive {
+                    .btn {
+                        margin-right: 0;
+                    }
+                }
             }
         }
     }
