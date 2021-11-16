@@ -33,7 +33,8 @@
         },
         props: [
             'isActive',
-            'isFlying',
+            'isFlyingUp',
+            'isFlyingDown',
             'messages',
         ],
         computed: {
@@ -43,26 +44,23 @@
             getAuthor(author) {
                 return author === 'bot' ? 'primary' : 'danger'
             },
-            // flyingBot() {
-            //     console.log('isActive = ', this.isActive);
-            //     if (this.isActive) {
-            //         setTimeout(function () {return true}, 2000)
-            //     } else {
-            //         setTimeout(function () {return false}, 2000)
-            //         }
-            // }
             chatFieldClass() {
                 let act = this.isActive;
-                let fly = this.isFlying;
-                console.log('act - ' + act + ', fly - ' + fly) + fly;
-                if (act && fly) {
-                    return "active flying"
-                } else if (!act && !fly) {
+                let flyUp = this.isFlyingUp;
+                let flyDown = this.isFlyingDown;
+
+                if(act) {
+                    if(!flyUp && !flyDown) {
+                        return "active"
+                    }
+                    if(flyUp) {
+                        return "active flyingUp"
+                    }
+                    if(flyDown) {
+                        return "active flyingDown"
+                    }
+                } else {
                     return ''
-                } else if (act && !fly){
-                    return 'active'
-                } else if (!act && fly) {
-                    return 'flying'
                 }
             }
         },
@@ -94,14 +92,25 @@
             display: flex;
             flex-direction: column;
             justify-content: end;
-            transition: height 1.0s;
             overflow-y: auto;
             padding-top: 1rem;
 
             &.active {
-                background-color: #6688CC;
-                height: calc(100vh - 7rem);
-                padding-top: 0;
+                height: 31.4375rem;
+                padding-top: 29rem;
+
+                &.flyingDown {
+                    transition: all 1s;
+                    height: calc(100vh - 7rem);
+                    padding-top: 0;
+                }
+
+                &.flyingUp {
+                    transition: all 1s;
+                    height: 31.4375rem;
+                    padding-top: 29rem;
+                }
+
             }
 
             .alert {

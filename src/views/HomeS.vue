@@ -9,7 +9,7 @@
             </section>
 
             <section class="bot">
-                <Chat :isActive="chatIsActive" :isFlying="flyingRobot" :messages="replicsList" @close-chat="closeChat" :quest="inputText"
+                <Chat :isActive="chatIsActive" :isFlyingUp="flyingRobotUp" :isFlyingDown="flyingRobotDown" :messages="replicsList" @close-chat="closeChat" :quest="inputText"
                       @focus-input="focusInput" @add-quest="addQuest($event)"></Chat>
                 <AnswersBlock v-show="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock>
                 <FeaturesBlock v-show="!chatIsActive"></FeaturesBlock>
@@ -267,7 +267,8 @@
 
                 ],
                 chatIsActive: false,
-                flyingRobot: false,
+                flyingRobotUp: false,
+                flyingRobotDown: false,
             }
         },
 
@@ -287,15 +288,18 @@
                 setTimeout(this.fly, 1000);
             },
             fly() {
-                this.flyingRobot=true;
+                this.flyingRobotUp=false;
+                this.flyingRobotDown=true;
             },
             dontfly() {
+                this.flyingRobotUp=false;
                 this.chatIsActive = !this.chatIsActive
             },
             closeChat() {
                 this.inputText = '';
                 if (this.chatIsActive) {
-                    this.flyingRobot=false;
+                    this.flyingRobotUp=true;
+                    this.flyingRobotDown=false;
                     setTimeout(this.dontfly, 1000);
                 }
             },

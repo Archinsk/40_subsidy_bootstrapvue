@@ -1,7 +1,7 @@
 <template>
     <div class="search-section row justify-content-end">
 
-        <div class="searchBlock col-lg-9">
+        <div :class="'searchBlock col-lg-9 ' + chatFieldClass()">
             <b-form :class="textInField" @submit="onSubmit">
                 <b-form-group id="inputGroupQuestion" label="" label-for="inputGroupQuestion">
                     <b-form-input
@@ -29,7 +29,10 @@
         name: "SearchForm",
 
         props: [
-            'quest'
+            'quest',
+            'isActive',
+            'isFlyingUp',
+            'isFlyingDown',
         ],
 
         data() {
@@ -50,6 +53,25 @@
                     this.inputValue = '';
                 }
             },
+            chatFieldClass() {
+                let act = this.isActive;
+                let flyUp = this.isFlyingUp;
+                let flyDown = this.isFlyingDown;
+
+                if (act) {
+                    if (!flyUp && !flyDown) {
+                        return "active"
+                    }
+                    if (flyUp) {
+                        return "active flyingUp"
+                    }
+                    if (flyDown) {
+                        return "active flyingDown"
+                    }
+                } else {
+                    return ''
+                }
+            },
         },
 
         watch: {
@@ -57,8 +79,7 @@
                 if (this.inputValue.trim()) {
                     console.log('Работает');
                     this.textInField = "isActive"
-                }
-                else {
+                } else {
                     console.log('В поле пусто')
                     this.textInField = ""
                 }
@@ -81,6 +102,21 @@
         .searchBlock {
             overflow: hidden;
 
+            padding-bottom: 0;
+
+            &.active {
+                padding-bottom: calc(100vh - 29rem);
+
+                &.flyingDown {
+                    transition: all 1s;
+                    padding-bottom: 0;
+                }
+
+                &.flyingUp {
+                    transition: all 1s;
+                    padding-bottom: calc(100vh - 29rem);
+                }
+            }
 
             form {
                 display: flex;
@@ -97,7 +133,7 @@
                         width: 100%;
 
                         @media (min-width: 992px) {
-                            border-radius: 0.25rem!important;
+                            border-radius: 0.25rem !important;
                         }
 
                         &:focus {
@@ -125,7 +161,7 @@
                     transition: margin-right 1s;
 
                     @media (min-width: 992px) {
-                        border-radius: 0.25rem!important;
+                        border-radius: 0.25rem !important;
                     }
                 }
 
