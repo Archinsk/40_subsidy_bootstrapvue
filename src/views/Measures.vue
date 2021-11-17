@@ -6,7 +6,7 @@
 
         <section class="measures">
             <div class="measures__wrapper container">
-                <h2 class="measures__heading">Меры поддержки <span class="badge badge-secondary">160</span></h2>
+                <h4 class="measures__heading">Меры поддержки <span class="badge badge-secondary">160</span></h4>
 
                 <div class="row row-cols-1">
 

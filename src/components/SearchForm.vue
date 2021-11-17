@@ -83,12 +83,12 @@
                     console.log('В поле пусто')
                     this.textInField = ""
                 }
+            },
+            quest: function () {
+                this.inputValue = this.quest;
             }
         },
 
-        mounted() {
-            this.inputValue = this.quest;
-        }
     }
 </script>
 
