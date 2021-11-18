@@ -74,7 +74,7 @@
     $user-color: #ACC0E6;
 
     .chat-section {
-        background-color: $back-color;
+        /*background-color: $back-color;*/
 
         #botWaiting {
             width: 60%;

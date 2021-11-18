@@ -1,7 +1,7 @@
 <template>
     <div class="chat">
+        <ChatHeader v-show="isActive" @close-chat="$emit('close-chat')"></ChatHeader>
         <div class="container">
-            <ChatHeader v-show="isActive" @close-chat="$emit('close-chat')"></ChatHeader>
             <ChatBoard :isActive="isActive" :isFlyingUp="isFlyingUp" :isFlyingDown="isFlyingDown" :messages="messages"></ChatBoard>
             <SearchForm :isActive="isActive" :isFlyingUp="isFlyingUp" :isFlyingDown="isFlyingDown" :quest="quest" @add-quest="$emit('add-quest', $event)"
                         @focus-input="$emit('focus-input')"></SearchForm>

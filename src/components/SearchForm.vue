@@ -16,7 +16,7 @@
                     ></b-form-input>
                 </b-form-group>
                 <b-button type="submit" class="rounded-circle">
-                    <b-icon icon="arrow-right-short" aria-hidden="true"></b-icon>
+                    <span class="material-icons">send</span>
                 </b-button>
             </b-form>
         </div>
@@ -154,9 +154,17 @@
                     }
                 }
 
+                /*.btn {
+                    border-color: $passive-color;
+                    padding: $gap/16*6;
+                    display: flex;
+                }*/
+
                 .btn {
-                    padding-top: 0.625rem;
-                    padding-bottom: 0.625rem;
+                    display: flex;
+                    align-items: center;
+                    padding-left: 0.625rem;
+                    padding-right: 0.625rem;
                     margin-right: -4.4375rem;
                     transition: margin-right 1s;
 

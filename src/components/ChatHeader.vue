@@ -1,13 +1,14 @@
 <template>
-    <div class="chat-header">
-        <img src="@/assets/robot_avatar.png" alt="" class="chatHeaderAvatar rounded-circle d-lg-none">
-        <div class="chatHeaderTitle d-lg-none">Робот Василий</div>
-        <b-button @click="$emit('close-chat')" class="closeBtn rounded-circle">
-            <b-icon
-                    icon="x-circle"
-                    aria-hidden="true"
-            ></b-icon>
-        </b-button>
+    <div class="shadow">
+        <div class="container">
+            <div class="chat-header">
+                <img src="@/assets/robot_avatar.png" alt="" class="chatHeaderAvatar rounded-circle d-lg-none">
+                <div class="chatHeaderTitle d-lg-none">Робот Василий</div>
+                <b-button @click="$emit('close-chat')" class="closeBtn rounded-circle">
+                    <span class="material-icons">close</span>
+                </b-button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -46,10 +47,12 @@
             top: 0;
             right: 0;
             z-index: 100;
-            padding: 0.625rem 0.75rem;
+            padding: 0.625rem;
+            display: flex;
+            align-items: center;
 
             @media (min-width: 992px) {
-                border-radius: 0.25rem!important;
+                border-radius: 0.25rem !important;
             }
         }
     }
