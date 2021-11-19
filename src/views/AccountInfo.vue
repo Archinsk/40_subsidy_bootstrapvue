@@ -16,7 +16,7 @@
                                 <div class="profile__user__snils">СНИЛС: 073-976-837 25</div>
                             </div>
                         </div>
-                        <button type="button" class="user__competence btn btn-outline-secondary" data-toggle="modal"
+                        <button type="button" class="user__competence btn btn-outline-primary" data-toggle="modal"
                                 href="#profileEdit">Редактировать
                         </button>
                     </section>
@@ -68,10 +68,10 @@
 
                             <section class="user__competencies">
                                 <h3 class="user__competencies__title">Компетенции</h3>
-                                <span class="badge badge-secondary mr-2">Информационные технологии</span>
-                                <span class="badge badge-secondary mr-2">Инженерия</span>
-                                <span class="badge badge-secondary mr-2">Архитектура</span>
-                                <button class="user__competence btn btn-outline-secondary">+ Добавить</button>
+                                <span class="badge badge-primary mr-2">Информационные технологии</span>
+                                <span class="badge badge-primary mr-2">Инженерия</span>
+                                <span class="badge badge-primary mr-2">Архитектура</span>
+                                <button class="user__competence btn btn-outline-primary">+ Добавить</button>
                             </section>
 
                             <section class="experience">
@@ -176,7 +176,7 @@
                             </section>
                         </b-tab>
                         <b-tab title="Заявки">
-                            <h2 class="measures__heading py-2 ">Заявки <span class="badge badge-secondary">15</span></h2>
+                            <h2 class="measures__heading py-2 ">Заявки <span class="badge badge-primary">15</span></h2>
 
                             <div class="row row-cols-1 g-2 mb-2">
                                 <div class="col">
@@ -184,7 +184,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title mb-0">
                                                 <a href="subsidy.html">
-                                                    <span class="badge badge-secondary mr-2">№001256</span>Грант
+                                                    <span class="badge badge-primary mr-2">№001256</span>Грант
                                                     участникам
                                                     инновационного кластера на территории города Москвы на возмещение
                                                     затрат в целях
@@ -205,7 +205,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title mb-0">
                                                 <a href="subsidy.html">
-                                                    <span class="badge badge-secondary mr-2">№001256</span>Грант
+                                                    <span class="badge badge-primary mr-2">№001256</span>Грант
                                                     участникам
                                                     инновационного кластера на территории города Москвы на возмещение
                                                     затрат в целях
@@ -226,7 +226,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title mb-0">
                                                 <a href="subsidy.html">
-                                                    <span class="badge badge-secondary mr-2">№001256</span>Грант
+                                                    <span class="badge badge-primary mr-2">№001256</span>Грант
                                                     участникам
                                                     инновационного кластера на территории города Москвы на возмещение
                                                     затрат в целях
@@ -247,7 +247,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title mb-0">
                                                 <a href="subsidy.html">
-                                                    <span class="badge badge-secondary mr-2">№001256</span>Грант
+                                                    <span class="badge badge-primary mr-2">№001256</span>Грант
                                                     участникам
                                                     инновационного кластера на территории города Москвы на возмещение
                                                     затрат в целях
@@ -268,7 +268,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title mb-0">
                                                 <a href="subsidy.html">
-                                                    <span class="badge badge-secondary mr-2">№001256</span>Грант
+                                                    <span class="badge badge-primary mr-2">№001256</span>Грант
                                                     участникам
                                                     инновационного кластера на территории города Москвы на возмещение
                                                     затрат в целях
@@ -289,7 +289,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title mb-0">
                                                 <a href="subsidy.html">
-                                                    <span class="badge badge-secondary mr-2">№001256</span>Грант
+                                                    <span class="badge badge-primary mr-2">№001256</span>Грант
                                                     участникам
                                                     инновационного кластера на территории города Москвы на возмещение
                                                     затрат в целях
@@ -310,7 +310,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title mb-0">
                                                 <a href="subsidy.html">
-                                                    <span class="badge badge-secondary mr-2">№001256</span>Грант
+                                                    <span class="badge badge-primary mr-2">№001256</span>Грант
                                                     участникам
                                                     инновационного кластера на территории города Москвы на возмещение
                                                     затрат в целях
@@ -331,7 +331,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title mb-0">
                                                 <a href="subsidy.html">
-                                                    <span class="badge badge-secondary mr-2">№001256</span>Грант
+                                                    <span class="badge badge-primary mr-2">№001256</span>Грант
                                                     участникам
                                                     инновационного кластера на территории города Москвы на возмещение
                                                     затрат в целях
@@ -352,7 +352,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title mb-0">
                                                 <a href="subsidy.html">
-                                                    <span class="badge badge-secondary mr-2">№001256</span>Грант
+                                                    <span class="badge badge-primary mr-2">№001256</span>Грант
                                                     участникам
                                                     инновационного кластера на территории города Москвы на возмещение
                                                     затрат в целях
@@ -373,7 +373,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title mb-0">
                                                 <a href="subsidy.html">
-                                                    <span class="badge badge-secondary mr-2">№001256</span>Грант
+                                                    <span class="badge badge-primary mr-2">№001256</span>Грант
                                                     участникам
                                                     инновационного кластера на территории города Москвы на возмещение
                                                     затрат в целях
@@ -417,17 +417,17 @@
                                 <input type="email" class="form-control" id="emailProfileEdit"
                                        value="mgp-nsk@yandex.ru">
                             </div>
-                            <button class="btn btn-outline-secondary">+ Добавить</button>
+                            <button class="btn btn-outline-primary">+ Добавить</button>
                             <div class="mb-3">
                                 <label for="phoneProfileEdit" class="form-label">Телефон</label>
                                 <input type="tel" class="form-control" id="phoneProfileEdit" value="+7(903)903-3661">
                             </div>
-                            <button class="btn btn-outline-secondary">+ Добавить</button>
+                            <button class="btn btn-outline-primary">+ Добавить</button>
                             <div class="mb-3">
                                 <label for="socialProfileEdit" class="form-label">Социальные сети</label>
                                 <input type="url" class="form-control" id="socialProfileEdit" value="+7(903)903-3661">
                             </div>
-                            <button class="btn btn-outline-secondary">+ Добавить</button>
+                            <button class="btn btn-outline-primary">+ Добавить</button>
 
                             <h3>Опыт работы</h3>
                             <div class="mb-3">

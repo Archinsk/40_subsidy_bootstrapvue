@@ -17,7 +17,7 @@
                             <b>с 11.02.2021 по 12.03.2021</b>
                         </div>
                         <div class="support__manual">
-                            <button class="support__manual__button btn btn-outline-secondary">
+                            <button class="support__manual__button btn btn-outline-primary">
                                 Как подать заявку?
                             </button>
                         </div>
@@ -46,7 +46,7 @@
                         </div>
                         <div class="support__buttons col">
                             <img class="support__icon" src="@/assets/electronic.png" alt="">
-                            <button class="btn btn-outline-secondary">Подать заявку</button>
+                            <button class="btn btn-outline-primary">Подать заявку</button>
                         </div>
                     </div>
 
@@ -214,7 +214,7 @@
 
 <style lang="scss">
     $gap: 1rem;
-    $basic-color: #003399;
+    $basic-color: var(--primary);
     $text-color: #212529;
     $support-color: grey;
     $passive-color: #e4e4e4;

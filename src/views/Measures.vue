@@ -6,7 +6,7 @@
 
         <section class="measures">
             <div class="measures__wrapper container">
-                <h4 class="measures__heading">Меры поддержки <span class="badge badge-secondary">160</span></h4>
+                <h4 class="measures__heading">Меры поддержки <span class="badge badge-primary">160</span></h4>
 
                 <div class="row row-cols-1">
 
@@ -16,7 +16,7 @@
                                 <div class="card-body row">
                                     <h5 class="card-title col-12 col-md-9">
                                         <a href="subsidy.html">
-                                            <span class="badge badge-secondary">1</span>Гранты в форме субсидий в
+                                            <span class="badge badge-primary">1</span>Гранты в форме субсидий в
                                             сфере научной и инновационной деятельности
                                         </a>
                                     </h5>
@@ -47,7 +47,7 @@
                                         <img class="measure__web__accessibility" src="@/assets/electronic.png"
                                              title="По данной мере поддержки есть возможность электронной подачи"
                                              alt="">
-                                        <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
+                                        <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                 <div class="card-body row">
                                     <h5 class="card-title col-12 col-md-9">
                                         <a href="subsidy.html">
-                                            <span class="badge badge-secondary">2</span>Гранты в форме субсидии на
+                                            <span class="badge badge-primary">2</span>Гранты в форме субсидии на
                                             развитие инновационного проекта
                                         </a>
                                     </h5>
@@ -88,7 +88,7 @@
                                     <div class="measure__buttons col">
                                         <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи"
                                              alt="">
-                                        <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
+                                        <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                                 <div class="card-body row">
                                     <h5 class="card-title col-12 col-md-9">
                                         <a href="subsidy.html">
-                                            <span class="badge badge-secondary">3</span>Гранты субъектам малого и
+                                            <span class="badge badge-primary">3</span>Гранты субъектам малого и
                                             среднего предпринимательства на реализацию проектов в приоритетных
                                             сферах экономики
                                         </a>
@@ -131,7 +131,7 @@
                                     <div class="measure__buttons col">
                                         <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи"
                                              alt="">
-                                        <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
+                                        <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@
                             <div class="card-body row">
                                 <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary">4</span>Заявка на включение фудкорта
+                                        <span class="badge badge-primary">4</span>Заявка на включение фудкорта
                                         в реестр
                                     </a>
                                 </h5>
@@ -162,7 +162,7 @@
                                     </div>
                                 </div>
                                 <div class="measure__buttons col">
-                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
+                                    <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +172,7 @@
                             <div class="card-body row">
                                 <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary">5</span>Заявка на включение в реестр
+                                        <span class="badge badge-primary">5</span>Заявка на включение в реестр
                                     </a>
                                 </h5>
                             </div>
@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="measure__buttons col">
                                     <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи" alt="">
-                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
+                                    <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                             <div class="card-body row">
                                 <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary">6</span>Предоставление отчета
+                                        <span class="badge badge-primary">6</span>Предоставление отчета
                                         «Финансовый отчет об осуществлении затрат» по субсидии на оплату коммунальных
                                         услуг и
                                         приобретение оборудования
@@ -225,7 +225,7 @@
                                 </div>
                                 <div class="measure__buttons col">
                                     <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи" alt="">
-                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
+                                    <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -235,7 +235,7 @@
                             <div class="card-body row">
                                 <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary">7</span>Грант участникам
+                                        <span class="badge badge-primary">7</span>Грант участникам
                                         инновационного кластера на территории города Москвы на возмещение затрат в целях
                                         реализации кооперационных комплексных инновационных проектов (кооперационные КИП
                                         –
@@ -264,7 +264,7 @@
                                 </div>
                                 <div class="measure__buttons col">
                                     <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи" alt="">
-                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
+                                    <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -274,7 +274,7 @@
                             <div class="card-body row">
                                 <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary">8</span>Обратная связь Кузница
+                                        <span class="badge badge-primary">8</span>Обратная связь Кузница
                                         успеха
                                     </a>
                                 </h5>
@@ -294,7 +294,7 @@
                                     </div>
                                 </div>
                                 <div class="measure__buttons col">
-                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
+                                    <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -304,7 +304,7 @@
                             <div class="card-body row">
                                 <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary">9</span>Стать партнером StartHub
+                                        <span class="badge badge-primary">9</span>Стать партнером StartHub
                                     </a>
                                 </h5>
                             </div>
@@ -323,7 +323,7 @@
                                     </div>
                                 </div>
                                 <div class="measure__buttons col">
-                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
+                                    <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -333,7 +333,7 @@
                             <div class="card-body row">
                                 <h5 class="card-title col-12 col-md-9">
                                     <a href="subsidy.html">
-                                        <span class="badge badge-secondary">10</span>Заявка на вступление в клуб
+                                        <span class="badge badge-primary">10</span>Заявка на вступление в клуб
                                         инвесторов МИК - Фонды
                                     </a>
                                 </h5>
@@ -354,7 +354,7 @@
                                 </div>
                                 <div class="measure__buttons col">
                                     <img class="measure__web__accessibility" src="@/assets/electronic.png" title="По данной мере поддержки есть возможность электронной подачи" alt="">
-                                    <a href="#" class="btn btn-outline-secondary">Получить поддержку</a>
+                                    <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
                                 </div>
                             </div>
                         </div>
@@ -408,7 +408,7 @@
 
 <style lang="scss" scoped>
     $gap: 1rem;
-    $basic-color: #003399;
+    $basic-color: var(--primary);
     $text-color: #212529;
     $support-color: grey;
     $passive-color: #e4e4e4;

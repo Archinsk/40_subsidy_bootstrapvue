@@ -15,7 +15,7 @@
                         <div class="support__date">Приём заявок до 01.11.2021</div>
                         <div class="support__manual">
                             <div class="support__manual__heading mb-2">Инструкция по онлайн подаче заявок</div>
-                            <button class="support__manual__button btn btn-outline-secondary">Посмотреть инструкцию
+                            <button class="support__manual__button btn btn-outline-primary">Посмотреть инструкцию
                             </button>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="support__buttons col-12 col-sm-3">
                             <img src="img/default.jpg" alt="">
-                            <button class="btn btn-outline-secondary ms-2">Подать заявку</button>
+                            <button class="btn btn-outline-primary ms-2">Подать заявку</button>
                         </div>
                     </div>
 

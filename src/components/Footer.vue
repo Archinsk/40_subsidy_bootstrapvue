@@ -70,7 +70,8 @@
 
 <style lang="scss" scoped>
     $gap: 1rem;
-    $basic-color: #003399;
+    /*$basic-color: #003399;*/
+    $basic-color: #325DE9;
     $passive-color: #e4e4e4;
     $active-color: #fff;
 
