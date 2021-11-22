@@ -3,7 +3,7 @@
         <div class="header__wrapper container">
             <b-navbar type="dark">
 
-                <b-navbar-brand href="/">
+                <b-navbar-brand to="/">
                     <img src="@/assets/iss_logo_white.svg" class="d-inline-block align-top logo__image"
                          alt="logo">
                     Навигатор мер поддержки

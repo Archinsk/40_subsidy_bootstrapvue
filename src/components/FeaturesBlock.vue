@@ -25,22 +25,15 @@
             return {
                 columns: 6,
                 features: [
-                    {id: 1, title: "Паспорт", icon: "alarm", link: "https://www.gosuslugi.ru/600102/1/form"},
-                    {id: 2, title: "Загранпаспорт", icon: "flower1", link: "https://www.gosuslugi.ru/600101/1/form"},
+                    {id: 1, title: "Гранты", icon: "alarm", link: "https://www.gosuslugi.ru/600102/1/form"},
+                    {id: 2, title: "Субсидии", icon: "flower1", link: "https://www.gosuslugi.ru/600101/1/form"},
                     {
                         id: 3,
-                        title: "Справка о судимости",
+                        title: "Наука",
                         icon: "briefcase",
                         link: "https://www.gosuslugi.ru/600103/1/form"
                     },
-                    {id: 4, title: "Брак", icon: "bug", link: "https://www.gosuslugi.ru/600105/1/form"},
-                    {id: 5, title: "Развод", icon: "gem", link: "https://www.gosuslugi.ru/600106/1/form"},
-                    {
-                        id: 6,
-                        title: "Решаем вместе",
-                        icon: "globe",
-                        link: "https://www.gosuslugi.ru/help/obratitsya_v_pos"
-                    },
+                    {id: 4, title: "Инновации", icon: "bug", link: "https://www.gosuslugi.ru/600105/1/form"},
                 ],
             }
         },

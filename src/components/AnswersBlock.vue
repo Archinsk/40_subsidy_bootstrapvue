@@ -20,14 +20,10 @@
         data() {
             return {
                 faq: [
-                    {id: 1, question: "COVID"},
-                    {id: 2, question: "Перепись населения"},
-                    {id: 3, question: "Пособия"},
-                    {id: 4, question: "Как зарегистрироваться"},
-                    {id: 5, question: "Как зарегистрироваться"},
-                    {id: 6, question: "Как зарегистрироваться"},
-                    {id: 7, question: "Как зарегистрироваться"},
-                    {id: 8, question: "Как зарегистрироваться"},
+                    {id: 1, question: "Гранты"},
+                    {id: 2, question: "Субсидии"},
+                    {id: 3, question: "Наука"},
+                    {id: 4, question: "Инновации"},
                 ],
             }
         }

@@ -21,7 +21,7 @@
                                     3-й международный форум индустрии архитектурного стекла ArchGlass 2021.
                                 </p>
                                 <div class="card__image_full-width">
-                                    <img src="@/assets/default.jpg" class="card__image" alt="...">
+                                    <img src="@/assets/news/news1.jpg" class="card__image" alt="...">
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
@@ -47,7 +47,7 @@
                                     и деятельности по улучшению бизнес-климата
                                 </p>
                                 <div class="card__image_full-width">
-                                    <img src="@/assets/default.jpg" class="card__image" alt="...">
+                                    <img src="@/assets/news/news2.jpg" class="card__image" alt="...">
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
@@ -72,7 +72,7 @@
                                     новые бизнес-модели на основе цифровых технологий.
                                 </p>
                                 <div class="card__image_full-width">
-                                    <img src="@/assets/default.jpg" class="card__image" alt="...">
+                                    <img src="@/assets/news/news3.jpg" class="card__image" alt="...">
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
@@ -96,7 +96,7 @@
                                     инвестиционного аналитика
                                 </p>
                                 <div class="card__image_full-width">
-                                    <img src="@/assets/default.jpg" class="card__image" alt="...">
+                                    <img src="@/assets/news/news4.jpg" class="card__image" alt="...">
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
@@ -120,7 +120,7 @@
                                     многоаспектную структуру деятельности.
                                 </p>
                                 <div class="card__image_full-width">
-                                    <img src="@/assets/default.jpg" class="card__image" alt="...">
+                                    <img src="@/assets/news/news5.jpg" class="card__image" alt="...">
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
@@ -144,7 +144,7 @@
                                     libraries and languages.
                                 </p>
                                 <div class="card__image_full-width">
-                                    <img src="@/assets/default.jpg" class="card__image" alt="...">
+                                    <img src="@/assets//news/news6.jpg" class="card__image" alt="...">
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
@@ -167,7 +167,7 @@
                                     Министерства промышленности и торговли Российской Федерации.
                                 </p>
                                 <div class="card__image_full-width">
-                                    <img src="@/assets/default.jpg" class="card__image" alt="...">
+                                    <img src="@/assets/news/news7.jpg" class="card__image" alt="...">
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
@@ -192,7 +192,7 @@
                                     ключевыми навыками и практическими приемами.
                                 </p>
                                 <div class="card__image_full-width">
-                                    <img src="@/assets/default.jpg" class="card__image" alt="...">
+                                    <img src="@/assets/news/news8.jpg" class="card__image" alt="...">
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
@@ -217,7 +217,7 @@
                                     ключевыми навыками и практическими приемами.
                                 </p>
                                 <div class="card__image_full-width">
-                                    <img src="@/assets/default.jpg" class="card__image" alt="...">
+                                    <img src="@/assets/news/news9.jpg" class="card__image" alt="...">
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">
@@ -242,7 +242,7 @@
                                     ключевыми навыками и практическими приемами.
                                 </p>
                                 <div class="card__image_full-width">
-                                    <img src="@/assets/default.jpg" class="card__image" alt="...">
+                                    <img src="@/assets/news/news10.jpg" class="card__image" alt="...">
                                 </div>
                                 <div class="card__footer">
                                     <div class="news-source">

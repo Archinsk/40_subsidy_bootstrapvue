@@ -1,6 +1,6 @@
 <template>
     <div>
-        <HeaderOffcavas v-if="!chatIsActive"/>
+        <HeaderOffcavas v-show="!chatIsActive"/>
 
         <main class="content">
 
@@ -11,8 +11,8 @@
             <section class="bot">
                 <Chat :isActive="chatIsActive" :isFlyingUp="flyingRobotUp" :isFlyingDown="flyingRobotDown" :messages="replicsList" @close-chat="closeChat" :quest="inputText"
                       @focus-input="focusInput" @add-quest="addQuest($event)"></Chat>
-                <AnswersBlock v-show="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock>
-                <FeaturesBlock v-show="!chatIsActive"></FeaturesBlock>
+                <AnswersBlock2 v-show="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock2>
+<!--                <FeaturesBlock v-show="!chatIsActive"></FeaturesBlock>-->
             </section>
 
             <section v-show="!chatIsActive" class="advantages">
@@ -200,8 +200,8 @@
     import HeaderOffcavas from "@/components/HeaderOffcavas";
     import Slider from "@/components/Slider";
     import Chat from "@/components/Chat";
-    import AnswersBlock from "@/components/AnswersBlock";
-    import FeaturesBlock from "@/components/FeaturesBlock";
+    import AnswersBlock2 from "@/components/AnswersBlock2";
+    // import FeaturesBlock from "@/components/FeaturesBlock";
     import Footer from "@/components/Footer";
 
     export default {
@@ -212,8 +212,8 @@
             HeaderOffcavas,
             Slider,
             Chat,
-            AnswersBlock,
-            FeaturesBlock,
+            AnswersBlock2,
+            // FeaturesBlock,
             Footer,
         },
 
@@ -249,7 +249,7 @@
                         ]
                     },
                     {
-                        id: 3, keywords: ['грант'], answers: [
+                        id: 3, keywords: ['грант', 'гранты'], answers: [
                             {
                                 content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
                                 link: './subsidyinfo1'
@@ -262,6 +262,38 @@
                                 content: 'Гранты субъектам малого и среднего предпринимательства на реализацию проектов в приоритетных сферах экономики',
                                 link: './subsidyinfo3'
                             }
+                        ]
+                    },
+{
+                        id: 4, keywords: ['субсидия', 'субсидии'], answers: [
+                            {
+                                content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+                                link: './subsidyinfo1'
+                            },
+                            {
+                                content: 'Гранты в форме субсидии на развитие инновационного проекта',
+                                link: './subsidyinfo2'
+                            },
+                        ]
+                    },
+{
+                        id: 5, keywords: ['инновация', 'инновации'], answers: [
+                            {
+                                content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+                                link: './subsidyinfo1'
+                            },
+                            {
+                                content: 'Гранты в форме субсидии на развитие инновационного проекта',
+                                link: './subsidyinfo2'
+                            },
+                        ]
+                    },
+{
+                        id: 6, keywords: ['наука'], answers: [
+                            {
+                                content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+                                link: './subsidyinfo1'
+                            },
                         ]
                     },
 

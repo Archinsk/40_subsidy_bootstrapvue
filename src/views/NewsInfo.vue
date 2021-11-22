@@ -17,7 +17,7 @@
                     <span>10:15 <b>7 августа 2021</b></span>
                 </div>
                 <div class="news-article__image_full-width">
-                    <img src="@/assets/default.jpg" class="news-article__main-image" alt="...">
+                    <img src="@/assets/news/news2.jpg" class="news-article__main-image" alt="...">
                 </div>
                 <div class="content">
                     <p>Стань частью мирового data-сообщества!</p>

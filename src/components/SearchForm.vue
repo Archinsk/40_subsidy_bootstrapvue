@@ -15,7 +15,7 @@
                             @focus="$emit('focus-input')"
                     ></b-form-input>
                 </b-form-group>
-                <b-button type="submit" class="rounded-circle">
+                <b-button type="submit" class="rounded-circle" tabindex="-1">
                     <span class="material-icons">send</span>
                 </b-button>
             </b-form>
