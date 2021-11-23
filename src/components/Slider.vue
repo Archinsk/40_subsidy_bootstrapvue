@@ -20,7 +20,7 @@
             <template #img>
                 <img
                         class="d-block img-fluid w-100"
-                        src="@/assets/banner11.jpg"
+                        src="@/assets/banners/banner_21.jpg"
                         alt="слот изображения"
                 >
             </template>
@@ -32,7 +32,7 @@
             <template #img>
                 <img
                         class="d-block img-fluid w-100"
-                        src="@/assets/banner22.jpg"
+                        src="@/assets/banners/banner_24.jpg"
                         alt="слот изображения"
                 >
             </template>
@@ -44,7 +44,7 @@
             <template #img>
                 <img
                         class="d-block img-fluid w-100"
-                        src="@/assets/banner33.jpg"
+                        src="@/assets/banners/banner_23.jpg"
                         alt="слот изображения"
                 >
             </template>
