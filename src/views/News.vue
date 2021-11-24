@@ -303,42 +303,28 @@
                             </div>
                         </div>
 
-                        <div class="col">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-text-block">
-                                        <router-link to="/newsinfo" class="news-link stretched-link">
-                                            <h5 class="card-title">Мастер-класс по личностному росту на
-                                                тему:
-                                                "Мотивация
-                                                в
-                                                работе с
-                                                командой"</h5>
-                                        </router-link>
-                                        <p class="card-text">
-                                            Обучающее мероприятие, направленное на разработку общественных
-                                            инициатив участников проекта, посредством образовательной
-                                            составляющей,
-                                            подкрепленной
-                                            ключевыми навыками и практическими приемами.
-                                        </p>
-                                    </div>
-                                    <div class="card__image_full-width">
-                                        <img src="@/assets/default.jpg" class="card__image" alt="...">
-                                    </div>
-                                    <div class="card__footer">
-                                        <div class="news-source">
-                                            <img src="@/assets/rialogo.jpg" alt=""
-                                                 class="news-source__logo">
-                                            <a href="#" class="news-source__link">РИА Новости</a>
-                                        </div>
-                                        <span>10:15</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
+
+                    <div class="measure__pagination">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
                 </div>
             </section>
 
@@ -402,7 +388,11 @@
                     flex-direction: column;
 
                     .card-text-block {
+                        display: flex;
+                        flex-direction: column;
+                        height: 100%;
                         flex: 1;
+                        margin-bottom: 1.25rem;
 
                         .news-link {
                             text-decoration: none;
@@ -414,6 +404,7 @@
                         }
 
                         .card-text {
+                            flex: 1;
                             display: -webkit-box;
                             -webkit-line-clamp: 4;
                             -webkit-box-orient: vertical;
@@ -424,7 +415,6 @@
 
                     .card__image_full-width {
                         height: 140px;
-                        flex-basis: 140px;
                         overflow: hidden;
                         display: flex;
                         align-items: center;
@@ -467,6 +457,7 @@
             .news-important {
                 .card {
                     .card-body {
+                        height: 100%;
 
                         @media (min-width: 576px) {
                             flex-wrap: wrap;
@@ -475,25 +466,28 @@
 
                         .card-text-block {
 
-                            .news-link {
+                            @media (min-width: 576px) {
+                                width: calc((100% - 2px - 3rem) / 2);
+                            }
+                            /*.news-link {
 
                                 @media (min-width: 576px) {
-                                    width: calc((100% - 2px - 2.5rem) / 2);
+                                    width: calc((100% - 2px - 3rem) / 2);
                                 }
 
                                 .card-title {
 
                                     @media (min-width: 576px) {
-                                        width: calc((100% - 2px - 2.5rem) / 2);
+                                        width: calc((100% - 2px - 3rem) / 2);
                                     }
                                 }
-                            }
+                            }*/
 
                             .card-text {
 
-                                @media (min-width: 576px) {
-                                    width: calc((100% - 2px - 2.5rem) / 2);
-                                }
+                                /*@media (min-width: 576px) {*/
+                                /*    width: calc((100% - 2px - 3rem) / 2);*/
+                                /*}*/
                             }
                         }
 
@@ -519,7 +513,7 @@
                         .card__footer {
 
                             @media (min-width: 576px) {
-                                width: calc((100% - 2px - 2.5rem) / 2);
+                                width: calc((100% - 2px - 3rem) / 2);
                             }
                         }
                     }

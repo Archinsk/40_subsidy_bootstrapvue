@@ -56,6 +56,7 @@
 </script>
 
 <style lang="scss" scoped>
+    $basic-color: #325DE9;
     $col-gap: 0.5rem;
 
     .feature-section {
@@ -86,6 +87,10 @@
 
                     .material-icons {
                         font-size: 2.5em;
+                    }
+
+                    &:hover {
+                        color: $basic-color;
                     }
                 }
             }
