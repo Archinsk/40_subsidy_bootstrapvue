@@ -6,7 +6,7 @@
 
             <section class="news-page">
                 <div class="news__wrapper container">
-                    <h2 class="news__header text-center py-2">Новости</h2>
+                    <h4 class="news__header text-center py-2">Новости</h4>
 
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
                         <div class="news-important col col-sm-12 col-lg-8">

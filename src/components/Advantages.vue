@@ -66,7 +66,6 @@
 
 <style scoped>
     .advantage__image {
-        display: block!important;
         padding: 1rem;
         width: 100%;
         border-radius: 50%;
