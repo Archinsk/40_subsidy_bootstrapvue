@@ -30,7 +30,7 @@
                     <li><a href="tel:+78007751986" class="footer__phone">8-800-775-1986</a></li>
                     <li><a href="tel:+73833541011" class="footer__phone">8-383-354-1011</a></li>
                     <li><a href="mailto:info@isands.ru" class="footer__mail">info@isands.ru</a></li>
-                    <li><a href="#" class="footer__support">Техническая поддержка</a></li>
+                    <li><b-button href="#" variant="link" v-b-modal.modal-1>Техническая поддержка</b-button></li>
                 </ul>
                 <ul class="footer__links col-md-5">
                     <li><router-link to="/news">Новости</router-link></li>
@@ -43,13 +43,23 @@
             <div class="footer__copyright">
                 Все права защищены
             </div>
+
+            <b-modal id="modal-1" title="Обратная связь" hide-footer>
+                <SupportRequestForm></SupportRequestForm>
+            </b-modal>
+
         </div>
     </footer>
 </template>
 
 <script>
+    import SupportRequestForm from "@/components/SupportRequestForm";
     export default {
-        name: "Footer"
+        name: "Footer",
+
+        components: {
+            SupportRequestForm,
+        }
     }
 </script>
 
@@ -113,6 +123,13 @@
                     &:hover {
                         color: $active-color;
                     }
+                }
+
+                /*For modal Support Request Form*/
+                .btn {
+                    vertical-align: initial;
+                    border: none;
+                    padding: 0;
                 }
             }
         }

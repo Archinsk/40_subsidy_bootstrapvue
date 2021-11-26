@@ -5,7 +5,7 @@
         <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4">
             <div class="col">
                 <div class="h-100">
-                    <img src="@/assets/advantages/adv1.jpg" class="advantage__image" alt="...">
+                    <img src="@/assets/advantages/adv21.jpg" class="advantage__image" alt="...">
                     <div class="advantage__comment text-center">
                         <h5 class="card-title">Контракты</h5>
                         <p class="card-text">
@@ -16,7 +16,7 @@
             </div>
             <div class="col">
                 <div class="h-100">
-                    <img src="@/assets/advantages/adv2.jpg" class="advantage__image" alt="...">
+                    <img src="@/assets/advantages/adv22.jpg" class="advantage__image" alt="...">
                     <div class="advantage__comment text-center">
                         <h5 class="card-title">Партнеры</h5>
                         <p class="card-text">
@@ -27,7 +27,7 @@
             </div>
             <div class="col">
                 <div class="h-100">
-                    <img src="@/assets/advantages/adv3.jpg" class="advantage__image" alt="...">
+                    <img src="@/assets/advantages/adv23.jpg" class="advantage__image" alt="...">
                     <div class="advantage__comment text-center">
                         <h5 class="card-title">Поддержка</h5>
                         <p class="card-text">
@@ -38,7 +38,7 @@
             </div>
             <div class="col">
                 <div class="h-100">
-                    <img src="@/assets/advantages/adv4.jpg" class="advantage__image" alt="...">
+                    <img src="@/assets/advantages/adv24.jpg" class="advantage__image" alt="...">
                     <div class="advantage__comment text-center">
                         <h5 class="card-title">Поиск</h5>
                         <p class="card-text">Открывайте новые возможности с помощью поиска на основе

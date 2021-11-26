@@ -303,6 +303,10 @@
                             </div>
                         </div>
 
+                        <div class="col">
+                            <NewsCard :news="singleNewsJson"></NewsCard>
+                        </div>
+
                     </div>
 
                     <div class="measure__pagination">
@@ -336,6 +340,7 @@
 
 <script>
     import HeaderOffcavas from "@/components/HeaderOffcavas";
+    import NewsCard from "@/components/NewsCard";
     import Footer from "@/components/Footer";
 
     export default {
@@ -343,8 +348,33 @@
 
         components: {
             HeaderOffcavas,
+            NewsCard,
             Footer,
         },
+
+        data() {
+            return {
+                singleNewsJson: {
+                    "title": "Заголовок компонента карточки",
+                    "text": "Конференция по Стратегии комплексного развития территорий соберет экспертное сообщество и реальные кейсы на примере которых будут рассмотрены вопросы территориального планирования, земельного администрирования, технического регулирования и деятельности по улучшению бизнес-климата",
+                    "image": {
+                        "path": "@/assets/news/",
+                        "file_name": "news2.jpg",
+                    },
+                    "link": "/newsinfo",
+                    "importance": false,
+                    "publication_date": "10:15",
+                    "source": {
+                        "logo": {
+                            "path": "@/assets/",
+                            "file_name": "rialogo.jpg",
+                        },
+                        "title": "РИА Новости",
+                        "link": "https://ria.ru"
+                    }
+                }
+            }
+        }
     }
 </script>
 

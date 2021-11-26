@@ -6,8 +6,7 @@
             :interval="0"
             controls
             indicators
-            background="#003399"
-            img-width="1920"
+            background="var(--primary)"
             img-height="400"
             style="text-shadow: 1px 1px 2px #333;"
             @sliding-start="onSlideStart"
@@ -19,7 +18,6 @@
         >
             <template #img>
                 <img
-                        class="d-block img-fluid w-100"
                         src="@/assets/banners/banner_21.jpg"
                         alt="слот изображения"
                 >
@@ -31,7 +29,6 @@
         >
             <template #img>
                 <img
-                        class="d-block img-fluid w-100"
                         src="@/assets/banners/banner_24.jpg"
                         alt="слот изображения"
                 >
@@ -43,7 +40,6 @@
         >
             <template #img>
                 <img
-                        class="d-block img-fluid w-100"
                         src="@/assets/banners/banner_23.jpg"
                         alt="слот изображения"
                 >
@@ -72,6 +68,54 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+    .carousel-item {
 
+        img {
+
+            @media (max-width: 575.98px) {
+                height: 180px;
+            }
+        }
+
+        .carousel-caption {
+            padding-left: 15px;
+            padding-right: 15px;
+
+            @media (max-width: 575.98px) {
+                height: 90px;
+                width: 100%;
+                position: static;
+                display: block;
+            }
+
+            h3 {
+
+                @media (max-width: 575.98px) {
+                    font-size: 1.25rem;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            p {
+
+                @media (max-width: 575.98px) {
+                    display: none;
+                }
+
+            }
+        }
+
+        &.active, &carousel-item-next, &.carousel-item-prev {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+
+    .carousel-indicators {
+        margin-bottom: 0.5rem;
+    }
 </style>
