@@ -6,9 +6,9 @@
 
         <article class="news-article">
             <div class="news-article__wrapper container">
-                <h2 class="news-article__header text-center py-2">
+                <h4 class="news-article__header text-center py-2">
                     Data-Хакатон World AI&Data Challenge по решению глобальных социальных задач
-                </h2>
+                </h4>
                 <div class="news-article__author">
                     <div class="news-article-source">
                         <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">

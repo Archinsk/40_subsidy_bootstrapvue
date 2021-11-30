@@ -1,6 +1,6 @@
 <template>
     <div class="advantages__wrapper container">
-        <h2 class="advantages__header text-center py-2">Наши преимущества</h2>
+        <h4 class="advantages__header text-center py-2">Наши преимущества</h4>
 
         <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4">
             <div class="col">

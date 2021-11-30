@@ -13,7 +13,6 @@
             <div class="card__footer">
                 <div class="news-source">
                     <img :src="news.source.logo.path + news.source.logo.file_name" alt="Логотип новостного источника" class="news-source__logo">
-                    <img :src="sourceLogoFile" alt="Логотип новостного источника" class="news-source__logo">
                     <a :href="news.source.link" class="news-source__link">{{news.source.title}}</a>
                 </div>
                 <span>{{news.publication_date}}</span>
@@ -37,11 +36,8 @@
         },
 
         computed: {
-            sourceLogoFile() {
-                console.log(this.news.source.logo.path + this.news.source.logo.file_name);
-                return require(this.news.source.logo.path + this.news.source.logo.file_name)
-            }
-        }
+
+        },
     }
 </script>
 
@@ -82,10 +78,6 @@
                 .news-link {
                     text-decoration: none;
                     color: $text-color;
-
-                    .card-title {
-
-                    }
                 }
 
                 .card-text {
@@ -134,8 +126,6 @@
                     }
                 }
             }
-
-
         }
     }
 
@@ -153,26 +143,6 @@
 
                     @media (min-width: 576px) {
                         width: calc((100% - 2px - 3rem) / 2);
-                    }
-                    /*.news-link {
-
-                        @media (min-width: 576px) {
-                            width: calc((100% - 2px - 3rem) / 2);
-                        }
-
-                        .card-title {
-
-                            @media (min-width: 576px) {
-                                width: calc((100% - 2px - 3rem) / 2);
-                            }
-                        }
-                    }*/
-
-                    .card-text {
-
-                        /*@media (min-width: 576px) {*/
-                        /*    width: calc((100% - 2px - 3rem) / 2);*/
-                        /*}*/
                     }
                 }
 

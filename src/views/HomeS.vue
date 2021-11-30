@@ -22,98 +22,11 @@
 
             <section v-show="!chatIsActive" class="news mb-2">
                 <div class="news__wrapper container">
-                    <h2 class="news__header text-center py-2">Новости</h2>
-
-                    <div class="row row-news row-cols-1 row-cols-sm-2 row-cols-lg-3">
-                        <div class="col">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-text-block">
-                                        <router-link to="/newsinfo" class="news-link stretched-link">
-                                            <h5 class="card-title">ArchGlass 2021 - Международный форум индустрии
-                                                архитектурного
-                                                стекла</h5>
-                                        </router-link>
-                                        <p class="card-text">
-                                            Союз архитекторов России и Союз московских архитекторов приглашают на
-                                            3-й международный форум индустрии архитектурного стекла ArchGlass 2021.
-                                        </p>
-                                    </div>
-                                    <div class="card__image_full-width">
-                                        <img src="@/assets/news/news1.jpg" class="card__image" alt="...">
-                                    </div>
-                                    <div class="card__footer">
-                                        <div class="news-source">
-                                            <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
-                                            <a href="#" class="news-source__link">РИА Новости</a>
-                                        </div>
-                                        <span>10:15</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-text-block">
-                                        <router-link to="/newsinfo" class="news-link stretched-link">
-                                            <h5 class="card-title">Territorial development strategy</h5>
-                                        </router-link>
-                                        <p class="card-text">
-                                            Конференция по Стратегии комплексного развития территорий соберет
-                                            экспертное сообщество и реальные кейсы на примере которых будут
-                                            рассмотрены
-                                            вопросы
-                                            территориального планирования, земельного администрирования,
-                                            технического
-                                            регулирования
-                                            и деятельности по улучшению бизнес-климата
-                                        </p>
-                                    </div>
-                                    <div class="card__image_full-width">
-                                        <img src="@/assets/news/news2.jpg" class="card__image" alt="...">
-                                    </div>
-                                    <div class="card__footer">
-                                        <div class="news-source">
-                                            <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
-                                            <a href="https://ria.ru" class="news-source__link">РИА Новости</a>
-                                        </div>
-                                        <span>10:15</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-text-block">
-                                        <router-link to="/newsinfo" class="news-link stretched-link">
-                                            <h5 class="card-title">Цифровизация транспорта 2021. Процесс трансформации:
-                                                оценка и
-                                                перспективы</h5>
-                                        </router-link>
-                                        <p class="card-text">
-                                            Лидеры отрасли уже реализуют свои собственные стратегии и внедряют
-                                            новые бизнес-модели на основе цифровых технологий.
-                                        </p>
-                                    </div>
-                                    <div class="card__image_full-width">
-                                        <img src="@/assets/news/news3.jpg" class="card__image" alt="...">
-                                    </div>
-                                    <div class="card__footer">
-                                        <div class="news-source">
-                                            <img src="@/assets/rialogo.jpg" alt="" class="news-source__logo">
-                                            <a href="#" class="news-source__link">РИА Новости</a>
-                                        </div>
-                                        <span>10:15</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="news__header text-center py-2">Новости</h4>
+                        <router-link to="/news">Больше новостей</router-link>
                     </div>
-
+                    <NewsCardsList :newsPack="singleNewsJson" count="3" :everythingLittle="true"></NewsCardsList>
                 </div>
             </section>
 
@@ -128,8 +41,9 @@
     import Chat from "@/components/Chat";
     import AnswersBlock2 from "@/components/AnswersBlock2";
     // import FeaturesBlock from "@/components/FeaturesBlock";
-    import Footer from "@/components/Footer";
     import Advantages from "@/components/Advantages";
+    import NewsCardsList from "@/components/NewsCardsList";
+    import Footer from "@/components/Footer";
 
     export default {
 
@@ -142,6 +56,7 @@
             AnswersBlock2,
             Advantages,
             // FeaturesBlock,
+            NewsCardsList,
             Footer,
         },
 
@@ -229,6 +144,208 @@
                 chatIsActive: false,
                 flyingRobotUp: false,
                 flyingRobotDown: false,
+                singleNewsJson: [
+                    {
+                        "id": 1,
+                        "title": "ArchGlass 2021 - Международный форум индустрии архитектурного стекла",
+                        "text": "Союз архитекторов России и Союз московских архитекторов приглашают на 3-й международный форум индустрии архитектурного стекла ArchGlass 2021.",
+                        "image": {
+                            "path": "images/news/",
+                            "file_name": "news1.jpg",
+                        },
+                        "link": "/newsinfo",
+                        "importance": true,
+                        "publication_date": "10:15",
+                        "source": {
+                            "logo": {
+                                "path": "images/news_source_logo/",
+                                "file_name": "rialogo.jpg",
+                            },
+                            "title": "РИА Новости",
+                            "link": "https://ria.ru"
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "title": "Territorial development strategy",
+                        "text": "Конференция по Стратегии комплексного развития территорий соберет экспертное сообщество и реальные кейсы на примере которых будут рассмотрены вопросы территориального планирования, земельного администрирования, технического регулирования и деятельности по улучшению бизнес-климата",
+                        "image": {
+                            "path": "images/news/",
+                            "file_name": "news2.jpg",
+                        },
+                        "link": "/newsinfo",
+                        "importance": false,
+                        "publication_date": "10:15",
+                        "source": {
+                            "logo": {
+                                "path": "images/news_source_logo/",
+                                "file_name": "rialogo.jpg",
+                            },
+                            "title": "РИА Новости",
+                            "link": "https://ria.ru"
+                        }
+                    },
+                    {
+                        "id": 3,
+                        "title": "Цифровизация транспорта 2021. Процесс трансформации: оценка и перспективы",
+                        "text": "Лидеры отрасли уже реализуют свои собственные стратегии и внедряют новые бизнес-модели на основе цифровых технологий.",
+                        "image": {
+                            "path": "images/news/",
+                            "file_name": "news3.jpg",
+                        },
+                        "link": "/newsinfo",
+                        "importance": false,
+                        "publication_date": "10:15",
+                        "source": {
+                            "logo": {
+                                "path": "images/news_source_logo/",
+                                "file_name": "rialogo.jpg",
+                            },
+                            "title": "РИА Новости",
+                            "link": "https://ria.ru"
+                        }
+                    },
+                    {
+                        "id": 4,
+                        "title": "МАСТЕР - КЛАСС \"ОСНОВЫ ИНВЕСТИЦИОННОЙ ГРАМОТНОСТИ В 21 ВЕКЕ\" от Rocket University",
+                        "text": "Погружение в мир современных финансов. Инструменты инвестиций. Игра - симуляция работы инвестиционного аналитика",
+                        "image": {
+                            "path": "images/news/",
+                            "file_name": "news4.jpg",
+                        },
+                        "link": "/newsinfo",
+                        "importance": true,
+                        "publication_date": "10:15",
+                        "source": {
+                            "logo": {
+                                "path": "images/news_source_logo/",
+                                "file_name": "rialogo.jpg",
+                            },
+                            "title": "РИА Новости",
+                            "link": "https://ria.ru"
+                        }
+                    },
+                    {
+                        "id": 5,
+                        "title": "Digital Transformation Day 2021",
+                        "text": "В ходе конференции предлагается обсудить следующий круг вопросов: Цифровая трансформация бизнеса крупной компании как комплексный взгляд на сложную многоаспектную структуру деятельности.",
+                        "image": {
+                            "path": "images/news/",
+                            "file_name": "news5.jpg",
+                        },
+                        "link": "/newsinfo",
+                        "importance": false,
+                        "publication_date": "10:15",
+                        "source": {
+                            "logo": {
+                                "path": "images/news_source_logo/",
+                                "file_name": "rialogo.jpg",
+                            },
+                            "title": "РИА Новости",
+                            "link": "https://ria.ru"
+                        }
+                    },
+                    {
+                        "id": 6,
+                        "title": "ODSC APAC Virtual Conference 2021",
+                        "text": "ODSC APAC Virtual Conference 2021 is one of the largest applied data science conferences. Our speakers include core contributors to many open source libraries and languages.",
+                        "image": {
+                            "path": "images/news/",
+                            "file_name": "news6.jpg",
+                        },
+                        "link": "/newsinfo",
+                        "importance": false,
+                        "publication_date": "10:15",
+                        "source": {
+                            "logo": {
+                                "path": "images/news_source_logo/",
+                                "file_name": "rialogo.jpg",
+                            },
+                            "title": "РИА Новости",
+                            "link": "https://ria.ru"
+                        }
+                    },
+                    {
+                        "id": 7,
+                        "title": "ChipEXPO-2021",
+                        "text": "Выставка включена в план официальных выставочных мероприятий Министерства промышленности и торговли Российской Федерации.",
+                        "image": {
+                            "path": "images/news/",
+                            "file_name": "news7.jpg",
+                        },
+                        "link": "/newsinfo",
+                        "importance": false,
+                        "publication_date": "10:15",
+                        "source": {
+                            "logo": {
+                                "path": "images/news_source_logo/",
+                                "file_name": "rialogo.jpg",
+                            },
+                            "title": "РИА Новости",
+                            "link": "https://ria.ru"
+                        }
+                    },
+                    {
+                        "id": 8,
+                        "title": "Мастер-класс по личностному росту на тему: \"Мотивация в работе с командой\"",
+                        "text": "Обучающее мероприятие, направленное на разработку общественных инициатив участников проекта, посредством образовательной составляющей, подкрепленной ключевыми навыками и практическими приемами.",
+                        "image": {
+                            "path": "images/news/",
+                            "file_name": "news8.jpg",
+                        },
+                        "link": "/newsinfo",
+                        "importance": false,
+                        "publication_date": "10:15",
+                        "source": {
+                            "logo": {
+                                "path": "images/news_source_logo/",
+                                "file_name": "rialogo.jpg",
+                            },
+                            "title": "РИА Новости",
+                            "link": "https://ria.ru"
+                        }
+                    },
+                    {
+                        "id": 9,
+                        "title": "Мастер-класс по личностному росту на тему: \"Мотивация в работе с командой\"",
+                        "text": "Обучающее мероприятие, направленное на разработку общественных инициатив участников проекта, посредством образовательной составляющей, подкрепленной ключевыми навыками и практическими приемами.",
+                        "image": {
+                            "path": "images/news/",
+                            "file_name": "news9.jpg",
+                        },
+                        "link": "/newsinfo",
+                        "importance": false,
+                        "publication_date": "10:15",
+                        "source": {
+                            "logo": {
+                                "path": "images/news_source_logo/",
+                                "file_name": "rialogo.jpg",
+                            },
+                            "title": "РИА Новости",
+                            "link": "https://ria.ru"
+                        }
+                    },
+                    {
+                        "id": 10,
+                        "title": "Мастер-класс по личностному росту на тему: \"Мотивация в работе с командой\"",
+                        "text": "Обучающее мероприятие, направленное на разработку общественных инициатив участников проекта, посредством образовательной составляющей, подкрепленной ключевыми навыками и практическими приемами.",
+                        "image": {
+                            "path": "images/news/",
+                            "file_name": "news10.jpg",
+                        },
+                        "link": "/newsinfo",
+                        "importance": false,
+                        "publication_date": "10:15",
+                        "source": {
+                            "logo": {
+                                "path": "images/news_source_logo/",
+                                "file_name": "rialogo.jpg",
+                            },
+                            "title": "РИА Новости",
+                            "link": "https://ria.ru"
+                        }
+                    },
+                ]
             }
         },
 
@@ -293,7 +410,6 @@
                 } else {
                     answer = {
                         author: "bot", content: 'Извините, я ничего не нашёл.'
-                        // , я ничего не нашел
                     };
                 }
                 answer.id = this.replics.length + 1;
@@ -309,9 +425,6 @@
 
 <style lang="scss" scoped>
     $back-color: #6688CC;
-    $gap: 0.5rem;
-    $text-color: #212529;
-    $muted-color: #6c757d;
 
     .content {
 
@@ -319,600 +432,5 @@
             overflow: hidden;
             background-color: $back-color;
         }
-
-        .advantages {
-
-
-        }
-
-        .row-news {
-            margin-left: -$gap/2;
-            margin-right: -$gap/2;
-
-            & > * {
-                padding-left: $gap/2;
-                padding-right: $gap/2;
-                margin-bottom: $gap;
-            }
-
-            .card {
-
-                @media (min-width: 576px) {
-                    height: 478px;
-                }
-
-                @media (min-width: 768px) {
-                    height: 404px;
-                }
-
-                @media (min-width: 992px) {
-                    height: 430px;
-                }
-
-                @media (min-width: 1200px) {
-                    height: 406px;
-                }
-
-                .card-body {
-                    display: flex;
-                    flex-direction: column;
-
-                    .card-text-block {
-                        display: flex;
-                        flex-direction: column;
-                        height: 100%;
-                        flex: 1;
-                        margin-bottom: 1.25rem;
-
-                        .news-link {
-                            text-decoration: none;
-                            color: $text-color;
-
-                            .card-title {
-
-                            }
-                        }
-
-                        .card-text {
-                            flex: 1;
-                            display: -webkit-box;
-                            -webkit-line-clamp: 4;
-                            -webkit-box-orient: vertical;
-                            overflow: hidden;
-
-                        }
-                    }
-
-                    .card__image_full-width {
-                        height: 140px;
-                        overflow: hidden;
-                        display: flex;
-                        align-items: center;
-                        border-radius: 0.25rem;
-                        margin-bottom: 1rem;
-
-                        .card__image {
-                            width: 100%;
-                        }
-                    }
-
-                    .card__footer {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        color: $muted-color;
-
-                        .news-source {
-                            display: flex;
-                            align-items: center;
-
-                            .news-source__logo {
-                                height: 1.5rem;
-                                margin-right: 0.5rem;
-                                border-radius: 0.125rem;
-                            }
-
-                            .news-source__link {
-                                text-decoration: none;
-                                color: $muted-color;
-                                z-index: 1000;
-                            }
-                        }
-                    }
-
-
-                }
-            }
-
-            .news-important {
-                .card {
-                    .card-body {
-                        height: 100%;
-
-                        @media (min-width: 576px) {
-                            flex-wrap: wrap;
-                            align-content: space-between;
-                        }
-
-                        .card-text-block {
-
-                            @media (min-width: 576px) {
-                                width: calc((100% - 2px - 3rem) / 2);
-                            }
-                            /*.news-link {
-
-                                @media (min-width: 576px) {
-                                    width: calc((100% - 2px - 3rem) / 2);
-                                }
-
-                                .card-title {
-
-                                    @media (min-width: 576px) {
-                                        width: calc((100% - 2px - 3rem) / 2);
-                                    }
-                                }
-                            }*/
-
-                            .card-text {
-
-                                /*@media (min-width: 576px) {*/
-                                /*    width: calc((100% - 2px - 3rem) / 2);*/
-                                /*}*/
-                            }
-                        }
-
-                        .card__image_full-width {
-
-                            @media (min-width: 576px) {
-                                order: -1;
-                                height: 100%;
-                                margin-bottom: 0;
-                                justify-content: center;
-                                width: calc(50% + 0.25rem + 1px);
-                            }
-
-                            .card__image {
-
-                                @media (min-width: 576px) {
-                                    height: 100%;
-                                    width: auto;
-                                }
-                            }
-                        }
-
-                        .card__footer {
-
-                            @media (min-width: 576px) {
-                                width: calc((100% - 2px - 3rem) / 2);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /*.news {
-            .row {
-                margin: -0.5em -0.25em 0;
-            }
-
-            .row > * {
-                margin-top: 0.5em;
-                padding-left: 0.25em;
-                padding-right: 0.25em;
-            }
-        }*/
-
-        .news-page {
-
-            .card {
-
-                .card-body {
-                    display: flex;
-                    flex-direction: column;
-
-                    .stretched-link {
-                        text-decoration: none;
-                        color: #212529;
-
-                        .card-title {
-                            text-decoration: none;
-                            color: #212529;
-                        }
-                    }
-
-                    .card-text {
-                        flex: 1;
-                    }
-
-                    .card__image_full-width {
-                        height: 140px;
-                        overflow: hidden;
-                        display: flex;
-                        align-items: center;
-                        border-radius: 0.25rem;
-                        margin-bottom: 1rem;
-
-                        .card__image {
-                            width: 100%;
-                        }
-                    }
-
-                    .card__footer {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        color: #6c757d;
-
-                        .news-source {
-                            display: flex;
-                            align-items: center;
-
-                            .news-source__logo {
-                                height: 24px;
-                                margin-right: 0.5rem;
-                                border-radius: 0.125rem;
-                            }
-
-                            .news-source__link {
-                                text-decoration: none;
-                                color: #6c757d;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .news-important {
-                .card {
-                    @media (min-width: 576px) {
-                        max-height: 430px;
-                    }
-
-                    .card-body {
-
-                        @media (min-width: 576px) {
-                            height: 100%;
-                            flex-wrap: wrap;
-                            align-content: space-between;
-                        }
-
-                        .stretched-link {
-
-                            @media (min-width: 576px) {
-                                width: calc((100% - 2px - 2.5rem) / 2);
-                            }
-                        }
-
-                        .card-text {
-                            @media (min-width: 576px) {
-                                width: calc((100% - 2px - 2.5rem) / 2);
-                            }
-                        }
-
-                        .card__image_full-width {
-
-
-                            @media (min-width: 576px) {
-                                order: -1;
-                                height: 100%;
-                                margin-bottom: 0;
-                                justify-content: center;
-                                width: calc(50% + 0.25rem + 1px);
-                            }
-
-                            .card__image {
-
-                                @media (min-width: 576px) {
-                                    height: 100%;
-                                    width: auto;
-                                }
-                            }
-                        }
-
-                        .card__footer {
-                            @media (min-width: 576px) {
-                                width: calc((100% - 2px - 2.5rem) / 2);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        .news-article {
-
-            .news-article__author {
-                height: 3rem;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 1rem;
-                color: #6c757d;
-
-                .news-article-source {
-                    height: 100%;
-
-                    .news-source__logo {
-                        height: 100%;
-                        margin-right: 0.5rem;
-                        border-radius: 0.25rem;
-                    }
-
-                    .news-source__link {
-                        text-decoration: none;
-                        color: #6c757d;
-                    }
-                }
-            }
-
-            .news-article__image_full-width {
-                height: 15rem;
-                display: flex;
-                align-items: center;
-                overflow: hidden;
-                border-radius: 0.25rem;
-                margin-bottom: 1rem;
-
-                @media (min-width: 576px) {
-                    height: 25rem;
-                }
-
-                @media (min-width: 768px) {
-                    height: 25rem;
-                }
-
-                @media (min-width: 992px) {
-                    height: 30rem;
-                }
-
-                @media (min-width: 1200px) {
-                    height: 35rem;
-                }
-
-                @media (min-width: 1400px) {
-                    height: 40rem;
-                }
-
-                .news-article__main-image {
-                    width: 100%;
-                }
-            }
-
-            .carousel {
-                margin-bottom: 1rem;
-
-                .carousel-inner {
-
-                    .carousel-item {
-                        height: 20rem;
-
-                        img {
-                            height: auto;
-                            transform: translate(0, calc(-50% + 10rem));
-                        }
-                    }
-                }
-            }
-
-            .news-article__tags {
-                margin-bottom: 1rem;
-
-                a {
-                    margin-left: 1rem;
-                }
-            }
-
-            .news-article__comments {
-                margin-bottom: 1rem;
-            }
-        }
-
-
-        .measures {
-
-            .measure__card {
-
-                .card-body {
-                    display: flex;
-
-                    .card-title {
-
-                        a {
-                            text-decoration: none;
-                            color: #212529;
-                        }
-                    }
-                }
-
-                .card-footer {
-                    display: flex;
-                    justify-content: space-between;
-
-                    .measure__owner__logo {
-                        display: flex;
-                        align-items: center;
-
-                        .measure__owner__logo__image {
-                            height: 38px;
-                        }
-
-                        .measure__owner__logo__text {
-                            font-size: 0.75rem;
-                        }
-                    }
-
-                    .measure__details {
-                        display: flex;
-                        align-items: center;
-
-                        .measure__size {
-                            font-size: 0.75rem;
-                        }
-
-                        .measure__web__accessibility {
-                            height: 38px;
-                        }
-
-                        .btn {
-
-                        }
-                    }
-                }
-            }
-        }
-
-        .support {
-
-            .support__header {
-
-                .support__details {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-
-                    .support__manual {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: flex-end;
-
-                        .support__manual__heading {
-
-                        }
-                    }
-                }
-            }
-
-            .support__card {
-
-                .support__card__header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-
-                    .support__owner {
-
-                        .support__owner__logo {
-                            display: flex;
-                            align-items: center;
-
-                            img {
-                                height: 38px;
-                            }
-                        }
-                    }
-
-                    .support__conditions {
-
-                    }
-
-                    .support__buttons {
-                        display: flex;
-                        align-items: center;
-                        justify-content: flex-end;
-
-                        img {
-                            height: 38px;
-                        }
-                    }
-                }
-
-                .support__card__body {
-
-                    .tab-content {
-                        background-color: white;
-                        border-radius: 0.25rem;
-                    }
-                }
-            }
-
-            .support__info__additional {
-                ul {
-                    background-color: white;
-                    border-radius: 0.25rem;
-                }
-            }
-
-            .support__contacts {
-
-                .col-12 {
-                    background-color: white;
-                    border-radius: 0.25rem;
-                }
-            }
-
-        }
-
-        .profile {
-
-            .profile__user__info {
-                display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
-
-                .profile__user__info__details {
-                    display: flex;
-                    align-items: center;
-
-                    .profile__avatar {
-                        height: 118px;
-                        border-radius: 50%;
-                    }
-                }
-
-            }
-
-            .user__basic__info {
-
-            }
-
-            .term__block {
-                display: flex;
-
-                .term {
-                    font-weight: bold;
-                    width: 10rem;
-                    overflow: hidden;
-
-                    .dotted__line {
-                        position: relative;
-
-                        &::after {
-                            content: "";
-                            position: absolute;
-                            bottom: 0.2rem;
-                            margin-left: 0.5rem;
-                            width: 100rem;
-                            border-bottom: 0.1rem dotted rgba(0, 0, 0, 0.2);
-                        }
-                    }
-                }
-            }
-
-            .request__card {
-
-                .card-body {
-
-                    a {
-                        text-decoration: none;
-                        color: #212529;
-                    }
-                }
-
-                .request__card__footer {
-                    align-items: center;
-                    justify-content: space-between;
-                    @media (min-width: 768px) {
-                        display: flex;
-                    }
-
-                    p {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-        }
-
-
     }
 </style>
