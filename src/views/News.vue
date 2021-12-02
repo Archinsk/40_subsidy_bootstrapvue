@@ -8,27 +8,9 @@
                 <div class="news__wrapper container">
                     <h4 class="news__header text-center py-2">Новости</h4>
 
-                    <NewsCardsList :newsPack="singleNewsJson"></NewsCardsList>
-
-                    <div class="measure__pagination">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+<!--                    <NewsCardsList :newsPack="singleNewsJson"></NewsCardsList>-->
+                    <NewsCardsList2 :newsPack="xhrResponse" count="10" :everythingLittle="false"></NewsCardsList2>
+                    <ItemsListFooter @change-pageSize="changePageSize($event)" @change-page="changePage($event)"></ItemsListFooter>
 
                 </div>
             </section>
@@ -41,7 +23,9 @@
 
 <script>
     import HeaderOffcavas from "@/components/HeaderOffcavas";
-    import NewsCardsList from "@/components/NewsCardsList";
+    // import NewsCardsList from "@/components/NewsCardsList";
+    import NewsCardsList2 from "@/components/NewsCardsList2";
+    import ItemsListFooter from "@/components/ItemsListFooter";
     import Footer from "@/components/Footer";
 
     export default {
@@ -49,13 +33,15 @@
 
         components: {
             HeaderOffcavas,
-            NewsCardsList,
+            // NewsCardsList,
+            NewsCardsList2,
+            ItemsListFooter,
             Footer,
         },
 
         data() {
             return {
-                singleNewsJson: [
+                /*singleNewsJson: [
                     {
                         "id": 1,
                         "title": "ArchGlass 2021 - Международный форум индустрии архитектурного стекла",
@@ -256,9 +242,47 @@
                             "link": "https://ria.ru"
                         }
                     },
-                ]
+                ],*/
+                xhrResponse: [],
+                page: 1,
+                pageSize: 10,
             }
-        }
+        },
+
+        methods: {
+            changePageSize(itemsPerPage) {
+                console.log(itemsPerPage);
+                this.pageSize = itemsPerPage;
+            },
+            changePage(page) {
+                console.log(page);
+                this.page = page;
+            },
+        },
+        mounted: function () {
+            console.log('Смонтировано');
+            const xhr = new XMLHttpRequest();
+            let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/news.php?page=" + this.page + "&pageSize=" + this.pageSize;
+            xhr.open("GET", request);
+            xhr.responseType = 'json';
+            xhr.onload = () => {
+                console.log(xhr.response);
+                this.xhrResponse = xhr.response;
+            }
+            xhr.send();
+        },
+        updated: function () {
+            console.log('Смонтировано');
+            const xhr = new XMLHttpRequest();
+            let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/news.php?page=" + this.page + "&pageSize=" + this.pageSize;
+            xhr.open("GET", request);
+            xhr.responseType = 'json';
+            xhr.onload = () => {
+                console.log(xhr.response);
+                this.xhrResponse = xhr.response;
+            }
+            xhr.send();
+        },
     }
 </script>
 

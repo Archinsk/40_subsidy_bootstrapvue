@@ -382,6 +382,9 @@
                     </nav>
                 </div>
 
+                <MeasuresCardsList :measuresPack="xhrResponse" count="10"></MeasuresCardsList>
+                <ItemsListFooter @change-pageSize="changePageSize($event)" @change-page="changePage($event)"></ItemsListFooter>
+
             </div>
         </section>
 
@@ -403,7 +406,42 @@
             HeaderOffcavas,
             Footer,
         },
+
+        data() {
+            return {
+                xhrResponse: [],
+                page: 1,
+                pageSize: 10,
+            }
+        },
+
+        mounted: function () {
+            console.log('Смонтировано');
+            const xhr = new XMLHttpRequest();
+            let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/measures.php?page=" + this.page + "&pageSize=" + this.pageSize;
+            xhr.open("GET", request);
+            xhr.responseType = 'json';
+            xhr.onload = () => {
+                console.log(xhr.response);
+                this.xhrResponse = xhr.response;
+            }
+            xhr.send();
+        },
+
+        updated: function () {
+            console.log('Смонтировано');
+            const xhr = new XMLHttpRequest();
+            let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/measures.php?page=" + this.page + "&pageSize=" + this.pageSize;
+            xhr.open("GET", request);
+            xhr.responseType = 'json';
+            xhr.onload = () => {
+                console.log(xhr.response);
+                this.xhrResponse = xhr.response;
+            }
+            xhr.send();
+        },
     }
+
 </script>
 
 <style lang="scss" scoped>
