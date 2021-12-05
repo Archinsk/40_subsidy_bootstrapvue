@@ -259,6 +259,7 @@
                 this.page = page;
             },
         },
+
         mounted: function () {
             console.log('Смонтировано');
             const xhr = new XMLHttpRequest();
@@ -271,8 +272,9 @@
             }
             xhr.send();
         },
-        updated: function () {
-            console.log('Смонтировано');
+
+        /*updated: function () {
+            console.log('Апдейт');
             const xhr = new XMLHttpRequest();
             let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/news.php?page=" + this.page + "&pageSize=" + this.pageSize;
             xhr.open("GET", request);
@@ -282,7 +284,7 @@
                 this.xhrResponse = xhr.response;
             }
             xhr.send();
-        },
+        },*/
     }
 </script>
 

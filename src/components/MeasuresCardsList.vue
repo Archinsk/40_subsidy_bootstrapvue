@@ -1,8 +1,7 @@
 <template>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
-        <div v-for="measuresItem of cuttedMeasuresPack" :key="measuresItem.id">
-            <NewsCard2 :news="newsItem"></NewsCard2>
-            <MeasureCard :measures="measuresItem"/>
+    <div class="row row-cols-1">
+        <div v-for="measuresItem of cuttedMeasuresPack" :key="measuresItem.id" class="col">
+            <MeasureCard :measure="measuresItem"/>
         </div>
     </div>
 </template>
@@ -44,7 +43,7 @@
             & > * {
                 padding-left: $gap/2;
                 padding-right: $gap/2;
-                margin-bottom: $gap;
+                /*margin-bottom: $gap;*/
             }
         }
 </style>

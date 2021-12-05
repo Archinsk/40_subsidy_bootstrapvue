@@ -397,6 +397,8 @@
 
 <script>
     import HeaderOffcavas from "@/components/HeaderOffcavas";
+    import MeasuresCardsList from "@/components/MeasuresCardsList";
+    import ItemsListFooter from "@/components/ItemsListFooter";
     import Footer from "@/components/Footer";
 
     export default {
@@ -404,6 +406,8 @@
 
         components: {
             HeaderOffcavas,
+            MeasuresCardsList,
+            ItemsListFooter,
             Footer,
         },
 
@@ -413,6 +417,17 @@
                 page: 1,
                 pageSize: 10,
             }
+        },
+
+        methods: {
+            changePageSize(itemsPerPage) {
+                console.log(itemsPerPage);
+                this.pageSize = itemsPerPage;
+            },
+            changePage(page) {
+                console.log(page);
+                this.page = page;
+            },
         },
 
         mounted: function () {
@@ -428,8 +443,8 @@
             xhr.send();
         },
 
-        updated: function () {
-            console.log('Смонтировано');
+        /*updated: function () {
+            console.log('Апдейт');
             const xhr = new XMLHttpRequest();
             let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/measures.php?page=" + this.page + "&pageSize=" + this.pageSize;
             xhr.open("GET", request);
@@ -439,7 +454,7 @@
                 this.xhrResponse = xhr.response;
             }
             xhr.send();
-        },
+        },*/
     }
 
 </script>
