@@ -177,231 +177,9 @@
                             </section>
                         </b-tab>
                         <b-tab title="Заявки">
-                            <h4 class="measures__heading">Заявки <span class="badge badge-primary">15</span></h4>
-
-                            <div class="request-cards">
-                                <div class="card request__card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-0">
-                                            <a href="subsidy.html">
-                                                <span class="badge badge-primary mr-2">№001256</span>Грант
-                                                участникам
-                                                инновационного кластера на территории города Москвы на
-                                                возмещение
-                                                затрат в целях
-                                                реализации комплексных инновационных проектов (КИП – собственные
-                                                средства)
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent request__card__footer">
-                                        <p>Текущий статус: зарегистрировано</p>
-                                        <p>Дата подачи: 01.01.2021</p>
-                                        <p>Статус обновлен: 01.08.2021</p>
-                                    </div>
-                                </div>
-                                <div class="card request__card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-0">
-                                            <a href="subsidy.html">
-                                                <span class="badge badge-primary mr-2">№001256</span>Грант
-                                                участникам
-                                                инновационного кластера на территории города Москвы на
-                                                возмещение
-                                                затрат в целях
-                                                реализации комплексных инновационных проектов (КИП – собственные
-                                                средства)
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent request__card__footer">
-                                        <p>Текущий статус: зарегистрировано</p>
-                                        <p>Дата подачи: 01.01.2021</p>
-                                        <p>Статус обновлен: 01.08.2021</p>
-                                    </div>
-                                </div>
-                                <div class="card request__card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-0">
-                                            <a href="subsidy.html">
-                                                <span class="badge badge-primary mr-2">№001256</span>Грант
-                                                участникам
-                                                инновационного кластера на территории города Москвы на
-                                                возмещение
-                                                затрат в целях
-                                                реализации комплексных инновационных проектов (КИП – собственные
-                                                средства)
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent request__card__footer">
-                                        <p>Текущий статус: зарегистрировано</p>
-                                        <p>Дата подачи: 01.01.2021</p>
-                                        <p>Статус обновлен: 01.08.2021</p>
-                                    </div>
-                                </div>
-                                <div class="card request__card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-0">
-                                            <a href="subsidy.html">
-                                                <span class="badge badge-primary mr-2">№001256</span>Грант
-                                                участникам
-                                                инновационного кластера на территории города Москвы на
-                                                возмещение
-                                                затрат в целях
-                                                реализации комплексных инновационных проектов (КИП – собственные
-                                                средства)
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent request__card__footer">
-                                        <p>Текущий статус: зарегистрировано</p>
-                                        <p>Дата подачи: 01.01.2021</p>
-                                        <p>Статус обновлен: 01.08.2021</p>
-                                    </div>
-                                </div>
-                                <div class="card request__card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-0">
-                                            <a href="subsidy.html">
-                                                <span class="badge badge-primary mr-2">№001256</span>Грант
-                                                участникам
-                                                инновационного кластера на территории города Москвы на
-                                                возмещение
-                                                затрат в целях
-                                                реализации комплексных инновационных проектов (КИП – собственные
-                                                средства)
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent request__card__footer">
-                                        <p>Текущий статус: зарегистрировано</p>
-                                        <p>Дата подачи: 01.01.2021</p>
-                                        <p>Статус обновлен: 01.08.2021</p>
-                                    </div>
-                                </div>
-                                <div class="card request__card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-0">
-                                            <a href="subsidy.html">
-                                                <span class="badge badge-primary mr-2">№001256</span>Грант
-                                                участникам
-                                                инновационного кластера на территории города Москвы на
-                                                возмещение
-                                                затрат в целях
-                                                реализации комплексных инновационных проектов (КИП – собственные
-                                                средства)
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent request__card__footer">
-                                        <p>Текущий статус: зарегистрировано</p>
-                                        <p>Дата подачи: 01.01.2021</p>
-                                        <p>Статус обновлен: 01.08.2021</p>
-                                    </div>
-                                </div>
-                                <div class="card request__card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-0">
-                                            <a href="subsidy.html">
-                                                <span class="badge badge-primary mr-2">№001256</span>Грант
-                                                участникам
-                                                инновационного кластера на территории города Москвы на
-                                                возмещение
-                                                затрат в целях
-                                                реализации комплексных инновационных проектов (КИП – собственные
-                                                средства)
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent request__card__footer">
-                                        <p>Текущий статус: зарегистрировано</p>
-                                        <p>Дата подачи: 01.01.2021</p>
-                                        <p>Статус обновлен: 01.08.2021</p>
-                                    </div>
-                                </div>
-                                <div class="card request__card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-0">
-                                            <a href="subsidy.html">
-                                                <span class="badge badge-primary mr-2">№001256</span>Грант
-                                                участникам
-                                                инновационного кластера на территории города Москвы на
-                                                возмещение
-                                                затрат в целях
-                                                реализации комплексных инновационных проектов (КИП – собственные
-                                                средства)
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent request__card__footer">
-                                        <p>Текущий статус: зарегистрировано</p>
-                                        <p>Дата подачи: 01.01.2021</p>
-                                        <p>Статус обновлен: 01.08.2021</p>
-                                    </div>
-                                </div>
-                                <div class="card request__card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-0">
-                                            <a href="subsidy.html">
-                                                <span class="badge badge-primary mr-2">№001256</span>Грант
-                                                участникам
-                                                инновационного кластера на территории города Москвы на
-                                                возмещение
-                                                затрат в целях
-                                                реализации комплексных инновационных проектов (КИП – собственные
-                                                средства)
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent request__card__footer">
-                                        <p>Текущий статус: зарегистрировано</p>
-                                        <p>Дата подачи: 01.01.2021</p>
-                                        <p>Статус обновлен: 01.08.2021</p>
-                                    </div>
-                                </div>
-                                <div class="card request__card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-0">
-                                            <a href="subsidy.html">
-                                                <span class="badge badge-primary mr-2">№001256</span>Грант
-                                                участникам
-                                                инновационного кластера на территории города Москвы на
-                                                возмещение
-                                                затрат в целях
-                                                реализации комплексных инновационных проектов (КИП – собственные
-                                                средства)
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent request__card__footer">
-                                        <p>Текущий статус: зарегистрировано</p>
-                                        <p>Дата подачи: 01.01.2021</p>
-                                        <p>Статус обновлен: 01.08.2021</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="measure__pagination">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-
+                            <h4 class="measures__heading">Заявки <span class="badge badge-primary">30</span></h4>
+                            <RequestsCardsList :requestsPack="xhrResponse" count="10"></RequestsCardsList>
+                            <ItemsListFooter @change-pageSize="changePageSize($event)" @change-page="changePage($event)"></ItemsListFooter>
                         </b-tab>
                     </b-tabs>
 
@@ -470,6 +248,8 @@
 
 <script>
     import HeaderOffcavas from "@/components/HeaderOffcavas";
+    import RequestsCardsList from "@/components/RequestsCardsList";
+    import ItemsListFooter from "@/components/ItemsListFooter";
     import Footer from "@/components/Footer";
 
     export default {
@@ -477,7 +257,55 @@
 
         components: {
             HeaderOffcavas,
+            RequestsCardsList,
+            ItemsListFooter,
             Footer,
+        },
+
+        data() {
+            return {
+                xhrResponse: [],
+                page: 1,
+                pageSize: 10,
+            }
+        },
+
+        methods: {
+            changePageSize(itemsPerPage) {
+                console.log(itemsPerPage);
+                this.pageSize = itemsPerPage;
+                this.changeItemsCount();
+            },
+            changePage(page) {
+                console.log(page);
+                this.page = page;
+                this.changeItemsCount();
+            },
+            changeItemsCount () {
+                console.log('Апдейт');
+                const xhr = new XMLHttpRequest();
+                let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/requests.php?page=" + this.page + "&pageSize=" + this.pageSize;
+                xhr.open("GET", request);
+                xhr.responseType = 'json';
+                xhr.onload = () => {
+                    console.log(xhr.response);
+                    this.xhrResponse = xhr.response;
+                };
+                xhr.send();
+            }
+        },
+
+        mounted: function () {
+            console.log('Смонтировано');
+            const xhr = new XMLHttpRequest();
+            let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/requests.php?page=" + this.page + "&pageSize=" + this.pageSize;
+            xhr.open("GET", request);
+            xhr.responseType = 'json';
+            xhr.onload = () => {
+                console.log(xhr.response);
+                this.xhrResponse = xhr.response;
+            };
+            xhr.send();
         },
     }
 </script>
@@ -541,7 +369,7 @@
 
         .tab-pane {
             padding-top: $gap-req;
-            padding-bottom: $gap-req;
+            padding-bottom: $gap-req*2;
 
             section {
 
@@ -587,30 +415,6 @@
 
         .request-cards {
             padding-bottom: $gap-req;
-
-            .request__card {
-                margin-bottom: $gap-req;
-
-                .card-body {
-
-                    a {
-                        text-decoration: none;
-                        color: #212529;
-                    }
-                }
-
-                .request__card__footer {
-
-                    @media (min-width: 768px) {
-                        display: flex;
-                        justify-content: space-between;
-                    }
-
-                    p {
-                        margin-bottom: 0;
-                    }
-                }
-            }
         }
     }
 </style>

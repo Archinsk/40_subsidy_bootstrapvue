@@ -1,5 +1,5 @@
 <template>
-    <div class="measure__pagination">
+    <div class="measure__pagination col-auto">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item">

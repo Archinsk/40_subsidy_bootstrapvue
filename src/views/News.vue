@@ -253,11 +253,25 @@
             changePageSize(itemsPerPage) {
                 console.log(itemsPerPage);
                 this.pageSize = itemsPerPage;
+                this.changeItemsCount();
             },
             changePage(page) {
                 console.log(page);
                 this.page = page;
+                this.changeItemsCount();
             },
+            changeItemsCount () {
+                console.log('Апдейт');
+                const xhr = new XMLHttpRequest();
+                let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/news.php?page=" + this.page + "&pageSize=" + this.pageSize;
+                xhr.open("GET", request);
+                xhr.responseType = 'json';
+                xhr.onload = () => {
+                    console.log(xhr.response);
+                    this.xhrResponse = xhr.response;
+                };
+                xhr.send();
+            }
         },
 
         mounted: function () {
@@ -269,22 +283,9 @@
             xhr.onload = () => {
                 console.log(xhr.response);
                 this.xhrResponse = xhr.response;
-            }
+            };
             xhr.send();
         },
-
-        /*updated: function () {
-            console.log('Апдейт');
-            const xhr = new XMLHttpRequest();
-            let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/news.php?page=" + this.page + "&pageSize=" + this.pageSize;
-            xhr.open("GET", request);
-            xhr.responseType = 'json';
-            xhr.onload = () => {
-                console.log(xhr.response);
-                this.xhrResponse = xhr.response;
-            }
-            xhr.send();
-        },*/
     }
 </script>
 
