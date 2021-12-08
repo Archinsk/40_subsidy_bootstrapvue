@@ -54,6 +54,8 @@
         props: [
             'measure',
         ],
+
+
     }
 </script>
 

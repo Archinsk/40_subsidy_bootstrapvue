@@ -19,8 +19,8 @@
                         Физическим лицам
                     </b-dropdown-item>
                 </b-nav-item-dropdown>
-                <b-nav-item to="/accountinfo" active-class="active">
-                    Личный кабинет
+                <b-nav-item :to="type==='true' ? '/accountinfo' : '/authPage' " active-class="active">
+                    {{ type==="true" ? "Личный кабинет" : "Войти" }}
                 </b-nav-item>
             </b-navbar-nav>
         </b-collapse>
@@ -29,7 +29,10 @@
 
 <script>
     export default {
-        name: "OffcanvasMenu"
+        name: "OffcanvasMenu",
+        props: [
+          'type'
+        ],
     }
 </script>
 

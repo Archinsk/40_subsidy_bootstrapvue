@@ -1,6 +1,6 @@
 <template>
     <div>
-        <HeaderOffcavas/>
+        <HeaderOffcavas auth="true"/>
 
         <main class="content">
 

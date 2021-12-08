@@ -9,7 +9,7 @@
                     Навигатор мер поддержки
                 </b-navbar-brand>
 
-                <OffcanvasMenu></OffcanvasMenu>
+                <OffcanvasMenu :type="auth"></OffcanvasMenu>
 
                 <b-button class="d-lg-none" v-b-toggle.sidebar>
                     <span class="material-icons">menu</span>
@@ -27,7 +27,10 @@
         name: "HeaderOffcavas",
         components: {
             OffcanvasMenu,
-        }
+        },
+        props: [
+          'auth'
+        ],
     }
 </script>
 

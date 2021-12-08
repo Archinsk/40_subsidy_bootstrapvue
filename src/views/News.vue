@@ -246,6 +246,7 @@
                 xhrResponse: [],
                 page: 1,
                 pageSize: 10,
+                itemsCount: '',
             }
         },
 
@@ -285,6 +286,16 @@
                 this.xhrResponse = xhr.response;
             };
             xhr.send();
+
+            const xhr2 = new XMLHttpRequest();
+            let request2 = "https://www.d-skills.ru/40_subsidy_bootstrapvue/news.php?table=news";
+            xhr2.open("GET", request2);
+            xhr2.responseType = 'json';
+            xhr2.onload = () => {
+                console.log(xhr2.response);
+                this.itemsCount = xhr2.response;
+            };
+            xhr2.send();
         },
     }
 </script>

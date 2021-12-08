@@ -1,6 +1,6 @@
 <template>
     <div>
-        <HeaderOffcavas auth="false"/>
+        <HeaderOffcavas auth="true"/>
 
         <main class="content">
 
@@ -53,7 +53,7 @@
                 filters: [
                     {
                         title: 'Вид деятельности:',
-                        selected: [], // Must be an array reference!
+                        selected: [1,2], // Must be an array reference!
                         options: [
                             {text: 'Лесоводство и лесозаготовки', value: '1'},
                             {text: 'Добыча угля', value: '2'},
@@ -69,7 +69,7 @@
                     },
                     {
                         title: 'Форма/вид поддержки:',
-                        selected: [], // Must be an array reference!
+                        selected: [4], // Must be an array reference!
                         options: [
                             {text: 'Финансовая поддержка', value: '1'},
                             {text: 'Информационная поддержка', value: '2'},
@@ -81,7 +81,7 @@
                     },
                     {
                         title: 'Размер поддержки:',
-                        selected: [], // Must be an array reference!
+                        selected: [2], // Must be an array reference!
                         options: [
                             {text: 'до 100 т.р.', value: '1'},
                             {text: 'от 100 т.р. до 500 т.р.', value: '2'},
@@ -94,7 +94,7 @@
                     },
                     {
                         title: 'Срок оказания поддержки:',
-                        selected: [], // Must be an array reference!
+                        selected: [2,3], // Must be an array reference!
                         options: [
                             {text: 'до 1 месяца', value: '1'},
                             {text: 'от 1 до 3 месяцев', value: '2'},
@@ -105,7 +105,7 @@
                     },
                     {
                         title: 'Категория получателя:',
-                        selected: [], // Must be an array reference!
+                        selected: [2], // Must be an array reference!
                         options: [
                             {text: 'микро', value: '1'},
                             {text: 'малые', value: '2'},
@@ -114,7 +114,7 @@
                     },
                     {
                         title: 'Вид получателя:',
-                        selected: [], // Must be an array reference!
+                        selected: [2], // Must be an array reference!
                         options: [
                             {text: 'ИП', value: '1'},
                             {text: 'ЮЛ', value: '2'},
