@@ -6,9 +6,14 @@
         <div :class="'chatField col-lg-9 ' + chatFieldClass()">
             <b-alert v-for="message of messages" :key="message.id" :variant="getAuthor(message.author)" show>
                 <div v-if="message.findedAnswers">
-                    <div>Вот, что я нашел:</div>
-                    <AnswerLink v-for="answ of message.findedAnswers" :key="answ.content" :link="answ.link"
-                                :text="answ.content"></AnswerLink>
+                    <div v-for="answ of message.findedAnswers" :key="answ.content" >
+                        <div v-if="answ.link">Вот, что я нашел:</div>
+                        <AnswerLink  v-if="answ.link"
+                                    :link="answ.link"
+                                    :text="answ.content"></AnswerLink>
+                        <AnswerText v-if="!answ.link"
+                                    :text="answ.content"></AnswerText>
+                    </div>
                 </div>
                 {{ message.content }}
             </b-alert>
@@ -18,11 +23,13 @@
 
 <script>
     import AnswerLink from "@/components/AnswerLink";
+    import AnswerText from "@/components/AnswerText";
 
     export default {
         name: "ChatBoard",
         components: {
             AnswerLink,
+            AnswerText
         },
         data() {
             return {
@@ -75,6 +82,13 @@
 
     .chat-section {
         /*background-color: $back-color;*/
+        .chat {
+            height: 100vh;
+        }
+
+        .container {
+            height: calc(100vh - 3.5rem);
+        }
 
         #botWaiting {
             width: 60%;

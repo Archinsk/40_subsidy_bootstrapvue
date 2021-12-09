@@ -5,7 +5,7 @@
                 <div class="footer__info col">
                     <router-link to="/" class="footer__brend">
                         <img src="@/assets/iss_logo_white.svg" alt="" class="footer__brend__logo">
-                        <div class="footer__brend__name">Навигатор мер поддержки</div>
+                        <div class="footer__brend__name">Единый институт развития Тульской области</div>
                     </router-link>
                     <div class="footer__social">
                         <a href="https://www.facebook.com" target="_blank" class="footer__social__link">

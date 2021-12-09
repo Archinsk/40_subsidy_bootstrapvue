@@ -1,29 +1,50 @@
 <template>
     <div>
-        <HeaderOffcavas auth="false"/>
+        <HeaderOffcavas v-show="!chatIsActive" auth="false"/>
 
         <main class="content">
 
-            <section class="measures">
+            <section v-show="!chatIsActive" class="measures">
                 <div class="measures__wrapper">
-                    <h4 class="measures__heading text-center">Меры поддержки <span class="badge badge-primary">160</span></h4>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
+                    <h4 class="measures__heading text-center">Меры поддержки <span class="badge badge-primary">{{ totalItems }}</span></h4>
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-2">
+                            <div class="row">
+                                <div class="btn btn-outline-primary col-12 mb-2"
+                                    @click="chatActivation"
+                                >Подобрать с помощью чат-бота</div>
+                            </div>
                             <FiltersList :fd="filters"></FiltersList>
+                            <div class="row">
+                                <div class="btn btn-primary col-12" @click="scenarioFilter">Применить фильтр</div>
+                            </div>
                         </div>
                         <div class="col-6">
                             <MeasuresCardsList :measuresPack="xhrResponse" count="10"></MeasuresCardsList>
-                            <ItemsListFooter @change-pageSize="changePageSize($event)"
-                                             @change-page="changePage($event)"></ItemsListFooter>
+                            <ItemsListFooter
+                                    v-show="totalItems>pageSize"
+                                    @change-pageSize="changePageSize($event)"
+                                    @change-page="changePage($event)"
+                            ></ItemsListFooter>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <section v-show="chatIsActive" class="bot">
+                <Chat isActive="true"
+                      isFlyingDown="true"
+                      :messages="replicsList"
+                      :quest="inputText"
+                      @close-chat="chatDisactivation"
+                      @focus-input="focusInput"
+                      @add-quest="addQuest($event)"
+                ></Chat>
+            </section>
 
         </main>
 
-        <Footer/>
+        <Footer v-show="!chatIsActive" />
     </div>
 </template>
 
@@ -32,6 +53,7 @@
     import MeasuresCardsList from "@/components/MeasuresCardsList";
     import FiltersList from "@/components/FiltersList";
     import ItemsListFooter from "@/components/ItemsListFooter";
+    import Chat from "@/components/Chat";
     import Footer from "@/components/Footer";
 
     export default {
@@ -42,6 +64,7 @@
             MeasuresCardsList,
             FiltersList,
             ItemsListFooter,
+            Chat,
             Footer,
         },
 
@@ -50,6 +73,103 @@
                 xhrResponse: [],
                 page: 1,
                 pageSize: 10,
+                totalItems: 160,
+                scenario: 1,
+                chatIsActive: false,
+                inputText: '',
+                replics: [
+                    {id: 1, author: "bot", content: "Я - чат-бот Василий. Я помогу Вам с поиском меры поддержки."},
+                    {id: 2, author: "bot", content: "Укажите, какой объем денежных средств вам требуется?"},
+                    // {id: 3, author: "bot", content: "Вот что найдено по слову"},
+                    // {id: 4, author: "user", content: "А теперь рыбалка",},
+                    // {id: 5, author: "bot", content: "К сожалению, ничего не найдено",},
+                ],
+                faq: [
+                    {
+                        id: 1, keywords: ['covid', 'ковид', 'корона'], answers: [
+                            {content: 'Запись на вакцинацию', link: 'https://google.com'},
+                            {content: 'Сертификат вакцинированного', link: 'https://ya.ru'},
+                            {content: 'Мои QR-коды', link: 'https://ya.ru'}
+                        ]
+                    },
+                    {
+                        id: 2, keywords: ['спорт'], answers: [
+                            {content: 'Присвоение спортивных разрядов', link: 'https://google.com'},
+                            {
+                                content: 'Присвоение квалификационных категорий спортивных судей',
+                                link: 'https://google.com'
+                            },
+                            {
+                                content: 'Государственная регистрация региональных общественных организаций или структурных подразделений (региональных отделений) общероссийской спортивной федерации',
+                                link: 'https://google.com'
+                            },
+                        ]
+                    },
+                    {
+                        id: 3, keywords: ['грант', 'гранты'], answers: [
+                            {
+                                content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+                                link: './subsidyinfo1'
+                            },
+                            {
+                                content: 'Гранты в форме субсидии на развитие инновационного проекта',
+                                link: './subsidyinfo2'
+                            },
+                            {
+                                content: 'Гранты субъектам малого и среднего предпринимательства на реализацию проектов в приоритетных сферах экономики',
+                                link: './subsidyinfo3'
+                            }
+                        ]
+                    },
+                    {
+                        id: 4, keywords: ['субсидия', 'субсидии'], answers: [
+                            {
+                                content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+                                link: './subsidyinfo1'
+                            },
+                            {
+                                content: 'Гранты в форме субсидии на развитие инновационного проекта',
+                                link: './subsidyinfo2'
+                            },
+                        ]
+                    },
+                    {
+                        id: 5, keywords: ['инновация', 'инновации'], answers: [
+                            {
+                                content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+                                link: './subsidyinfo1'
+                            },
+                            {
+                                content: 'Гранты в форме субсидии на развитие инновационного проекта',
+                                link: './subsidyinfo2'
+                            },
+                        ]
+                    },
+                    {
+                        id: 6, keywords: ['наука'], answers: [
+                            {
+                                content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+                                link: './subsidyinfo1'
+                            },
+                        ]
+                    },
+                    {
+                        id: 7, keywords: ['20000000', '20000000 руб', '20 000 000', '20 000 000 руб',], answers: [
+                            {
+                                content: 'Укажите срок оказания поддержки в формате «ДД.ММ.ГГГГ - ДД.ММ.ГГГГ»',
+                                link: ''
+                            },
+                        ]
+                    },
+                    {
+                        id: 7, keywords: ['01.01.2022-31.12.2022'], answers: [
+                            {
+                                content: 'Субсидия на возмещение части затрат, направленных на проведение комплекса агротехнологических работ, повышение уровня экологической безопасности сельскохозяйственного производства, а также на повышение плодородия и качества почв',
+                                link: './subsidyinfo5'
+                            },
+                        ]
+                    },
+                ],
                 filters: [
                     {
                         title: 'Вид деятельности:',
@@ -64,7 +184,7 @@
                             {text: 'Производство мебели', value: '7'},
                             {text: 'Деятельность профессиональная научная и техническая прочая', value: '8'},
                             {text: 'Деятельность в области спорта, отдыха и развлечений', value: '9'},
-                            {text: '10 – тип поддержки, который нам в итоге нужно найти', value: '10'}
+                            {text: 'Растениеводство и животноводство, охота и предоставление соответствующих услуг в этих областях', value: '10'}
                         ]
                     },
                     {
@@ -124,6 +244,16 @@
             }
         },
 
+        computed: {
+            replicsList: function () {
+                if (this.chatIsActive) {
+                    return this.replics;
+                } else {
+                    return this.replics.filter(item => item.id === 1)
+                }
+            }
+        },
+
         methods: {
             changePageSize(itemsPerPage) {
                 console.log(itemsPerPage);
@@ -146,7 +276,58 @@
                     this.xhrResponse = xhr.response;
                 };
                 xhr.send();
-            }
+            },
+            scenarioFilter() {
+                console.log('Начинаю фильтрацию по сценарию ' + this.scenario);
+                if (this.filters[0].selected.includes('5') && this.filters[1].selected.includes('1') && this.filters[5].selected.includes('2')) {
+                    const xhr = new XMLHttpRequest();
+                    let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/scenario.php?scenario=" + this.scenario;
+                    xhr.open("GET", request);
+                    xhr.responseType = 'json';
+                    xhr.onload = () => {
+                        console.log(xhr.response);
+                        this.xhrResponse = xhr.response;
+                        this.totalItems = 1;
+                    };
+                    xhr.send();
+                }
+            },
+            chatActivation() {
+                this.chatIsActive = true;
+            },
+            chatDisactivation() {
+                this.chatIsActive = false;
+            },
+            addQuest(inputValue) {
+                let quest = {
+                    id: this.replics.length + 1, author: "user", content: inputValue
+                };
+                this.replics.push(quest);
+                let answer;
+                let answers;
+                this.faq.forEach(function (item) {
+                    item.keywords.forEach(function (i) {
+                        if (inputValue.trim().toLowerCase() === i) {
+                            answers = item.answers;
+                        }
+                    });
+                });
+                if (answers) {
+                    let links = answers.map(function (someth) {
+                        let ans = {link: someth.link, content: someth.content};
+                        return ans;
+                    });
+                    answer = {
+                        author: "bot", content: '', findedAnswers: links
+                    };
+                } else {
+                    answer = {
+                        author: "bot", content: 'Извините, я ничего не нашёл.'
+                    };
+                }
+                answer.id = this.replics.length + 1;
+                this.replics.push(answer);
+            },
         },
 
         mounted: function () {
@@ -185,6 +366,15 @@
     $support-color: grey;
     $passive-color: #e4e4e4;
     $active-color: #fff;
+    $back-color: #6688CC;
+
+    .content {
+
+        .bot {
+            overflow: hidden;
+            background-color: $back-color;
+        }
+    }
 
     .measures {
 

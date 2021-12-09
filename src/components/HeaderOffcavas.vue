@@ -6,7 +6,7 @@
                 <b-navbar-brand to="/">
                     <img src="@/assets/iss_logo_white.svg" class="d-inline-block align-top logo__image"
                          alt="logo">
-                    Навигатор мер поддержки
+                    Единый институт развития Тульской области
                 </b-navbar-brand>
 
                 <OffcanvasMenu :type="auth"></OffcanvasMenu>

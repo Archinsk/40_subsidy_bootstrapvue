@@ -306,6 +306,16 @@
     $passive-color: #e4e4e4;
     $active-color: #fff;
 
+    .page-wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+
+        .content {
+            flex: 1;
+        }
+    }
+
     .support {
         padding-top: $gap/2;
 

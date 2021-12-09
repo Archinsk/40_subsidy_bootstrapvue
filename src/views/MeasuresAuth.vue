@@ -6,15 +6,24 @@
 
             <section class="measures">
                 <div class="measures__wrapper">
-                    <h4 class="measures__heading text-center">Меры поддержки <span class="badge badge-primary">160</span></h4>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
+                    <h4 class="measures__heading text-center">Меры поддержки <span class="badge badge-primary">{{ totalItems }}</span></h4>
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-2">
+                            <div class="row">
+                                <div class="btn btn-outline-primary col-12 mb-2" @click="selectEsia">Подобрать с учетом ЕСИА</div>
+                                <div class="btn btn-outline-primary col-12 mb-2">Подобрать с помощью чат-бота</div>
+                            </div>
                             <FiltersList :fd="filters"></FiltersList>
+                            <div class="row">
+                                <div class="btn btn-primary col-12" @click="scenarioFilter">Применить фильтр</div>
+                            </div>
                         </div>
                         <div class="col-6">
                             <MeasuresCardsList :measuresPack="xhrResponse" count="10"></MeasuresCardsList>
-                            <ItemsListFooter @change-pageSize="changePageSize($event)"
-                                             @change-page="changePage($event)"></ItemsListFooter>
+                            <ItemsListFooter
+                                    v-show="totalItems>pageSize"
+                                    @change-pageSize="changePageSize($event)"
+                                    @change-page="changePage($event)"></ItemsListFooter>
                         </div>
                     </div>
                 </div>
@@ -50,10 +59,12 @@
                 xhrResponse: [],
                 page: 1,
                 pageSize: 10,
+                totalItems: 160,
+                scenario: 0,
                 filters: [
                     {
                         title: 'Вид деятельности:',
-                        selected: [1,2], // Must be an array reference!
+                        selected: [], // Must be an array reference!
                         options: [
                             {text: 'Лесоводство и лесозаготовки', value: '1'},
                             {text: 'Добыча угля', value: '2'},
@@ -64,12 +75,12 @@
                             {text: 'Производство мебели', value: '7'},
                             {text: 'Деятельность профессиональная научная и техническая прочая', value: '8'},
                             {text: 'Деятельность в области спорта, отдыха и развлечений', value: '9'},
-                            {text: '10 – тип поддержки, который нам в итоге нужно найти', value: '10'}
+                            {text: 'Растениеводство и животноводство, охота и предоставление соответствующих услуг в этих областях', value: '10'}
                         ]
                     },
                     {
                         title: 'Форма/вид поддержки:',
-                        selected: [4], // Must be an array reference!
+                        selected: [], // Must be an array reference!
                         options: [
                             {text: 'Финансовая поддержка', value: '1'},
                             {text: 'Информационная поддержка', value: '2'},
@@ -81,7 +92,7 @@
                     },
                     {
                         title: 'Размер поддержки:',
-                        selected: [2], // Must be an array reference!
+                        selected: [], // Must be an array reference!
                         options: [
                             {text: 'до 100 т.р.', value: '1'},
                             {text: 'от 100 т.р. до 500 т.р.', value: '2'},
@@ -94,7 +105,7 @@
                     },
                     {
                         title: 'Срок оказания поддержки:',
-                        selected: [2,3], // Must be an array reference!
+                        selected: [], // Must be an array reference!
                         options: [
                             {text: 'до 1 месяца', value: '1'},
                             {text: 'от 1 до 3 месяцев', value: '2'},
@@ -105,7 +116,7 @@
                     },
                     {
                         title: 'Категория получателя:',
-                        selected: [2], // Must be an array reference!
+                        selected: [], // Must be an array reference!
                         options: [
                             {text: 'микро', value: '1'},
                             {text: 'малые', value: '2'},
@@ -114,7 +125,7 @@
                     },
                     {
                         title: 'Вид получателя:',
-                        selected: [2], // Must be an array reference!
+                        selected: [], // Must be an array reference!
                         options: [
                             {text: 'ИП', value: '1'},
                             {text: 'ЮЛ', value: '2'},
@@ -144,6 +155,25 @@
                 xhr.onload = () => {
                     console.log(xhr.response);
                     this.xhrResponse = xhr.response;
+                };
+                xhr.send();
+            },
+            selectEsia() {
+                console.log('Начинаю поиск на основе ЕСИА');
+                this.filters[0].selected.push(10);
+                this.filters[5].selected.push(2);
+                this.scenario = 2;
+            },
+            scenarioFilter() {
+                console.log('Начинаю фильтрацию по сценарию ' + this.scenario);
+                const xhr = new XMLHttpRequest();
+                let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/scenario.php?scenario=" + this.scenario;
+                xhr.open("GET", request);
+                xhr.responseType = 'json';
+                xhr.onload = () => {
+                    console.log(xhr.response);
+                    this.xhrResponse = xhr.response;
+                    this.totalItems = 2;
                 };
                 xhr.send();
             }

@@ -53,6 +53,18 @@ const routes = [
       import("../views/SubsidyInfo3"),
   },
   {
+    path: "/subsidyinfo4",
+    name: "SubsidyInfo4",
+    component: () =>
+      import("../views/SubsidyInfo4"),
+  },
+  {
+    path: "/subsidyinfo5",
+    name: "SubsidyInfo5",
+    component: () =>
+      import("../views/SubsidyInfo5"),
+  },
+  {
     path: "/accountinfo",
     name: "AccountInfo",
     component: () =>

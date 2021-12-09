@@ -1,5 +1,5 @@
 <template>
-    <div _ngcontent-bkq-c50="">
+    <div _ngcontent-bkq-c50="" class="auth-container">
 
         <router-outlet _ngcontent-bkq-c50=""></router-outlet>
         <esia-idp _nghost-bkq-c62="">
@@ -9,10 +9,13 @@
                 <div _ngcontent-bkq-c62="" class="form-container mb-20 mb-md-40">
                     <esia-header _ngcontent-bkq-c62="" _nghost-bkq-c15="">
                         <header _ngcontent-bkq-c15="" class="mb-40">
-<!--                            <a _ngcontent-bkq-c15="" class="logo" href="http://gosuslugi.ru">-->
-                            Вход в систему<br>
-                            «Навигатор мер поддержки»
-<!--                        </a>-->
+                            <!--                            <a _ngcontent-bkq-c15="" class="logo" href="http://gosuslugi.ru">-->
+                            <img src="@/assets/logo_gu.svg" alt="" class="gu-logo">
+                            <div class="text-center">
+                                Вход на сайт Единого института<br>
+                                развития Тульской области
+                            </div>
+                            <!--                        </a>-->
                         </header>
                     </esia-header>
                     <form _ngcontent-bkq-c62="" class="ng-untouched ng-pristine ng-invalid"><!---->
@@ -27,8 +30,8 @@
                                        required
                                 >
                                 <label
-                                    _ngcontent-bkq-c46="" class="input-label" for="login">Телефон / Email /
-                                СНИЛС</label><!----></esia-input><!----></div><!---->
+                                        _ngcontent-bkq-c46="" class="input-label" for="login">Телефон / Email /
+                                    СНИЛС</label><!----></esia-input><!----></div><!---->
                         <div _ngcontent-bkq-c62="" class="input-control mb-8">
                             <esia-input-password _ngcontent-bkq-c62="" formcontrolname="password" _nghost-bkq-c53=""
                                                  class="ng-untouched ng-pristine ng-invalid">
@@ -39,17 +42,18 @@
                                            class="plain-input"
                                            type="password"
                                     ><label
-                                        _ngcontent-bkq-c53="" class="input-label" for="password">Пароль</label><!---->
+                                            _ngcontent-bkq-c53="" class="input-label" for="password">Пароль</label>
+                                    <!---->
                                     <!----><!----></div><!----></esia-input-password>
                         </div>
                         <div _ngcontent-bkq-c62="" class="flex-container justify-between mb-40"><a
                                 _ngcontent-bkq-c62="">Восстановить</a></div><!---->
                         <div _ngcontent-bkq-c62="" class="mb-24">
-<!--                            <button _ngcontent-bkq-c62=""
-                                    class="plain-button wide"
-                                    type="submit"
-                            >Войти</button>
--->
+                            <!--                            <button _ngcontent-bkq-c62=""
+                                                                class="plain-button wide"
+                                                                type="submit"
+                                                        >Войти</button>
+                            -->
                             <router-link to="/measuresAuth" class="plain-button wide auth-link">
                                 Войти
                             </router-link>
@@ -86,7 +90,21 @@
 </script>
 
 <style lang="scss" scoped>
-    .auth-link {
-        text-decoration: none;
+
+    .auth-container {
+        padding-top: 64px;
+        padding-bottom: 64px;
+        background: #e4ecfd !important;
+
+        .gu-logo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 24px;
+        }
+
+        .auth-link {
+            text-decoration: none;
+        }
     }
 </style>
