@@ -64,6 +64,12 @@ const routes = [
     component: () =>
       import("../views/SubsidyInfo5"),
   },
+{
+    path: "/subsidyinfo6",
+    name: "SubsidyInfo6",
+    component: () =>
+      import("../views/SubsidyInfo6"),
+  },
   {
     path: "/accountinfo",
     name: "AccountInfo",
@@ -75,6 +81,12 @@ const routes = [
     name: "AuthPage",
     component: () =>
       import("../views/AuthPage"),
+  },
+  {
+    path: "/selectUser",
+    name: "SelectUser",
+    component: () =>
+      import("../views/SelectUser"),
   },
 ];
 

@@ -21,7 +21,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     .loader-screen {
         position: fixed;
         display: flex;
@@ -49,7 +49,7 @@
         z-index: 1040;
         width: 80px;
         height: 80px;
-        opacity: 100%;
+        opacity: 1;
     }
 
     .lds-roller div {
@@ -66,6 +66,7 @@
         border-radius: 50%;
         background: #ACC0E6;
         margin: -4px 0 0 -4px;
+        z-index: 1050;
     }
 
     .lds-roller div:nth-child(1) {
