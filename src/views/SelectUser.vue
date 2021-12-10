@@ -75,58 +75,6 @@
                                         </div>
                                     </div>
                                 </router-link>
-                                <router-link to="/MeasuresAuth" _ngcontent-vru-c0="" type="button"
-                                        class="role col-3 col-md-6 col-lg-12 -ms-start-lg-1 -ms-row-lg-3"
-                                        title="ТЕРРИТОРИАЛЬНЫЙ ФОНД ОБЯЗАТЕЛЬНОГО МЕДИЦИНСКОГО СТРАХОВАНИЯ АЛТАЙСКОГО КРАЯ">
-                                    <div _ngcontent-vru-c0="" class="flex-container-md flex-container-lg">
-                                        <div _ngcontent-vru-c0="" class="role-item flex-container">
-                                            <div _ngcontent-vru-c0="" class="role-icon AGENCY"><!----></div>
-                                            <div _ngcontent-vru-c0=""
-                                                 class="flex-1 flex-container-lg flex-container-md feed-content">
-                                                <div _ngcontent-vru-c0="">
-                                                    <div _ngcontent-vru-c0="" class="flex-container"><h4
-                                                            _ngcontent-vru-c0=""><font style="vertical-align: inherit;"><font
-                                                            style="vertical-align: inherit;">ТФОМС АЛТАЙСКОГО
-                                                        КРАЯ</font></font></h4></div>
-                                                    <p _ngcontent-vru-c0="" class="subheader mt-8"><font
-                                                            style="vertical-align: inherit;"><font
-                                                            style="vertical-align: inherit;"> Сотрудник </font></font>
-                                                    </p></div>
-                                                <div _ngcontent-vru-c0="" class="flex-1-0-md flex-1-0-lg status">
-                                                    <div _ngcontent-vru-c0="" class="status-container">
-                                                        <div _ngcontent-vru-c0="" class="arrow "></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </router-link>
-                                <router-link to="/MeasuresAuth" _ngcontent-vru-c0="" type="button"
-                                        class="role col-3 col-md-6 col-lg-12 -ms-start-lg-1 -ms-row-lg-4"
-                                        title="АДМИНИСТРАЦИЯ ГОРОДА ЧЕЛЯБИНСКА">
-                                    <div _ngcontent-vru-c0="" class="flex-container-md flex-container-lg">
-                                        <div _ngcontent-vru-c0="" class="role-item flex-container">
-                                            <div _ngcontent-vru-c0="" class="role-icon AGENCY"><!----></div>
-                                            <div _ngcontent-vru-c0=""
-                                                 class="flex-1 flex-container-lg flex-container-md feed-content">
-                                                <div _ngcontent-vru-c0="">
-                                                    <div _ngcontent-vru-c0="" class="flex-container"><h4
-                                                            _ngcontent-vru-c0=""><font style="vertical-align: inherit;"><font
-                                                            style="vertical-align: inherit;">АДМИНИСТРАЦИЯ ГОРОДА
-                                                        ЧЕЛЯБИНСКА</font></font></h4></div>
-                                                    <p _ngcontent-vru-c0="" class="subheader mt-8"><font
-                                                            style="vertical-align: inherit;"><font
-                                                            style="vertical-align: inherit;"> Сотрудник </font></font>
-                                                    </p></div>
-                                                <div _ngcontent-vru-c0="" class="flex-1-0-md flex-1-0-lg status">
-                                                    <div _ngcontent-vru-c0="" class="status-container">
-                                                        <div _ngcontent-vru-c0="" class="arrow "></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </router-link>
                             </div><!----></div>
                     </div>
                 </div>
@@ -3117,6 +3065,6 @@
     span {--colorTabBar:transparent; --colorFg:#9ee2ff; --colorFgAlpha:#9ee2ff1a; --colorFgIntense:#c5ffff; --colorFgFaded:#a0e1fd; --colorFgFadedMore:#a2dffa; --colorFgFadedMost:#ace1fc; --colorBg:#001138; --colorBgAlpha:#001138e6; --colorBgAlphaHeavy:#001138a6; --colorBgAlphaHeavier:#00113840; --colorBgAlphaBlur:#001138cc; --colorBgDark:#000832; --colorBgDarker:#00002c; --colorBgLight:#04153c; --colorBgLighter:#18234d; --colorBgLightIntense:#091840; --colorBgIntense:#00002c; --colorBgIntenser:#000025; --colorBgIntserAlpha:#000022eb; --colorBgInverse:#04153c; --colorBgInverser:#132049; --colorBgFaded:#0e1c44; --backgroundBlur:blur(5px); --colorHighlightBg:#a3edff; --colorHighlightBgUnfocused:#49577d; --colorHighlightBgAlpha:#a3edff1a; --colorHighlightBgDark:#8ad3e5; --colorHighlightFg:#000000; --colorHighlightFgAlpha:#00000080; --colorHighlightFgAlphaHeavy:#00000040; --colorAccentBg:#99d3ff; --colorAccentBgAlpha:#d7ffff66; --colorAccentBgAlphaHeavy:#d7ffff40; --colorAccentBgDark:#85bfea; --colorAccentBgDarker:#67a2cc; --colorAccentBgFaded:#d1dce2; --colorAccentBgFadedMore:#b3ecff; --colorAccentBgFadedMost:#d7ffff; --colorAccentBorder:#619dc7; --colorAccentBorderDark:#5591ba; --colorAccentFg:#000000; --colorAccentFgFaded:#6185a1; --colorAccentFgAlpha:#00000040; --colorBorder:#414675; --colorBorderDisabled:#343a64; --colorBorderSubtle:#29305a; --colorBorderIntense:#65699a; --colorSuccessBg:#06a700; --colorSuccessBgAlpha:#06a7001a; --colorSuccessFg:#ffffff; --colorWarningBg:#efaf00; --colorWarningBgAlpha:#efaf001a; --colorWarningFg:#000000; --colorErrorBg:#c64539; --colorErrorBgAlpha:#c645391a; --colorErrorFg:#ffffff; --colorWindowBg:#001138; --colorWindowFg:#ffffff; --radiusRound:100px; --radiusRounded:2px; --radiusRoundedLess:2px; --radius:14px; --radiusHalf:7px; --scrollbarWidth:12px;}
 
     a h4 {
-        color: silver;
+        color: black;
     }
 </style>

@@ -16,7 +16,12 @@
                             </div>
                             <FiltersList :fd="filters"></FiltersList>
                             <div class="row">
-                                <div class="btn btn-primary col-12" @click="scenarioFilter">Применить фильтр</div>
+                                <div class="col">
+                                    <div class="btn btn-primary btn-block mb-3" @click="scenarioFilter">Применить</div>
+                                </div>
+                                <div class="col">
+                                    <div class="btn btn-outline-primary btn-block mb-3" @click="clearFilter">Очистить</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-6">
@@ -176,31 +181,38 @@
                 ],
                 filters: [
                     {
-                        title: 'Вид деятельности:',
+                        title: 'Отрасль экономики:',
                         selected: [], // Must be an array reference!
                         options: [
-                            {text: 'Лесоводство и лесозаготовки', value: '1'},
-                            {text: 'Добыча угля', value: '2'},
-                            {text: 'Производство одежды', value: '3'},
-                            {text: 'Строительство зданий', value: '4'},
-                            {text: 'Научные исследования и разработки', value: '5'},
-                            {text: 'Деятельность общественных организаций', value: '6'},
-                            {text: 'Производство мебели', value: '7'},
-                            {text: 'Деятельность профессиональная научная и техническая прочая', value: '8'},
-                            {text: 'Деятельность в области спорта, отдыха и развлечений', value: '9'},
-                            {text: 'Растениеводство и животноводство, охота и предоставление соответствующих услуг в этих областях', value: '10'}
+                            {text: 'Промышленность', value: '1'},
+                            {text: 'Сельское хозяйство', value: '2'},
+                            {text: 'Строительство', value: '3'},
+                            {text: 'Транспорт', value: '4'},
+                            {text: 'Связь', value: '5'},
+                            {text: 'Торговля и общественное питание', value: '6'},
+                            {text: 'Культура и искусство', value: '7'},
+                            {text: 'Информационно-вычислительное обслуживание', value: '8'},
+                            {text: 'Наука и научное обслуживание', value: '9'},
                         ]
                     },
                     {
                         title: 'Форма/вид поддержки:',
                         selected: [], // Must be an array reference!
                         options: [
-                            {text: 'Финансовая поддержка', value: '1'},
-                            {text: 'Информационная поддержка', value: '2'},
-                            {text: 'Образовательная поддержка', value: '3'},
-                            {text: 'Консультационная поддержка', value: '4'},
-                            {text: 'Имущественная поддержка', value: '5'},
-                            {text: 'Инновационная поддержка', value: '6'},
+                            {text: 'Финансовая', value: '1'},
+                            {text: 'Информационная', value: '2'},
+                            {text: 'Образовательная', value: '3'},
+                            {text: 'Консультационная', value: '4'},
+                            {text: 'Имущественная', value: '5'},
+                            {text: 'Инновационная', value: '6'},
+                        ]
+                    },
+                    {
+                        title: 'Вид получателя:',
+                        selected: [], // Must be an array reference!
+                        options: [
+                            {text: 'ИП', value: '1'},
+                            {text: 'ЮЛ', value: '2'},
                         ]
                     },
                     {
@@ -208,12 +220,9 @@
                         selected: [], // Must be an array reference!
                         options: [
                             {text: 'до 100 т.р.', value: '1'},
-                            {text: 'от 100 т.р. до 500 т.р.', value: '2'},
-                            {text: 'от 500 т.р. до 1 млн.р.', value: '3'},
-                            {text: 'от 1 млн.руб до 3 млн.р.', value: '4'},
-                            {text: 'от 3 млн.руб до 10 млн.р.', value: '5'},
-                            {text: 'от 10 млн.руб до 50 млн.р.', value: '6'},
-                            {text: 'от 50 млн.руб до 200 млн.р.', value: '7'},
+                            {text: 'от 500 т.р. до 1 млн.р.', value: '2'},
+                            {text: 'от 1 млн.руб до 10 млн.р.', value: '3'},
+                            {text: 'от 10 млн.руб до 20 млн.р.', value: '4'},
                         ]
                     },
                     {
@@ -234,14 +243,6 @@
                             {text: 'микро', value: '1'},
                             {text: 'малые', value: '2'},
                             {text: 'средние', value: '3'},
-                        ]
-                    },
-                    {
-                        title: 'Вид получателя:',
-                        selected: [], // Must be an array reference!
-                        options: [
-                            {text: 'ИП', value: '1'},
-                            {text: 'ЮЛ', value: '2'},
                         ]
                     },
                 ]
@@ -283,7 +284,7 @@
             },
             scenarioFilter() {
                 console.log('Начинаю фильтрацию по сценарию ' + this.scenario);
-                if (this.filters[0].selected.includes('5') && this.filters[1].selected.includes('1') && this.filters[5].selected.includes('2')) {
+                if (this.filters[0].selected.includes('9') && this.filters[1].selected.includes('1') && this.filters[2].selected.includes('2')) {
                     const xhr = new XMLHttpRequest();
                     let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/scenario.php?scenario=" + this.scenario;
                     xhr.open("GET", request);
@@ -295,6 +296,21 @@
                     };
                     xhr.send();
                 }
+            },
+            clearFilter() {
+                this.filters.forEach(function (item) {
+                    item.selected = [];
+                });
+                const xhr = new XMLHttpRequest();
+                let request = "https://www.d-skills.ru/40_subsidy_bootstrapvue/measures.php?page=" + this.page + "&pageSize=" + this.pageSize;
+                xhr.open("GET", request);
+                xhr.responseType = 'json';
+                xhr.onload = () => {
+                    console.log(xhr.response);
+                    this.xhrResponse = xhr.response;
+                    this.totalItems = 160;
+                };
+                xhr.send();
             },
             chatActivation() {
                 this.chatIsActive = true;
