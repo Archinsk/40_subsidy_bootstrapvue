@@ -2,7 +2,7 @@
     <div class="chat">
         <ChatHeader v-show="isActive" @close-chat="$emit('close-chat')"></ChatHeader>
         <div class="container">
-            <ChatBoard :isActive="isActive" :isFlyingUp="isFlyingUp" :isFlyingDown="isFlyingDown" :messages="messages"></ChatBoard>
+            <ChatBoardAnimate :isActive="isActive" :isFlyingUp="isFlyingUp" :isFlyingDown="isFlyingDown" :messages="messages"></ChatBoardAnimate>
             <SearchForm :isActive="isActive" :isFlyingUp="isFlyingUp" :isFlyingDown="isFlyingDown" :quest="quest" @add-quest="$emit('add-quest', $event)"
                         @focus-input="$emit('focus-input')"></SearchForm>
         </div>
@@ -11,14 +11,16 @@
 
 <script>
     import ChatHeader from "@/components/ChatHeader";
-    import ChatBoard from "@/components/ChatBoard";
+    // import ChatBoard from "@/components/ChatBoard";
+    import ChatBoardAnimate from "@/components/ChatBoardAnimate";
     import SearchForm from "@/components/SearchForm";
 
     export default {
         name: "Chat",
         components: {
             ChatHeader,
-            ChatBoard,
+            // ChatBoard,
+            ChatBoardAnimate,
             SearchForm,
         },
         props: [

@@ -285,8 +285,8 @@
             selectEsia() {
                 console.log('Начинаю поиск на основе ЕСИА');
                 this.filters[0].selected.push(2);
-                this.filters[1].selected.push(1);
-                this.filters[3].selected.push(4);
+                this.filters[2].selected.push(2);
+                this.filters[5].selected.push(3);
                 this.scenario = 2;
             },
             scenarioFilter() {
