@@ -1,47 +1,41 @@
 <template>
     <div>
         <HeaderOffcavas/>
-
         <main class="content">
-
             <section class="news-page">
                 <div class="news__wrapper container">
                     <h4 class="news__header text-center py-2">Новости</h4>
-
-<!--                    <NewsCardsList :newsPack="singleNewsJson"></NewsCardsList>-->
-                    <NewsCardsList2 :newsPack="xhrResponse" count="10" :everythingLittle="false"></NewsCardsList2>
+                    <NewsCardsList :newsPack="singleNewsJson"></NewsCardsList>
+                    <NewsPreviewList :newsPack="xhrResponse" count="10" :everythingLittle="false"></NewsPreviewList>
                     <ItemsListFooter @change-pageSize="changePageSize($event)" @change-page="changePage($event)"></ItemsListFooter>
-
                 </div>
             </section>
-
         </main>
-
         <Footer/>
     </div>
 </template>
 
 <script>
     import HeaderOffcavas from "@/components/HeaderOffcavas";
-    // import NewsCardsList from "@/components/NewsCardsList";
-    import NewsCardsList2 from "@/components/NewsCardsList2";
+    import NewsCardsList from "@/components/NewsCardsList";
+    import NewsPreviewList from "@/components/NewsPreviewList";
     import ItemsListFooter from "@/components/ItemsListFooter";
     import Footer from "@/components/Footer";
 
     export default {
-        name: "News",
+        name: "NewsPreviewList",
 
         components: {
             HeaderOffcavas,
-            // NewsCardsList,
-            NewsCardsList2,
+            NewsCardsList,
+            NewsPreviewList,
             ItemsListFooter,
             Footer,
         },
 
         data() {
             return {
-                /*singleNewsJson: [
+                singleNewsJson: [
                     {
                         "id": 1,
                         "title": "ArchGlass 2021 - Международный форум индустрии архитектурного стекла",
@@ -242,7 +236,7 @@
                             "link": "https://ria.ru"
                         }
                     },
-                ],*/
+                ],
                 xhrResponse: [],
                 page: 1,
                 pageSize: 10,
@@ -287,7 +281,7 @@
             };
             xhr.send();
 
-            const xhr2 = new XMLHttpRequest();
+            /*const xhr2 = new XMLHttpRequest();
             let request2 = "https://www.d-skills.ru/40_subsidy_bootstrapvue/news.php?table=news";
             xhr2.open("GET", request2);
             xhr2.responseType = 'json';
@@ -295,7 +289,7 @@
                 console.log(xhr2.response);
                 this.itemsCount = xhr2.response;
             };
-            xhr2.send();
+            xhr2.send();*/
         },
     }
 </script>

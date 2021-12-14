@@ -2,20 +2,34 @@
     <div class="card">
         <div class="card-body">
             <div class="card-text-block">
-                <router-link :to="news.link" class="news-link stretched-link">
-                    <h5 class="card-title">{{news.title}}</h5>
+                <router-link
+                        class="news-link stretched-link"
+                        :to="newsLink"
+                >
+                    <h5 class="card-title">{{ newsTitle }}</h5>
                 </router-link>
-                <p class="card-text">{{news.text}}</p>
+                <p class="card-text">{{ newsText }}</p>
             </div>
             <div class="card__image_full-width">
-                <img :src="news.image_path + news.image_file_name" class="card__image" alt="...">
+                <img
+                        class="card__image"
+                        alt="..."
+                        :src="newsImageFile"
+                >
             </div>
             <div class="card__footer">
                 <div class="news-source">
-                    <img :src="news.source_logo_path + news.source_logo_file_name" alt="Логотип новостного источника" class="news-source__logo">
-                    <a :href="news.source_link" class="news-source__link">{{news.source_title}}</a>
+                    <img
+                            class="news-source__logo"
+                            alt="Логотип новостного источника"
+                            :src="newsSourceLogoFile"
+                    >
+                    <a
+                            class="news-source__link"
+                            :href="newsSourceLink"
+                    >{{ newsSourceName }}</a>
                 </div>
-                <span>{{news.publication_date}}</span>
+                <span>{{ newsPublicationDate }}</span>
             </div>
         </div>
     </div>
@@ -23,21 +37,18 @@
 
 <script>
     export default {
-        name: "NewsCard2",
-
+        name: 'NewsPreviewListItem',
         props: [
-            'news',
+            'newsLink',
+            'newsTitle',
+            'newsText',
+            'newsImageFile',
+            'newsSourceLogoFile',
+            'newsSourceLink',
+            'newsSourceName',
+            'newsPublicationDate',
+            'newsImportance'
         ],
-
-        data() {
-            return{
-
-            }
-        },
-
-        computed: {
-
-        },
     }
 </script>
 
