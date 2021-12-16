@@ -22,6 +22,9 @@
                 <b-nav-item :to="type==='true' ? '/accountinfo' : '/authPage' " active-class="active">
                     {{ type==="true" ? "Личный кабинет" : "Войти" }}
                 </b-nav-item>
+                <b-nav-item to="/siteAdmin">
+                    <span class="material-icons">settings</span>
+                </b-nav-item>
             </b-navbar-nav>
         </b-collapse>
     </b-sidebar>

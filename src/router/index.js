@@ -88,6 +88,12 @@ const routes = [
     component: () =>
       import("../views/SelectUser"),
   },
+  {
+    path: "/siteAdmin",
+    name: "SiteAdmin",
+    component: () =>
+      import("../views/SiteAdmin"),
+  },
 ];
 
 const router = new VueRouter({

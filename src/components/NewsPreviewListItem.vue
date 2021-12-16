@@ -13,7 +13,7 @@
             <div class="card__image_full-width">
                 <img
                         class="card__image"
-                        alt="..."
+                        alt="Изображение анонса новости"
                         :src="newsImageFile"
                 >
             </div>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+    // Need a text cropping (Ellipsis) method
     export default {
         name: 'NewsPreviewListItem',
         props: [
@@ -47,12 +48,13 @@
             'newsSourceLink',
             'newsSourceName',
             'newsPublicationDate',
-            'newsImportance'
+            'newsImportance',
         ],
     }
 </script>
 
 <style lang="scss" scoped>
+    /*Styles need to be optimized*/
     $gap: 0.5rem;
     $text-color: #212529;
     $muted-color: #6c757d;

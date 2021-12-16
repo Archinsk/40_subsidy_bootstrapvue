@@ -26,7 +26,12 @@
                         <h4 class="news__header text-center py-2">Новости</h4>
                         <router-link to="/news">Больше новостей</router-link>
                     </div>
-                    <NewsPreviewList count="3" :everythingLittle="true"></NewsPreviewList>
+                    <NewsPreviewList
+                            count="3"
+                            :everythingLittle="true"
+                            :target-url="newsTargetUrl"
+                            :pagination="false"
+                    ></NewsPreviewList>
                 </div>
             </section>
 
@@ -62,6 +67,7 @@
 
         data() {
             return {
+                newsTargetUrl: 'https://www.d-skills.ru/40_subsidy_bootstrapvue/news.php',
                 inputText: '',
                 replics: [
                     {id: 1, author: "bot", content: "Я - чат-бот Василий. Я помогу Вам с поиском меры поддержки."},
