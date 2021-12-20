@@ -1,8 +1,8 @@
 <template>
     <div class="page-wrapper">
-        <HeaderOffcavas v-show="!chatIsActive" auth="true"/>
+        <HeaderOffcavas auth="true"/>
         <main class="content">
-            <section v-show="!chatIsActive" class="measures container">
+            <section class="container">
                 <form>
                     <h4>Данные сайта</h4>
                     <div class="form-row">
@@ -99,56 +99,7 @@
                     </div>
 
                     <h4>Ссылки футера</h4>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input19">Идентификатор пункта</label>
-                            <input v-model="footerMenuItemId" type="text" class="form-control" id="input19">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input20">Тип пункта</label>
-                            <input v-model="footerMenuItemType" type="text" class="form-control" id="input20">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input21">Язык</label>
-                            <input v-model="footerMenuItemLocale" type="text" class="form-control" id="input21">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input22">Наименование</label>
-                            <input v-model="footerMenuItemText" type="text" class="form-control" id="input22">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input23">Файл иконки</label>
-                            <input v-model="footerMenuItemIcon" type="text" class="form-control" id="input23">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input24">Дочерние элементы</label>
-                            <input v-model="footerMenuItemChilds" type="text" class="form-control" id="input24">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input25">Идентификатор родителя</label>
-                            <input v-model="footerMenuItemParentId" type="text" class="form-control" id="input25">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input26">Порядок</label>
-                            <input v-model="footerMenuItemOrder" type="text" class="form-control" id="input26">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input27">Админ</label>
-                            <input v-model="footerMenuItemAdmin" type="text" class="form-control" id="input27">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input28">Гость</label>
-                            <input v-model="footerMenuItemGuest" type="text" class="form-control" id="input28">
-                        </div>
-                    </div>
+                    <SiteAdminFooterMenu />
 
                     <h4>Контакты</h4>
                     <div class="form-row">
@@ -195,12 +146,12 @@
                     <h4>Что-то ещё</h4>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="input"></label>
-                            <input v-model="titleLocaleCode" type="text" class="form-control" id="input">
+                            <label for="input100"></label>
+                            <input v-model="titleLocaleCode" type="text" class="form-control" id="input100">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="input"></label>
-                            <input v-model="titleText" type="text" class="form-control" id="input">
+                            <label for="input101"></label>
+                            <input v-model="titleText" type="text" class="form-control" id="input101">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Sign in</button>
@@ -208,7 +159,7 @@
                 </form>
             </section>
         </main>
-        <Footer v-show="!chatIsActive"/>
+        <Footer/>
     </div>
 
 </template>
@@ -216,12 +167,14 @@
 <script>
     import HeaderOffcavas from "@/components/HeaderOffcavas";
     import Footer from "@/components/Footer";
+    import SiteAdminFooterMenu from "@/components/SiteAdminFooterMenu";
 
     export default {
         name: "SiteAdmin",
         components: {
             HeaderOffcavas,
-            Footer
+            Footer,
+            SiteAdminFooterMenu,
         },
         data() {
             return {
@@ -245,17 +198,6 @@
                 menuItemAdmin: '17',
                 menuItemGuest: '18',
 
-                footerMenuItemId: '19',
-                footerMenuItemLocale: '20',
-                footerMenuItemText: '21',
-                footerMenuItemType: '22',
-                footerMenuItemIcon: '23',
-                footerMenuItemChilds: '24',
-                footerMenuItemParentId: '25',
-                footerMenuItemOrder: '26',
-                footerMenuItemAdmin: '27',
-                footerMenuItemGuest: '28',
-
                 footerContactsItemId: '29',
                 footerContactsItemIcon: '30',
                 footerContactsItemOrder: '31',
@@ -273,7 +215,7 @@
                 xhr.open("GET", request);
                 xhr.responseType = 'json';
                 xhr.onload = () => {
-                    console.log('Пришел ответна запрос данных сайта')
+                    console.log('Ответ на запрос данных сайта:')
                     console.log(xhr.response);
                     this.faviconFileName = xhr.response.favicon;
                     this.faviconId = xhr.response.faviconId;
@@ -293,7 +235,7 @@
                 xhr.open("GET", request);
                 xhr.responseType = 'json';
                 xhr.onload = () => {
-                    console.log('Пришел ответ на запроc главного меню')
+                    console.log('Ответ на запроc меню хедера:')
                     console.log(xhr.response);
                     this.menuItemId = xhr.response[0].id;
                     this.menuItemLocale = xhr.response[0].title[0].localeCode;
@@ -309,35 +251,13 @@
                 xhr.send();
             },
 
-            getFooterMenu() {
-                const xhr = new XMLHttpRequest();
-                const request = 'https://open-newtemplate.isands.ru/open-core/api/site-data/get-footer';
-                xhr.open("GET", request);
-                xhr.responseType = 'json';
-                xhr.onload = () => {
-                    console.log('Пришел ответ на запроc главного меню')
-                    console.log(xhr.response);
-                    this.footerMenuItemId = xhr.response[0].id;
-                    this.footerMenuItemLocale = xhr.response[0].title[0].localeCode;
-                    this.footerMenuItemText = xhr.response[0].title[0].text;
-                    this.footerMenuItemType = xhr.response[0].type;
-                    this.footerMenuItemIcon = xhr.response[0].cssIcon;
-                    this.footerMenuItemChilds = xhr.response[0].childs;
-                    this.footerMenuItemParentId = xhr.response[0].parentId;
-                    this.footerMenuItemOrder = xhr.response[0].order;
-                    this.footerMenuItemAdmin = xhr.response[0].admin;
-                    this.footerMenuItemGuest = xhr.response[0].guest;
-                };
-                xhr.send();
-            },
-
             getFooterContacts() {
                 const xhr = new XMLHttpRequest();
                 const request = 'https://open-newtemplate.isands.ru/open-core/api/site-data/get-footer';
                 xhr.open("GET", request);
                 xhr.responseType = 'json';
                 xhr.onload = () => {
-                    console.log('Пришел ответ на запроc главного меню')
+                    console.log('Ответ на запроc контактов футера:')
                     console.log(xhr.response);
                     this.footerContactsItemId = xhr.response[0].id;
                     this.footerContactsItemIcon = xhr.response[0].cssIcon;
@@ -354,7 +274,6 @@
         mounted: function () {
             this.getSiteInfo();
             this.getMainMenu();
-            this.getFooterMenu();
             this.getFooterContacts();
         }
 
