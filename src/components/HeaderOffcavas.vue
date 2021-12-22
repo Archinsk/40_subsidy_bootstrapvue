@@ -62,7 +62,7 @@
             .btn {
                 border-color: $active-color;
                 opacity: 0.5;
-                padding: $gap/16*6;
+                padding: $gap/1*6;
                 display: flex;
 
                 &:active {

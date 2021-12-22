@@ -69,7 +69,7 @@
 
 
             .feature {
-                padding-left: $col-gap/2;
+                padding-left:$col-gap/2;
                 padding-right: $col-gap/2;
                 margin-bottom: $col-gap;
 
