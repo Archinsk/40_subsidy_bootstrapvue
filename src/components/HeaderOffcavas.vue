@@ -44,6 +44,7 @@
 
         .navbar {
             justify-content: space-between;
+            flex-wrap: wrap;
             padding-left: 0;
             padding-right: 0;
 
@@ -62,7 +63,7 @@
             .btn {
                 border-color: $active-color;
                 opacity: 0.5;
-                padding: $gap/1*6;
+                padding: $gap*6/16;
                 display: flex;
 
                 &:active {

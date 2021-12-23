@@ -1,38 +1,28 @@
 <template>
-    <div>
-        <HeaderOffcavas/>
-        <main class="content">
-            <section class="news-page mb-2">
-                <div class="news__wrapper container">
-                    <h4 class="news__header text-center py-2">Новости</h4>
-                    <NewsPreviewList
-                            count="10"
-                            :everythingLittle="false"
-                            :target-url="newsTargetUrl"
-                            :pagination="true"
-                    ></NewsPreviewList>
-<!--                    <ItemsListFooter @change-pageSize="changePageSize($event)" @change-page="changePage($event)"></ItemsListFooter>-->
-                </div>
-            </section>
-        </main>
-        <Footer/>
-    </div>
+    <section class="news-page mb-2">
+        <div class="news__wrapper container">
+            <h4 class="news__header text-center py-2">Новости</h4>
+            <NewsPreviewList
+                    count="10"
+                    :everythingLittle="false"
+                    :target-url="newsTargetUrl"
+                    :pagination="true"
+            ></NewsPreviewList>
+            <!--                    <ItemsListFooter @change-pageSize="changePageSize($event)" @change-page="changePage($event)"></ItemsListFooter>-->
+        </div>
+    </section>
 </template>
 
 <script>
-    import HeaderOffcavas from "@/components/HeaderOffcavas";
     import NewsPreviewList from "@/components/NewsPreviewList";
     // import ItemsListFooter from "@/components/ItemsListFooter";
-    import Footer from "@/components/Footer";
 
     export default {
         name: "News",
 
         components: {
-            HeaderOffcavas,
             NewsPreviewList,
             // ItemsListFooter,
-            Footer,
         },
 
         data() {
@@ -41,7 +31,7 @@
                 xhrResponse: [],
                 page: 1,
                 pageSize: 10,
-                newsItem:{
+                newsItem: {
                     "id": "1",
                     "title": "ArchGlass 2021 - Международный форум индустрии архитектурного стекла",
                     "text": "Союз архитекторов России и Союз московских архитекторов приглашают на 3-й международный форум индустрии архитектурного стекла ArchGlass 2021.",

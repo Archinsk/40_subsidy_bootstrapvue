@@ -4,156 +4,166 @@
         <main class="content">
             <section class="container">
                 <form>
-                    <h4>Данные сайта</h4>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input1">Имя файла фавиконки</label>
-                            <input v-model="faviconFileName" type="text" class="form-control" id="input1">
+                    <section class="site-meta">
+                        <h4>Данные сайта</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input1">Имя файла фавиконки</label>
+                                <input v-model="faviconFileName" type="text" class="form-control" id="input1">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input2">Идентификатор фавиконки</label>
+                                <input v-model="faviconId" type="text" class="form-control" id="input2">
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="input2">Идентификатор фавиконки</label>
-                            <input v-model="faviconId" type="text" class="form-control" id="input2">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input3">Имя файла логотипа</label>
+                                <input v-model="logoFileName" type="text" class="form-control" id="input3">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input4">Идентификатор логотипа</label>
+                                <input v-model="logoId" type="text" class="form-control" id="input4">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input3">Имя файла логотипа</label>
-                            <input v-model="logoFileName" type="text" class="form-control" id="input3">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input5">Язык хэдера</label>
+                                <input v-model="headerLocaleCode" type="text" class="form-control" id="input5">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input6">Наименование организации</label>
+                                <input v-model="headerText" type="text" class="form-control" id="input6">
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="input4">Идентификатор логотипа</label>
-                            <input v-model="logoId" type="text" class="form-control" id="input4">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input7">Язык заголовка сайта</label>
+                                <input v-model="titleLocaleCode" type="text" class="form-control" id="input7">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input8">Заголовок сайта</label>
+                                <input v-model="titleText" type="text" class="form-control" id="input8">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input5">Язык хэдера</label>
-                            <input v-model="headerLocaleCode" type="text" class="form-control" id="input5">
+                    </section>
+                    <section class="main-menu">
+                        <h4>Данные меню</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input9">Идентификатор пункта</label>
+                                <input v-model="menuItemId" type="text" class="form-control" id="input9">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input10">Тип пункта</label>
+                                <input v-model="menuItemType" type="text" class="form-control" id="input10">
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="input6">Наименование организации</label>
-                            <input v-model="headerText" type="text" class="form-control" id="input6">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input11">Язык</label>
+                                <input v-model="menuItemLocale" type="text" class="form-control" id="input11">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input12">Наименование</label>
+                                <input v-model="menuItemText" type="text" class="form-control" id="input12">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input7">Язык заголовка сайта</label>
-                            <input v-model="titleLocaleCode" type="text" class="form-control" id="input7">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input13">Файл иконки</label>
+                                <input v-model="menuItemIcon" type="text" class="form-control" id="input13">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input14">Дочерние элементы</label>
+                                <input v-model="menuItemChilds" type="text" class="form-control" id="input14">
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="input8">Заголовок сайта</label>
-                            <input v-model="titleText" type="text" class="form-control" id="input8">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input15">Идентификатор родителя</label>
+                                <input v-model="menuItemParentId" type="text" class="form-control" id="input15">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input16">Порядок</label>
+                                <input v-model="menuItemOrder" type="text" class="form-control" id="input16">
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input17">Админ</label>
+                                <input v-model="menuItemAdmin" type="text" class="form-control" id="input17">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input18">Гость</label>
+                                <input v-model="menuItemGuest" type="text" class="form-control" id="input18">
+                            </div>
+                        </div>
+                    </section>
 
-                    <h4>Данные меню</h4>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input9">Идентификатор пункта</label>
-                            <input v-model="menuItemId" type="text" class="form-control" id="input9">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input10">Тип пункта</label>
-                            <input v-model="menuItemType" type="text" class="form-control" id="input10">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input11">Язык</label>
-                            <input v-model="menuItemLocale" type="text" class="form-control" id="input11">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input12">Наименование</label>
-                            <input v-model="menuItemText" type="text" class="form-control" id="input12">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input13">Файл иконки</label>
-                            <input v-model="menuItemIcon" type="text" class="form-control" id="input13">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input14">Дочерние элементы</label>
-                            <input v-model="menuItemChilds" type="text" class="form-control" id="input14">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input15">Идентификатор родителя</label>
-                            <input v-model="menuItemParentId" type="text" class="form-control" id="input15">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input16">Порядок</label>
-                            <input v-model="menuItemOrder" type="text" class="form-control" id="input16">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input17">Админ</label>
-                            <input v-model="menuItemAdmin" type="text" class="form-control" id="input17">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input18">Гость</label>
-                            <input v-model="menuItemGuest" type="text" class="form-control" id="input18">
-                        </div>
-                    </div>
+
 
                     <h4>Ссылки футера</h4>
                     <SiteAdminFooterMenu />
 
-                    <h4>Контакты</h4>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input29">Идентификатор пункта меню</label>
-                            <input v-model="footerContactsItemId" type="text" class="form-control" id="input29">
+                    <section class="contacts">
+                        <h4>Контакты</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input29">Идентификатор пункта меню</label>
+                                <input v-model="footerContactsItemId" type="text" class="form-control" id="input29">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input30">Иконка</label>
+                                <input v-model="footerContactsItemIcon" type="text" class="form-control" id="input30">
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="input30">Иконка</label>
-                            <input v-model="footerContactsItemIcon" type="text" class="form-control" id="input30">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input31">Порядок</label>
+                                <input v-model="footerContactsItemOrder" type="text" class="form-control" id="input31">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input32">Имя файла лого</label>
+                                <input v-model="footerContactsLogoFileName" type="text" class="form-control" id="input32">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input31">Порядок</label>
-                            <input v-model="footerContactsItemOrder" type="text" class="form-control" id="input31">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input33">Идентификатор лого</label>
+                                <input v-model="footerContactsItemLogoId" type="text" class="form-control" id="input33">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input34">Язык</label>
+                                <input v-model="footerContactsItemLocale" type="text" class="form-control" id="input34">
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="input32">Имя файла лого</label>
-                            <input v-model="footerContactsLogoFileName" type="text" class="form-control" id="input32">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input35">Наименование</label>
+                                <input v-model="footerContactsItemText" type="text" class="form-control" id="input35">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input36">Адрес ссылки</label>
+                                <input v-model="footerContactsItemUrl" type="text" class="form-control" id="input36">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input33">Идентификатор лого</label>
-                            <input v-model="footerContactsItemLogoId" type="text" class="form-control" id="input33">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input34">Язык</label>
-                            <input v-model="footerContactsItemLocale" type="text" class="form-control" id="input34">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input35">Наименование</label>
-                            <input v-model="footerContactsItemText" type="text" class="form-control" id="input35">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input36">Адрес ссылки</label>
-                            <input v-model="footerContactsItemUrl" type="text" class="form-control" id="input36">
-                        </div>
-                    </div>
+                    </section>
 
-                    <h4>Что-то ещё</h4>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input100"></label>
-                            <input v-model="titleLocaleCode" type="text" class="form-control" id="input100">
+                    <section class="something">
+                        <h4>Что-то ещё</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="input100"></label>
+                                <input v-model="titleLocaleCode" type="text" class="form-control" id="input100">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="input101"></label>
+                                <input v-model="titleText" type="text" class="form-control" id="input101">
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="input101"></label>
-                            <input v-model="titleText" type="text" class="form-control" id="input101">
-                        </div>
-                    </div>
+                    </section>
+
                     <button type="submit" class="btn btn-primary">Sign in</button>
                     <button type="submit" class="btn btn-primary">Sign in</button>
                 </form>

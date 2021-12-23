@@ -1,68 +1,57 @@
 <template>
     <div>
-        <HeaderOffcavas v-show="!chatIsActive"/>
+        <section v-show="!chatIsActive" class="slider">
+            <Slider></Slider>
+        </section>
 
-        <main class="content">
+        <section class="bot">
+            <Chat :isActive="chatIsActive" :isFlyingUp="flyingRobotUp" :isFlyingDown="flyingRobotDown"
+                  :messages="replicsList" @close-chat="closeChat" :quest="inputText"
+                  @focus-input="focusInput" @add-quest="addQuest($event)"></Chat>
+            <AnswersBlock2 v-show="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock2>
+            <!--                <FeaturesBlock v-show="!chatIsActive"></FeaturesBlock>-->
+        </section>
 
-            <section v-show="!chatIsActive" class="slider">
-                <Slider></Slider>
-            </section>
+        <section v-show="!chatIsActive" class="advantages">
+            <Advantages></Advantages>
+        </section>
 
-            <section class="bot">
-                <Chat :isActive="chatIsActive" :isFlyingUp="flyingRobotUp" :isFlyingDown="flyingRobotDown"
-                      :messages="replicsList" @close-chat="closeChat" :quest="inputText"
-                      @focus-input="focusInput" @add-quest="addQuest($event)"></Chat>
-                <AnswersBlock2 v-show="!chatIsActive" @quick-question="enterQuestion($event)"></AnswersBlock2>
-                <!--                <FeaturesBlock v-show="!chatIsActive"></FeaturesBlock>-->
-            </section>
-
-            <section v-show="!chatIsActive" class="advantages">
-                <Advantages></Advantages>
-            </section>
-
-            <section v-show="!chatIsActive" class="news mb-2">
-                <div class="news__wrapper container">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="news__header text-center py-2">Новости</h4>
-                        <router-link to="/news">Больше новостей</router-link>
-                    </div>
-                    <NewsPreviewList
-                            count="3"
-                            :everythingLittle="true"
-                            :target-url="newsTargetUrl"
-                            :pagination="false"
-                    ></NewsPreviewList>
+        <section v-show="!chatIsActive" class="news mb-2">
+            <div class="news__wrapper container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="news__header text-center py-2">Новости</h4>
+                    <router-link to="/news">Больше новостей</router-link>
                 </div>
-            </section>
-
-        </main>
-        <Footer v-show="!chatIsActive"/>
+                <NewsPreviewList
+                        count="3"
+                        :everythingLittle="true"
+                        :target-url="newsTargetUrl"
+                        :pagination="false"
+                ></NewsPreviewList>
+            </div>
+        </section>
     </div>
 </template>
 
 <script>
-    import HeaderOffcavas from "@/components/HeaderOffcavas";
     import Slider from "@/components/Slider";
     import Chat from "@/components/Chat";
     import AnswersBlock2 from "@/components/AnswersBlock2";
     // import FeaturesBlock from "@/components/FeaturesBlock";
     import Advantages from "@/components/Advantages";
     import NewsPreviewList from "@/components/NewsPreviewList";
-    import Footer from "@/components/Footer";
 
     export default {
 
         name: "HomeS",
 
         components: {
-            HeaderOffcavas,
             Slider,
             Chat,
             AnswersBlock2,
             Advantages,
             // FeaturesBlock,
             NewsPreviewList,
-            Footer,
         },
 
         data() {
@@ -232,7 +221,6 @@
                 return this.replics.length > 1 && this.chatIsActive
             },
         },
-
 
 
     }

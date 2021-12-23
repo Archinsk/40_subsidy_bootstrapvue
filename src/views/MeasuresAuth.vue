@@ -1,76 +1,68 @@
 <template>
     <div>
-        <HeaderOffcavas v-show="!chatIsActive" auth="true"/>
-
-        <main class="content">
-
-            <section v-show="!chatIsActive" class="measures">
-                <div class="measures__wrapper">
-                    <h4 class="measures__heading text-center">Меры поддержки <span class="badge badge-primary">{{ totalItems }}</span></h4>
-                    <div class="row justify-content-center mb-3">
-                        <div class="col-2">
-                            <div class="row">
-                                <div class="btn btn-outline-primary col-12 mb-2" @click="selectEsia">Подобрать с учетом ЕСИА</div>
-                                <div class="btn btn-outline-primary col-12 mb-2"
-                                     @click="chatActivation"
-                                >Подобрать с помощью чат-бота</div>
+        <section v-show="!chatIsActive" class="measures">
+            <div class="measures__wrapper">
+                <h4 class="measures__heading text-center">Меры поддержки <span class="badge badge-primary">{{ totalItems }}</span>
+                </h4>
+                <div class="row justify-content-center mb-3">
+                    <div class="col-2">
+                        <div class="row">
+                            <div class="btn btn-outline-primary col-12 mb-2" @click="selectEsia">Подобрать с учетом
+                                ЕСИА
                             </div>
-                            <FiltersList :fd="filters"></FiltersList>
-                            <div class="row">
-                                <div class="col mb-3">
-                                    <div class="btn btn-primary btn-block" @click="scenarioFilter">Применить</div>
-                                </div>
-                                <div class="col mb-3">
-                                    <div class="btn btn-outline-primary btn-block" @click="clearFilter">Очистить</div>
-                                </div>
+                            <div class="btn btn-outline-primary col-12 mb-2"
+                                 @click="chatActivation"
+                            >Подобрать с помощью чат-бота
                             </div>
                         </div>
-                        <div class="col-6">
-                            <MeasuresCardsList :measuresPack="xhrResponse" count="10"></MeasuresCardsList>
-                            <ItemsListFooter
-                                    v-show="totalItems>pageSize"
-                                    @change-pageSize="changePageSize($event)"
-                                    @change-page="changePage($event)"></ItemsListFooter>
+                        <FiltersList :fd="filters"></FiltersList>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <div class="btn btn-primary btn-block" @click="scenarioFilter">Применить</div>
+                            </div>
+                            <div class="col mb-3">
+                                <div class="btn btn-outline-primary btn-block" @click="clearFilter">Очистить</div>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-6">
+                        <MeasuresCardsList :measuresPack="xhrResponse" count="10"></MeasuresCardsList>
+                        <ItemsListFooter
+                                v-show="totalItems>pageSize"
+                                @change-pageSize="changePageSize($event)"
+                                @change-page="changePage($event)"></ItemsListFooter>
+                    </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section v-show="chatIsActive" class="bot">
-                <Chat isActive="true"
-                      isFlyingDown="true"
-                      :messages="replicsList"
-                      :quest="inputText"
-                      @close-chat="chatDisactivation"
-                      @focus-input="focusInput"
-                      @add-quest="addQuest($event)"
-                ></Chat>
-            </section>
-
-        </main>
-
-        <Footer v-show="!chatIsActive" />
+        <section v-show="chatIsActive" class="bot">
+            <Chat isActive="true"
+                  isFlyingDown="true"
+                  :messages="replicsList"
+                  :quest="inputText"
+                  @close-chat="chatDisactivation"
+                  @focus-input="focusInput"
+                  @add-quest="addQuest($event)"
+            ></Chat>
+        </section>
     </div>
 </template>
 
 <script>
-    import HeaderOffcavas from "@/components/HeaderOffcavas";
     import MeasuresCardsList from "@/components/MeasuresCardsList";
     import FiltersList from "@/components/FiltersList";
     import ItemsListFooter from "@/components/ItemsListFooter";
     import Chat from "@/components/Chat";
-    import Footer from "@/components/Footer";
 
     export default {
         name: "Measures",
 
         components: {
-            HeaderOffcavas,
             MeasuresCardsList,
             FiltersList,
             ItemsListFooter,
             Chat,
-            Footer,
         },
 
         data() {

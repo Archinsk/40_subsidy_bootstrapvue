@@ -3,49 +3,18 @@
         <div class="footer__wrapper container">
             <div class="footer__main row row-cols-1 row-cols-md-3">
                 <div class="footer__info col">
-                    <router-link to="/" class="footer__brend">
-                        <img src="@/assets/iss_logo_white.svg" alt="" class="footer__brend__logo">
-                        <div class="footer__brend__name">Информационные системы и сервисы</div>
-                    </router-link>
-                    <div class="footer__social">
-                        <a href="https://www.facebook.com" target="_blank" class="footer__social__link">
-                            <img src="https://novosibirsk.rus-buket.ru/images/socials/alt/fb.svg" alt=""
-                                 class="footer__social__logo">
-                        </a>
-                        <a href="https://www.instagram.com" target="_blank" class="footer__social__link">
-                            <img src="https://novosibirsk.rus-buket.ru/images/socials/instagram.svg" alt=""
-                                 class="footer__social__logo">
-                        </a>
-                        <a href="https://www.youtube.com/" target="_blank" class="footer__social__link">
-                            <img src="https://novosibirsk.rus-buket.ru/images/socials/alt/youtube.svg" alt=""
-                                 class="footer__social__logo">
-                        </a>
-                        <a href="https://vk.com/" target="_blank" class="footer__social__link">
-                            <img src="https://novosibirsk.rus-buket.ru/images/socials/alt/vk.svg" alt=""
-                                 class="footer__social__logo">
-                        </a>
-                    </div>
+                    <SiteLogo/>
+                    <FooterSocial/>
                 </div>
-                <ul class="footer__contacts col-md-3">
-                    <li><a href="tel:+78007751986" class="footer__phone">8-800-775-1986</a></li>
-                    <li><a href="tel:+73833541011" class="footer__phone">8-383-354-1011</a></li>
-                    <li><a href="mailto:info@is-n-s.ru" class="footer__mail">info@is-n-s.ru</a></li>
-                    <li><b-button href="#" variant="link" v-b-modal.modal-1>Техническая поддержка</b-button></li>
-                </ul>
-                <ul class="footer__links col-md-5">
-                    <li><router-link to="/news">Новости</router-link></li>
-                    <li><router-link to="/measures">Поддержка юридических лиц</router-link></li>
-                    <li><router-link to="/measures">Поддержка индивидуальных предпринимателей</router-link></li>
-                    <li><router-link to="/measures">Поддержка физических лиц</router-link></li>
-                </ul>
+                <FooterContacts/>
+                <FooterNavigation/>
             </div>
             <hr>
             <div class="footer__copyright">
                 Все права защищены
             </div>
-
             <b-modal id="modal-1" title="Обратная связь" hide-footer>
-                <SupportRequestForm></SupportRequestForm>
+                <SupportRequestForm/>
             </b-modal>
 
         </div>
@@ -53,22 +22,25 @@
 </template>
 
 <script>
+    import SiteLogo from "@/components/universal/SiteLogo";
+    import FooterSocial from "@/components/FooterSocial";
+    import FooterContacts from "@/components/FooterContacts";
+    import FooterNavigation from "@/components/FooterNavigation";
     import SupportRequestForm from "@/components/SupportRequestForm";
+
     export default {
         name: "Footer",
 
         components: {
-            SupportRequestForm,
+            SupportRequestForm, SiteLogo, FooterContacts, FooterNavigation, FooterSocial,
         }
     }
 </script>
 
 <style lang="scss" scoped>
     $gap: 1rem;
-    /*$basic-color: #003399;*/
     $basic-color: #325DE9;
     $passive-color: #e4e4e4;
-    $active-color: #fff;
 
     .footer {
         padding-top: $gap;
@@ -81,55 +53,6 @@
             .footer__info {
                 & > * {
                     margin-bottom: $gap;
-                }
-
-                .footer__brend {
-                    display: flex;
-                    align-items: center;
-                    text-decoration: none;
-
-                    .footer__brend__logo {
-                        height: 1.875rem;
-                        margin-right: $gap/2;
-                    }
-
-                    .footer__brend__name {
-                        font-size: 1rem;
-                        font-weight: bold;
-                        color: $active-color;
-                    }
-                }
-
-                .footer__social {
-                    .footer__social__logo {
-                        height: 2rem;
-                        margin-right: $gap/2;
-                        margin-bottom: $gap/2;
-                    }
-
-                    margin-bottom: $gap/2;
-                }
-            }
-
-            .footer__contacts, .footer__links {
-                list-style: none;
-                padding-left: 15px;
-                margin-bottom: $gap;
-
-                a {
-                    text-decoration: none;
-                    color: $passive-color;
-
-                    &:hover {
-                        color: $active-color;
-                    }
-                }
-
-                /*For modal Support Request Form*/
-                .btn {
-                    vertical-align: initial;
-                    border: none;
-                    padding: 0;
                 }
             }
         }
