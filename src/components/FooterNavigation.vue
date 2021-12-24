@@ -40,6 +40,7 @@
                 xhr.responseType = 'json';
                 xhr.onload = () => {
                     console.log('Запрос футером своих пунктов');
+                    console.log(xhr.response);
                     this.footerLinksList =  xhr.response
                 };
                 xhr.send();
