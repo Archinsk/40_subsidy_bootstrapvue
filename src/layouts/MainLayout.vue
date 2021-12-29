@@ -1,29 +1,22 @@
 <template>
   <div>
-    <HeaderOffcavas v-show="!chatIsActive" />
+    <Header />
     <main class="content">
       <router-view />
     </main>
-    <Footer v-show="!chatIsActive" />
+    <Footer />
   </div>
 </template>
 
 <script>
-import HeaderOffcavas from "@/components/HeaderOffcavas";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export default {
   name: "MainLayout",
   components: {
-    HeaderOffcavas,
+    Header,
     Footer,
-  },
-  data() {
-    return {
-      chatIsActive: false,
-    };
   },
 };
 </script>
-
-<style scoped></style>

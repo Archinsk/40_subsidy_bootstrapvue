@@ -6,9 +6,9 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Homes",
+    name: "Home",
     meta: { layout: "main-layout" },
-    component: () => import("../views/HomeS"),
+    component: () => import("../views/Home"),
   },
   {
     path: "/news",
@@ -69,6 +69,12 @@ const routes = [
     name: "SubsidyInfo6",
     meta: { layout: "main-layout" },
     component: () => import("../views/SubsidyInfo6"),
+  },
+  {
+    path: "/subsidyinfotemp/:subId",
+    name: "SubsidyInfoTemp",
+    meta: { layout: "main-layout" },
+    component: () => import("../views/SubsidyInfoTemp"),
   },
   {
     path: "/accountinfo",

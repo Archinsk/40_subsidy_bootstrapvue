@@ -49,7 +49,7 @@
 
 <script>
     export default {
-        name: "MeasureCard",
+        name: "MeasuresCardsListItem",
 
         props: [
             'measure',
