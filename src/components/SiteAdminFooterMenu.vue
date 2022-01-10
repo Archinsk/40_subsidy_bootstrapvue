@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div v-for="(footerMenuItem, index) of footerMenu" :key="footerMenuItem.id">
       <SiteAdminFooterMenuItem
         :item="footerMenuItem"
@@ -9,6 +10,7 @@
         @delete-item="deleteFooterMenuItem(footerMenuItem.id)"
       />
     </div>
+
     <div class="form-row">
       <div class="form-group col-2">
         <button
@@ -32,6 +34,7 @@
         </button>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -166,10 +169,10 @@ export default {
     },
 
     deleteFooterMenuItem(itemId) {
-      console.log("Удаляю пункт " + itemId);
       const xhr = new XMLHttpRequest();
       const url =
-        "http://192.168.18.171:8080/open-core/api/site-data/delete-item?id=" + itemId;
+        "http://192.168.18.171:8080/open-core/api/site-data/delete-item?id=" +
+        itemId;
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
           this.getFooterMenu();
