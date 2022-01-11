@@ -1,50 +1,38 @@
 <template>
   <div class="row row-cols-1">
     <div
-      v-for="measuresItem of measuresCardsList"
+      v-for="measuresItem of cuttedMeasuresPack"
       :key="measuresItem.id"
       class="col"
     >
-      <MeasuresCardsListItem :measure="measuresItem" />
+      <MeasuresCardsListExampleItem :measure="measuresItem" />
     </div>
   </div>
 </template>
 
 <script>
-import MeasuresCardsListItem from "@/components/MeasuresCardsListItem";
+import MeasuresCardsListExampleItem from "@/components/MeasuresCardsListExampleItem";
 
 export default {
-  name: "MeasuresCardsList",
+  name: "MeasuresCardsListExample",
   components: {
-    MeasuresCardsListItem,
+    MeasuresCardsListExampleItem,
   },
   props: ["measuresPack", "count"],
   data() {
     return {
       measuresCardsList: [],
-      page: 0,
-      pageSize: 10,
     };
   },
   methods: {
-    getMeasuresCardslist(pageNum, pageSize, sortCol = "id", sortDesc = false) {
+    getMeasuresCardslist() {
       const xhr = new XMLHttpRequest();
       const url =
-        "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
-        pageNum +
-        "&pageSize=" +
-        pageSize +
-        "&sortCol=" +
-        sortCol +
-        "&sortDesc=" +
-        sortDesc;
+        "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=0&pageSize=10";
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
-        console.log(
-          "Получен список с услугами (getMeasuresCardslist) с open-template"
-        );
-        console.log(xhr.response);
+        console.log("Получен список с услугами");
         console.log(xhr.response.listEntity);
         this.measuresCardsList = xhr.response.listEntity;
       };
@@ -64,7 +52,7 @@ export default {
     },
   },
   mounted: function () {
-    this.getMeasuresCardslist(this.page, this.pageSize);
+    this.getMeasuresCardslist();
   },
 };
 </script>
