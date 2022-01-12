@@ -10,25 +10,3 @@ export default {
   name: "SiteLogo",
 };
 </script>
-
-<style lang="scss" scoped>
-$gap: 1rem;
-$active-color: #fff;
-
-.footer__brend {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-
-  .footer__brend__logo {
-    height: 1.875rem;
-    margin-right: $gap/2;
-  }
-
-  .footer__brend__name {
-    font-size: 1rem;
-    font-weight: bold;
-    color: $active-color;
-  }
-}
-</style>

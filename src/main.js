@@ -6,6 +6,7 @@ import dateFilter from "./filters/date.filter";
 
 import App from "./App.vue";
 import "@/custom.scss";
+import "./subsidy.scss"
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);

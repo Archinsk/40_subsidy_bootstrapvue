@@ -7,65 +7,30 @@
     >
       <MeasuresCardsListItem :measure="measuresItem" />
     </div>
+
+    <Pagination
+      v-show="itemsTotal > pageSize"
+      @change-pageSize="changePageSize($event)"
+      @change-page="changePage($event)"
+      :items-total="itemsTotal"
+      :page="page"
+      :page-size="pageSize"
+      :items-per-page="itemsPerPage"
+    ></Pagination>
   </div>
 </template>
 
 <script>
 import MeasuresCardsListItem from "@/components/MeasuresCardsListItem";
+import Pagination from "./universal/Pagination";
 
 export default {
   name: "MeasuresCardsList",
   components: {
     MeasuresCardsListItem,
+    Pagination,
   },
-  props: ["measuresPack", "count"],
-  data() {
-    return {
-      measuresCardsList: [],
-      page: 0,
-      pageSize: 10,
-    };
-  },
-  methods: {
-    getMeasuresCardslist(pageNum, pageSize, sortCol = "id", sortDesc = false) {
-      const xhr = new XMLHttpRequest();
-      const url =
-        "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
-        pageNum +
-        "&pageSize=" +
-        pageSize +
-        "&sortCol=" +
-        sortCol +
-        "&sortDesc=" +
-        sortDesc;
-      xhr.open("GET", url);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log(
-          "Получен список с услугами (getMeasuresCardslist) с open-template"
-        );
-        console.log(xhr.response);
-        console.log(xhr.response.listEntity);
-        this.measuresCardsList = xhr.response.listEntity;
-      };
-      xhr.send();
-    },
-  },
-  computed: {
-    cuttedMeasuresPack: function () {
-      if (this.count && this.count < this.measuresPack.length) {
-        let cuttedPack = this.measuresPack.filter(
-          (item, index) => index < this.count
-        );
-        return cuttedPack;
-      } else {
-        return this.measuresPack;
-      }
-    },
-  },
-  mounted: function () {
-    this.getMeasuresCardslist(this.page, this.pageSize);
-  },
+  props: ["measuresCardsList", "itemsTotal", "page", "pageSize", "itemsPerPage"],
 };
 </script>
 
