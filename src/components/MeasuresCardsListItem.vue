@@ -1,7 +1,7 @@
 <template>
   <div class="card measure__card">
     <div class="card-body row">
-      <router-link :to="'/subsidyinfotemp/' + measure.id" :subsidyId="measure.id" class="measure-link col-12 col-md-9 stretched-link">
+      <router-link :to="'/subsidyinfotemp/' + measure.id" class="measure-link col-12 col-md-9 stretched-link">
         <h5 class="card-title">
           <span class="badge badge-primary">{{ measure.id }}</span>
           {{ measure.name }}
