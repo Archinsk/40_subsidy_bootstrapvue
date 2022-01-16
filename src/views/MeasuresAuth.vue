@@ -45,7 +45,7 @@ export default {
       measuresCardsList: [],
       itemsTotal: 0,
       page: 1,
-      pageSize: 10,
+      pageSize: 40,
       itemsPerPage: [3, 5, 10, 20],
       // scenario: 0,
       filters: [
@@ -122,6 +122,7 @@ export default {
     getMeasuresCardslist(pageNum, pageSize, sortCol = "id", sortDesc = false) {
       const xhr = new XMLHttpRequest();
       const url =
+        // "https://open-newtemplate.isands.ru/open-core/api/serv/get-services?pageNum=" +
         "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
         (pageNum - 1) +
         "&pageSize=" +

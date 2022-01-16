@@ -1,6 +1,12 @@
 <template>
-  <b-modal id="application-form" size="xl" title="Форма заявления">
-    <Form :form="ApplicationForm" />
+  <b-modal
+    id="application-form"
+    size="xl"
+    title="Форма заявления"
+    cancel-title="Отмена"
+    ok-title="Отправить"
+  >
+    <Form :form="ApplicationForm" language="ru"/>
   </b-modal>
 </template>
 
