@@ -7,6 +7,7 @@ import dateFilter from "./filters/date.filter";
 import App from "./App.vue";
 import "@/custom.scss";
 import "./subsidy.scss"
+import i18n from './i18n'
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
@@ -15,5 +16,6 @@ Vue.filter("date", dateFilter);
 
 new Vue({
   router,
-  render: (h) => h(App),
+  i18n,
+  render: (h) => h(App)
 }).$mount("#app");

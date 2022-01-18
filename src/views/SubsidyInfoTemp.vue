@@ -48,7 +48,7 @@
                 title="По данной мере поддержки есть возможность электронной подачи"
                 alt=""
               />
-              <b-button v-b-modal.application-form> Подать заявку </b-button>
+              <b-button v-b-modal.measure-application-form> Подать заявку </b-button>
             </div>
           </div>
 
@@ -404,7 +404,7 @@
     <Loader v-show="loading" />
     <hr />
     <MeasureApplicationForm
-      :application-form="JSON.parse(startForm.applicationDTO.form.scheme)"
+      :application-form="startForm.applicationDTO"
     />
   </div>
 </template>
@@ -5164,8 +5164,8 @@ export default {
     ajaxRequest(service, id, responseTarget, log) {
       const xhr = new XMLHttpRequest();
       const url =
-        // "https://open-newtemplate.isands.ru/open-core/api/serv/" +
-        "http://192.168.18.171:8080/open-core/api/serv/" +
+        "https://open-newtemplate.isands.ru/open-core/api/serv/" +
+        // "http://192.168.18.171:8080/open-core/api/serv/" +
         service +
         "?id=" +
         id;

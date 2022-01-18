@@ -5,7 +5,7 @@
       :key="valuePerPage"
       type="button"
       class="btn btn-primary"
-      @click="$emit('change-pageSize', valuePerPage)"
+      @click="$emit('changepagesize1', valuePerPage)"
     >
       {{ valuePerPage }}
     </button>

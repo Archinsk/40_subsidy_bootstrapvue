@@ -3,7 +3,7 @@
     <PaginationItemsPerPage
       :items-per-page="itemsPerPage"
       :page-size="pageSize"
-      @change-pageSize="$emit('change-pageSize', $event)"
+      @changepagesize1="$emit('changepagesize2', $event)"
     />
     <div class="block">1-{{ pageSize }} из {{ itemsTotal }}</div>
 

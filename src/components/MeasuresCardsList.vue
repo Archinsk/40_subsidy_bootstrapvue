@@ -1,7 +1,7 @@
 <template>
   <div class="row row-cols-1">
     <div
-      v-for="measuresItem of measuresCardsList"
+      v-for="measuresItem of measuresCardsList.content"
       :key="measuresItem.id"
       class="col"
     >
@@ -10,7 +10,7 @@
 
     <Pagination
       v-show="itemsTotal > pageSize"
-      @change-pageSize="changePageSize($event)"
+      @changepagesize2="$emit('changepagesize3', $event)"
       @change-page="changePage($event)"
       :items-total="itemsTotal"
       :page="page"

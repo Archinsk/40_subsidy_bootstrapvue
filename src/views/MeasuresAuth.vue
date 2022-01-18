@@ -4,7 +4,7 @@
       <div class="measures__wrapper">
         <h4 class="measures__heading text-center">
           Меры поддержки
-          <span class="badge badge-primary">{{ itemsTotal }}</span>
+          <span class="badge badge-primary">{{ measuresCardsList.totalElements }}</span>
         </h4>
         <div class="row justify-content-center mb-3">
           <div class="col-2">
@@ -18,6 +18,7 @@
               :page="page"
               :page-size="pageSize"
               :items-per-page="itemsPerPage"
+              @changepagesize3="changePageSize($event)"
             ></MeasuresCardsList>
           </div>
         </div>
@@ -45,7 +46,7 @@ export default {
       measuresCardsList: [],
       itemsTotal: 0,
       page: 1,
-      pageSize: 40,
+      pageSize: 10,
       itemsPerPage: [3, 5, 10, 20],
       // scenario: 0,
       filters: [
@@ -123,7 +124,8 @@ export default {
       const xhr = new XMLHttpRequest();
       const url =
         // "https://open-newtemplate.isands.ru/open-core/api/serv/get-services?pageNum=" +
-        "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
+        // "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
+        "http://192.168.18.171:8180/api/serv/get-services?pageNum=" +
         (pageNum - 1) +
         "&pageSize=" +
         pageSize +
@@ -135,18 +137,18 @@ export default {
       xhr.responseType = "json";
       xhr.onload = () => {
         console.log(
-          "Страницей MeasuresAuth получен список с услугами (getMeasuresCardslist) с open-template"
+          "Список мер"
         );
         console.log(xhr.response);
-        this.measuresCardsList = xhr.response.listEntity;
-        this.itemsTotal = xhr.response.count;
+        this.measuresCardsList = xhr.response;
+        this.itemsTotal = xhr.response.totalElements;
       };
       xhr.send();
     },
     changePageSize(itemsPerPage) {
       console.log(itemsPerPage);
       this.pageSize = itemsPerPage;
-      this.changeItemsCount();
+      // this.changeItemsCount();
     },
     changePage(page) {
       console.log(page);
