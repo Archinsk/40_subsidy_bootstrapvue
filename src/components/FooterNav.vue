@@ -34,7 +34,7 @@ export default {
     getFooterMenu() {
       const xhr = new XMLHttpRequest();
       const url =
-        "https://open-newtemplate.isands.ru/open-core/api/site-data/get-footer";
+        "http://192.168.18.171:8080/api/site-data/get-footer";
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {

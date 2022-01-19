@@ -327,7 +327,32 @@ export default {
       xhr.send();
     },
   },
-
+  getMeasuresCardslist(pageNum, pageSize, sortCol = "id", sortDesc = false) {
+    const xhr = new XMLHttpRequest();
+    const url =
+            // "https://open-newtemplate.isands.ru/open-core/api/serv/get-services?pageNum=" +
+            // "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
+            // "http://192.168.18.171:8180/api/serv/get-services?pageNum=" +
+            "http://192.168.18.171:8080/api/serv/get-services?pageNum=" +
+            (pageNum - 1) +
+            "&pageSize=" +
+            pageSize +
+            "&sortCol=" +
+            sortCol +
+            "&sortDesc=" +
+            sortDesc;
+    xhr.open("GET", url);
+    xhr.responseType = "json";
+    xhr.onload = () => {
+      console.log(
+              "Список мер"
+      );
+      console.log(xhr.response);
+      this.measuresCardsList = xhr.response;
+      this.itemsTotal = xhr.response.totalElements;
+    };
+    xhr.send();
+  },
   mounted: function () {
     console.log("Смонтировано");
     const xhr = new XMLHttpRequest();

@@ -11,7 +11,7 @@
       <b-navbar-nav>
         <!-- Статические пункты меню -->
         <b-nav-item to="/news" active-class="active"> Новости </b-nav-item>
-        <b-nav-item-dropdown active-class="active" text="Меры поддержки">
+        <b-nav-item-dropdown active-class="active" text="Фейковые меры поддержки">
           <b-dropdown-item to="/measures"> Все меры поддержки </b-dropdown-item>
           <b-dropdown-item to="/measures"> Юридическим лицам </b-dropdown-item>
           <b-dropdown-item to="/measures">
@@ -19,6 +19,7 @@
           </b-dropdown-item>
           <b-dropdown-item to="/measures"> Физическим лицам </b-dropdown-item>
         </b-nav-item-dropdown>
+        <b-nav-item to="/measuresauth" active-class="active"> Меры с сервера </b-nav-item>
         <b-nav-item v-if="!isAuth" to="/authPage" active-class="active">
           Войти
         </b-nav-item>
@@ -27,6 +28,9 @@
         </b-nav-item>
         <b-nav-item v-if="isAdmin" to="/siteAdmin">
           <span class="material-icons">settings</span>
+        </b-nav-item>
+        <b-nav-item v-if="isAdmin" to="/applications">
+          Заявки
         </b-nav-item>
         <!-- Динамические пункты меню футера -->
         <template v-for="item of navItems">
@@ -72,7 +76,8 @@ export default {
     getHeaderNav() {
       const xhr = new XMLHttpRequest();
       const url =
-        "https://open-newtemplate.isands.ru/open-core/api/site-data/get-header";
+        // "https://open-newtemplate.isands.ru/open-core/api/site-data/get-header";
+        "http://192.168.18.171:8080/api/site-data/get-header";
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {

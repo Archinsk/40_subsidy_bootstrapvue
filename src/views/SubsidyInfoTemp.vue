@@ -5164,8 +5164,9 @@ export default {
     ajaxRequest(service, id, responseTarget, log) {
       const xhr = new XMLHttpRequest();
       const url =
-        "https://open-newtemplate.isands.ru/open-core/api/serv/" +
+        // "https://open-newtemplate.isands.ru/open-core/api/serv/" +
         // "http://192.168.18.171:8080/open-core/api/serv/" +
+        "http://192.168.18.171:8080/api/serv/" +
         service +
         "?id=" +
         id;

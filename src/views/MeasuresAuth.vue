@@ -125,7 +125,8 @@ export default {
       const url =
         // "https://open-newtemplate.isands.ru/open-core/api/serv/get-services?pageNum=" +
         // "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
-        "http://192.168.18.171:8180/api/serv/get-services?pageNum=" +
+        // "http://192.168.18.171:8180/api/serv/get-services?pageNum=" +
+        "http://192.168.18.171:8080/api/serv/get-services?pageNum=" +
         (pageNum - 1) +
         "&pageSize=" +
         pageSize +

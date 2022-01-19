@@ -11,7 +11,7 @@
           Информационные системы и сервисы
         </b-navbar-brand>
 
-        <HeaderNav user-type="guest"></HeaderNav>
+        <HeaderNav user-type="admin"></HeaderNav>
 
         <b-button class="d-lg-none" v-b-toggle.sidebar>
           <span class="material-icons">menu</span>

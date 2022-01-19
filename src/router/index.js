@@ -83,6 +83,12 @@ const routes = [
     component: () => import("../views/AccountInfo"),
   },
   {
+    path: "/applications",
+    name: "Applications",
+    meta: { layout: "main-layout" },
+    component: () => import("../views/Applications"),
+  },
+  {
     path: "/authPage",
     name: "AuthPage",
     meta: { layout: "empty-layout" },
