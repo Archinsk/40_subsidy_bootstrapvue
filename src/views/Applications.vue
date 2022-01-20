@@ -86,6 +86,7 @@ export default {
       xhr.onload = () => {
         console.log(log);
         console.log(xhr.response);
+        console.log(JSON.parse(xhr.response.data));
         this[responseTarget] = xhr.response;
       };
       xhr.send();

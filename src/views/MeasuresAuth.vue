@@ -4,16 +4,24 @@
       <div class="measures__wrapper">
         <h4 class="measures__heading text-center">
           Меры поддержки
-          <span class="badge badge-primary">{{ measuresCardsList.totalElements }}</span>
+          <span class="badge badge-primary">{{
+            filtredEsiaMeasures.length
+          }}</span>
         </h4>
         <div class="row justify-content-center mb-3">
           <div class="col-2">
-            <MeasuresFilter :fd="filters"></MeasuresFilter>
+            <MeasuresFilter
+              :fd="filters"
+              @select-esia="selectEsia"
+              @clear-filter="clearFilter"
+              @scenario-filter="scenarioFilter"
+            ></MeasuresFilter>
           </div>
           <div class="col-6">
             <!--                        <MeasuresCardsListExample :measuresPack="xhrResponse" count="10"></MeasuresCardsListExample>-->
             <MeasuresCardsList
               :measures-cards-list="measuresCardsList"
+              :filtered-measures="filtredEsiaMeasures"
               :items-total="itemsTotal"
               :page="page"
               :page-size="pageSize"
@@ -46,9 +54,9 @@ export default {
       measuresCardsList: [],
       itemsTotal: 0,
       page: 1,
-      pageSize: 10,
+      pageSize: 100,
       itemsPerPage: [3, 5, 10, 20],
-      // scenario: 0,
+      scenario: 0,
       filters: [
         {
           title: "Отрасль экономики:",
@@ -116,6 +124,7 @@ export default {
           ],
         },
       ],
+      filtredEsiaMeasures: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49, 50, 51, 52 ],
     };
   },
 
@@ -137,9 +146,7 @@ export default {
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
-        console.log(
-          "Список мер"
-        );
+        console.log("Список мер");
         console.log(xhr.response);
         this.measuresCardsList = xhr.response;
         this.itemsTotal = xhr.response.totalElements;
@@ -172,50 +179,34 @@ export default {
       };
       xhr.send();
     },
+
     selectEsia() {
-      console.log("Начинаю поиск на основе ЕСИА");
+      console.log("Поиск на основе ЕСИА");
       this.filters[0].selected.push(2);
       this.filters[2].selected.push(2);
       this.filters[5].selected.push(3);
+
       this.scenario = 2;
     },
     scenarioFilter() {
-      console.log("Начинаю фильтрацию по сценарию " + this.scenario);
-      const xhr = new XMLHttpRequest();
-      let request =
-        "https://www.d-skills.ru/40_subsidy_bootstrapvue/scenario.php?scenario=" +
-        this.scenario;
-      xhr.open("GET", request);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log(xhr.response);
-        this.xhrResponse = xhr.response;
-        this.totalItems = 2;
-      };
-      xhr.send();
+      console.log("Фильтрация по сценарию " + this.scenario);
+      if (this.scenario === 2) {
+        this.filtredEsiaMeasures = [44, 45];
+      } else {
+        console.log("Сценарий - " + this.scenario)
+      }
     },
     clearFilter() {
+      console.log("Очистка фильтра")
       this.filters.forEach(function (item) {
         item.selected = [];
       });
-      const xhr = new XMLHttpRequest();
-      let request =
-        "https://www.d-skills.ru/40_subsidy_bootstrapvue/measures.php?page=" +
-        this.page +
-        "&pageSize=" +
-        this.pageSize;
-      xhr.open("GET", request);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log(xhr.response);
-        this.xhrResponse = xhr.response;
-        this.totalItems = 160;
-      };
-      xhr.send();
+      this.filtredEsiaMeasures = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49, 50, 51, 52 ];
+      this.scenario = 0;
     },
   },
 
-  mounted: function () {
+  mounted: async function () {
     this.getMeasuresCardslist(this.page, this.pageSize);
   },
 };

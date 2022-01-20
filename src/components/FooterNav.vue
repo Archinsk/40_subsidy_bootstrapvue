@@ -1,9 +1,9 @@
 <template>
   <ul class="footer__links col-md-5">
     <!-- Пункты меню футера получаемые с сервера -->
-    <li v-for="item of footerLinksList" :key="item.id">
-      <router-link to="/news">{{ item.title[0].text }}</router-link>
-    </li>
+<!--    <li v-for="item of footerLinksList" :key="item.id">-->
+<!--      <router-link to="/news">{{ item.title[0].text }}</router-link>-->
+<!--    </li>-->
     <!-- Статические пункты меню футера -->
     <li>
       <router-link to="/news">Новости</router-link>

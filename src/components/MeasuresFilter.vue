@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="btn btn-outline-primary col-12 mb-2" @click="selectEsia">
+      <div class="btn btn-outline-primary col-12 mb-2" @click="$emit('select-esia')">
         Подобрать с учетом ЕСИА
       </div>
       <div class="btn btn-outline-primary col-12 mb-2" @click="chatActivation">
@@ -17,12 +17,12 @@
 
     <div class="row">
       <div class="col mb-3">
-        <div class="btn btn-primary btn-block" @click="scenarioFilter">
+        <div class="btn btn-primary btn-block" @click="$emit('scenario-filter')">
           Применить
         </div>
       </div>
       <div class="col mb-3">
-        <div class="btn btn-outline-primary btn-block" @click="clearFilter">
+        <div class="btn btn-outline-primary btn-block" @click="$emit('clear-filter')">
           Очистить
         </div>
       </div>

@@ -5,7 +5,7 @@
       :key="measuresItem.id"
       class="col"
     >
-      <MeasuresCardsListItem :measure="measuresItem" />
+      <MeasuresCardsListItem v-if="filteredMeasures.includes(measuresItem.id)" :measure="measuresItem" />
     </div>
 
     <Pagination
@@ -30,7 +30,7 @@ export default {
     MeasuresCardsListItem,
     Pagination,
   },
-  props: ["measuresCardsList", "itemsTotal", "page", "pageSize", "itemsPerPage"],
+  props: ["measuresCardsList", "filteredMeasures", "itemsTotal", "page", "pageSize", "itemsPerPage"],
 };
 </script>
 

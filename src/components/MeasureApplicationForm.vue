@@ -8,6 +8,7 @@
   >
     <Form
       :form="JSON.parse(applicationForm.form.scheme)"
+      :submission="JSON.parse(applicationForm.data)"
       language="ru"
       :options="opt"
     />
