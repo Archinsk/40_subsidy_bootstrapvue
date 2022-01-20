@@ -115,7 +115,7 @@
 
                 &.flyingDown {
                     transition: all 1s;
-                    height: calc(100vh - 7rem);
+                    height: calc(100vh - 3.5rem - 3.5rem - 3.5rem - 11.5625rem);
                     padding-top: 0;
                 }
 

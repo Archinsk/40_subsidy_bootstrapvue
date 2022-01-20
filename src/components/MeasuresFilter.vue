@@ -4,7 +4,7 @@
       <div class="btn btn-outline-primary col-12 mb-2" @click="$emit('select-esia')">
         Подобрать с учетом ЕСИА
       </div>
-      <div class="btn btn-outline-primary col-12 mb-2" @click="chatActivation">
+      <div class="btn btn-outline-primary col-12 mb-2" @click="$emit('chat-activation')">
         Подобрать с помощью чат-бота
       </div>
     </div>

@@ -13,6 +13,7 @@
             <MeasuresFilter
               :fd="filters"
               @select-esia="selectEsia"
+              @chat-activation="chatActivation"
               @clear-filter="clearFilter"
               @scenario-filter="scenarioFilter"
             ></MeasuresFilter>
@@ -32,6 +33,18 @@
         </div>
       </div>
     </section>
+
+    <section v-show="chatIsActive" class="bot">
+      <Chat isActive="true"
+            isFlyingDown="true"
+            :messages="replicsList"
+            :quest="inputText"
+            @close-chat="chatDisactivation"
+            @focus-input="focusInput"
+            @add-quest="addQuest($event)"
+      ></Chat>
+    </section>
+
   </div>
 </template>
 
@@ -39,6 +52,7 @@
 // import MeasuresCardsListExample from "@/components/MeasuresCardsListExample";
 import MeasuresCardsList from "@/components/MeasuresCardsList";
 import MeasuresFilter from "@/components/MeasuresFilter";
+import Chat from "@/components/Chat";
 
 export default {
   name: "Measures",
@@ -47,6 +61,7 @@ export default {
     // MeasuresCardsListExample,
     MeasuresCardsList,
     MeasuresFilter,
+    Chat,
   },
 
   data() {
@@ -57,6 +72,105 @@ export default {
       pageSize: 100,
       itemsPerPage: [3, 5, 10, 20],
       scenario: 0,
+      chatIsActive: false,
+      inputText: '',
+      replics: [
+        {id: 1, author: "bot", content: "Я - чат-бот Василий. Я помогу Вам с поиском меры поддержки."},
+        {id: 2, author: "bot", content: "Укажите, какой объем денежных средств вам требуется?"},
+        // {id: 3, author: "bot", content: "Вот что найдено по слову"},
+        // {id: 4, author: "user", content: "А теперь рыбалка",},
+        // {id: 5, author: "bot", content: "К сожалению, ничего не найдено",},
+      ],
+      faq: [
+        {
+          id: 1, keywords: ['covid', 'ковид', 'корона'], answers: [
+            {content: 'Запись на вакцинацию', link: 'https://google.com'},
+            {content: 'Сертификат вакцинированного', link: 'https://ya.ru'},
+            {content: 'Мои QR-коды', link: 'https://ya.ru'}
+          ]
+        },
+        {
+          id: 2, keywords: ['спорт'], answers: [
+            {content: 'Присвоение спортивных разрядов', link: 'https://google.com'},
+            {
+              content: 'Присвоение квалификационных категорий спортивных судей',
+              link: 'https://google.com'
+            },
+            {
+              content: 'Государственная регистрация региональных общественных организаций или структурных подразделений (региональных отделений) общероссийской спортивной федерации',
+              link: 'https://google.com'
+            },
+          ]
+        },
+        {
+          id: 3, keywords: ['грант', 'гранты'], answers: [
+            {
+              content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+              link: './subsidyinfo1'
+            },
+            {
+              content: 'Гранты в форме субсидии на развитие инновационного проекта',
+              link: './subsidyinfo2'
+            },
+            {
+              content: 'Гранты субъектам малого и среднего предпринимательства на реализацию проектов в приоритетных сферах экономики',
+              link: './subsidyinfo3'
+            }
+          ]
+        },
+        {
+          id: 4, keywords: ['субсидия', 'субсидии'], answers: [
+            {
+              content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+              link: './subsidyinfo1'
+            },
+            {
+              content: 'Гранты в форме субсидии на развитие инновационного проекта',
+              link: './subsidyinfo2'
+            },
+          ]
+        },
+        {
+          id: 5, keywords: ['инновация', 'инновации'], answers: [
+            {
+              content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+              link: './subsidyinfo1'
+            },
+            {
+              content: 'Гранты в форме субсидии на развитие инновационного проекта',
+              link: './subsidyinfo2'
+            },
+          ]
+        },
+        {
+          id: 6, keywords: ['наука'], answers: [
+            {
+              content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
+              link: './subsidyinfo1'
+            },
+          ]
+        },
+        {
+          id: 7, keywords: ['20000000', '20000000 руб', '20 000 000', '20 000 000 руб',], answers: [
+            {
+              content: 'Укажите срок оказания поддержки в формате «ДД.ММ.ГГГГ - ДД.ММ.ГГГГ»',
+              link: ''
+            },
+          ]
+        },
+        {
+          id: 7, keywords: ['01.01.2022-31.12.2022'], answers: [
+            {
+              content: 'Субсидия на возмещение части затрат, направленных на проведение комплекса агротехнологических работ, повышение уровня экологической безопасности сельскохозяйственного производства, а также на повышение плодородия и качества почв',
+              link: './subsidyinfo5'
+            },
+            {
+              content: 'Субсидия на возмещение затрат, понесенных в текущем финансовом году, связанных с закупкой сельскохозяйственной техники',
+              link: './subsidyinfo5'
+            },
+          ]
+        },
+      ],
       filters: [
         {
           title: "Отрасль экономики:",
@@ -124,8 +238,22 @@ export default {
           ],
         },
       ],
-      filtredEsiaMeasures: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49, 50, 51, 52 ],
+      filtredEsiaMeasures: [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+        39, 40, 41, 42, 44, 45, 46, 47, 48, 49, 50, 51, 52,
+      ],
     };
+  },
+
+  computed: {
+    replicsList: function () {
+      if (this.chatIsActive) {
+        return this.replics;
+      } else {
+        return this.replics.filter(item => item.id === 1)
+      }
+    }
   },
 
   methods: {
@@ -185,7 +313,6 @@ export default {
       this.filters[0].selected.push(2);
       this.filters[2].selected.push(2);
       this.filters[5].selected.push(3);
-
       this.scenario = 2;
     },
     scenarioFilter() {
@@ -193,16 +320,66 @@ export default {
       if (this.scenario === 2) {
         this.filtredEsiaMeasures = [44, 45];
       } else {
-        console.log("Сценарий - " + this.scenario)
+        this.scenarioRandomFilter();
       }
     },
+    scenarioRandomFilter() {
+      let resultArray = [];
+      this.filtredEsiaMeasures.forEach((item) => {
+        if (Math.round(Math.random())) {
+          resultArray.push(item);
+        }
+      });
+      this.filtredEsiaMeasures = resultArray;
+    },
     clearFilter() {
-      console.log("Очистка фильтра")
+      console.log("Очистка фильтра");
       this.filters.forEach(function (item) {
         item.selected = [];
       });
-      this.filtredEsiaMeasures = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49, 50, 51, 52 ];
+      this.filtredEsiaMeasures = [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+        39, 40, 41, 42, 44, 45, 46, 47, 48, 49, 50, 51, 52,
+      ];
       this.scenario = 0;
+    },
+
+    chatActivation() {
+      this.chatIsActive = true;
+    },
+    chatDisactivation() {
+      this.chatIsActive = false;
+    },
+    addQuest(inputValue) {
+      let quest = {
+        id: this.replics.length + 1, author: "user", content: inputValue
+      };
+      this.replics.push(quest);
+      let answer;
+      let answers;
+      this.faq.forEach(function (item) {
+        item.keywords.forEach(function (i) {
+          if (inputValue.trim().toLowerCase() === i) {
+            answers = item.answers;
+          }
+        });
+      });
+      if (answers) {
+        let links = answers.map(function (someth) {
+          let ans = {link: someth.link, content: someth.content};
+          return ans;
+        });
+        answer = {
+          author: "bot", content: '', findedAnswers: links
+        };
+      } else {
+        answer = {
+          author: "bot", content: 'Извините, я ничего не нашёл.'
+        };
+      }
+      answer.id = this.replics.length + 1;
+      this.replics.push(answer);
     },
   },
 
