@@ -263,7 +263,8 @@ export default {
         // "https://open-newtemplate.isands.ru/open-core/api/serv/get-services?pageNum=" +
         // "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
         // "http://192.168.18.171:8180/api/serv/get-services?pageNum=" +
-        "http://192.168.18.171:8080/api/serv/get-services?pageNum=" +
+        // "http://192.168.18.171:8080/api/serv/get-services?pageNum=" +
+        "https://open-demo.isands.ru/api/serv/get-services?pageNum=" +
         (pageNum - 1) +
         "&pageSize=" +
         pageSize +
@@ -318,7 +319,7 @@ export default {
     scenarioFilter() {
       console.log("Фильтрация по сценарию " + this.scenario);
       if (this.scenario === 2) {
-        this.filtredEsiaMeasures = [44, 45];
+        this.filtredEsiaMeasures = [1, 3];
       } else {
         this.scenarioRandomFilter();
       }

@@ -2,7 +2,7 @@
   <b-modal
     id="measure-application-form"
     size="xl"
-    :title="applicationForm.form.name"
+    title="Форма заявления"
     cancel-title="Отмена"
     ok-title="Отправить"
   >
@@ -51,7 +51,8 @@ export default {
       payload.userId = 1;
       payload.appId = 0;
       payload.data = this.applicationForm.data;
-      const url = "http://192.168.18.171:8180/api/app/action-invoke";
+      // const url = "http://192.168.18.171:8180/api/app/action-invoke";
+      const url = "https://open-demo.isands.ru/api/app/action-invoke";
       const request = JSON.stringify(payload);
       this.postAjaxRequest(url, request, "invokeResponse", "Ответ на событие");
       // let result = await axios.post("/o/prometheus/v1/action/invoke", payload, {headers: {'Content-Type': 'text/plain; charset=UTF-8'}});

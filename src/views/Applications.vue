@@ -59,8 +59,9 @@ export default {
     getApps(pageNum, pageSize, sortCol = "id", sortDesc = false) {
       const xhr = new XMLHttpRequest();
       const url =
-        "http://192.168.18.171:8080/api/app/get-apps?pageNum=" +
         // "http://192.168.18.171:8080/api/serv/get-services?pageNum=" +
+        //       "http://192.168.18.171:8080/api/app/get-apps?pageNum=" +
+              "https://open-demo.isands.ru/api/app/get-apps?pageNum=" +
         (pageNum - 1) +
         "&pageSize=" +
         pageSize +
@@ -80,7 +81,8 @@ export default {
     },
     getAjaxRequest(service, id, responseTarget, log) {
       const xhr = new XMLHttpRequest();
-      const url = "http://192.168.18.171:8080/api/" + service + "?id=" + id;
+      // const url = "http://192.168.18.171:8080/api/" + service + "?id=" + id;
+      const url = "https://open-demo.isands.ru:8080/api/" + service + "?id=" + id;
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {

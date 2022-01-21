@@ -20,14 +20,14 @@
     <div class="card-footer bg-transparent measure__card__footer row">
       <div class="measure__owner__logo col-md-6 col-lg-5">
         <img
-          :src="'images/initiators_logo/' + measure.initiator_logo"
+          src="images/initiators_logo/mineco_logo.png"
           class="measure__owner__logo__image"
           alt="..."
         />
         <div class="measure__owner__logo__text">
           <div class="logo__header__comment">Инициатор</div>
           <div class="logo__name">
-            {{ measure.initiator_title }}
+            Министерство экономического развития
           </div>
         </div>
       </div>
