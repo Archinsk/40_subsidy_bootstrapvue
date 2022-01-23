@@ -77,8 +77,8 @@ export default {
       const xhr = new XMLHttpRequest();
       const url =
         // "https://open-newtemplate.isands.ru/open-core/api/site-data/get-header";
-        // "http://192.168.18.171:8080/api/site-data/get-header";
-        "https://open-demo.isands.ru/api/site-data/get-header";
+        "http://192.168.18.171:8080/api/site-data/get-header";
+        // "https://open-demo.isands.ru/api/site-data/get-header";
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {

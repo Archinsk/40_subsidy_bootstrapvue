@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section v-show="!chatIsActive" class="measures">
+    <section class="measures">
       <div class="measures__wrapper">
         <h4 class="measures__heading text-center">
           Заявления
@@ -21,7 +21,7 @@
         </div>
       </div>
     </section>
-    <MeasureApplicationForm :application-form="appForm"/>
+    <MeasureApplicationForm :application-form="appForm" />
     <b-modal
       id="app-application-form"
       size="xl"
@@ -47,7 +47,19 @@ export default {
   data() {
     return {
       apps: [],
-      appForm: {},
+      appForm: {
+        active: false,
+        data: {},
+        form: {
+          actions: [],
+          id: 0,
+          modelId: 0,
+          scheme: {},
+        },
+        id: 0,
+        orderId: "",
+        status: "",
+      },
       itemsTotal: 0,
       page: 1,
       pageSize: 10,
@@ -60,8 +72,8 @@ export default {
       const xhr = new XMLHttpRequest();
       const url =
         // "http://192.168.18.171:8080/api/serv/get-services?pageNum=" +
-        //       "http://192.168.18.171:8080/api/app/get-apps?pageNum=" +
-              "https://open-demo.isands.ru/api/app/get-apps?pageNum=" +
+        "http://192.168.18.171:8080/api/app/get-apps?pageNum=" +
+        // "https://open-demo.isands.ru/api/app/get-apps?pageNum=" +
         (pageNum - 1) +
         "&pageSize=" +
         pageSize +
@@ -81,8 +93,8 @@ export default {
     },
     getAjaxRequest(service, id, responseTarget, log) {
       const xhr = new XMLHttpRequest();
-      // const url = "http://192.168.18.171:8080/api/" + service + "?id=" + id;
-      const url = "https://open-demo.isands.ru:8080/api/" + service + "?id=" + id;
+      const url = "http://192.168.18.171:8080/api/" + service + "?id=" + id;
+      // const url = "https://open-demo.isands.ru:8080/api/" + service + "?id=" + id;
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
@@ -90,11 +102,19 @@ export default {
         console.log(xhr.response);
         console.log(JSON.parse(xhr.response.data));
         this[responseTarget] = xhr.response;
+        this[responseTarget].data = JSON.parse(xhr.response.data);
+        this[responseTarget].form.scheme = JSON.parse(xhr.response.form.scheme);
+
       };
       xhr.send();
     },
     getAppForm(id) {
-      this.getAjaxRequest("app/get-appData", id, "appForm", "Заполненная заявка");
+      this.getAjaxRequest(
+        "app/get-appData",
+        id,
+        "appForm",
+        "Заполненная заявка"
+      );
     },
     changePageSize(itemsPerPage) {
       console.log(itemsPerPage);
