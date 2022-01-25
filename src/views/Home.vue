@@ -208,7 +208,7 @@ export default {
   methods: {
     focusInput() {
       this.chatIsActive = true;
-      setTimeout(this.fly, 1000);
+      setTimeout(this.fly, 300);
     },
     fly() {
       this.flyingRobotUp = false;

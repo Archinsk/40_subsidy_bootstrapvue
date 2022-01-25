@@ -5,7 +5,7 @@
         <h4 class="measures__heading text-center">
           Меры поддержки
           <span class="badge badge-primary">{{
-            filtredEsiaMeasures.length
+            itemsTotal
           }}</span>
         </h4>
         <div class="row justify-content-center mb-3">
@@ -27,7 +27,8 @@
               :page="page"
               :page-size="pageSize"
               :items-per-page="itemsPerPage"
-              @changepagesize3="changePageSize($event)"
+              @change-page-size="changePageSize($event)"
+              @change-page="$emit('change-page', $event)"
             ></MeasuresCardsList>
           </div>
         </div>
@@ -35,16 +36,15 @@
     </section>
 
     <section v-show="chatIsActive" class="bot">
-      <Chat isActive="true"
-            isFlyingDown="true"
-            :messages="replicsList"
-            :quest="inputText"
-            @close-chat="chatDisactivation"
-            @focus-input="focusInput"
-            @add-quest="addQuest($event)"
+      <Chat
+        isActive="true"
+        isFlyingDown="true"
+        :messages="replicsList"
+        :quest="inputText"
+        @close-chat="chatDisactivation"
+        @add-quest="addQuest($event)"
       ></Chat>
     </section>
-
   </div>
 </template>
 
@@ -68,107 +68,152 @@ export default {
     return {
       measuresCardsList: [],
       itemsTotal: 0,
-      page: 1,
-      pageSize: 100,
-      itemsPerPage: [3, 5, 10, 20],
+      page: 6,
+      pageSize: 5,
+      itemsPerPage: [10, 20, 30],
       scenario: 0,
       chatIsActive: false,
-      inputText: '',
+      inputText: "",
       replics: [
-        {id: 1, author: "bot", content: "Я - чат-бот Василий. Я помогу Вам с поиском меры поддержки."},
-        {id: 2, author: "bot", content: "Укажите, какой объем денежных средств вам требуется?"},
+        {
+          id: 1,
+          author: "bot",
+          content:
+            "Я - чат-бот Василий. Я помогу Вам с поиском меры поддержки.",
+        },
+        {
+          id: 2,
+          author: "bot",
+          content: "Укажите, какой объем денежных средств вам требуется?",
+        },
         // {id: 3, author: "bot", content: "Вот что найдено по слову"},
         // {id: 4, author: "user", content: "А теперь рыбалка",},
         // {id: 5, author: "bot", content: "К сожалению, ничего не найдено",},
       ],
       faq: [
         {
-          id: 1, keywords: ['covid', 'ковид', 'корона'], answers: [
-            {content: 'Запись на вакцинацию', link: 'https://google.com'},
-            {content: 'Сертификат вакцинированного', link: 'https://ya.ru'},
-            {content: 'Мои QR-коды', link: 'https://ya.ru'}
-          ]
+          id: 1,
+          keywords: ["covid", "ковид", "корона"],
+          answers: [
+            { content: "Запись на вакцинацию", link: "https://google.com" },
+            { content: "Сертификат вакцинированного", link: "https://ya.ru" },
+            { content: "Мои QR-коды", link: "https://ya.ru" },
+          ],
         },
         {
-          id: 2, keywords: ['спорт'], answers: [
-            {content: 'Присвоение спортивных разрядов', link: 'https://google.com'},
+          id: 2,
+          keywords: ["спорт"],
+          answers: [
             {
-              content: 'Присвоение квалификационных категорий спортивных судей',
-              link: 'https://google.com'
+              content: "Присвоение спортивных разрядов",
+              link: "https://google.com",
             },
             {
-              content: 'Государственная регистрация региональных общественных организаций или структурных подразделений (региональных отделений) общероссийской спортивной федерации',
-              link: 'https://google.com'
+              content: "Присвоение квалификационных категорий спортивных судей",
+              link: "https://google.com",
             },
-          ]
+            {
+              content:
+                "Государственная регистрация региональных общественных организаций или структурных подразделений (региональных отделений) общероссийской спортивной федерации",
+              link: "https://google.com",
+            },
+          ],
         },
         {
-          id: 3, keywords: ['грант', 'гранты'], answers: [
+          id: 3,
+          keywords: ["грант", "гранты"],
+          answers: [
             {
-              content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
-              link: './subsidyinfo1'
+              content:
+                "Гранты в форме субсидий в сфере научной и инновационной деятельности",
+              link: "./subsidyinfo1",
             },
             {
-              content: 'Гранты в форме субсидии на развитие инновационного проекта',
-              link: './subsidyinfo2'
+              content:
+                "Гранты в форме субсидии на развитие инновационного проекта",
+              link: "./subsidyinfo2",
             },
             {
-              content: 'Гранты субъектам малого и среднего предпринимательства на реализацию проектов в приоритетных сферах экономики',
-              link: './subsidyinfo3'
-            }
-          ]
+              content:
+                "Гранты субъектам малого и среднего предпринимательства на реализацию проектов в приоритетных сферах экономики",
+              link: "./subsidyinfo3",
+            },
+          ],
         },
         {
-          id: 4, keywords: ['субсидия', 'субсидии'], answers: [
+          id: 4,
+          keywords: ["субсидия", "субсидии"],
+          answers: [
             {
-              content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
-              link: './subsidyinfo1'
+              content:
+                "Гранты в форме субсидий в сфере научной и инновационной деятельности",
+              link: "./subsidyinfo1",
             },
             {
-              content: 'Гранты в форме субсидии на развитие инновационного проекта',
-              link: './subsidyinfo2'
+              content:
+                "Гранты в форме субсидии на развитие инновационного проекта",
+              link: "./subsidyinfo2",
             },
-          ]
+          ],
         },
         {
-          id: 5, keywords: ['инновация', 'инновации'], answers: [
+          id: 5,
+          keywords: ["инновация", "инновации"],
+          answers: [
             {
-              content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
-              link: './subsidyinfo1'
+              content:
+                "Гранты в форме субсидий в сфере научной и инновационной деятельности",
+              link: "./subsidyinfo1",
             },
             {
-              content: 'Гранты в форме субсидии на развитие инновационного проекта',
-              link: './subsidyinfo2'
+              content:
+                "Гранты в форме субсидии на развитие инновационного проекта",
+              link: "./subsidyinfo2",
             },
-          ]
+          ],
         },
         {
-          id: 6, keywords: ['наука'], answers: [
+          id: 6,
+          keywords: ["наука"],
+          answers: [
             {
-              content: 'Гранты в форме субсидий в сфере научной и инновационной деятельности',
-              link: './subsidyinfo1'
+              content:
+                "Гранты в форме субсидий в сфере научной и инновационной деятельности",
+              link: "./subsidyinfo1",
             },
-          ]
+          ],
         },
         {
-          id: 7, keywords: ['20000000', '20000000 руб', '20 000 000', '20 000 000 руб',], answers: [
+          id: 7,
+          keywords: [
+            "20000000",
+            "20000000 руб",
+            "20 000 000",
+            "20 000 000 руб",
+          ],
+          answers: [
             {
-              content: 'Укажите срок оказания поддержки в формате «ДД.ММ.ГГГГ - ДД.ММ.ГГГГ»',
-              link: ''
+              content:
+                "Укажите срок оказания поддержки в формате «ДД.ММ.ГГГГ - ДД.ММ.ГГГГ»",
+              link: "",
             },
-          ]
+          ],
         },
         {
-          id: 7, keywords: ['01.01.2022-31.12.2022'], answers: [
+          id: 7,
+          keywords: ["01.01.2022-31.12.2022"],
+          answers: [
             {
-              content: 'Субсидия на возмещение части затрат, направленных на проведение комплекса агротехнологических работ, повышение уровня экологической безопасности сельскохозяйственного производства, а также на повышение плодородия и качества почв',
-              link: './subsidyinfo5'
+              content:
+                "Субсидия на возмещение части затрат, направленных на проведение комплекса агротехнологических работ, повышение уровня экологической безопасности сельскохозяйственного производства, а также на повышение плодородия и качества почв",
+              link: "./subsidyinfo5",
             },
             {
-              content: 'Субсидия на возмещение затрат, понесенных в текущем финансовом году, связанных с закупкой сельскохозяйственной техники',
-              link: './subsidyinfo5'
+              content:
+                "Субсидия на возмещение затрат, понесенных в текущем финансовом году, связанных с закупкой сельскохозяйственной техники",
+              link: "./subsidyinfo5",
             },
-          ]
+          ],
         },
       ],
       filters: [
@@ -251,9 +296,9 @@ export default {
       if (this.chatIsActive) {
         return this.replics;
       } else {
-        return this.replics.filter(item => item.id === 1)
+        return this.replics.filter((item) => item.id === 1);
       }
-    }
+    },
   },
 
   methods: {
@@ -282,31 +327,15 @@ export default {
       };
       xhr.send();
     },
-    changePageSize(itemsPerPage) {
-      console.log(itemsPerPage);
-      this.pageSize = itemsPerPage;
-      // this.changeItemsCount();
+    changePageSize(newPageInfo) {
+      this.page = newPageInfo[0];
+      this.pageSize = newPageInfo[1];
+      this.getMeasuresCardslist(this.page, this.pageSize);
     },
     changePage(page) {
       console.log(page);
       this.page = page;
-      this.changeItemsCount();
-    },
-    changeItemsCount() {
-      console.log("Апдейт");
-      const xhr = new XMLHttpRequest();
-      let request =
-        "https://www.d-skills.ru/40_subsidy_bootstrapvue/measures.php?page=" +
-        this.page +
-        "&pageSize=" +
-        this.pageSize;
-      xhr.open("GET", request);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log(xhr.response);
-        this.xhrResponse = xhr.response;
-      };
-      xhr.send();
+      this.getMeasuresCardslist(this.page, this.pageSize);
     },
 
     selectEsia() {
@@ -354,7 +383,9 @@ export default {
     },
     addQuest(inputValue) {
       let quest = {
-        id: this.replics.length + 1, author: "user", content: inputValue
+        id: this.replics.length + 1,
+        author: "user",
+        content: inputValue,
       };
       this.replics.push(quest);
       let answer;
@@ -368,15 +399,18 @@ export default {
       });
       if (answers) {
         let links = answers.map(function (someth) {
-          let ans = {link: someth.link, content: someth.content};
+          let ans = { link: someth.link, content: someth.content };
           return ans;
         });
         answer = {
-          author: "bot", content: '', findedAnswers: links
+          author: "bot",
+          content: "",
+          findedAnswers: links,
         };
       } else {
         answer = {
-          author: "bot", content: 'Извините, я ничего не нашёл.'
+          author: "bot",
+          content: "Извините, я ничего не нашёл.",
         };
       }
       answer.id = this.replics.length + 1;

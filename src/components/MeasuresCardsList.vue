@@ -5,18 +5,23 @@
       :key="measuresItem.id"
       class="col"
     >
-      <MeasuresCardsListItem v-if="filteredMeasures.includes(measuresItem.id)" :measure="measuresItem" />
+      <MeasuresCardsListItem
+        v-if="filteredMeasures.includes(measuresItem.id)"
+        :measure="measuresItem"
+      />
     </div>
-
-    <Pagination
-      v-show="itemsTotal > pageSize"
-      @changepagesize2="$emit('changepagesize3', $event)"
-      @change-page="changePage($event)"
-      :items-total="itemsTotal"
-      :page="page"
-      :page-size="pageSize"
-      :items-per-page="itemsPerPage"
-    ></Pagination>
+    <div class="col">
+      <!--        @change-page="changePage($event)"-->
+      <Pagination
+        v-show="itemsTotal > pageSize"
+        @change-page-size="$emit('change-page-size', $event)"
+        @change-page="$emit('change-page', $event)"
+        :items-total="itemsTotal"
+        :page="page"
+        :page-size="pageSize"
+        :items-per-page="itemsPerPage"
+      ></Pagination>
+    </div>
   </div>
 </template>
 
@@ -30,7 +35,14 @@ export default {
     MeasuresCardsListItem,
     Pagination,
   },
-  props: ["measuresCardsList", "filteredMeasures", "itemsTotal", "page", "pageSize", "itemsPerPage"],
+  props: [
+    "measuresCardsList",
+    "filteredMeasures",
+    "itemsTotal",
+    "page",
+    "pageSize",
+    "itemsPerPage",
+  ],
 };
 </script>
 

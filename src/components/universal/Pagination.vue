@@ -1,18 +1,20 @@
 <template>
-  <div class="row justify-content-between">
+  <div class="d-flex justify-content-between align-items-center">
     <PaginationItemsPerPage
       :items-per-page="itemsPerPage"
       :page-size="pageSize"
-      @changepagesize1="$emit('changepagesize2', $event)"
+      @change-page-size="changePageSize($event)"
     />
-    <div class="block">1-{{ pageSize }} из {{ itemsTotal }}</div>
-
+    <div class="block">
+      {{ pageSize * (page - 1) + 1 }} - {{ pageSize * page }} из
+      {{ itemsTotal }}
+    </div>
     <PaginationPageSelector
-            v-if="itemsTotal"
-            :items-total="itemsTotal"
-            :page-size="pageSize"
-            :page="pageSize"
-            @change-page="$emit('change-page', $event)" />
+      v-if="itemsTotal > pageSize"
+      :pages="pages"
+      :active-page="page"
+      @change-page="$emit('change-page', $event)"
+    />
   </div>
 </template>
 
@@ -28,11 +30,34 @@ export default {
     PaginationPageSelector,
   },
 
-  props: [
-    "itemsTotal",
-    "page",
-    "pageSize",
-    "itemsPerPage",
-  ],
+  props: ["itemsTotal", "page", "pageSize", "itemsPerPage"],
+
+  methods: {
+    changePageSize(newPageSize) {
+      const currentItemOnTopOfPage = this.countFirstItemNumberOnPage(
+        this.pageSize,
+        this.page
+      );
+      const newPage = this.countNewPage(currentItemOnTopOfPage, newPageSize);
+      let pageInfo = [];
+      pageInfo.push(newPage);
+      pageInfo.push(newPageSize);
+      this.$emit("change-page-size", pageInfo);
+    },
+
+    countFirstItemNumberOnPage(pageSize, page) {
+      return pageSize * (page - 1) + 1;
+    },
+
+    countNewPage(oldFirstItemNumberOnPage, newPageSize) {
+      return Math.ceil(oldFirstItemNumberOnPage / newPageSize);
+    },
+  },
+
+  computed: {
+    pages: function () {
+      return Math.ceil(this.itemsTotal / this.pageSize);
+    },
+  },
 };
 </script>
