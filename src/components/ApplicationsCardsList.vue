@@ -1,11 +1,11 @@
 <template>
   <div class="row row-cols-1">
     <div
-      v-for="appsItem of appsCardsList.content"
-      :key="appsItem.id"
+      v-for="(appsItem, index) of appsCardsList.content"
+      :key="index ? appsItem.id + '-' + index : appsItem.id"
       class="col"
     >
-      <ApplicationsCardsListItem :application="appsItem" @getappform="$emit('getappform2', appsItem.id)"/>
+      <ApplicationsCardsListItem :application="appsItem" :index="index" @get-app-form="$emit('get-app-form', appsItem.id)"/>
     </div>
 
     <Pagination

@@ -420,9 +420,18 @@ export default {
 
   data() {
     return {
+      url: "http://192.168.18.171:8080/api/",
       loading: false,
       measure: [],
-      measureForms: [],
+      measureForms: [
+        {
+          actions: [],
+          id: 0,
+          modelId: 0,
+          name: "Заявление",
+          scheme: {},
+        }
+      ],
       startForm: {
         applicationDTO: {
           active: false,
@@ -5184,30 +5193,38 @@ export default {
     },
     ajaxRequest(service, id, responseTarget, log) {
       const xhr = new XMLHttpRequest();
-      const url =
-        // "https://open-newtemplate.isands.ru/open-core/api/serv/" +
-        // "http://192.168.18.171:8080/open-core/api/serv/" +
-        "http://192.168.18.171:8080/api/serv/" +
-        // "https://open-demo.isands.ru/api/serv/" +
+      const url = this.url +
         service +
         "?id=" +
         id;
+      // let forms = this.measureForms;
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
         console.log(log);
         console.log(xhr.response);
         this[responseTarget] = xhr.response;
-        if (responseTarget.applicationDTO) {
+        // xhr.response.forEach(function(form, index) {
+        //   if (form.scheme) {
+        //     console.log(forms[index].scheme);
+        //     forms[index].scheme = JSON.parse(form.scheme);
+        //     console.log(index + " - В ответе есть схема" + form.scheme);
+        if (xhr.response.applicationDTO && xhr.response.applicationDTO.data && xhr.response.applicationDTO.form) {
+          console.log("Внутри форма стартовой заявки")
           this[responseTarget].applicationDTO.data = JSON.parse(xhr.response.applicationDTO.data);
           this[responseTarget].applicationDTO.form.scheme = JSON.parse(xhr.response.applicationDTO.form.scheme);
         }
+
+        //   }
+        // });
+        // console.log(Array.isArray(xhr.response));
+        console.log(this.measureForms);
       };
       xhr.send();
     },
     getMeasure() {
       this.ajaxRequest(
-        "get-model",
+        "serv/get-model",
         this.$route.params.subId,
         "measure",
         "Информация по мере поддержки"
@@ -5215,7 +5232,7 @@ export default {
     },
     getForms() {
       this.ajaxRequest(
-        "get-forms",
+        "serv/get-forms",
         this.$route.params.subId,
         "measureForms",
         "Список форм"
@@ -5223,7 +5240,7 @@ export default {
     },
     getStartForm() {
       this.ajaxRequest(
-        "get-appData",
+        "serv/get-appData",
         this.$route.params.subId,
         "startForm",
         "Стартовая форма"
@@ -5262,7 +5279,6 @@ export default {
     this.getMeasure();
     this.getForms();
     this.getStartForm();
-    console.log(this.asd.applicationDTO.form.scheme);
   },
 };
 </script>

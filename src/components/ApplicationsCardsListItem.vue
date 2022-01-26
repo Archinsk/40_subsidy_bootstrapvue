@@ -7,8 +7,7 @@
           {{ application ? application.servName : "Наименование меры поддержки"}}
         </a>
       </h5>
-      <button class="btn btn-primary" @click="$emit('getappform')"> Получить заявку </button>
-      <b-button v-b-modal.measure-application-form> Посмотреть заявку </b-button>
+      <b-button v-b-modal.measure-application-form @click="$emit('get-app-form')"> Посмотреть заявку </b-button>
     </div>
     <div class="card-footer bg-transparent request__card__footer">
       <p>Текущий статус: {{ application.status }}</p>
@@ -22,7 +21,7 @@
 export default {
   name: "ApplicationsCardsListItem",
 
-    props: ["application"],
+    props: ["application", "index"],
 
   data() {
     return {};

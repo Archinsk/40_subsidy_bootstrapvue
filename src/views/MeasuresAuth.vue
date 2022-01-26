@@ -4,9 +4,7 @@
       <div class="measures__wrapper">
         <h4 class="measures__heading text-center">
           Меры поддержки
-          <span class="badge badge-primary">{{
-            itemsTotal
-          }}</span>
+          <span class="badge badge-primary">{{ itemsTotal }}</span>
         </h4>
         <div class="row justify-content-center mb-3">
           <div class="col-2">
@@ -66,10 +64,11 @@ export default {
 
   data() {
     return {
+      url: "http://192.168.18.171:8080/api/",
       measuresCardsList: [],
       itemsTotal: 0,
-      page: 6,
-      pageSize: 5,
+      page: 5,
+      pageSize: 10,
       itemsPerPage: [10, 20, 30],
       scenario: 0,
       chatIsActive: false,
@@ -305,11 +304,8 @@ export default {
     getMeasuresCardslist(pageNum, pageSize, sortCol = "id", sortDesc = false) {
       const xhr = new XMLHttpRequest();
       const url =
-        // "https://open-newtemplate.isands.ru/open-core/api/serv/get-services?pageNum=" +
-        // "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
-        // "http://192.168.18.171:8180/api/serv/get-services?pageNum=" +
-        "http://192.168.18.171:8080/api/serv/get-services?pageNum=" +
-        // "https://open-demo.isands.ru/api/serv/get-services?pageNum=" +
+        this.url +
+        "serv/get-services?pageNum=" +
         (pageNum - 1) +
         "&pageSize=" +
         pageSize +

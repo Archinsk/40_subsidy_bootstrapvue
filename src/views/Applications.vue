@@ -14,7 +14,7 @@
               :page="page"
               :page-size="pageSize"
               :items-per-page="itemsPerPage"
-              @getappform2="getAppForm($event)"
+              @get-app-form="getAppForm($event)"
               @changepagesize3="changePageSize($event)"
             ></ApplicationsCardsList>
           </div>
@@ -22,13 +22,6 @@
       </div>
     </section>
     <MeasureApplicationForm :application-form="appForm" />
-    <b-modal
-      id="app-application-form"
-      size="xl"
-      title="AppForm"
-      cancel-title="Отмена"
-      ok-title="Отправить"
-    ></b-modal>
   </div>
 </template>
 
@@ -113,7 +106,7 @@ export default {
         "app/get-appData",
         id,
         "appForm",
-        "Заполненная заявка"
+        "Заполненная заявка id = " + id
       );
     },
     changePageSize(itemsPerPage) {
