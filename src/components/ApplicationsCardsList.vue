@@ -5,17 +5,21 @@
       :key="index ? appsItem.id + '-' + index : appsItem.id"
       class="col"
     >
-      <ApplicationsCardsListItem :application="appsItem" :index="index" @get-app-form="$emit('get-app-form', appsItem.id)"/>
+      <ApplicationsCardsListItem
+        :application="appsItem"
+        :index="index"
+        @get-app-form="$emit('get-app-form', appsItem.id)"
+      />
     </div>
 
     <Pagination
       v-show="itemsTotal > pageSize"
-      @changepagesize2="$emit('changepagesize3', $event)"
-      @change-page="changePage($event)"
       :items-total="itemsTotal"
       :page="page"
       :page-size="pageSize"
       :items-per-page="itemsPerPage"
+      @change-page-size="$emit('change-page-size', $event)"
+      @change-page="$emit('change-page', $event)"
     ></Pagination>
   </div>
 </template>
@@ -31,13 +35,6 @@ export default {
     Pagination,
   },
   props: ["appsCardsList", "itemsTotal", "page", "pageSize", "itemsPerPage"],
-  data() {
-    return {
-      applicationItem: {
-        title: "Заявка для открытого контура",
-      },
-    };
-  },
 };
 </script>
 

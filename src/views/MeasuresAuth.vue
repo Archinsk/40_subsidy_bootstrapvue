@@ -26,7 +26,7 @@
               :page-size="pageSize"
               :items-per-page="itemsPerPage"
               @change-page-size="changePageSize($event)"
-              @change-page="$emit('change-page', $event)"
+              @change-page="changePage"
             ></MeasuresCardsList>
           </div>
         </div>
@@ -67,9 +67,9 @@ export default {
       url: "http://192.168.18.171:8080/api/",
       measuresCardsList: [],
       itemsTotal: 0,
-      page: 5,
+      page: 1,
       pageSize: 10,
-      itemsPerPage: [10, 20, 30],
+      itemsPerPage: [10, 25, 50],
       scenario: 0,
       chatIsActive: false,
       inputText: "",
@@ -301,12 +301,12 @@ export default {
   },
 
   methods: {
-    getMeasuresCardslist(pageNum, pageSize, sortCol = "id", sortDesc = false) {
+    getMeasuresCardslist(page, pageSize, sortCol = "id", sortDesc = false) {
       const xhr = new XMLHttpRequest();
       const url =
         this.url +
         "serv/get-services?pageNum=" +
-        (pageNum - 1) +
+        (page - 1) +
         "&pageSize=" +
         pageSize +
         "&sortCol=" +
@@ -323,11 +323,13 @@ export default {
       };
       xhr.send();
     },
+
     changePageSize(newPageInfo) {
       this.page = newPageInfo[0];
       this.pageSize = newPageInfo[1];
       this.getMeasuresCardslist(this.page, this.pageSize);
     },
+
     changePage(page) {
       console.log(page);
       this.page = page;

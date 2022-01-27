@@ -69,10 +69,6 @@ export default {
 
   props: ["measure"],
 
-  data() {
-    return {};
-  },
-
   computed: {
     measurePeriod() {
       let period = "";

@@ -14,8 +14,9 @@
               :page="page"
               :page-size="pageSize"
               :items-per-page="itemsPerPage"
+              @change-page-size="changePageSize($event)"
+              @change-page="changePage"
               @get-app-form="getAppForm($event)"
-              @changepagesize3="changePageSize($event)"
             ></ApplicationsCardsList>
           </div>
         </div>
@@ -39,7 +40,12 @@ export default {
 
   data() {
     return {
+      url: "http://192.168.18.171:8080/api/",
       apps: [],
+      itemsTotal: 0,
+      page: 1,
+      pageSize: 10,
+      itemsPerPage: [10, 25, 50],
       appForm: {
         active: false,
         data: {},
@@ -53,21 +59,16 @@ export default {
         orderId: "",
         status: "",
       },
-      itemsTotal: 0,
-      page: 1,
-      pageSize: 10,
-      itemsPerPage: [3, 5, 10, 20],
     };
   },
 
   methods: {
-    getApps(pageNum, pageSize, sortCol = "id", sortDesc = false) {
+    getApps(page, pageSize, sortCol = "id", sortDesc = false) {
       const xhr = new XMLHttpRequest();
       const url =
-        // "http://192.168.18.171:8080/api/serv/get-services?pageNum=" +
-        "http://192.168.18.171:8080/api/app/get-apps?pageNum=" +
-        // "https://open-demo.isands.ru/api/app/get-apps?pageNum=" +
-        (pageNum - 1) +
+        this.url +
+        "app/get-apps?pageNum=" +
+        (page - 1) +
         "&pageSize=" +
         pageSize +
         "&sortCol=" +
@@ -84,6 +85,7 @@ export default {
       };
       xhr.send();
     },
+
     getAjaxRequest(service, id, responseTarget, log) {
       const xhr = new XMLHttpRequest();
       const url = "http://192.168.18.171:8080/api/" + service + "?id=" + id;
@@ -97,10 +99,10 @@ export default {
         this[responseTarget] = xhr.response;
         this[responseTarget].data = JSON.parse(xhr.response.data);
         this[responseTarget].form.scheme = JSON.parse(xhr.response.form.scheme);
-
       };
       xhr.send();
     },
+
     getAppForm(id) {
       this.getAjaxRequest(
         "app/get-appData",
@@ -109,31 +111,17 @@ export default {
         "Заполненная заявка id = " + id
       );
     },
-    changePageSize(itemsPerPage) {
-      console.log(itemsPerPage);
-      this.pageSize = itemsPerPage;
-      // this.changeItemsCount();
+
+    changePageSize(newPageInfo) {
+      this.page = newPageInfo[0];
+      this.pageSize = newPageInfo[1];
+      this.getApps(this.page, this.pageSize);
     },
+
     changePage(page) {
       console.log(page);
       this.page = page;
-      this.changeItemsCount();
-    },
-    changeItemsCount() {
-      console.log("Апдейт");
-      const xhr = new XMLHttpRequest();
-      let request =
-        "https://www.d-skills.ru/40_subsidy_bootstrapvue/measures.php?page=" +
-        this.page +
-        "&pageSize=" +
-        this.pageSize;
-      xhr.open("GET", request);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log(xhr.response);
-        this.xhrResponse = xhr.response;
-      };
-      xhr.send();
+      this.getApps(this.page, this.pageSize);
     },
   },
 

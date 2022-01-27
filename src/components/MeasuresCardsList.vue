@@ -11,15 +11,14 @@
       />
     </div>
     <div class="col">
-      <!--        @change-page="changePage($event)"-->
       <Pagination
         v-show="itemsTotal > pageSize"
-        @change-page-size="$emit('change-page-size', $event)"
-        @change-page="$emit('change-page', $event)"
         :items-total="itemsTotal"
         :page="page"
         :page-size="pageSize"
         :items-per-page="itemsPerPage"
+        @change-page-size="$emit('change-page-size', $event)"
+        @change-page="$emit('change-page', $event)"
       ></Pagination>
     </div>
   </div>

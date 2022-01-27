@@ -7,7 +7,7 @@
             class="page-link"
             href="#"
             aria-label="Previous"
-            @click.prevent="$emit('change-page', currentPage--)"
+            @click.prevent="$emit('change-page', --currentPage)"
           >
             <span aria-hidden="true">&laquo;</span>
           </a>
@@ -82,7 +82,7 @@
             class="page-link"
             href="#"
             aria-label="Previous"
-            @click.prevent="$emit('change-page', pages - 1)"
+            @click.prevent="$emit('change-page', pages)"
           >
             <span aria-hidden="true">{{ pages }}</span>
           </a>
@@ -93,7 +93,7 @@
             class="page-link"
             href="#"
             aria-label="Next"
-            @click.prevent="$emit('change-page', currentPage++)"
+            @click.prevent="$emit('change-page', ++currentPage)"
           >
             <span aria-hidden="true">&raquo;</span>
           </a>
