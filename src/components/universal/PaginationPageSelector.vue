@@ -6,8 +6,8 @@
           <a
             class="page-link"
             href="#"
-            aria-label="Previous"
-            @click.prevent="$emit('change-page', --currentPage)"
+            aria-label="Предыдущая"
+            @click.prevent="$emit('change-page', --activePage)"
           >
             <span aria-hidden="true">&laquo;</span>
           </a>
@@ -17,7 +17,6 @@
           <a
             class="page-link"
             href="#"
-            aria-label="Previous"
             @click.prevent="$emit('change-page', 1)"
           >
             <span aria-hidden="true">1</span>
@@ -34,7 +33,6 @@
             <a
               class="page-link"
               href="#"
-              aria-label="Previous"
               @click.prevent="$emit('change-page', 2)"
             >
               <span aria-hidden="true">2</span>
@@ -49,7 +47,6 @@
             class="page-item"
             :class="{ active: page === activePage }"
           >
-            <!--          @click="$emit('change-page', page)"-->
             <a
               class="page-link"
               href="#"
@@ -61,7 +58,7 @@
 
         <template v-if="activePage < pages - 2">
           <li v-if="activePage < pages - 3" class="page-item disabled">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href="#">
               <span aria-hidden="true">&#8230;</span>
             </a>
           </li>
@@ -69,7 +66,6 @@
             <a
               class="page-link"
               href="#"
-              aria-label="Previous"
               @click.prevent="$emit('change-page', pages - 1)"
             >
               <span aria-hidden="true">{{ pages - 1 }}</span>
@@ -81,7 +77,6 @@
           <a
             class="page-link"
             href="#"
-            aria-label="Previous"
             @click.prevent="$emit('change-page', pages)"
           >
             <span aria-hidden="true">{{ pages }}</span>
@@ -92,8 +87,8 @@
           <a
             class="page-link"
             href="#"
-            aria-label="Next"
-            @click.prevent="$emit('change-page', ++currentPage)"
+            aria-label="Следующая"
+            @click.prevent="$emit('change-page', ++activePage)"
           >
             <span aria-hidden="true">&raquo;</span>
           </a>
@@ -106,17 +101,6 @@
 <script>
 export default {
   name: "PaginationPageSelector",
-
   props: ["pages", "activePage"],
-
-  data() {
-    return {
-      currentPage: this.activePage,
-    };
-  },
-
-  methods: {
-
-  }
 };
 </script>

@@ -22,7 +22,10 @@
         </div>
       </div>
     </section>
-    <MeasureApplicationForm :application-form="appForm" />
+    <MeasureApplicationForm
+      :application-form="appForm"
+      @invoke-action="invokeAction($event)"
+    />
   </div>
 </template>
 
@@ -88,8 +91,7 @@ export default {
 
     getAjaxRequest(service, id, responseTarget, log) {
       const xhr = new XMLHttpRequest();
-      const url = "http://192.168.18.171:8080/api/" + service + "?id=" + id;
-      // const url = "https://open-demo.isands.ru:8080/api/" + service + "?id=" + id;
+      const url = this.url + service + "?id=" + id;
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
@@ -110,6 +112,36 @@ export default {
         "appForm",
         "Заполненная заявка id = " + id
       );
+    },
+
+    postAjaxRequest(service, request, responseTarget, log) {
+      const xhr = new XMLHttpRequest();
+      const url = this.url + service;
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          console.log(log);
+          console.log(xhr.response);
+        }
+      };
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-type", "x-www-form-urlencoded");
+      xhr.send(JSON.stringify(request));
+    },
+
+    invokeAction(id) {
+      const actionArgs = {
+        actionId: id,
+        userId: 15,
+        appId: 21,
+        data: "",
+      };
+      this.postAjaxRequest(
+        "app/action-invoke",
+        actionArgs,
+        "appForm",
+        "Заполненная заявка id = " + id
+      );
+      console.log("Выполнение action из заявления с id=" + id);
     },
 
     changePageSize(newPageInfo) {

@@ -6,7 +6,8 @@
       @change-page-size="changePageSize($event)"
     />
     <div class="block">
-      {{ pageSize * (page - 1) + 1 }} - {{ pageSize * page }} из
+      {{ pageSize * (page - 1) + 1 }} -
+      {{ page === pages ? itemsTotal : pageSize * page }} из
       {{ itemsTotal }}
     </div>
     <PaginationPageSelector

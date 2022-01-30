@@ -407,6 +407,7 @@
     <hr />
         <MeasureApplicationForm
           :application-form="startForm.applicationDTO"
+          @invoke-action="invokeAction($event)"
         />
   </div>
 </template>
@@ -5197,27 +5198,17 @@ export default {
         service +
         "?id=" +
         id;
-      // let forms = this.measureForms;
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
         console.log(log);
         console.log(xhr.response);
         this[responseTarget] = xhr.response;
-        // xhr.response.forEach(function(form, index) {
-        //   if (form.scheme) {
-        //     console.log(forms[index].scheme);
-        //     forms[index].scheme = JSON.parse(form.scheme);
-        //     console.log(index + " - В ответе есть схема" + form.scheme);
         if (xhr.response.applicationDTO && xhr.response.applicationDTO.data && xhr.response.applicationDTO.form) {
           console.log("Внутри форма стартовой заявки")
           this[responseTarget].applicationDTO.data = JSON.parse(xhr.response.applicationDTO.data);
           this[responseTarget].applicationDTO.form.scheme = JSON.parse(xhr.response.applicationDTO.form.scheme);
         }
-
-        //   }
-        // });
-        // console.log(Array.isArray(xhr.response));
         console.log(this.measureForms);
       };
       xhr.send();
@@ -5245,6 +5236,9 @@ export default {
         "startForm",
         "Стартовая форма"
       );
+    },
+    invokeAction(id) {
+      console.log("Подаю заявление с id=" + id);
     },
     measurePeriod() {
       let period = "";

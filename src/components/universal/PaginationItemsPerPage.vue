@@ -15,7 +15,6 @@
 <script>
 export default {
   name: "PaginationItemsPerPage",
-
   props: ["itemsPerPage", "pageSize"],
 };
 </script>
