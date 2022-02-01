@@ -95,12 +95,11 @@ export default {
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
-        console.log(log);
-        console.log(xhr.response);
-        console.log(JSON.parse(xhr.response.data));
         this[responseTarget] = xhr.response;
         this[responseTarget].data = JSON.parse(xhr.response.data);
         this[responseTarget].form.scheme = JSON.parse(xhr.response.form.scheme);
+        console.log(log);
+        console.log(this.appForm);
       };
       xhr.send();
     },
@@ -120,28 +119,42 @@ export default {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
           console.log(log);
-          console.log(xhr.response);
+          // console.log(xhr.response);
+          // console.log(JSON.parse(xhr.response));
+          // console.log(JSON.parse(xhr.response).applicationDTO);
+          let newForm = JSON.parse(xhr.response).applicationDTO;
+          newForm.data = JSON.parse(newForm.data);
+          newForm.form.scheme = JSON.parse(newForm.form.scheme);
+          console.log("Новая форма из ответа:");
+          console.log(newForm);
+          this[responseTarget] = newForm;
         }
       };
       xhr.open("POST", url, true);
-      xhr.setRequestHeader("Content-type", "x-www-form-urlencoded");
-      xhr.send(JSON.stringify(request));
+      xhr.setRequestHeader("Content-type", "application/json");
+      xhr.send(request);
     },
 
-    invokeAction(id) {
-      const actionArgs = {
-        actionId: id,
-        userId: 15,
-        appId: 21,
-        data: "",
-      };
+    invokeAction(actionId, userId = 13, appId = this.appForm.id, data = JSON.stringify(this.appForm.data)) {
+      data = this.appForm;
+      data.data = JSON.stringify(data.data);
+      data.form.scheme = JSON.stringify(data.form.scheme);
       this.postAjaxRequest(
-        "app/action-invoke",
-        actionArgs,
+        "app/action-invoke?actionId=" +
+          actionId +
+          "&userId=" +
+          userId +
+          "&appId=" +
+          appId +
+          "&data=" +
+          data,
+        "",
         "appForm",
-        "Заполненная заявка id = " + id
+        "Выполнение действия c actionId=" +
+          actionId +
+          " по заявке с appId = " +
+          appId
       );
-      console.log("Выполнение action из заявления с id=" + id);
     },
 
     changePageSize(newPageInfo) {

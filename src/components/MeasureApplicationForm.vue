@@ -9,10 +9,8 @@
     <Form
       :form="applicationForm.form.scheme"
       :submission="applicationForm"
-      :options="{readOnly: !applicationForm.active}"
+      :options="{ readOnly: !applicationForm.active }"
     />
-<!--    <Form src="https://dkpwtpfnbsdzufs.form.io/fioformwithdata" />-->
-<!--    <Form :form="scheme" :submission="formdata" />-->
     <b-button
       v-for="action of applicationForm.form.actions"
       :key="action.id"
