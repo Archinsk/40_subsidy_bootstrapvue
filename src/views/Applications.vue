@@ -109,7 +109,7 @@ export default {
         "app/get-appData",
         id,
         "appForm",
-        "Заполненная заявка id = " + id
+        "Заполненная распарсенная заявка с id = " + id
       );
     },
 
@@ -119,41 +119,42 @@ export default {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
           console.log(log);
-          // console.log(xhr.response);
+          console.log(xhr.response);
           // console.log(JSON.parse(xhr.response));
           // console.log(JSON.parse(xhr.response).applicationDTO);
-          let newForm = JSON.parse(xhr.response).applicationDTO;
-          newForm.data = JSON.parse(newForm.data);
-          newForm.form.scheme = JSON.parse(newForm.form.scheme);
-          console.log("Новая форма из ответа:");
-          console.log(newForm);
-          this[responseTarget] = newForm;
+          // let newForm = JSON.parse(xhr.response).applicationDTO;
+          // newForm.data = JSON.parse(newForm.data);
+          // newForm.form.scheme = JSON.parse(newForm.form.scheme);
+          // console.log("Новая форма из ответа:");
+          // console.log(newForm);
+          // this[responseTarget] = newForm;
         }
       };
       xhr.open("POST", url, true);
       xhr.setRequestHeader("Content-type", "application/json");
-      xhr.send(request);
+      xhr.send(JSON.stringify(request));
     },
 
-    invokeAction(actionId, userId = 13, appId = this.appForm.id, data = JSON.stringify(this.appForm.data)) {
-      data = this.appForm;
-      data.data = JSON.stringify(data.data);
-      data.form.scheme = JSON.stringify(data.form.scheme);
+    invokeAction(actionId) {
+      console.log("В отправляемой форме data:" + JSON.stringify(this.appForm.data));
+      // data = this.appForm;
+      // data.data = JSON.stringify(data.data);
+      // data.form.scheme = JSON.stringify(data.form.scheme);
+      const request = {
+        actionId: actionId,
+        userId: 13,
+        appId: this.appForm.id,
+        data: JSON.stringify(this.appForm.data)
+      };
       this.postAjaxRequest(
-        "app/action-invoke?actionId=" +
-          actionId +
-          "&userId=" +
-          userId +
-          "&appId=" +
-          appId +
-          "&data=" +
-          data,
-        "",
+        "app/action-invoke",
+        request,
         "appForm",
         "Выполнение действия c actionId=" +
           actionId +
           " по заявке с appId = " +
-          appId
+              request.appId +
+          ", ответ:"
       );
     },
 

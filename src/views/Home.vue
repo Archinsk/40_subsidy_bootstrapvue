@@ -28,15 +28,14 @@
 
     <section v-show="!chatIsActive" class="news mb-2">
       <div class="news__wrapper container">
-        <div class="d-flex justify-content-between align-items-center">
-          <h4 class="news__header text-center py-2">Новости</h4>
-          <router-link to="/news">Больше новостей</router-link>
-        </div>
+        <!--        <div class="d-flex justify-content-between align-items-center">-->
+        <h4 class="news__header text-center py-2">Новости</h4>
+        <!--          <router-link to="/news">Больше новостей</router-link>-->
+        <!--        </div>-->
         <NewsPreviewList
-          count="3"
+          :newsList="newsCardsList"
           :everythingLittle="true"
-          :target-url="newsTargetUrl"
-          :pagination="false"
+          :isPagination="false"
         ></NewsPreviewList>
       </div>
     </section>
@@ -65,7 +64,10 @@ export default {
 
   data() {
     return {
-      newsTargetUrl: "https://www.d-skills.ru/40_subsidy_bootstrapvue/news.php",
+      url: "https://www.d-skills.ru/40_subsidy_bootstrapvue/news2.php",
+      newsCardsList: [],
+      page: 1,
+      pageSize: 3,
       inputText: "",
       replics: [
         {
@@ -269,6 +271,23 @@ export default {
     chatActive() {
       return this.replics.length > 1 && this.chatIsActive;
     },
+
+    getNews(page, pageSize) {
+      const xhr = new XMLHttpRequest();
+      const request = this.url + "?page=" + page + "&pageSize=" + pageSize;
+      xhr.open("GET", request);
+      xhr.responseType = "json";
+      xhr.onload = () => {
+        console.log("Cписок новостей");
+        console.log(xhr.response);
+        this.newsCardsList = xhr.response;
+      };
+      xhr.send();
+    },
+  },
+
+  mounted: function () {
+    this.getNews(this.page, this.pageSize);
   },
 };
 </script>

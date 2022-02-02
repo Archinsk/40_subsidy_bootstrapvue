@@ -32,10 +32,10 @@ export default {
 
   props: ["applicationForm"],
 
-  updated: function () {
-    console.log("При обновлении формы submission = ");
-    console.log(this.applicationForm.data);
-  },
+  // updated: function () {
+  //   console.log("При обновлении формы submission = ");
+  //   console.log(this.applicationForm.data);
+  // },
 
   mounted: function () {
     console.log("При монтаже формы submission = ");

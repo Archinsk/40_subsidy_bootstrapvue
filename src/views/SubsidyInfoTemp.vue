@@ -3,7 +3,7 @@
     <section class="support">
       <div class="support__wrapper container">
         <div class="support__header">
-          <h4 class="support__name">
+          <h4 class="support__name text-center py-2">
             {{ measure.name }}
           </h4>
           <div class="support__details">
@@ -405,10 +405,10 @@
     </section>
     <Loader v-show="loading" />
     <hr />
-        <MeasureApplicationForm
-          :application-form="startForm.applicationDTO"
-          @invoke-action="invokeAction($event)"
-        />
+    <MeasureApplicationForm
+      :application-form="startForm.applicationDTO"
+      @invoke-action="invokeAction($event)"
+    />
   </div>
 </template>
 
@@ -431,7 +431,7 @@ export default {
           modelId: 0,
           name: "Заявление",
           scheme: {},
-        }
+        },
       ],
       startForm: {
         applicationDTO: {
@@ -450,7 +450,7 @@ export default {
           orderId: "",
           startDate: "",
           status: "",
-          type: 0
+          type: 0,
         },
       },
       // asd: {
@@ -5194,20 +5194,25 @@ export default {
     },
     ajaxRequest(service, id, responseTarget, log) {
       const xhr = new XMLHttpRequest();
-      const url = this.url +
-        service +
-        "?id=" +
-        id;
+      const url = this.url + service + "?id=" + id;
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
         console.log(log);
         console.log(xhr.response);
         this[responseTarget] = xhr.response;
-        if (xhr.response.applicationDTO && xhr.response.applicationDTO.data && xhr.response.applicationDTO.form) {
-          console.log("Внутри форма стартовой заявки")
-          this[responseTarget].applicationDTO.data = JSON.parse(xhr.response.applicationDTO.data);
-          this[responseTarget].applicationDTO.form.scheme = JSON.parse(xhr.response.applicationDTO.form.scheme);
+        if (
+          xhr.response.applicationDTO &&
+          xhr.response.applicationDTO.data &&
+          xhr.response.applicationDTO.form
+        ) {
+          console.log("Внутри форма стартовой заявки");
+          this[responseTarget].applicationDTO.data = JSON.parse(
+            xhr.response.applicationDTO.data
+          );
+          this[responseTarget].applicationDTO.form.scheme = JSON.parse(
+            xhr.response.applicationDTO.form.scheme
+          );
         }
         console.log(this.measureForms);
       };

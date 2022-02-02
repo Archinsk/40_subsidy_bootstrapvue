@@ -2,7 +2,7 @@
   <section class="container">
     <form>
       <section class="site-meta">
-        <h4>Данные сайта</h4>
+        <h4 class="text-center py-2">Данные сайта</h4>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="input1">Имя файла фавиконки</label>
@@ -85,7 +85,7 @@
         </div>
       </section>
       <section class="main-menu">
-        <h4>Данные меню</h4>
+        <h4 class="text-center py-2">Данные меню</h4>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="input9">Идентификатор пункта</label>
@@ -188,11 +188,11 @@
         </div>
       </section>
 
-      <h4>Ссылки футера</h4>
+      <h4 class="text-center py-2">Ссылки футера</h4>
       <SiteAdminFooterMenu />
 
       <section class="contacts">
-        <h4>Контакты</h4>
+        <h4 class="text-center py-2">Контакты</h4>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="input29">Идентификатор пункта меню</label>
@@ -276,7 +276,7 @@
       </section>
 
       <section class="something">
-        <h4>Что-то ещё</h4>
+        <h4 class="text-center py-2">Что-то ещё</h4>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="input100"></label>
@@ -315,6 +315,7 @@ export default {
   },
   data() {
     return {
+      url: "http://192.168.18.171:8080/api/",
       faviconFileName: "1",
       faviconId: "2",
       logoFileName: "3",
@@ -348,8 +349,7 @@ export default {
   methods: {
     getSiteInfo() {
       const xhr = new XMLHttpRequest();
-      const request =
-        "https://open-newtemplate.isands.ru/open-core/api/site-data/get-main";
+      const request = this.url + "site-data/get-main";
       xhr.open("GET", request);
       xhr.responseType = "json";
       xhr.onload = () => {
@@ -369,8 +369,7 @@ export default {
 
     getMainMenu() {
       const xhr = new XMLHttpRequest();
-      const request =
-        "https://open-newtemplate.isands.ru/open-core/api/site-data/get-header";
+      const request = this.url + "site-data/get-header";
       xhr.open("GET", request);
       xhr.responseType = "json";
       xhr.onload = () => {
@@ -392,8 +391,7 @@ export default {
 
     getFooterContacts() {
       const xhr = new XMLHttpRequest();
-      const request =
-        "https://open-newtemplate.isands.ru/open-core/api/site-data/get-footer";
+      const request = this.url + "site-data/get-footer";
       xhr.open("GET", request);
       xhr.responseType = "json";
       xhr.onload = () => {

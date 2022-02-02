@@ -2,7 +2,7 @@
   <div>
     <div class="profile__wrapper container">
       <article class="profile">
-        <h4 class="profile__title">Личный кабинет</h4>
+        <h4 class="profile__title text-center">Личный кабинет</h4>
 
         <section class="profile__user__info">
           <div class="profile__user__info__details">
@@ -29,6 +29,7 @@
         <b-tabs>
           <b-tab title="Личные данные" active>
             <section class="user__basic__info">
+              <h4 class="text-center">Личные данные</h4>
               <h5 class="user__basic__info__title">Основная информация</h5>
               <div class="user__basic__info__body">
                 <div class="user__about term__block">
@@ -168,17 +169,13 @@
             </section>
           </b-tab>
           <b-tab title="Заявки">
-            <h4 class="measures__heading">
+            <h4 class="measures__heading text-center">
               Заявки <span class="badge badge-primary">30</span>
             </h4>
             <RequestsCardsList
               :requestsPack="xhrResponse"
               count="10"
             ></RequestsCardsList>
-            <Pagination
-              @change-pageSize="changePageSize($event)"
-              @change-page="changePage($event)"
-            ></Pagination>
           </b-tab>
         </b-tabs>
       </article>
@@ -281,14 +278,12 @@
 
 <script>
 import RequestsCardsList from "@/components/RequestsCardsList";
-import Pagination from "../components/universal/Pagination";
 
 export default {
   name: "AccountInfo",
 
   components: {
     RequestsCardsList,
-    Pagination,
   },
 
   data() {
@@ -330,23 +325,21 @@ export default {
   getMeasuresCardslist(pageNum, pageSize, sortCol = "id", sortDesc = false) {
     const xhr = new XMLHttpRequest();
     const url =
-            // "https://open-newtemplate.isands.ru/open-core/api/serv/get-services?pageNum=" +
-            // "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
-            // "http://192.168.18.171:8180/api/serv/get-services?pageNum=" +
-            "http://192.168.18.171:8080/api/serv/get-services?pageNum=" +
-            (pageNum - 1) +
-            "&pageSize=" +
-            pageSize +
-            "&sortCol=" +
-            sortCol +
-            "&sortDesc=" +
-            sortDesc;
+      // "https://open-newtemplate.isands.ru/open-core/api/serv/get-services?pageNum=" +
+      // "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
+      // "http://192.168.18.171:8180/api/serv/get-services?pageNum=" +
+      "http://192.168.18.171:8080/api/serv/get-services?pageNum=" +
+      (pageNum - 1) +
+      "&pageSize=" +
+      pageSize +
+      "&sortCol=" +
+      sortCol +
+      "&sortDesc=" +
+      sortDesc;
     xhr.open("GET", url);
     xhr.responseType = "json";
     xhr.onload = () => {
-      console.log(
-              "Список мер"
-      );
+      console.log("Список мер");
       console.log(xhr.response);
       this.measuresCardsList = xhr.response;
       this.itemsTotal = xhr.response.totalElements;

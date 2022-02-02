@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div v-for="(footerMenuItem, index) of footerMenu" :key="footerMenuItem.id">
       <SiteAdminFooterMenuItem
         :item="footerMenuItem"
@@ -34,7 +33,6 @@
         </button>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -48,6 +46,7 @@ export default {
   },
   data() {
     return {
+      url: "http://192.168.18.171:8080/api/",
       footerMenu: [],
       footerMenuNewItem: {
         title: [
@@ -71,8 +70,7 @@ export default {
   methods: {
     getFooterMenu() {
       const xhr = new XMLHttpRequest();
-      const url =
-        "https://open-newtemplate.isands.ru/open-core/api/site-data/get-footer";
+      const url = this.url + "site-data/get-footer";
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
@@ -84,8 +82,7 @@ export default {
     },
     addFooterMenuItem() {
       const xhr = new XMLHttpRequest();
-      const url =
-        "http://192.168.18.171:8080/open-core/api/site-data/set-footer";
+      const url = this.url + "site-data/set-footer";
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
           this.getFooterMenu();
@@ -155,8 +152,7 @@ export default {
       console.log("Изменяемый пункт");
       console.log(changedItems[0]);
       const xhr = new XMLHttpRequest();
-      const url =
-        "http://192.168.18.171:8080/open-core/api/site-data/set-footer";
+      const url = this.url + "site-data/set-footer";
       xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
           this.getFooterMenu();
@@ -170,9 +166,7 @@ export default {
 
     deleteFooterMenuItem(itemId) {
       const xhr = new XMLHttpRequest();
-      const url =
-        "http://192.168.18.171:8080/open-core/api/site-data/delete-item?id=" +
-        itemId;
+      const url = this.url + "site-data/delete-item?id=" + itemId;
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
           this.getFooterMenu();

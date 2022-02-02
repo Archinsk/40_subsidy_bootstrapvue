@@ -14,7 +14,7 @@
       </div>
       <div class="col-sm-12 col-lg-12 mb-0">
         <Pagination
-          v-show="itemsTotal > pageSize"
+          v-if="isPagination && itemsTotal > pageSize"
           :items-total="itemsTotal"
           :page="page"
           :page-size="pageSize"
@@ -44,6 +44,7 @@ export default {
     "pageSize",
     "itemsPerPage",
     "everythingLittle",
+    "isPagination",
   ],
 };
 </script>

@@ -15,11 +15,6 @@
               :measuresPack="xhrResponse"
               count="10"
             ></MeasuresCardsListExample>
-            <hr />
-            <MeasuresCardsList
-              :measuresPack="xhrResponse"
-              count="10"
-            ></MeasuresCardsList>
           </div>
         </div>
       </div>
@@ -41,7 +36,6 @@
 
 <script>
 import MeasuresCardsListExample from "@/components/MeasuresCardsListExample";
-import MeasuresCardsList from "@/components/MeasuresCardsList";
 import MeasuresFilter from "@/components/MeasuresFilter";
 import Chat from "@/components/Chat";
 
@@ -50,7 +44,6 @@ export default {
 
   components: {
     MeasuresCardsListExample,
-    MeasuresCardsList,
     MeasuresFilter,
     Chat,
   },
@@ -287,66 +280,6 @@ export default {
   },
 
   methods: {
-    changePageSize(itemsPerPage) {
-      console.log(itemsPerPage);
-      this.pageSize = itemsPerPage;
-      this.changeItemsCount();
-    },
-    changePage(page) {
-      console.log(page);
-      this.page = page;
-      this.changeItemsCount();
-    },
-    changeItemsCount() {
-      console.log("Апдейт");
-      const xhr = new XMLHttpRequest();
-      let request =
-        "https://www.d-skills.ru/40_subsidy_bootstrapvue/measures.php?page=" +
-        this.page +
-        "&pageSize=" +
-        this.pageSize;
-      xhr.open("GET", request);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log(xhr.response);
-        this.xhrResponse = xhr.response;
-      };
-      xhr.send();
-    },
-    scenarioFilter() {
-      console.log("Начинаю фильтрацию по сценарию " + this.scenario);
-      const xhr = new XMLHttpRequest();
-      let request =
-        "https://www.d-skills.ru/40_subsidy_bootstrapvue/scenario.php?scenario=" +
-        this.scenario;
-      xhr.open("GET", request);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log(xhr.response);
-        this.xhrResponse = xhr.response;
-        this.totalItems = 2;
-      };
-      xhr.send();
-    },
-    clearFilter() {
-      this.filters.forEach(function (item) {
-        item.selected = [];
-      });
-      const xhr = new XMLHttpRequest();
-      let request =
-        "https://www.d-skills.ru/40_subsidy_bootstrapvue/measures.php?page=" +
-        this.page +
-        "&pageSize=" +
-        this.pageSize;
-      xhr.open("GET", request);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log(xhr.response);
-        this.xhrResponse = xhr.response;
-        this.totalItems = 160;
-      };
-      xhr.send();
-    },
     chatActivation() {
       this.chatIsActive = true;
     },
