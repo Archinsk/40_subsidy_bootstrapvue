@@ -95,6 +95,8 @@ export default {
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
+        console.log("Данные ответа");
+        console.log(xhr.response);
         this[responseTarget] = xhr.response;
         this[responseTarget].data = JSON.parse(xhr.response.data);
         this[responseTarget].form.scheme = JSON.parse(xhr.response.form.scheme);
@@ -122,12 +124,12 @@ export default {
           console.log(xhr.response);
           // console.log(JSON.parse(xhr.response));
           // console.log(JSON.parse(xhr.response).applicationDTO);
-          // let newForm = JSON.parse(xhr.response).applicationDTO;
-          // newForm.data = JSON.parse(newForm.data);
-          // newForm.form.scheme = JSON.parse(newForm.form.scheme);
-          // console.log("Новая форма из ответа:");
-          // console.log(newForm);
-          // this[responseTarget] = newForm;
+          let newForm = JSON.parse(xhr.response).applicationDTO;
+          newForm.data = JSON.parse(newForm.data);
+          newForm.form.scheme = JSON.parse(newForm.form.scheme);
+          console.log("Новая форма из ответа:");
+          console.log(newForm);
+          this[responseTarget] = newForm;
         }
       };
       xhr.open("POST", url, true);
@@ -137,9 +139,6 @@ export default {
 
     invokeAction(actionId) {
       console.log("В отправляемой форме data:" + JSON.stringify(this.appForm.data));
-      // data = this.appForm;
-      // data.data = JSON.stringify(data.data);
-      // data.form.scheme = JSON.stringify(data.form.scheme);
       const request = {
         actionId: actionId,
         userId: 13,
