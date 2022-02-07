@@ -22,23 +22,60 @@
         </div>
       </div>
     </section>
-    <MeasureApplicationForm
-      :application-form="appForm"
-      @invoke-action="invokeAction($event)"
-    />
+    <!--    <MeasureApplicationForm-->
+    <!--      :application-form="appForm"-->
+    <!--      @invoke-action="invokeAction($event)"-->
+    <!--    />-->
+
+    <b-modal
+      id="edit-app"
+      title="Редактирование заявления"
+      size="xl"
+      hide-footer
+      no-stacking
+      @close="cleanAppForm"
+    >
+      <template v-if="isLoadedStartForm && !isRequested">
+        <Form
+          :form="appForm.form.scheme"
+          :submission="appForm"
+          :options="{ readOnly: !appForm.active }"
+        />
+        <template v-if="appForm.active">
+          <b-button
+            v-for="action of appForm.form.actions"
+            :key="action.id"
+            @click="invokeAction(action.id)"
+            >{{ action.name }}</b-button
+          >
+        </template>
+      </template>
+
+      <template v-else>
+        <template v-if="!isResponsed">
+          <b-spinner variant="primary" label="Spinning"></b-spinner>
+          <p>Заявление отправляется...</p>
+        </template>
+        <p v-else>Изменения сохранены!</p>
+        <b-button @click="cleanAppForm">OK</b-button>
+      </template>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import ApplicationsCardsList from "@/components/ApplicationsCardsList";
-import MeasureApplicationForm from "../components/MeasureApplicationForm";
+// import MeasureApplicationForm from "../components/MeasureApplicationForm";
+import { Form } from "vue-formio";
+import axios from "axios";
 
 export default {
   name: "Applications",
 
   components: {
     ApplicationsCardsList,
-    MeasureApplicationForm,
+    // MeasureApplicationForm,
+    Form,
   },
 
   data() {
@@ -62,6 +99,9 @@ export default {
         orderId: "",
         status: "",
       },
+      isLoadedStartForm: false,
+      isRequested: false,
+      isResponsed: false,
     };
   },
 
@@ -107,12 +147,31 @@ export default {
     },
 
     getAppForm(id) {
-      this.getAjaxRequest(
-        "app/get-appData",
-        id,
-        "appForm",
-        "Заполненная распарсенная заявка с id = " + id
-      );
+      // this.getAjaxRequest(
+      //   "app/get-appData",
+      //   id,
+      //   "appForm",
+      //   "Заполненная распарсенная заявка с id = " + id
+      // );
+      this.isLoadedStartForm = false;
+      this.isRequested = false;
+      this.isResponsed = false;
+      console.log("Получаю стартовую форму");
+      axios
+        .get(this.url + "app/get-appData?id=" + id)
+        .then((response) => {
+          console.log("Отправлен запрос");
+          console.log(response);
+          const newForm = response.data;
+          newForm.data = JSON.parse(newForm.data);
+          newForm.form.scheme = JSON.parse(newForm.form.scheme);
+          this.appForm = newForm;
+        })
+        .then(() => {
+          console.log("Ответ распарсен");
+          console.log(this.appForm);
+          this.isLoadedStartForm = true;
+        });
     },
 
     postAjaxRequest(service, request, responseTarget, log) {
@@ -138,23 +197,51 @@ export default {
     },
 
     invokeAction(actionId) {
-      console.log("В отправляемой форме data:" + JSON.stringify(this.appForm.data));
+      this.isRequested=true;
+      console.log(
+        "В отправляемой форме data:" + JSON.stringify(this.appForm.data)
+      );
       const request = {
         actionId: actionId,
         userId: 13,
         appId: this.appForm.id,
-        data: JSON.stringify(this.appForm.data)
+        data: JSON.stringify(this.appForm.data),
       };
-      this.postAjaxRequest(
-        "app/action-invoke",
-        request,
-        "appForm",
-        "Выполнение действия c actionId=" +
-          actionId +
-          " по заявке с appId = " +
-              request.appId +
-          ", ответ:"
-      );
+      // this.postAjaxRequest(
+      //   "app/action-invoke",
+      //   request,
+      //   "appForm",
+      //   "Выполнение действия c actionId=" +
+      //     actionId +
+      //     " по заявке с appId = " +
+      //     request.appId +
+      //     ", ответ:"
+      // );
+      axios
+        .post(this.url + "app/action-invoke", request)
+        .then((response) => {
+          console.log("Отправлен запрос");
+          console.log(response);
+
+          this.appForm = response.data.applicationDTO;
+        })
+        .then(() => {
+          console.log("Записан ответ");
+          this.appForm.data = JSON.parse(this.appForm.data);
+          this.appForm.form.scheme = JSON.parse(this.appForm.form.scheme);
+        })
+        .then(() => {
+          console.log("Распарсена форма и ее заполнение");
+          this.isResponsed = true;
+          this.appForm = {};
+        });
+    },
+
+    cleanAppForm() {
+      this.$bvModal.hide("edit-app");
+      // this.isLoadedStartForm = false;
+      this.isRequested = false;
+      this.isResponsed = false;
     },
 
     changePageSize(newPageInfo) {

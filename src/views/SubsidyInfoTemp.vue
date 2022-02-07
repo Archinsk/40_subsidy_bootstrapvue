@@ -18,9 +18,7 @@
             </div>
           </div>
         </div>
-
         <hr />
-
         <div class="support__card">
           <div class="support__card__header row">
             <div class="support__owner col-md-6 col-xl-4">
@@ -48,14 +46,12 @@
                 title="По данной мере поддержки есть возможность электронной подачи"
                 alt=""
               />
-              <b-button v-b-modal.measure-application-form>
-                Подать заявку
-              </b-button>
+              <b-button v-b-modal.new-app @click="getStartForm"
+                >Подать заявку</b-button
+              >
             </div>
           </div>
-
           <hr />
-
           <b-card no-body>
             <b-tabs pills card vertical nav-wrapper-class="col-12 col-md-4">
               <b-tab title="Описание" active>
@@ -405,19 +401,60 @@
     </section>
     <Loader v-show="loading" />
     <hr />
-    <MeasureApplicationForm
-      :application-form="appForm"
-      @invoke-action="invokeAction($event)"
-    />
+    <!--    <MeasureApplicationForm-->
+    <!--      :application-form="appForm"-->
+    <!--      @invoke-action="invokeAction($event)"-->
+    <!--    />-->
+    <b-modal
+      id="new-app"
+      title="Новое заявление"
+      size="xl"
+      hide-footer
+      no-stacking
+      @close="cleanAppForm"
+    >
+      <template v-if="isLoadedStartForm && !isRequested">
+        <Form
+          :form="appForm.form.scheme"
+          :submission="appForm"
+          :options="{ readOnly: !appForm.active }"
+        />
+        <template v-if="appForm.active">
+          <b-button
+            v-for="action of appForm.form.actions"
+            :key="action.id"
+            @click="invokeAction(action.id)"
+            >{{ action.name }}</b-button
+          >
+        </template>
+      </template>
+
+      <template v-else>
+        <template v-if="!isResponsed">
+          <b-spinner variant="primary" label="Spinning"></b-spinner>
+          <p>Заявление отправляется...</p>
+        </template>
+        <p v-else>Заявление отправлено!</p>
+        <b-button @click="cleanAppForm">OK</b-button>
+      </template>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import Loader from "@/components/Loader";
-import MeasureApplicationForm from "@/components/MeasureApplicationForm";
+// import MeasureApplicationForm from "@/components/MeasureApplicationForm";
+import { Form } from "vue-formio";
+import axios from "axios";
 
 export default {
   name: "SubsidyInfoTemp",
+
+  components: {
+    Loader,
+    // MeasureApplicationForm,
+    Form,
+  },
 
   data() {
     return {
@@ -446,12 +483,10 @@ export default {
         orderId: "",
         status: "",
       },
+      isLoadedStartForm: false,
+      isRequested: false,
+      isResponsed: false,
     };
-  },
-
-  components: {
-    Loader,
-    MeasureApplicationForm,
   },
 
   methods: {
@@ -461,6 +496,7 @@ export default {
         this.loading = false;
       }, 5000);
     },
+
     ajaxRequest(service, id, responseTarget, log) {
       const xhr = new XMLHttpRequest();
       const url = this.url + service + "?id=" + id;
@@ -486,6 +522,7 @@ export default {
       };
       xhr.send();
     },
+
     getMeasure() {
       this.ajaxRequest(
         "serv/get-model",
@@ -494,6 +531,7 @@ export default {
         "Информация по мере поддержки"
       );
     },
+
     getForms() {
       this.ajaxRequest(
         "serv/get-forms",
@@ -502,13 +540,20 @@ export default {
         "Список форм"
       );
     },
+
     getStartForm() {
-      this.ajaxRequest(
-        "serv/get-appData",
-        this.$route.params.subId,
-        "appForm",
-        "Пустая стартовая форма"
-      );
+      console.log("Получаю стартовую форму");
+      axios
+        .get(this.url + "serv/get-appData?id=" + this.$route.params.subId)
+        .then((response) => {
+          console.log("Отправлен запрос");
+          const newForm = response.data.applicationDTO;
+          newForm.data = JSON.parse(newForm.data);
+          newForm.form.scheme = JSON.parse(newForm.form.scheme);
+          this.appForm = newForm;
+        }).then(() => {
+          this.isLoadedStartForm = true;
+      });
     },
 
     postAjaxRequest(service, request, responseTarget, log) {
@@ -534,23 +579,41 @@ export default {
     },
 
     invokeAction(actionId) {
-      console.log("В отправляемой форме data:" + JSON.stringify(this.appForm.data));
+      console.log(
+        "В отправляемой форме data:" +
+          JSON.stringify(this.appForm.data) +
+          actionId
+      );
+      this.isRequested = true;
       const request = {
         actionId: actionId,
         userId: 13,
         appId: this.appForm.id,
-        data: JSON.stringify(this.appForm.data)
+        data: JSON.stringify(this.appForm.data),
       };
-      this.postAjaxRequest(
-              "app/action-invoke",
-              request,
-              "appForm",
-              "Выполнение действия c actionId=" +
-              actionId +
-              " по заявке с appId = " +
-              request.appId +
-              ", ответ:"
-      );
+      axios
+        .post(this.url + "app/action-invoke", request)
+        .then((response) => {
+          console.log("Отправлен запрос");
+          this.appForm = response.data.applicationDTO;
+        })
+        .then(() => {
+          console.log("Записан ответ");
+          this.appForm.data = JSON.parse(this.appForm.data);
+          this.appForm.form.scheme = JSON.parse(this.appForm.form.scheme);
+        })
+        .then(() => {
+          console.log("Распарсена форма и ее заполнение");
+          this.isResponsed = true;
+          this.appForm = {};
+        });
+    },
+
+    cleanAppForm() {
+      this.$bvModal.hide('new-app');
+      this.isLoadedStartForm = false;
+      this.isRequested = false;
+      this.isResponsed = false;
     },
 
     measurePeriod() {
@@ -585,7 +648,6 @@ export default {
   mounted: function () {
     this.getMeasure();
     this.getForms();
-    this.getStartForm();
   },
 };
 </script>
