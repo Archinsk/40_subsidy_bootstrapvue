@@ -459,6 +459,7 @@ export default {
   data() {
     return {
       url: "http://192.168.18.171:8080/api/",
+      // url: "https://open-demo.isands.ru/api/",
       loading: false,
       measure: [],
       measureForms: [
@@ -551,9 +552,10 @@ export default {
           newForm.data = JSON.parse(newForm.data);
           newForm.form.scheme = JSON.parse(newForm.form.scheme);
           this.appForm = newForm;
-        }).then(() => {
+        })
+        .then(() => {
           this.isLoadedStartForm = true;
-      });
+        });
     },
 
     postAjaxRequest(service, request, responseTarget, log) {
@@ -610,7 +612,7 @@ export default {
     },
 
     cleanAppForm() {
-      this.$bvModal.hide('new-app');
+      this.$bvModal.hide("new-app");
       this.isLoadedStartForm = false;
       this.isRequested = false;
       this.isResponsed = false;

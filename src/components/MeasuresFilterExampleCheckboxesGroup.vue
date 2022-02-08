@@ -18,7 +18,7 @@
 
 <script>
     export default {
-        name: "FilterCheckboxesGroup",
+        name: "MeasuresFilterExampleCheckboxesGroup",
 
         props: [
             'filterData'

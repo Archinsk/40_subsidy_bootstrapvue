@@ -8,12 +8,21 @@
         </h4>
         <div class="row justify-content-center mb-3">
           <div class="col-2">
+            <!--            <MeasuresFilterExample-->
+            <!--              :fd="filters"-->
+            <!--              @select-esia="selectEsia"-->
+            <!--              @chat-activation="chatActivation"-->
+            <!--              @clear-filter="clearFilter"-->
+            <!--              @scenario-filter="scenarioFilter"-->
+            <!--            ></MeasuresFilterExample>-->
             <MeasuresFilter
-              :fd="filters"
+              :tags="tags"
+              :selected-items="selectedFilters"
+              @filter-changed="selectedFilters = $event"
+              @filter="filterByTags"
+              @clear-filter="clearFilter"
               @select-esia="selectEsia"
               @chat-activation="chatActivation"
-              @clear-filter="clearFilter"
-              @scenario-filter="scenarioFilter"
             ></MeasuresFilter>
           </div>
           <div class="col-6">
@@ -47,10 +56,11 @@
 </template>
 
 <script>
-// import MeasuresCardsListExample from "@/components/MeasuresCardsListExample";
-import MeasuresCardsList from "@/components/MeasuresCardsList";
+// import MeasuresFilterExample from "@/components/MeasuresFilterExample";
 import MeasuresFilter from "@/components/MeasuresFilter";
+import MeasuresCardsList from "@/components/MeasuresCardsList";
 import Chat from "@/components/Chat";
+import axios from "axios";
 
 export default {
   name: "Measures",
@@ -58,6 +68,7 @@ export default {
   components: {
     // MeasuresCardsListExample,
     MeasuresCardsList,
+    // MeasuresFilterExample,
     MeasuresFilter,
     Chat,
   },
@@ -65,6 +76,7 @@ export default {
   data() {
     return {
       url: "http://192.168.18.171:8080/api/",
+      // url: "https://open-demo.isands.ru/api/",
       measuresCardsList: [],
       itemsTotal: 0,
       page: 1,
@@ -215,6 +227,8 @@ export default {
           ],
         },
       ],
+      tags: [],
+      selectedFilters: [],
       filters: [
         {
           title: "Отрасль экономики:",
@@ -315,7 +329,8 @@ export default {
         "&sortCol=" +
         sortCol +
         "&sortDesc=" +
-        sortDesc;
+        sortDesc +
+        "&active=true";
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
@@ -325,6 +340,14 @@ export default {
         this.itemsTotal = xhr.response.totalElements;
       };
       xhr.send();
+    },
+
+    getTags() {
+      console.log("Получение тегов");
+      axios.get(this.url + "serv/get-tags").then((response) => {
+        console.log(response);
+        this.tags = response.data.content;
+      });
     },
 
     changePageSize(newPageInfo) {
@@ -363,6 +386,9 @@ export default {
       });
       this.filtredEsiaMeasures = resultArray;
     },
+    filterByTags() {
+      console.log(this.selectedFilters);
+    },
     clearFilter() {
       console.log("Очистка фильтра");
       this.filters.forEach(function (item) {
@@ -374,6 +400,8 @@ export default {
         39, 40, 41, 42, 44, 45, 46, 47, 48, 49, 50, 51, 52,
       ];
       this.scenario = 0;
+
+      this.selectedFilters.splice(0, this.selectedFilters.length);
     },
 
     chatActivation() {
@@ -421,6 +449,7 @@ export default {
 
   mounted: async function () {
     this.getMeasuresCardslist(this.page, this.pageSize);
+    this.getTags();
   },
 };
 </script>

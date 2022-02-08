@@ -1,28 +1,36 @@
 <template>
   <div>
     <div class="row">
-      <div class="btn btn-outline-primary col-12 mb-2" @click="$emit('select-esia')">
+      <div
+        class="btn btn-outline-primary col-12 mb-2"
+        @click="$emit('select-esia')"
+      >
         Подобрать с учетом ЕСИА
       </div>
-      <div class="btn btn-outline-primary col-12 mb-2" @click="$emit('chat-activation')">
+      <div
+        class="btn btn-outline-primary col-12 mb-2"
+        @click="$emit('chat-activation')"
+      >
         Подобрать с помощью чат-бота
       </div>
     </div>
 
-    <FilterCheckboxesGroup
-      v-for="oneFilter of fd"
-      :key="oneFilter.title"
-      :filterData="oneFilter"
-    />
+    <MeasuresFilterCheckboxesGroup title="Теги:" :items="tags" :selected-items="selectedItems" @filter-changed="$emit('filter-changed', $event)"/>
 
     <div class="row">
       <div class="col mb-3">
-        <div class="btn btn-primary btn-block" @click="$emit('scenario-filter')">
+        <div
+          class="btn btn-primary btn-block"
+          @click="$emit('filter')"
+        >
           Применить
         </div>
       </div>
       <div class="col mb-3">
-        <div class="btn btn-outline-primary btn-block" @click="$emit('clear-filter')">
+        <div
+          class="btn btn-outline-primary btn-block"
+          @click="$emit('clear-filter')"
+        >
           Очистить
         </div>
       </div>
@@ -31,13 +39,14 @@
 </template>
 
 <script>
-import FilterCheckboxesGroup from "@/components/FilterCheckboxesGroup";
+import MeasuresFilterCheckboxesGroup from "@/components/MeasuresFilterCheckboxesGroup";
 
 export default {
-  name: "MeasuresFiltersList",
-  props: ["fd"],
+  name: "MeasuresFilterExample",
+  props: ["tags", "selectedItems"],
   components: {
-    FilterCheckboxesGroup,
+    // FilterCheckboxesGroup,
+    MeasuresFilterCheckboxesGroup,
   },
 };
 </script>

@@ -57,7 +57,7 @@
           title="По данной мере поддержки есть возможность электронной подачи"
           alt=""
         />
-        <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
+        <router-link :to="'/subsidyinfotemp/' + measure.id" class="btn btn-outline-primary" role="button">Получить поддержку</router-link>
       </div>
     </div>
   </div>

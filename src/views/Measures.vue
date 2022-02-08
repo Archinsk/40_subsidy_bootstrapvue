@@ -36,7 +36,7 @@
 
 <script>
 import MeasuresCardsListExample from "@/components/MeasuresCardsListExample";
-import MeasuresFilter from "@/components/MeasuresFilter";
+import MeasuresFilter from "@/components/MeasuresFilterExample";
 import Chat from "@/components/Chat";
 
 export default {
