@@ -6,7 +6,6 @@
       class="col"
     >
       <MeasuresCardsListItem
-        v-if="filteredMeasures.includes(measuresItem.id)"
         :measure="measuresItem"
       />
     </div>
@@ -36,7 +35,6 @@ export default {
   },
   props: [
     "measuresCardsList",
-    "filteredMeasures",
     "itemsTotal",
     "page",
     "pageSize",

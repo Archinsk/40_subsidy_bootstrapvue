@@ -320,7 +320,7 @@ export default {
   methods: {
     getMeasuresCardslist(page, pageSize, sortCol = "id", sortDesc = false) {
       const xhr = new XMLHttpRequest();
-      const url =
+      let url =
         this.url +
         "serv/get-services?pageNum=" +
         (page - 1) +
@@ -331,6 +331,11 @@ export default {
         "&sortDesc=" +
         sortDesc +
         "&active=true";
+      if (this.selectedFilters.length) {
+        this.selectedFilters.forEach((tag) => {
+          url += "&tags=" + tag
+        })
+      }
       xhr.open("GET", url);
       xhr.responseType = "json";
       xhr.onload = () => {
@@ -388,6 +393,7 @@ export default {
     },
     filterByTags() {
       console.log(this.selectedFilters);
+      this.getMeasuresCardslist(this.page, this.pageSize);
     },
     clearFilter() {
       console.log("Очистка фильтра");
@@ -402,6 +408,7 @@ export default {
       this.scenario = 0;
 
       this.selectedFilters.splice(0, this.selectedFilters.length);
+      this.getMeasuresCardslist(this.page, this.pageSize);
     },
 
     chatActivation() {
