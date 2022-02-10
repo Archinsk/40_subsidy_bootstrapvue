@@ -1,13 +1,13 @@
 <template>
   <div class="card request__card">
-    <div class="card-body">
+    <div class="card-body d-flex justify-content-between align-items-center">
       <h5 class="card-title mb-0">
-        <a href="subsidy.html">
-          <span class="badge badge-primary mr-2">№{{application.id}}</span>
-          {{ application ? application.servName : "Наименование меры поддержки"}}
-        </a>
+        <span class="badge badge-primary mr-2">№{{ application.id }}</span>
+        {{ application ? application.servName : "Наименование меры поддержки" }}
       </h5>
-      <b-button v-b-modal.edit-app @click="$emit('get-app-form')"> Посмотреть заявку </b-button>
+      <b-button v-b-modal.edit-app @click="$emit('get-app-form')">
+        Посмотреть заявку
+      </b-button>
     </div>
     <div class="card-footer bg-transparent request__card__footer">
       <p>Текущий статус: {{ application.status }}</p>
@@ -21,7 +21,7 @@
 export default {
   name: "ApplicationsCardsListItem",
 
-    props: ["application", "index"],
+  props: ["application", "index"],
 
   data() {
     return {};

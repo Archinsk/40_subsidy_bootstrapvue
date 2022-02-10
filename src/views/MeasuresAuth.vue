@@ -1,13 +1,13 @@
 <template>
   <div>
     <section v-show="!chatIsActive" class="measures">
-      <div class="measures__wrapper">
+      <div class="measures__wrapper container">
         <h4 class="measures__heading text-center">
           Меры поддержки
           <span class="badge badge-primary">{{ itemsTotal }}</span>
         </h4>
         <div class="row justify-content-center mb-3">
-          <div class="col-2">
+          <div class="col-3">
             <!--            <MeasuresFilterExample-->
             <!--              :fd="filters"-->
             <!--              @select-esia="selectEsia"-->
@@ -25,7 +25,7 @@
               @chat-activation="chatActivation"
             ></MeasuresFilter>
           </div>
-          <div class="col-6">
+          <div class="col-9">
             <!--                        <MeasuresCardsListExample :measuresPack="xhrResponse" count="10"></MeasuresCardsListExample>-->
             <MeasuresCardsList
               :measures-cards-list="measuresCardsList"

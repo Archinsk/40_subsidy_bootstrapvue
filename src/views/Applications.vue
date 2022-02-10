@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <section class="measures">
       <div class="measures__wrapper">
         <h4 class="measures__heading text-center">
@@ -7,7 +7,7 @@
           <span class="badge badge-primary">{{ apps.totalElements }}</span>
         </h4>
         <div class="row justify-content-center mb-3">
-          <div class="col-6">
+          <div class="col">
             <ApplicationsCardsList
               :apps-cards-list="apps"
               :items-total="itemsTotal"
@@ -22,10 +22,6 @@
         </div>
       </div>
     </section>
-    <!--    <MeasureApplicationForm-->
-    <!--      :application-form="appForm"-->
-    <!--      @invoke-action="invokeAction($event)"-->
-    <!--    />-->
 
     <b-modal
       id="edit-app"
@@ -107,57 +103,36 @@ export default {
   },
 
   methods: {
-    getApps(page, pageSize, sortCol = "id", sortDesc = false) {
-      const xhr = new XMLHttpRequest();
-      const url =
-        this.url +
-        "app/get-apps?pageNum=" +
-        (page - 1) +
-        "&pageSize=" +
-        pageSize +
-        "&sortCol=" +
-        sortCol +
-        "&sortDesc=" +
-        sortDesc;
-      xhr.open("GET", url);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log("Список заявок");
-        console.log(xhr.response);
-        this.apps = xhr.response;
-        this.itemsTotal = xhr.response.totalElements;
-      };
-      xhr.send();
-    },
-
-    getAjaxRequest(service, id, responseTarget, log) {
-      const xhr = new XMLHttpRequest();
-      const url = this.url + service + "?id=" + id;
-      xhr.open("GET", url);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log("Данные ответа");
-        console.log(xhr.response);
-        this[responseTarget] = xhr.response;
-        this[responseTarget].data = JSON.parse(xhr.response.data);
-        this[responseTarget].form.scheme = JSON.parse(xhr.response.form.scheme);
-        console.log(log);
-        console.log(this.appForm);
-      };
-      xhr.send();
+    getApps(page, pageSize, sortCol = "id", sortDesc = true, active = true) {
+      axios
+        .get(
+          this.url +
+            "app/get-apps?pageNum=" +
+            (page - 1) +
+            "&pageSize=" +
+            pageSize +
+            "&sortCol=" +
+            sortCol +
+            "&sortDesc=" +
+            sortDesc +
+            "&active=" +
+            active
+        )
+        .then((response) => {
+          this.apps = response.data;
+          this.itemsTotal = response.data.totalElements;
+        })
+        .then(() => {
+          console.log("Ответ распарсен");
+          console.log(this.appForm);
+          this.isLoadedStartForm = true;
+        });
     },
 
     getAppForm(id) {
-      // this.getAjaxRequest(
-      //   "app/get-appData",
-      //   id,
-      //   "appForm",
-      //   "Заполненная распарсенная заявка с id = " + id
-      // );
       this.isLoadedStartForm = false;
       this.isRequested = false;
       this.isResponsed = false;
-      console.log("Получаю стартовую форму");
       axios
         .get(this.url + "app/get-appData?id=" + id)
         .then((response) => {
@@ -175,49 +150,14 @@ export default {
         });
     },
 
-    postAjaxRequest(service, request, responseTarget, log) {
-      const xhr = new XMLHttpRequest();
-      const url = this.url + service;
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          console.log(log);
-          console.log(xhr.response);
-          // console.log(JSON.parse(xhr.response));
-          // console.log(JSON.parse(xhr.response).applicationDTO);
-          let newForm = JSON.parse(xhr.response).applicationDTO;
-          newForm.data = JSON.parse(newForm.data);
-          newForm.form.scheme = JSON.parse(newForm.form.scheme);
-          console.log("Новая форма из ответа:");
-          console.log(newForm);
-          this[responseTarget] = newForm;
-        }
-      };
-      xhr.open("POST", url, true);
-      xhr.setRequestHeader("Content-type", "application/json");
-      xhr.send(JSON.stringify(request));
-    },
-
     invokeAction(actionId) {
-      this.isRequested=true;
-      console.log(
-        "В отправляемой форме data:" + JSON.stringify(this.appForm.data)
-      );
+      this.isRequested = true;
       const request = {
         actionId: actionId,
         userId: 13,
         appId: this.appForm.id,
         data: JSON.stringify(this.appForm.data),
       };
-      // this.postAjaxRequest(
-      //   "app/action-invoke",
-      //   request,
-      //   "appForm",
-      //   "Выполнение действия c actionId=" +
-      //     actionId +
-      //     " по заявке с appId = " +
-      //     request.appId +
-      //     ", ответ:"
-      // );
       axios
         .post(this.url + "app/action-invoke", request)
         .then((response) => {
@@ -240,7 +180,6 @@ export default {
 
     cleanAppForm() {
       this.$bvModal.hide("edit-app");
-      // this.isLoadedStartForm = false;
       this.isRequested = false;
       this.isResponsed = false;
     },
@@ -252,7 +191,6 @@ export default {
     },
 
     changePage(page) {
-      console.log(page);
       this.page = page;
       this.getApps(this.page, this.pageSize);
     },
