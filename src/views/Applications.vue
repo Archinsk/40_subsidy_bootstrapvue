@@ -189,11 +189,17 @@ export default {
       this.page = newPageInfo[0];
       this.pageSize = newPageInfo[1];
       this.getApps(this.page, this.pageSize);
+      this.scrollToTop();
     },
 
     changePage(page) {
       this.page = page;
       this.getApps(this.page, this.pageSize);
+      this.scrollToTop();
+    },
+
+    scrollToTop() {
+      window.scrollTo(0, 0);
     },
   },
 

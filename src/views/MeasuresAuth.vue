@@ -360,12 +360,14 @@ export default {
       this.page = newPageInfo[0];
       this.pageSize = newPageInfo[1];
       this.getMeasuresCardslist(this.page, this.pageSize);
+      this.scrollToTop();
     },
 
     changePage(page) {
       console.log(page);
       this.page = page;
       this.getMeasuresCardslist(this.page, this.pageSize);
+      this.scrollToTop();
     },
 
     selectEsia() {
@@ -452,6 +454,10 @@ export default {
       }
       answer.id = this.replics.length + 1;
       this.replics.push(answer);
+    },
+
+    scrollToTop() {
+      window.scrollTo(0, 0);
     },
   },
 
