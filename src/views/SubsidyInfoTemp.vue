@@ -401,10 +401,6 @@
     </section>
     <Loader v-show="loading" />
     <hr />
-    <!--    <MeasureApplicationForm-->
-    <!--      :application-form="appForm"-->
-    <!--      @invoke-action="invokeAction($event)"-->
-    <!--    />-->
     <b-modal
       id="new-app"
       title="Новое заявление"
@@ -443,7 +439,6 @@
 
 <script>
 import Loader from "@/components/Loader";
-// import MeasureApplicationForm from "@/components/MeasureApplicationForm";
 import { Form } from "vue-formio";
 import axios from "axios";
 
@@ -452,15 +447,14 @@ export default {
 
   components: {
     Loader,
-    // MeasureApplicationForm,
     Form,
   },
 
   data() {
     return {
-      url: "http://192.168.18.171:8080/api/",
+      // url: "http://192.168.18.171:8080/api/",
       // url: "https://open-demo.isands.ru/api/",
-      // url: "https://open-newtemplate.isands.ru/api/",
+      url: "https://open-newtemplate.isands.ru/api/",
       loading: false,
       measure: [],
       measureForms: [
@@ -654,162 +648,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-$gap: 1rem;
-$basic-color: var(--primary);
-$text-color: #212529;
-$support-color: grey;
-$passive-color: #e4e4e4;
-$active-color: #fff;
-
-.page-wrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-
-  .content {
-    flex: 1;
-  }
-}
-
-.support {
-  padding-top: $gap/2;
-
-  .support__header {
-    .support__name {
-      margin-bottom: $gap;
-    }
-
-    .support__details {
-      & > * {
-        margin-bottom: $gap;
-      }
-
-      @media (min-width: 768px) {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .support__date {
-        color: $support-color;
-
-        b {
-          color: $text-color;
-        }
-      }
-    }
-  }
-
-  hr {
-    margin-top: 0;
-  }
-
-  .support__card {
-    .support__card__header {
-      display: flex;
-      justify-content: space-between;
-
-      & > * {
-        margin-bottom: $gap;
-      }
-
-      .support__owner {
-        .support__owner__header {
-          color: $support-color;
-        }
-
-        .support__owner__logo {
-          display: flex;
-          font-weight: bolder;
-          align-items: center;
-
-          .org-logo {
-            height: 38px;
-            margin-right: $gap/2;
-            margin-top: $gap/2;
-          }
-
-          .support__owner__name {
-            margin-top: $gap/2;
-          }
-        }
-      }
-
-      .support__conditions {
-        @media (min-width: 768px) {
-          text-align: right;
-        }
-
-        .support__conditions__header {
-          color: $support-color;
-        }
-
-        .support__size {
-          font-size: 1.75rem;
-          font-weight: 500;
-        }
-
-        .support__size__info {
-          color: $support-color;
-        }
-      }
-
-      .support__buttons {
-        display: flex;
-        align-items: start;
-
-        @media (min-width: 768px) {
-          justify-content: flex-end;
-        }
-
-        .support__icon {
-          height: 38px;
-          border: 1px solid $basic-color;
-          border-radius: 0.25rem;
-          margin-right: $gap/2;
-        }
-      }
-    }
-
-    hr {
-      margin-top: 0;
-    }
-
-    .card {
-      border: none;
-
-      .nav {
-        background-color: transparent;
-        padding: 0;
-        margin-bottom: $gap;
-
-        @media (min-width: 768px) {
-          padding-right: 1.25rem;
-        }
-      }
-
-      .tab-content {
-        margin-bottom: $gap;
-
-        .tab-pane {
-          padding: 0;
-
-          @media (min-width: 768px) {
-            padding-left: 1.25rem;
-          }
-        }
-
-        ul {
-          padding-left: 1.25rem;
-        }
-
-        :nth-last-child(1) {
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
-}
-</style>

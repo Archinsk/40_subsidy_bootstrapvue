@@ -15,11 +15,10 @@
         @focus-input="focusInput"
         @add-quest="addQuest($event)"
       ></Chat>
-      <AnswersBlock2
+      <ChatQuickQuestions
         v-show="!chatIsActive"
         @quick-question="enterQuestion($event)"
-      ></AnswersBlock2>
-      <!--      <GosuslugiLinks v-show="!chatIsActive" columns="3"></GosuslugiLinks>-->
+      ></ChatQuickQuestions>
     </section>
 
     <section v-show="!chatIsActive" class="advantages">
@@ -28,10 +27,7 @@
 
     <section v-show="!chatIsActive" class="news mb-2">
       <div class="news__wrapper container">
-        <!--        <div class="d-flex justify-content-between align-items-center">-->
         <h4 class="news__header text-center py-2">Новости</h4>
-        <!--          <router-link to="/news">Больше новостей</router-link>-->
-        <!--        </div>-->
         <NewsPreviewList
           :newsList="newsCardsList"
           :everythingLittle="true"
@@ -45,8 +41,7 @@
 <script>
 import Slider from "@/components/Slider";
 import Chat from "@/components/Chat";
-import AnswersBlock2 from "@/components/AnswersBlock2";
-// import GosuslugiLinks from "@/components/GosuslugiLinks";
+import ChatQuickQuestions from "@/components/ChatQuickQuestions";
 import Advantages from "@/components/Advantages";
 import NewsPreviewList from "@/components/NewsPreviewList";
 
@@ -56,9 +51,8 @@ export default {
   components: {
     Slider,
     Chat,
-    AnswersBlock2,
+    ChatQuickQuestions,
     Advantages,
-    // GosuslugiLinks,
     NewsPreviewList,
   },
 
@@ -291,14 +285,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-$back-color: #6688cc;
-
-.content {
-  .bot {
-    overflow: hidden;
-    background-color: $back-color;
-  }
-}
-</style>

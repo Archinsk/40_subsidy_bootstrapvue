@@ -28,38 +28,11 @@ import SupportRequestForm from "@/components/SupportRequestForm";
 export default {
   name: "Footer",
   components: {
-    SupportRequestForm,
     SiteLogo,
+    FooterSocial,
     FooterContacts,
     FooterNav,
-    FooterSocial,
+    SupportRequestForm,
   },
 };
 </script>
-
-<style lang="scss" scoped>
-$gap: 1rem;
-$basic-color: #325de9;
-$passive-color: #e4e4e4;
-
-.footer {
-  padding-top: $gap;
-  padding-bottom: $gap;
-  background-color: $basic-color;
-  color: $passive-color;
-
-  .footer__main {
-    .footer__info {
-      & > * {
-        margin-bottom: $gap;
-      }
-    }
-  }
-
-  hr {
-    border-top-color: $passive-color;
-    margin-top: 0;
-    margin-bottom: $gap;
-  }
-}
-</style>

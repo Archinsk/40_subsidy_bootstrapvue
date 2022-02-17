@@ -50,24 +50,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-$gap: 1rem;
-$passive-color: #e4e4e4;
-$active-color: #fff;
-
-.footer__links {
-  list-style: none;
-  padding-left: 15px;
-  margin-bottom: $gap;
-
-  a {
-    text-decoration: none;
-    color: $passive-color;
-
-    &:hover {
-      color: $active-color;
-    }
-  }
-}
-</style>

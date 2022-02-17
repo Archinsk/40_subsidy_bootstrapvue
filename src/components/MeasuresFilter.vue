@@ -15,14 +15,16 @@
       </div>
     </div>
 
-    <MeasuresFilterCheckboxesGroup title="Теги:" :items="tags" :selected-items="selectedItems" @filter-changed="$emit('filter-changed', $event)"/>
+    <MeasuresFilterCheckboxesGroup
+      title="Теги:"
+      :items="tags"
+      :selected-items="selectedItems"
+      @filter-changed="$emit('filter-changed', $event)"
+    />
 
     <div class="row">
       <div class="col mb-3">
-        <div
-          class="btn btn-primary btn-block"
-          @click="$emit('filter')"
-        >
+        <div class="btn btn-primary btn-block" @click="$emit('filter')">
           Применить
         </div>
       </div>
@@ -45,10 +47,7 @@ export default {
   name: "MeasuresFilterExample",
   props: ["tags", "selectedItems"],
   components: {
-    // FilterCheckboxesGroup,
     MeasuresFilterCheckboxesGroup,
   },
 };
 </script>
-
-<style scoped></style>

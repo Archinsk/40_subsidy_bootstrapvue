@@ -12,7 +12,7 @@
               alt=""
             />
             <div class="profile__text">
-              <div class="profile__user__name">Васильев Михаил Анатольевич</div>
+              <div class="profile__user__name">Сергеев Иван Петрович</div>
               <div class="profile__user__snils">СНИЛС: 073-976-837 25</div>
             </div>
           </div>
@@ -46,14 +46,14 @@
                     Телефон:
                     <span class="dotted__line"></span>
                   </div>
-                  <div class="user__phone__details">8-903-903-3661</div>
+                  <div class="user__phone__details">8-903-903-9039</div>
                 </div>
                 <div class="user__mail term__block">
                   <div class="user__mail__term term">
                     E-mail:
                     <span class="dotted__line"></span>
                   </div>
-                  <div class="user__mail__details">mgp-nsk@yandex.ru</div>
+                  <div class="user__mail__details">sergeev@yandex.ru</div>
                 </div>
                 <div class="user__social term__block">
                   <div class="user__social__term term">
@@ -168,14 +168,8 @@
               </div>
             </section>
           </b-tab>
-          <b-tab title="Заявки">
-            <h4 class="measures__heading text-center">
-              Заявки <span class="badge badge-primary">30</span>
-            </h4>
-            <RequestsCardsList
-              :requestsPack="xhrResponse"
-              count="10"
-            ></RequestsCardsList>
+          <b-tab title="Заявления">
+            <Applications />
           </b-tab>
         </b-tabs>
       </article>
@@ -219,7 +213,7 @@
                   type="email"
                   class="form-control"
                   id="emailProfileEdit"
-                  value="mgp-nsk@yandex.ru"
+                  value="sergeev@yandex.ru"
                 />
               </div>
               <button class="btn btn-outline-primary">+ Добавить</button>
@@ -229,7 +223,7 @@
                   type="tel"
                   class="form-control"
                   id="phoneProfileEdit"
-                  value="+7(903)903-3661"
+                  value="+7(903)903-9039"
                 />
               </div>
               <button class="btn btn-outline-primary">+ Добавить</button>
@@ -241,7 +235,7 @@
                   type="url"
                   class="form-control"
                   id="socialProfileEdit"
-                  value="+7(903)903-3661"
+                  value="+7(903)903-9039"
                 />
               </div>
               <button class="btn btn-outline-primary">+ Добавить</button>
@@ -253,7 +247,7 @@
                   type="email"
                   class="form-control"
                   id="emailProfileEdit2"
-                  value="mgp-nsk@yandex.ru"
+                  value="sergeev@yandex.ru"
                 />
               </div>
 
@@ -277,13 +271,13 @@
 </template>
 
 <script>
-import RequestsCardsList from "@/components/RequestsCardsList";
+import Applications from "@/views/Applications";
 
 export default {
   name: "AccountInfo",
 
   components: {
-    RequestsCardsList,
+    Applications,
   },
 
   data() {
@@ -364,107 +358,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-$gap-req: 0.5rem;
-$gap: 1rem;
-
-/*.row {
-        margin: -0.5em -0.25em;
-    }
-
-    .row > * {
-        margin-top: 0.5em;
-        padding-left: 0.25em;
-        padding-right: 0.25em;
-    }*/
-
-.tab-content .user__basic__info .row {
-  margin: 0;
-
-  & > * {
-    margin-top: 0;
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-.profile {
-  .profile__title {
-    margin: $gap 0;
-  }
-
-  .profile__user__info {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: $gap/2;
-
-    .profile__user__info__details {
-      display: flex;
-      align-items: center;
-      margin-right: $gap;
-      margin-bottom: $gap/2;
-
-      .profile__avatar {
-        height: 118px;
-        border-radius: 50%;
-      }
-    }
-
-    .profile-user-edit {
-      margin-bottom: $gap/2;
-    }
-  }
-
-  .tab-pane {
-    padding-top: $gap-req;
-    padding-bottom: $gap-req * 2;
-
-    section {
-      & > h5 {
-        margin-top: $gap-req;
-        margin-bottom: $gap-req;
-      }
-
-      & > div {
-        padding-bottom: $gap-req;
-      }
-    }
-  }
-
-  .term__block {
-    display: flex;
-    /*justify-content: space-between;*/
-
-    .term {
-      font-weight: bold;
-      width: 10rem;
-      overflow: hidden;
-
-      .dotted__line {
-        position: relative;
-
-        &::after {
-          content: "";
-          position: absolute;
-          bottom: 0.2rem;
-          margin-left: 0.5rem;
-          width: 100rem;
-          border-bottom: 0.125rem dotted rgba(0, 0, 0, 0.2);
-        }
-      }
-    }
-  }
-
-  .measures__heading {
-    margin-top: $gap-req * 2;
-    margin-bottom: $gap-req * 2;
-  }
-
-  .request-cards {
-    padding-bottom: $gap-req;
-  }
-}
-</style>

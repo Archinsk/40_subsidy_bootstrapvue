@@ -30,30 +30,3 @@ export default {
   computed: {},
 };
 </script>
-
-<style lang="scss" scoped>
-$gap-req: 0.5rem;
-$gap: 1rem;
-
-.request__card {
-  margin-bottom: $gap-req;
-
-  .card-body {
-    a {
-      text-decoration: none;
-      color: #212529;
-    }
-  }
-
-  .request__card__footer {
-    @media (min-width: 768px) {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    p {
-      margin-bottom: 0;
-    }
-  }
-}
-</style>

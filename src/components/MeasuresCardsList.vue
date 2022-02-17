@@ -1,5 +1,5 @@
 <template>
-  <div class="row row-cols-1">
+  <div class="card-list row row-cols-1">
     <div
       v-for="measuresItem of measuresCardsList.content"
       :key="measuresItem.id"
@@ -42,20 +42,3 @@ export default {
   ],
 };
 </script>
-
-<style lang="scss" scoped>
-$gap: 0.5rem;
-$text-color: #212529;
-$muted-color: #6c757d;
-
-.row {
-  margin-left: -$gap/2;
-  margin-right: -$gap/2;
-
-  & > * {
-    padding-left: $gap/2;
-    padding-right: $gap/2;
-    /*margin-bottom: $gap;*/
-  }
-}
-</style>

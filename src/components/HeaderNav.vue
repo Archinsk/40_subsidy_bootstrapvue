@@ -29,9 +29,9 @@
 <!--        <b-nav-item v-if="isAdmin" to="/siteAdmin">-->
 <!--          <span class="material-icons">settings</span>-->
 <!--        </b-nav-item>-->
-        <b-nav-item v-if="isAdmin" to="/applications">
-          Заявления
-        </b-nav-item>
+<!--        <b-nav-item v-if="isAdmin" to="/applications">-->
+<!--          Заявления-->
+<!--        </b-nav-item>-->
         <!-- Динамические пункты меню футера -->
 <!--        <template v-for="item of navItems">-->
 <!--          <b-nav-item-dropdown-->
@@ -92,111 +92,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-$gap: 1rem;
-$basic-color: #003399;
-$active-color: #fff;
-
-.navbar {
-  /*Боковая выпадашка с навигационным меню сайта*/
-  .b-sidebar-outer {
-    @media (min-width: 992px) {
-      position: static;
-      height: 2.5rem;
-    }
-
-    /*Выезжающая панель*/
-    .b-sidebar {
-      @media (min-width: 992px) {
-        display: block !important;
-        background-color: transparent !important;
-        box-shadow: none !important;
-        position: static;
-        width: auto;
-      }
-
-      /*Шапка выезжающей панели*/
-      .b-sidebar-header {
-        border-bottom: 1px solid $active-color;
-
-        @media (min-width: 992px) {
-          display: none;
-        }
-      }
-
-      /*Тело выезжающей панели*/
-      .b-sidebar-body {
-        overflow: visible;
-
-        /*Навигационное меню*/
-        .navbar-collapse {
-          /*Список пунктов меню*/
-          .navbar-nav {
-            width: 100%;
-
-            @media (max-width: 991.98px) {
-              flex-direction: column;
-            }
-
-            /*Пункт меню*/
-            .nav-item {
-              @media (max-width: 991.98px) {
-                border-bottom: 1px solid $active-color;
-              }
-
-              /*Ссылка внутри пункта меню*/
-              .nav-link {
-              }
-
-              /*Пункт меню с выпадашкой*/
-              &.dropdown {
-                /*Выпадающая часть*/
-                .dropdown-menu {
-                  @media (max-width: 991.98px) {
-                    position: relative;
-                    padding: 0;
-                    margin: 0;
-                    border-radius: 0;
-                    border: none;
-                    background-color: rgba(255, 255, 255, 0.2);
-                  }
-
-                  /*Пункт выпадающей части*/
-                  li {
-                    @media (max-width: 991.98px) {
-                      border-top: 1px solid $active-color;
-                    }
-
-                    .dropdown-item {
-                      @media (max-width: 991.98px) {
-                        padding: 0.5rem 1rem;
-                        color: $active-color;
-                        opacity: 0.5;
-                      }
-
-                      &:active {
-                        @media (max-width: 991.98px) {
-                          background-color: $active-color;
-                          color: $basic-color;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    /*Задний затемняющий фон*/
-    .b-sidebar-backdrop {
-      @media (min-width: 992px) {
-        display: none;
-      }
-    }
-  }
-}
-</style>

@@ -40,17 +40,3 @@ export default {
   name: "FooterSocial",
 };
 </script>
-
-<style lang="scss" scoped>
-$gap: 1rem;
-
-.footer__social {
-  .footer__social__logo {
-    height: 2rem;
-    margin-right: $gap/2;
-    margin-bottom: $gap/2;
-  }
-
-  margin-bottom: $gap/2;
-}
-</style>

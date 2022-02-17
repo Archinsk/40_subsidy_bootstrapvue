@@ -18,31 +18,3 @@ export default {
   name: "FooterContacts",
 };
 </script>
-
-<style lang="scss" scoped>
-$gap: 1rem;
-$passive-color: #e4e4e4;
-$active-color: #fff;
-
-.footer__contacts {
-  list-style: none;
-  padding-left: 15px;
-  margin-bottom: $gap;
-
-  a {
-    text-decoration: none;
-    color: $passive-color;
-
-    &:hover {
-      color: $active-color;
-    }
-  }
-
-  /*For modal Support Request Form*/
-  .btn {
-    vertical-align: initial;
-    border: none;
-    padding: 0;
-  }
-}
-</style>
