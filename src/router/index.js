@@ -23,10 +23,10 @@ const routes = [
     component: () => import("../views/NewsInfo"),
   },
   {
-    path: "/measures",
-    name: "Measures",
+    path: "/measures_example",
+    name: "MeasuresExample",
     meta: { layout: "main-layout" },
-    component: () => import("../views/Measures"),
+    component: () => import("../views/MeasuresExample"),
   },
   {
     path: "/measuresAuth",

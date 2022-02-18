@@ -8,13 +8,6 @@
         </h4>
         <div class="row justify-content-center mb-3">
           <div class="col-3">
-            <!--            <MeasuresFilterExample-->
-            <!--              :fd="filters"-->
-            <!--              @select-esia="selectEsia"-->
-            <!--              @chat-activation="chatActivation"-->
-            <!--              @clear-filter="clearFilter"-->
-            <!--              @scenario-filter="scenarioFilter"-->
-            <!--            ></MeasuresFilterExample>-->
             <MeasuresFilter
               :tags="tags"
               :selected-items="selectedFilters"
