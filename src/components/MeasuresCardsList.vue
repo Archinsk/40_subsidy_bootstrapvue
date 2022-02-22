@@ -1,7 +1,7 @@
 <template>
   <div class="card-list row row-cols-1">
     <div
-      v-for="measuresItem of measuresCardsList.content"
+      v-for="measuresItem of measuresCardsList"
       :key="measuresItem.id"
       class="col"
     >

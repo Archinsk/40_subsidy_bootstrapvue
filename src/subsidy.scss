@@ -836,129 +836,6 @@ body {
           }
         }
       }
-
-      .measure__card {
-        $gap: 1rem;
-        $basic-color: var(--primary);
-        $text-color: #212529;
-        $support-color: grey;
-        $passive-color: #e4e4e4;
-        $active-color: #fff;
-
-        padding: $gap 0 0;
-        margin-bottom: $gap;
-
-        &:hover {
-          box-shadow: 0 4px 20px rgb(0 46 69 / 10%);
-        }
-
-        .card-body {
-          justify-content: space-between;
-          margin: 0;
-          padding: 0;
-
-          & > * {
-            margin-bottom: $gap;
-          }
-
-          .measure-link {
-            text-decoration: none;
-            color: #212529;
-
-            .card-title {
-              a {
-                span {
-                  margin-right: $gap/2;
-                }
-              }
-            }
-          }
-
-          .card-text {
-            color: $support-color;
-            text-align: left;
-
-            @media (min-width: 768px) {
-              text-align: right;
-            }
-
-            b {
-              color: $text-color;
-            }
-          }
-        }
-
-        hr {
-          margin-top: 0;
-        }
-
-        .card-footer {
-          justify-content: space-between;
-          margin: 0;
-          padding: 0;
-          border: none;
-
-          & > * {
-            margin-bottom: $gap;
-          }
-
-          .measure__owner__logo {
-            display: flex;
-
-            .measure__owner__logo__image {
-              height: 38px;
-              margin-right: $gap/2;
-              margin-top: $gap/2;
-            }
-
-            .measure__owner__logo__text {
-              .logo__header__comment {
-                color: $support-color;
-              }
-
-              .logo__name {
-                color: $text-color;
-                font-weight: bolder;
-              }
-            }
-          }
-
-          .measure__details {
-            .measure__size {
-              text-align: left;
-
-              @media (min-width: 768px) {
-                text-align: right;
-              }
-
-              .measure__size__header {
-                color: $support-color;
-              }
-
-              .measure__size__value {
-                color: $text-color;
-                font-weight: bolder;
-              }
-            }
-          }
-
-          .measure__buttons {
-            display: flex;
-            align-items: start;
-
-            @media (min-width: 992px) {
-              justify-content: flex-end;
-            }
-
-            .measure__web__accessibility {
-              height: 38px;
-              border: 1px solid $basic-color;
-              border-radius: 0.25rem;
-              margin-right: $gap/2;
-            }
-          }
-        }
-      }
     }
 
     .profile {
@@ -1495,6 +1372,26 @@ body {
       font-size: 1rem;
       font-weight: bold;
       color: $active-color;
+    }
+  }
+
+
+
+  .material-icons {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    vertical-align: -0.125rem;
+  }
+
+  .btn {
+    .material-icons {
+      font-size: 1.5rem;
+      vertical-align: -0.375rem;
+    }
+
+    &.btn-icon-only-square {
+      padding-left: 0.375rem;
+      padding-right: 0.375rem;
     }
   }
 }

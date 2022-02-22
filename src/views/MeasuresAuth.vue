@@ -11,6 +11,7 @@
             <MeasuresFilter
               :tags="tags"
               :selected-items="selectedFilters"
+              @search-measures="searchMeasures($event)"
               @filter-changed="selectedFilters = $event"
               @filter="filterByTags"
               @clear-filter="clearFilter"
@@ -306,6 +307,15 @@ export default {
         return this.replics.filter((item) => item.id === 1);
       }
     },
+    filtersQuery: function () {
+      let query = "";
+      if (this.selectedFilters.length) {
+        this.selectedFilters.forEach((tag) => {
+          query += "&tags=" + tag;
+        });
+      }
+      return query;
+    },
   },
 
   methods: {
@@ -332,7 +342,7 @@ export default {
       xhr.onload = () => {
         console.log("Список мер");
         console.log(xhr.response);
-        this.measuresCardsList = xhr.response;
+        this.measuresCardsList = xhr.response.content;
         this.itemsTotal = xhr.response.totalElements;
       };
       xhr.send();
@@ -383,6 +393,20 @@ export default {
         }
       });
       this.filtredEsiaMeasures = resultArray;
+    },
+
+    searchMeasures(text) {
+      axios(
+        this.url +
+          "serv/get-services?pageNum=0&pageSize=10&sortCol=id&sortDesc=false&active=true" +
+          this.filtersQuery +
+          "&name=" +
+          text
+      ).then((response) => {
+        console.log(response);
+        this.measuresCardsList = response.data.content;
+        this.itemsTotal = response.data.totalElements;
+      });
     },
     filterByTags() {
       console.log(this.selectedFilters);
