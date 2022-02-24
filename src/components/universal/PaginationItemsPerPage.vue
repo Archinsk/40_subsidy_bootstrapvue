@@ -1,10 +1,10 @@
 <template>
-  <div class="pagination-items-per-page d-none d-lg-block">
+  <div class="paginator__items-per-page d-none d-lg-block">
     <button
       v-for="valuePerPage of itemsPerPage"
       :key="valuePerPage"
       type="button"
-      class="btn btn-primary"
+      class="page-size btn btn-primary"
       @click="$emit('change-page-size', valuePerPage)"
     >
       {{ valuePerPage }}

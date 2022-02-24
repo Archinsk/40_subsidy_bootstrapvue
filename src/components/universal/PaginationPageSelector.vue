@@ -1,5 +1,5 @@
 <template>
-  <div class="measure__pagination">
+  <div class="paginator__page-selector">
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <li v-if="activePage > 1" class="page-item">

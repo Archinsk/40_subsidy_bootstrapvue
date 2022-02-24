@@ -1,8 +1,8 @@
 <template>
   <header class="header sticky-top shadow">
-    <div class="header__wrapper container">
-      <b-navbar type="dark">
-        <b-navbar-brand to="/">
+    <div class="container">
+      <b-navbar type="dark" variant="primary">
+        <b-navbar-brand class="logo" to="/">
           <img
             src="@/assets/iss_logo_white.svg"
             class="d-inline-block align-top logo__image"
@@ -13,7 +13,7 @@
 
         <HeaderNav user-type="admin"></HeaderNav>
 
-        <b-button class="d-lg-none" v-b-toggle.sidebar>
+        <b-button variant="primary" class="d-lg-none btn-icon-only_square" v-b-toggle.sidebar>
           <span class="material-icons">menu</span>
         </b-button>
       </b-navbar>

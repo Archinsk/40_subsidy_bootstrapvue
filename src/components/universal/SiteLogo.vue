@@ -1,7 +1,7 @@
 <template>
-  <router-link to="/" class="footer__brend">
-    <img src="@/assets/iss_logo_white.svg" alt="" class="footer__brend__logo" />
-    <div class="footer__brend__name">Информационные системы и сервисы</div>
+  <router-link to="/" class="logo">
+    <img src="@/assets/iss_logo_white.svg" alt="" class="logo__image" />
+    <div class="logo__text">Информационные системы и сервисы</div>
   </router-link>
 </template>
 

@@ -12,7 +12,7 @@
         />
         <div class="input-group-append">
           <button
-            class="btn btn-primary btn-icon-only-square"
+            class="btn btn-primary btn-icon-only_square"
             type="button"
             @click="$emit('search-measures', searchMeasures)"
           >
@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <button type="button" class="btn btn-outline-primary btn-icon-only-square">
+    <button type="button" class="btn btn-outline-primary btn-icon-only_square">
       <span class="material-icons">search</span>
     </button>
     <button type="button" class="btn btn-outline-primary">Primary</button>

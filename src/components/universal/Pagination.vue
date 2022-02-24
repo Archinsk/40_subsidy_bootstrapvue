@@ -1,11 +1,11 @@
 <template>
-  <div class="d-flex justify-content-between align-items-center">
+  <div class="paginator d-flex justify-content-between align-items-center">
     <PaginationItemsPerPage
       :items-per-page="itemsPerPage"
       :page-size="pageSize"
       @change-page-size="changePageSize($event)"
     />
-    <div class="block">
+    <div class="paginator__items-of-total">
       {{ pageSize * (page - 1) + 1 }} -
       {{ page === pages ? itemsTotal : pageSize * page }} из
       {{ itemsTotal }}

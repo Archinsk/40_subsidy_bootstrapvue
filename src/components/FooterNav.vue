@@ -1,5 +1,5 @@
 <template>
-  <ul class="footer__links col-md-5">
+  <ul class="footer-nav col-md-5">
     <!-- Пункты меню футера получаемые с сервера -->
 <!--    <li v-for="item of footerLinksList" :key="item.id">-->
 <!--      <router-link to="/news">{{ item.title[0].text }}</router-link>-->
