@@ -1,13 +1,10 @@
 <template>
   <div class="card measure-card">
     <div class="card-body row">
-      <router-link :to="'/subsidyinfotemp/' + measure.id" class="measure-link col-12 col-md-9 stretched-link">
-        <h5 class="card-title">
-          <span class="badge badge-primary">{{ measure.id }}</span>
-          {{ measure.name }}
-        </h5>
+      <router-link :to="'/subsidyinfotemp/' + measure.id" class="measure-title col-12 col-md-9 stretched-link">
+        <h5 class="card-title"><span class="badge badge-primary">{{ measure.id }}</span>{{measure.name}}</h5>
       </router-link>
-      <div class="card-text col-12 col-md-3">
+      <div class="measure-period col-12 col-md-3">
         Приём заявок<br />
         <b> {{ measurePeriod }} </b>
         <template v-if="!measure.active">
@@ -16,8 +13,7 @@
         </template>
       </div>
     </div>
-    <hr />
-    <div class="card-footer bg-transparent measure__card__footer row">
+    <div class="card-footer bg-transparent row">
       <div class="measure-owner-logo col-md-6 col-lg-5">
         <img
           src="images/initiators_logo/mineco_logo.png"

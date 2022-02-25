@@ -7,14 +7,16 @@
           class="form-control"
           placeholder="Поиск..."
           aria-label="Поиск по наименованию меры поддержки"
-          aria-describedby="button-addon2"
-          v-model="searchMeasures"
+          aria-describedby="searchMeasureButton"
+          v-model="searchText"
+          @keyup.enter="searchMeasure"
         />
         <div class="input-group-append">
           <button
             class="btn btn-primary btn-icon-only_square"
             type="button"
-            @click="$emit('search-measures', searchMeasures)"
+            id="searchMeasureButton"
+            @click="searchMeasure"
           >
             <span class="material-icons">search</span>
           </button>
@@ -59,14 +61,6 @@
         </div>
       </div>
     </div>
-
-    <button type="button" class="btn btn-outline-primary btn-icon-only_square">
-      <span class="material-icons">search</span>
-    </button>
-    <button type="button" class="btn btn-outline-primary">Primary</button>
-    <button type="button" class="btn btn-outline-primary"><span class="material-icons">search</span>Primary</button>
-    <p>Проверка иконки <span class="material-icons">favorite</span> идущей внутри текста</p>
-    <p>Проверка иконки идущей внутри текста</p>
   </div>
 </template>
 
@@ -75,14 +69,21 @@ import MeasuresFilterCheckboxesGroup from "@/components/MeasuresFilterCheckboxes
 
 export default {
   name: "MeasuresFilter",
-  props: ["tags", "selectedItems"],
   components: {
     MeasuresFilterCheckboxesGroup,
   },
+  props: ["tags", "selectedItems"],
   data() {
     return {
-      searchMeasures: "",
+      searchText: "",
+    }
+  },
+  methods: {
+    searchMeasure() {
+      this.$emit('search-measures', this.searchText);
+      this.searchText = "";
     }
   }
+
 };
 </script>

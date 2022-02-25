@@ -21,7 +21,7 @@ export default {
 
   data() {
     return {
-      selected: this.selectedItems, // Must be an array reference!
+      selected: this.selectedItems,
     };
   },
 
