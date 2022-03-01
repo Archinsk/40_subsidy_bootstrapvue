@@ -1,17 +1,12 @@
 <template>
-  <div class="row row-cols-1">
-    <div
+  <div>
+    <ApplicationsCardsListItem
       v-for="(appsItem, index) of appsCardsList.content"
       :key="index ? appsItem.id + '-' + index : appsItem.id"
-      class="col"
-    >
-      <ApplicationsCardsListItem
-        :application="appsItem"
-        :index="index"
-        @get-app-form="$emit('get-app-form', appsItem.id)"
-      />
-    </div>
-
+      :application="appsItem"
+      :index="index"
+      @get-app-form="$emit('get-app-form', appsItem.id)"
+    />
     <Pagination
       v-show="itemsTotal > pageSize"
       :items-total="itemsTotal"

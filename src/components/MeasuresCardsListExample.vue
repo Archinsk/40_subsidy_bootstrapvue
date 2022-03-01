@@ -1,5 +1,5 @@
 <template>
-  <div class="row row-cols-1">
+  <div class="card-list row row-cols-1">
     <div
       v-for="measuresItem of cuttedMeasuresPack"
       :key="measuresItem.id"

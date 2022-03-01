@@ -1,7 +1,7 @@
 <template>
   <article class="news-article">
-    <div class="news-article__wrapper container">
-      <h4 class="news-article__header text-center py-2">
+    <div class="container">
+      <h4 class="title-primary text-center py-2">
         Data-Хакатон World AI&Data Challenge по решению глобальных социальных
         задач
       </h4>
@@ -12,10 +12,10 @@
         </div>
         <span>10:15 <b>7 августа 2021</b></span>
       </div>
-      <div class="news-article__image_full-width">
+      <div class="news-article-main-image">
         <img
           src="@/assets/news/news2.jpg"
-          class="news-article__main-image"
+          class="news-article-main-image_full-width"
           alt="..."
         />
       </div>
@@ -71,16 +71,16 @@
         </p>
       </div>
 
-      <div class="news-article__tags">
+      <div class="news-article-tags">
         Теги:
         <a href="#">Информационные технологии</a>
         <a href="#">Обучение</a>
         <a href="#">Конкурсы</a>
       </div>
-      <div class="news-article__comments">
+      <div class="news-article-comments">
         <p>
           <button
-            class="btn btn-outline-secondary"
+            class="btn btn-outline-primary"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#collapseExample"

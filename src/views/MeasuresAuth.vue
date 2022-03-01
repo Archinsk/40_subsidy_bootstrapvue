@@ -1,8 +1,8 @@
 <template>
   <div>
     <section v-show="!chatIsActive" class="measures">
-      <div class="measures__wrapper container">
-        <h4 class="measures__heading text-center">
+      <div class="container">
+        <h4 class="title-primary text-center">
           Меры поддержки
           <span class="badge badge-primary">{{ itemsTotal }}</span>
         </h4>

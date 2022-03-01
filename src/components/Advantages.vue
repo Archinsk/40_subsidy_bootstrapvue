@@ -1,10 +1,10 @@
 <template>
-  <div class="advantages__wrapper container">
-    <h4 class="advantages__header text-center py-2">Наши преимущества</h4>
+  <div class="container">
+    <h4 class="title-primary text-center py-2">Наши преимущества</h4>
 
     <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4">
       <div class="col">
-        <div class="h-100">
+        <div class="advantage h-100">
           <img
             src="@/assets/advantages/adv21.jpg"
             class="advantage__image"
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="h-100">
+        <div class="advantage h-100">
           <img
             src="@/assets/advantages/adv22.jpg"
             class="advantage__image"
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="h-100">
+        <div class="advantage h-100">
           <img
             src="@/assets/advantages/adv23.jpg"
             class="advantage__image"
@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="h-100">
+        <div class="advantage h-100">
           <img
             src="@/assets/advantages/adv24.jpg"
             class="advantage__image"

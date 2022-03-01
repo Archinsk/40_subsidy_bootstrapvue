@@ -7,9 +7,9 @@
         </router-link>
         <p class="card-text">{{ newsItem.text }}</p>
       </div>
-      <div class="card__image_full-width">
+      <div class="card-image">
         <img
-          class="card__image"
+          class="card-image_full-width"
           alt="Изображение анонса новости"
           :src="newsItem.image_path + newsItem.image_file_name"
         />

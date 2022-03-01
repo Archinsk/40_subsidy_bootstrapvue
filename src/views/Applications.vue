@@ -2,24 +2,20 @@
   <div>
     <section class="applications">
       <div class="measures__wrapper">
-        <h4 class="measures__heading text-center">
+        <h4 class="primary-title text-center">
           Заявления
           <span class="badge badge-primary">{{ apps.totalElements }}</span>
         </h4>
-        <div class="row justify-content-center mb-3">
-          <div class="col">
-            <ApplicationsCardsList
-              :apps-cards-list="apps"
-              :items-total="itemsTotal"
-              :page="page"
-              :page-size="pageSize"
-              :items-per-page="itemsPerPage"
-              @change-page-size="changePageSize($event)"
-              @change-page="changePage"
-              @get-app-form="getAppForm($event)"
-            ></ApplicationsCardsList>
-          </div>
-        </div>
+        <ApplicationsCardsList
+          :apps-cards-list="apps"
+          :items-total="itemsTotal"
+          :page="page"
+          :page-size="pageSize"
+          :items-per-page="itemsPerPage"
+          @change-page-size="changePageSize($event)"
+          @change-page="changePage"
+          @get-app-form="getAppForm($event)"
+        ></ApplicationsCardsList>
       </div>
     </section>
 
@@ -37,9 +33,9 @@
           :submission="appForm"
           :options="{ readOnly: !appForm.active }"
         />
-        <template v-if="appForm.active">
+        <template v-for="action of appForm.form.actions">
           <b-button
-            v-for="action of appForm.form.actions"
+            v-if="appForm.active || action.alwaysActive"
             :key="action.id"
             @click="invokeAction(action.id)"
             >{{ action.name }}</b-button
@@ -74,9 +70,9 @@ export default {
 
   data() {
     return {
-      // url: "http://192.168.18.171:8080/api/",
+      url: "http://192.168.18.171:8080/api/",
       // url: "https://open-demo.isands.ru/api/",
-      url: "https://open-newtemplate.isands.ru/api/",
+      // url: "https://open-newtemplate.isands.ru/api/",
       apps: [],
       itemsTotal: 0,
       page: 1,

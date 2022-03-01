@@ -26,17 +26,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-  #app>div {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  #app{
-    main {
-      flex-grow: 1;
-    }
-  }
-</style>

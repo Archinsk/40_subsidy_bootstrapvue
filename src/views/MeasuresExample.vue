@@ -1,16 +1,16 @@
 <template>
   <div>
     <section v-show="!chatIsActive" class="measures">
-      <div class="measures__wrapper">
-        <h4 class="measures__heading text-center">
+      <div class="container">
+        <h4 class="title-primary text-center">
           Меры поддержки
           <span class="badge badge-primary">{{ totalItems }}</span>
         </h4>
         <div class="row justify-content-center mb-3">
-          <div class="col-2">
+          <div class="col-3">
             <MeasuresFilterExample :fd="filters"></MeasuresFilterExample>
           </div>
-          <div class="col-6">
+          <div class="col-9">
             <MeasuresCardsListExample
               :measuresPack="xhrResponse"
               count="10"

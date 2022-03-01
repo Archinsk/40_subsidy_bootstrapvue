@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-page">
     <section v-show="!chatIsActive" class="slider">
       <Slider></Slider>
     </section>

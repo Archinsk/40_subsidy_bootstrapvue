@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="feature-section row justify-content-end">
+    <div class="features row justify-content-end">
       <div class="col-lg-9">
         <div v-for="n in rows" :key="n" class="row">
           <div

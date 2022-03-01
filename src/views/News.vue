@@ -1,7 +1,7 @@
 <template>
-  <section class="news-page mb-2">
-    <div class="news__wrapper container">
-      <h4 class="news__header text-center py-2">
+  <section class="news mb-2">
+    <div class="container">
+      <h4 class="title-primary text-center py-2">
         Новости <span class="badge badge-primary">{{ itemsTotal }}</span>
       </h4>
       <NewsPreviewList

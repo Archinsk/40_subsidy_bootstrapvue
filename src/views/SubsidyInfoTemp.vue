@@ -543,6 +543,7 @@ export default {
         .get(this.url + "serv/get-appData?id=" + this.$route.params.subId)
         .then((response) => {
           console.log("Отправлен запрос");
+          console.log(response);
           const newForm = response.data.applicationDTO;
           newForm.data = JSON.parse(newForm.data);
           newForm.form.scheme = JSON.parse(newForm.form.scheme);
