@@ -9,7 +9,7 @@
         alt=""
       />
     </div>
-    <div :class="'chatField col-lg-9 ' + chatFieldClass()">
+    <div :class="'chat-field col-lg-9 ' + chatFieldClass()">
       <b-alert
         v-for="message of messages"
         :key="message.id"

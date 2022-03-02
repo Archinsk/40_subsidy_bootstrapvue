@@ -1,6 +1,6 @@
 <template>
   <div class="search-section row justify-content-end">
-    <div :class="'searchBlock col-lg-9 ' + chatFieldClass()">
+    <div :class="'search-group col-lg-9 ' + chatFieldClass()">
       <b-form :class="textInField" @submit="onSubmit">
         <b-form-group
           id="inputGroupQuestion"
@@ -18,7 +18,7 @@
             @focus="$emit('focus-input')"
           ></b-form-input>
         </b-form-group>
-        <b-button type="submit" class="rounded-circle" tabindex="-1">
+        <b-button type="submit" variant="primary" class="rounded-circle" tabindex="-1">
           <span class="material-icons">send</span>
         </b-button>
       </b-form>

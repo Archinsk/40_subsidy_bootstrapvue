@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow">
+  <div class="chat-header-full">
     <div class="container">
       <div class="chat-header">
         <img
