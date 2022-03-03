@@ -19,11 +19,11 @@
 <!--          </b-dropdown-item>-->
 <!--          <b-dropdown-item to="/measures"> Физическим лицам </b-dropdown-item>-->
 <!--        </b-nav-item-dropdown>-->
-        <b-nav-item to="/measuresauth" active-class="active"> Меры поддержки </b-nav-item>
+        <b-nav-item to="/measures" active-class="active"> Меры поддержки </b-nav-item>
 <!--        <b-nav-item v-if="!isAuth" to="/authPage" active-class="active">-->
 <!--          Войти-->
 <!--        </b-nav-item>-->
-        <b-nav-item to="/accountinfo" active-class="active">
+        <b-nav-item to="/account_info" active-class="active">
           Личный кабинет
         </b-nav-item>
 <!--        <b-nav-item v-if="isAdmin" to="/siteAdmin">-->

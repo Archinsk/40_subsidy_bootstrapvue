@@ -5,7 +5,6 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import dateFilter from "./filters/date.filter";
 
 import App from "./App.vue";
-import "@/custom.scss";
 import "./subsidy.scss"
 import i18n from './i18n'
 

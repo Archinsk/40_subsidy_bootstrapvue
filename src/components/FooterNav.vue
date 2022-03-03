@@ -9,13 +9,13 @@
       <router-link to="/news">Новости</router-link>
     </li>
     <li>
-      <router-link to="/measures_example">Поддержка юридических лиц</router-link>
+      <router-link to="/measures">Поддержка юридических лиц</router-link>
     </li>
     <li>
-      <router-link to="/measures_example">Поддержка индивидуальных предпринимателей</router-link>
+      <router-link to="/measures">Поддержка индивидуальных предпринимателей</router-link>
     </li>
     <li>
-      <router-link to="/measures_example">Поддержка физических лиц</router-link>
+      <router-link to="/measures_example">Пример верстки каталога мер</router-link>
     </li>
   </ul>
 </template>

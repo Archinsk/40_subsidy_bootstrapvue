@@ -1,42 +1,38 @@
 <template>
   <div>
-    <div class="row">
-      <div class="input-group mb-2">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Поиск..."
-          aria-label="Поиск по наименованию меры поддержки"
-          aria-describedby="searchMeasureButton"
-          v-model="searchText"
-          @keyup.enter="searchMeasure"
-        />
-        <div class="input-group-append">
-          <button
-            class="btn btn-primary btn-icon-only_square"
-            type="button"
-            id="searchMeasureButton"
-            @click="searchMeasure"
-          >
-            <span class="material-icons">search</span>
-          </button>
-        </div>
+    <div class="input-group mb-2">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Поиск..."
+        aria-label="Поиск по наименованию меры поддержки"
+        aria-describedby="searchMeasureButton"
+        v-model="searchText"
+        @keyup.enter="searchMeasure"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-primary btn-icon-only_square"
+          type="button"
+          id="searchMeasureButton"
+          @click="searchMeasure"
+        >
+          <span class="material-icons">search</span>
+        </button>
       </div>
     </div>
 
-    <div class="row">
-      <div
-        class="btn btn-outline-primary col-12 mb-2"
-        @click="$emit('select-esia')"
-      >
-        Подобрать с учетом ЕСИА
-      </div>
-      <div
-        class="btn btn-outline-primary col-12 mb-2"
-        @click="$emit('chat-activation')"
-      >
-        Подобрать с помощью чат-бота
-      </div>
+    <div
+      class="btn btn-outline-primary col-12 mb-2"
+      @click="$emit('select-esia')"
+    >
+      Подобрать с учетом ЕСИА
+    </div>
+    <div
+      class="btn btn-outline-primary col-12 mb-2"
+      @click="$emit('chat-activation')"
+    >
+      Подобрать с помощью чат-бота
     </div>
 
     <MeasuresFilterCheckboxesGroup
@@ -76,14 +72,13 @@ export default {
   data() {
     return {
       searchText: "",
-    }
+    };
   },
   methods: {
     searchMeasure() {
-      this.$emit('search-measures', this.searchText);
+      this.$emit("search-measures", this.searchText);
       this.searchText = "";
-    }
-  }
-
+    },
+  },
 };
 </script>

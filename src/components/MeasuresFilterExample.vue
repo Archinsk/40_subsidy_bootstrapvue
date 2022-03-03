@@ -1,18 +1,16 @@
 <template>
   <div>
-    <div class="row">
-      <div
-        class="btn btn-outline-primary col-12 mb-2"
-        @click="$emit('select-esia')"
-      >
-        Подобрать с учетом ЕСИА
-      </div>
-      <div
-        class="btn btn-outline-primary col-12 mb-2"
-        @click="$emit('chat-activation')"
-      >
-        Подобрать с помощью чат-бота
-      </div>
+    <div
+      class="btn btn-outline-primary col-12 mb-2"
+      @click="$emit('select-esia')"
+    >
+      Подобрать с учетом ЕСИА
+    </div>
+    <div
+      class="btn btn-outline-primary col-12 mb-2"
+      @click="$emit('chat-activation')"
+    >
+      Подобрать с помощью чат-бота
     </div>
 
     <MeasuresFilterExampleCheckboxesGroup
@@ -20,7 +18,6 @@
       :key="oneFilter.title"
       :filterData="oneFilter"
     />
-
     <div class="row">
       <div class="col mb-3">
         <div

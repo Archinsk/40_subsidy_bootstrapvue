@@ -119,7 +119,7 @@ export default {
         })
         .then(() => {
           console.log("Ответ распарсен");
-          console.log(this.appForm);
+          console.log(this.apps);
           this.isLoadedStartForm = true;
         });
     },

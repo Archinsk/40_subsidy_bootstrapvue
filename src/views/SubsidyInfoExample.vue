@@ -1,123 +1,108 @@
 <template>
   <div class="page-wrapper">
     <section class="support">
-      <div class="support__wrapper container">
-        <div class="support__header">
-          <h4 class="support__name text-center py-2">
-            {{ measure.name }}
+      <div class="container">
+        <div class="support-header">
+          <h4 class="support-name text-center py-2">
+            Гранты в форме субсидий в сфере научной и инновационной деятельности
           </h4>
-          <div class="support__details">
-            <div class="support__date">
+          <div class="support-details">
+            <div class="support-date">
               Приём заявок<br />
-              <b>{{ measurePeriod() }}</b>
+              <b>с 11.02.2021 по 12.03.2021</b>
             </div>
-            <div class="support__manual">
-              <button class="support__manual__button btn btn-outline-primary">
-                Как подать заявку?
-              </button>
-            </div>
+            <button class="btn btn-outline-primary">Как подать заявку?</button>
           </div>
         </div>
         <hr />
-        <div class="support__card">
-          <div class="support__card__header row">
-            <div class="support__owner col-md-6 col-xl-4">
-              <div class="support__owner__header">Инициатор</div>
-              <div class="support__owner__logo">
-                <img
-                  class="org-logo"
-                  src="images/initiators_logo/mshlogo.png"
-                  alt=""
-                />
-                <div class="support__owner__name">
-                  Министерство сельского хозяйства
+        <div class="support-card">
+          <div class="support-card-header row">
+            <div class="support-owner col-md-6 col-xl-4">
+              <div class="support-owner-header">Инициатор</div>
+              <div class="support-owner-logo">
+                <img class="support-owner-logo-image" src="@/assets/nsk_gerb.png" alt="" />
+                <div class="support-owner-name">
+                  Департамент промышленности, инноваций и предпринимательства
                 </div>
               </div>
             </div>
-            <div class="support__conditions col-12 col-md-6 col-xl-5">
-              <div class="support__conditions__header">Размер поддержки</div>
-              <div class="support__size">до 20 000 000 рублей</div>
-              <div class="support__size__info"></div>
+            <div class="support-conditions col-12 col-md-6 col-xl-5">
+              <div class="support-conditions-header">Размер поддержки</div>
+              <div class="support-size">до 500 000 рублей</div>
+              <div class="support-size-info">
+                (включая сумму налога на доходы физических лиц)
+              </div>
             </div>
-            <div class="support__buttons col">
+            <div class="support-buttons col">
               <img
-                class="support__icon"
+                class="support-web-access-icon"
                 src="@/assets/electronic.png"
                 title="По данной мере поддержки есть возможность электронной подачи"
                 alt=""
               />
-              <b-button v-b-modal.new-app @click="getStartForm"
-                >Подать заявку</b-button
-              >
+              <button class="btn btn-primary">Подать заявку</button>
             </div>
           </div>
+
           <hr />
+
           <b-card no-body>
             <b-tabs pills card vertical nav-wrapper-class="col-12 col-md-4">
               <b-tab title="Описание" active>
                 <b-card-text>
                   <h3>Описание</h3>
-                  <p>{{ measure.description }}</p>
-                  <hr />
                   <p>
-                    Субсидии в сельском хозяйстве на возмещение части затрат
-                    предоставляются министерством сельского хозяйства, до
-                    которого в соответствии с бюджетным законодательством
-                    Российской Федерации как до получателя бюджетных средств
-                    доведены в установленном порядке лимиты бюджетных
-                    обязательств на предоставление субсидий на соответствующий
-                    финансовый год и плановый период на компенсацию части
-                    затрат, понесенных в текущем финансовом году (возмещение
-                    части затрат на закупку сельскохозяйственной продукции, с
-                    целью развития на сельских территориях региона сельского
-                    хозяйства.
+                    Гранты предоставляются в целях финансового обеспечения
+                    (возмещения) затрат в связи с выполнением работ,
+                    направленных на создание научных (научно-исследовательских)
+                    и (или) научно-технических проектов, а также проектов по
+                    разработке и (или) внедрению инновационных продуктов,
+                    технологий в городское хозяйство и (или) социальную сферу
+                    города (далее — научный проект), а именно затрат на:
                   </p>
-                  <p>Субсидия предоставляется при соблюдении условий:</p>
                   <ul>
                     <li>
-                      получатели субсидий - юридические лица не находится в
-                      процессе реорганизации, ликвидации, в отношении него не
-                      введена процедура банкротства, деятельность получателя не
-                      приостановлена;
+                      приобретение специального оборудования (в том числе
+                      электронно-вычислительной техники), расходных материалов,
+                      комплектующих, необходимых для проведения научного
+                      проекта;
                     </li>
                     <li>
-                      получатели субсидий – индивидуальные предприниматели не
-                      прекратили деятельность в качестве индивидуального
-                      предпринимателя, а также в отношении их не введена
-                      процедура банкротства;
+                      оплату выполнения работ и оказания услуг производственного
+                      характера, выполняемых сторонними организациями,
+                      индивидуальными предпринимателями, физическими лицами по
+                      договорам гражданско-правового характера, связанных с
+                      выполнением научного проекта;
                     </li>
                     <li>
-                      государственной регистрации или постановки на учет в
-                      налоговом органе получателей субсидий;
+                      оплату выполнения научных и (или) научно-технических работ
+                      соисполнителями — сторонними организациями,
+                      индивидуальными предпринимателями, физическими лицами по
+                      договорам гражданско-правового характера, связанных с
+                      выполнением научного проекта;
                     </li>
                     <li>
-                      отсутствии у получателей субсидий неисполненной
-                      обязанности по уплате налогов, сборов, страховых взносов,
-                      пеней, штрафов, процентов, подлежащих уплате в
-                      соответствии с законодательством Российской Федерации о
-                      налогах и сборах;
+                      приобретение готового или разработку специального
+                      программного обеспечения, необходимого для выполнения
+                      научного проекта;
                     </li>
                     <li>
-                      отсутствия просроченной задолженности по возврату в
-                      областной бюджет субсидий, бюджетных инвестиций и иной
-                      просроченной (неурегулированной) задолженности по денежным
-                      обязательствам;
+                      участие в выездных мероприятиях по теме научного проекта;
+                    </li>
+                    <li>публикации по теме научного проекта;</li>
+                    <li>
+                      оплату государственной пошлины на регистрацию
+                      интеллектуальной собственности по теме научного проекта;
                     </li>
                     <li>
-                      получатели субсидий не являются иностранными юридическими
-                      лицами, а также российскими юридическими лицами, в
-                      уставном (складочном) капитале которых доля участия
-                      иностранных юридических лиц, местом регистрации которых
-                      является государство или территория, включенные в
-                      утверждаемый Министерством финансов Российской Федерации
-                      перечень государств и территорий, предоставляющих льготный
-                      налоговый режим налогообложения и (или) не
-                      предусматривающих раскрытия и предоставления информации
-                      при проведении финансовых операций (офшорные зоны) в
-                      отношении таких юридических лиц, в совокупности превышает
-                      50 процентов.
+                      вознаграждение соискателя гранта за выполнение научного
+                      проекта.
                     </li>
                   </ul>
+                  <p>
+                    Результатом предоставления гранта является выполнение
+                    научного проекта.
+                  </p>
                 </b-card-text>
               </b-tab>
               <b-tab title="Требования к заявителю">
@@ -399,253 +384,11 @@
         </div>
       </div>
     </section>
-    <Loader v-show="loading" />
-    <hr />
-    <b-modal
-      id="new-app"
-      title="Новое заявление"
-      size="xl"
-      hide-footer
-      no-stacking
-      @close="cleanAppForm"
-    >
-      <template v-if="isLoadedStartForm && !isRequested">
-        <Form
-          :form="appForm.form.scheme"
-          :submission="appForm"
-          :options="{ readOnly: !appForm.active }"
-        />
-        <template v-if="appForm.active">
-          <b-button
-            v-for="action of appForm.form.actions"
-            :key="action.id"
-            @click="invokeAction(action.id)"
-            >{{ action.name }}</b-button
-          >
-        </template>
-      </template>
-
-      <template v-else>
-        <template v-if="!isResponsed">
-          <b-spinner variant="primary" label="Spinning"></b-spinner>
-          <p>Заявление отправляется...</p>
-        </template>
-        <p v-else>Заявление отправлено!</p>
-        <b-button @click="cleanAppForm">OK</b-button>
-      </template>
-    </b-modal>
   </div>
 </template>
 
 <script>
-import Loader from "@/components/Loader";
-import { Form } from "vue-formio";
-import axios from "axios";
-
 export default {
-  name: "SubsidyInfoTemp",
-
-  components: {
-    Loader,
-    Form,
-  },
-
-  data() {
-    return {
-      // url: "http://192.168.18.171:8080/api/",
-      // url: "https://open-demo.isands.ru/api/",
-      url: "https://open-newtemplate.isands.ru/api/",
-      loading: false,
-      measure: [],
-      measureForms: [
-        {
-          actions: [],
-          id: 0,
-          modelId: 0,
-          name: "Заявление",
-          scheme: {},
-        },
-      ],
-      appForm: {
-        active: false,
-        data: {},
-        form: {
-          actions: [],
-          id: 0,
-          modelId: 0,
-          scheme: {},
-        },
-        id: 0,
-        orderId: "",
-        status: "",
-      },
-      isLoadedStartForm: false,
-      isRequested: false,
-      isResponsed: false,
-    };
-  },
-
-  methods: {
-    onLoad() {
-      this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-      }, 5000);
-    },
-
-    ajaxRequest(service, id, responseTarget, log) {
-      const xhr = new XMLHttpRequest();
-      const url = this.url + service + "?id=" + id;
-      xhr.open("GET", url);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log(log);
-        console.log(xhr.response);
-        if (xhr.response.applicationDTO) {
-          console.log(xhr.response);
-          this[responseTarget] = xhr.response.applicationDTO;
-          this[responseTarget].data = JSON.parse(
-            xhr.response.applicationDTO.data
-          );
-          this[responseTarget].form.scheme = JSON.parse(
-            xhr.response.applicationDTO.form.scheme
-          );
-        } else {
-          this[responseTarget] = xhr.response;
-        }
-        console.log(log);
-        console.log(this.appForm);
-      };
-      xhr.send();
-    },
-
-    getMeasure() {
-      this.ajaxRequest(
-        "serv/get-model",
-        this.$route.params.subId,
-        "measure",
-        "Информация по мере поддержки"
-      );
-    },
-
-    getForms() {
-      this.ajaxRequest(
-        "serv/get-forms",
-        this.$route.params.subId,
-        "measureForms",
-        "Список форм"
-      );
-    },
-
-    getStartForm() {
-      console.log("Получаю стартовую форму");
-      axios
-        .get(this.url + "serv/get-appData?id=" + this.$route.params.subId)
-        .then((response) => {
-          console.log("Отправлен запрос");
-          console.log(response);
-          const newForm = response.data.applicationDTO;
-          newForm.data = JSON.parse(newForm.data);
-          newForm.form.scheme = JSON.parse(newForm.form.scheme);
-          this.appForm = newForm;
-        })
-        .then(() => {
-          this.isLoadedStartForm = true;
-        });
-    },
-
-    postAjaxRequest(service, request, responseTarget, log) {
-      const xhr = new XMLHttpRequest();
-      const url = this.url + service;
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          console.log(log);
-          console.log(xhr.response);
-          // console.log(JSON.parse(xhr.response));
-          // console.log(JSON.parse(xhr.response).applicationDTO);
-          // let newForm = JSON.parse(xhr.response).applicationDTO;
-          // newForm.data = JSON.parse(newForm.data);
-          // newForm.form.scheme = JSON.parse(newForm.form.scheme);
-          // console.log("Новая форма из ответа:");
-          // console.log(newForm);
-          // this[responseTarget] = newForm;
-        }
-      };
-      xhr.open("POST", url, true);
-      xhr.setRequestHeader("Content-type", "application/json");
-      xhr.send(JSON.stringify(request));
-    },
-
-    invokeAction(actionId) {
-      console.log(
-        "В отправляемой форме data:" +
-          JSON.stringify(this.appForm.data) +
-          actionId
-      );
-      this.isRequested = true;
-      const request = {
-        actionId: actionId,
-        userId: 13,
-        appId: this.appForm.id,
-        data: JSON.stringify(this.appForm.data),
-      };
-      axios
-        .post(this.url + "app/action-invoke", request)
-        .then((response) => {
-          console.log("Отправлен запрос");
-          this.appForm = response.data.applicationDTO;
-        })
-        .then(() => {
-          console.log("Записан ответ");
-          this.appForm.data = JSON.parse(this.appForm.data);
-          this.appForm.form.scheme = JSON.parse(this.appForm.form.scheme);
-        })
-        .then(() => {
-          console.log("Распарсена форма и ее заполнение");
-          this.isResponsed = true;
-          this.appForm = {};
-        });
-    },
-
-    cleanAppForm() {
-      this.$bvModal.hide("new-app");
-      this.isLoadedStartForm = false;
-      this.isRequested = false;
-      this.isResponsed = false;
-    },
-
-    measurePeriod() {
-      let period = "";
-      const options = {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      };
-      if (this.measure.startDate) {
-        period +=
-          "c " +
-          new Intl.DateTimeFormat("ru-RU", options).format(
-            new Date(this.measure.startDate)
-          ) +
-          " ";
-      }
-      if (this.measure.endDate) {
-        period +=
-          "по " +
-          new Intl.DateTimeFormat("ru-RU", options).format(
-            new Date(this.measure.endDate)
-          );
-      }
-      if (!this.measure.startDate && !this.measure.endDate) {
-        period = "даты не указаны";
-      }
-      return period;
-    },
-  },
-
-  mounted: function () {
-    this.getMeasure();
-    this.getForms();
-  },
+  name: "SubsidyInfoExample",
 };
 </script>
