@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="filter">
     <div
-      class="btn btn-outline-primary col-12 mb-2"
+      class="btn btn-outline-primary col-12"
       @click="$emit('select-esia')"
     >
       Подобрать с учетом ЕСИА
     </div>
     <div
-      class="btn btn-outline-primary col-12 mb-2"
+      class="btn btn-outline-primary col-12"
       @click="$emit('chat-activation')"
     >
       Подобрать с помощью чат-бота
@@ -18,8 +18,8 @@
       :key="oneFilter.title"
       :filterData="oneFilter"
     />
-    <div class="row">
-      <div class="col mb-3">
+    <div class="row filter-actions">
+      <div class="col">
         <div
           class="btn btn-primary btn-block"
           @click="$emit('scenario-filter')"
@@ -27,7 +27,7 @@
           Применить
         </div>
       </div>
-      <div class="col mb-3">
+      <div class="col">
         <div
           class="btn btn-outline-primary btn-block"
           @click="$emit('clear-filter')"

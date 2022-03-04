@@ -46,13 +46,9 @@
         </div>
       </div>
       <div class="measure-buttons col">
-        <img
-          v-show="measure.electronic_form === '1'"
-          class="measure-web-accessibility"
-          src="@/assets/electronic.png"
-          title="По данной мере поддержки есть возможность электронной подачи"
-          alt=""
-        />
+        <button type="button" class="btn btn-outline-primary btn-icon-only_square measure-web-accessibility" title="По данной мере поддержки есть возможность электронной подачи">
+          <span class="material-icons">laptop</span>
+        </button>
         <router-link :to="'/subsidyinfotemp/' + measure.id" class="btn btn-outline-primary" role="button">Получить поддержку</router-link>
       </div>
     </div>

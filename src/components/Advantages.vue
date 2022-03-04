@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h4 class="title-primary text-center py-2">Наши преимущества</h4>
+    <h4 class="title-primary text-center">Наши преимущества</h4>
 
     <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4">
       <div class="col">

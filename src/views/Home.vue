@@ -26,8 +26,8 @@
     </section>
 
     <section v-show="!chatIsActive" class="news mb-2">
-      <div class="news__wrapper container">
-        <h4 class="news__header text-center py-2">Новости</h4>
+      <div class="container">
+        <h4 class="title-primary text-center">Новости</h4>
         <NewsPreviewList
           :newsList="newsCardsList"
           :everythingLittle="true"

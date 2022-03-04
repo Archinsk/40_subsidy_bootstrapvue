@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <article class="profile">
-      <h4 class="profile-title text-center">Личный кабинет</h4>
+      <h4 class="title-primary text-center">Личный кабинет</h4>
       <section class="user-info">
         <div class="user-info__details">
-          <img class="user-avatar" src="@/assets/avatar.jpg" alt="" />
+          <img class="user-avatar bg-primary border border-primary" src="@/assets/avatar.png" alt="" />
           <div class="user-text">
             <div class="user-text__name">Сергеев Иван Петрович</div>
             <div class="user-text__snils">СНИЛС: 073-976-837 25</div>

@@ -6,7 +6,7 @@
           Меры поддержки
           <span class="badge badge-primary">{{ totalItems }}</span>
         </h4>
-        <div class="row justify-content-center mb-3">
+        <div class="row justify-content-center mb-2">
           <div class="col-3">
             <MeasuresFilterExample :fd="filters"></MeasuresFilterExample>
           </div>

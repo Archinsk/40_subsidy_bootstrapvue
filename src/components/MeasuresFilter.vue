@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="input-group mb-2">
+  <div class="filter">
+    <div class="input-group">
       <input
         type="text"
         class="form-control"
@@ -23,13 +23,13 @@
     </div>
 
     <div
-      class="btn btn-outline-primary col-12 mb-2"
+      class="btn btn-outline-primary col-12"
       @click="$emit('select-esia')"
     >
       Подобрать с учетом ЕСИА
     </div>
     <div
-      class="btn btn-outline-primary col-12 mb-2"
+      class="btn btn-outline-primary col-12"
       @click="$emit('chat-activation')"
     >
       Подобрать с помощью чат-бота
@@ -42,13 +42,13 @@
       @filter-changed="$emit('filter-changed', $event)"
     />
 
-    <div class="row">
-      <div class="col mb-3">
+    <div class="row filter-actions">
+      <div class="col">
         <div class="btn btn-primary btn-block" @click="$emit('filter')">
           Применить
         </div>
       </div>
-      <div class="col mb-3">
+      <div class="col">
         <div
           class="btn btn-outline-primary btn-block"
           @click="$emit('clear-filter')"

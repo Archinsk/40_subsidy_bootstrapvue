@@ -4,7 +4,7 @@ $primary: orangered;
 
 // Then import Bootstrap an BootstrapVue SCSS files (order is important)
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
-//@import 'node_modules/bootstrap-vue/src/index.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
 
 body {
   $gap: 1rem;
@@ -223,7 +223,7 @@ body {
         //Проверено
         .advantage {
           .advantage__image {
-            padding: $gap;
+            padding: 0 $gap;
             width: 100%;
             border-radius: 50%;
           }
@@ -644,6 +644,27 @@ body {
           }
         }
 
+        .filter {
+          &>*:not(:last-child) {
+            margin-bottom: calc(#{$gap} / 2);
+          }
+
+          .form-group {
+            margin-bottom: -0px;
+          }
+
+          .col-form-label {
+            padding-bottom: calc(#{$gap} / 4) !important;
+            font-weight: bolder;
+          }
+
+          .filter-actions {
+            .btn {
+              margin-bottom: calc(#{$gap} / 2);
+            }
+          }
+        }
+
         .measure-card {
           margin-bottom: calc(#{$gap} / 2);
 
@@ -697,6 +718,7 @@ body {
               .measure-owner-logo-image {
                 height: 2.375rem;
                 margin-right: calc(#{$gap} / 2);
+                margin-top: calc(#{$gap} / 3);
               }
 
               .measure-owner-logo-text {
@@ -744,9 +766,6 @@ body {
               }
 
               .measure-web-accessibility {
-                height: 2.375rem;
-                border: 1px solid $basic-color;
-                border-radius: 0.25rem;
                 margin-right: calc(#{$gap} / 2);
               }
             }
@@ -756,11 +775,6 @@ body {
 
       //Проверено
       .profile {
-        .profile-title {
-          margin-top: $gap;
-          margin-bottom: $gap;
-        }
-
         .user-info {
           display: flex;
           flex-wrap: wrap;
@@ -788,7 +802,7 @@ body {
 
         .tab-pane {
           padding-top: calc(#{$gap} / 2);
-          padding-bottom: $gap;
+          padding-bottom: calc(#{$gap} / 2);
 
           section {
             padding-bottom: calc(#{$gap} / 2);
@@ -832,6 +846,10 @@ body {
 
         .request-card {
           margin-bottom: calc(#{$gap} / 2);
+
+          &:hover {
+            box-shadow: 0 4px 20px rgb(0 46 69 / 10%);
+          }
 
           .card-body {
             a {
