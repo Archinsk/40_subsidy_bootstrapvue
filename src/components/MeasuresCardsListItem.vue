@@ -49,7 +49,7 @@
         <button type="button" class="btn btn-outline-primary btn-icon-only_square measure-web-accessibility" title="По данной мере поддержки есть возможность электронной подачи">
           <span class="material-icons">laptop</span>
         </button>
-        <router-link :to="'/subsidyinfotemp/' + measure.id" class="btn btn-outline-primary" role="button">Получить поддержку</router-link>
+        <router-link :to="'/subsidy_info/' + measure.id" class="btn btn-outline-primary" role="button">Получить поддержку</router-link>
       </div>
     </div>
   </div>

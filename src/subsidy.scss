@@ -1,10 +1,10 @@
 // Define variable defaults
-//$primary: #325DE9;
-$primary: orangered;
+//$primary: #325de9;
+$primary: green;
 
 // Then import Bootstrap an BootstrapVue SCSS files (order is important)
-@import 'node_modules/bootstrap/scss/bootstrap.scss';
-@import 'node_modules/bootstrap-vue/src/index.scss';
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+@import "node_modules/bootstrap-vue/src/index.scss";
 
 body {
   $gap: 1rem;
@@ -18,12 +18,15 @@ body {
   $bot-color: #fff;
   $message-color: #acc0e6;
 
+  .red-theme {
+    $blue: red!important;
+  }
+
   .page-wrapper {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 
-    //Проверено
     .header {
       background-color: $basic-color;
 
@@ -36,8 +39,15 @@ body {
         .logo {
           font-size: 1rem;
           font-weight: bold;
+          line-height: 0.9;
+          white-space: normal;
           display: flex;
           align-items: center;
+          margin-right: 0;
+
+          @media (max-width: 991.98px) {
+            width: calc(100% - 2.375rem);
+          }
 
           .logo__image {
             height: 1.875rem;
@@ -144,9 +154,7 @@ body {
     .content {
       flex: 1;
 
-      //Проверено
       .home-page {
-        //Проверено
         .slider {
           .carousel-item {
             img {
@@ -196,7 +204,6 @@ body {
           }
         }
 
-        //Проверено
         .features {
           $basic-color: #325de9;
 
@@ -220,7 +227,6 @@ body {
           }
         }
 
-        //Проверено
         .advantage {
           .advantage__image {
             padding: 0 $gap;
@@ -234,9 +240,7 @@ body {
         }
       }
 
-      //Проверено
       .bot {
-        overflow: hidden;
         background-color: $back-color;
 
         .chat {
@@ -423,7 +427,6 @@ body {
         }
       }
 
-      //Проверено
       .news {
         .row {
           margin-left: calc(-#{$gap} / 4);
@@ -450,6 +453,10 @@ body {
 
             @media (min-width: 1200px) {
               height: 406px;
+            }
+
+            &:hover {
+              box-shadow: 0 4px 20px rgb(0 46 69 / 10%);
             }
 
             .card-body {
@@ -560,7 +567,6 @@ body {
         }
       }
 
-      //Проверено
       .news-article {
         .news-article__author {
           height: 3rem;
@@ -632,7 +638,6 @@ body {
         }
       }
 
-      //Проверено
       .measures {
         .row {
           margin-left: calc(-#{$gap} / 4);
@@ -645,7 +650,7 @@ body {
         }
 
         .filter {
-          &>*:not(:last-child) {
+          & > *:not(:last-child) {
             margin-bottom: calc(#{$gap} / 2);
           }
 
@@ -773,7 +778,6 @@ body {
         }
       }
 
-      //Проверено
       .profile {
         .user-info {
           display: flex;
@@ -838,7 +842,6 @@ body {
         }
       }
 
-      //Проверено
       .applications {
         .primary-title {
           margin-bottom: $gap;
@@ -871,7 +874,6 @@ body {
         }
       }
 
-      //Проверено
       .support {
         padding-top: calc(#{$gap} / 2);
 
@@ -1013,7 +1015,6 @@ body {
       }
     }
 
-    //Проверено
     .footer {
       padding-top: $gap;
       padding-bottom: $gap;
@@ -1106,6 +1107,10 @@ body {
     }
   }
 
+  .app-action-button:not(:last-child) {
+    margin-right: calc(#{$gap} / 2);
+  }
+
   .material-icons {
     font-size: 1rem;
     line-height: 1.5rem;
@@ -1124,5 +1129,3 @@ body {
     }
   }
 }
-
-

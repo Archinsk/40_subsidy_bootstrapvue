@@ -56,20 +56,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-$gap: 0.5rem;
-$text-color: #212529;
-$muted-color: #6c757d;
-
-.row {
-  margin-left: -$gap/2;
-  margin-right: -$gap/2;
-
-  & > * {
-    padding-left: $gap/2;
-    padding-right: $gap/2;
-    /*margin-bottom: $gap;*/
-  }
-}
-</style>

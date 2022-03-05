@@ -38,6 +38,7 @@
             v-if="appForm.active || action.alwaysActive"
             :key="action.id"
             @click="invokeAction(action.id)"
+            class="app-action-button"
             >{{ action.name }}</b-button
           >
         </template>
@@ -70,8 +71,8 @@ export default {
 
   data() {
     return {
-      url: "http://192.168.18.171:8080/api/",
-      // url: "https://open-demo.isands.ru/api/",
+      // url: "http://192.168.18.171:8080/api/",
+      url: "https://open-demo.isands.ru/api/",
       // url: "https://open-newtemplate.isands.ru/api/",
       apps: [],
       itemsTotal: 0,
