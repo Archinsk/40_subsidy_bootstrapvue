@@ -4,7 +4,7 @@
       v-for="valuePerPage of itemsPerPage"
       :key="valuePerPage"
       type="button"
-      class="page-size btn btn-primary"
+      :class="'page-size btn btn-' + theme"
       @click="$emit('change-page-size', valuePerPage)"
     >
       {{ valuePerPage }}
@@ -15,6 +15,6 @@
 <script>
 export default {
   name: "PaginationItemsPerPage",
-  props: ["itemsPerPage", "pageSize"],
+  props: ["itemsPerPage", "pageSize", "theme"],
 };
 </script>

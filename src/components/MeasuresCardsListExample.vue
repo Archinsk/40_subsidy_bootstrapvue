@@ -5,7 +5,7 @@
       :key="measuresItem.id"
       class="col"
     >
-      <MeasuresCardsListExampleItem :measure="measuresItem" />
+      <MeasuresCardsListExampleItem :measure="measuresItem" :theme="theme"/>
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
   components: {
     MeasuresCardsListExampleItem,
   },
-  props: ["measuresPack", "count"],
+  props: ["measuresPack", "count", "theme"],
   data() {
     return {
       measuresCardsList: [],

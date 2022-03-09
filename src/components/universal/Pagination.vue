@@ -3,6 +3,7 @@
     <PaginationItemsPerPage
       :items-per-page="itemsPerPage"
       :page-size="pageSize"
+      :theme="theme"
       @change-page-size="changePageSize($event)"
     />
     <div class="paginator__items-of-total">
@@ -14,6 +15,7 @@
       v-if="itemsTotal > pageSize"
       :pages="pages"
       :active-page="page"
+      :theme="theme"
       @change-page="$emit('change-page', $event)"
     />
   </div>
@@ -31,7 +33,7 @@ export default {
     PaginationPageSelector,
   },
 
-  props: ["itemsTotal", "page", "pageSize", "itemsPerPage"],
+  props: ["itemsTotal", "page", "pageSize", "itemsPerPage", "theme"],
 
   methods: {
     changePageSize(newPageSize) {

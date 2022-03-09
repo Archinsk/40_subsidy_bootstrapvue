@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <component :is="layout">
-      <router-view />
+    <component :is="layout" :theme="theme">
+      <router-view :theme="theme"/>
     </component>
   </div>
 </template>
@@ -13,7 +13,9 @@ import EmptyLayout from "@/layouts/EmptyLayout";
 export default {
   name: "App",
   data() {
-    return {};
+    return {
+      theme: "cherry"
+    };
   },
   components: {
     MainLayout,

@@ -2,7 +2,7 @@
   <div class="card measure-card">
     <div class="card-body row">
       <router-link :to="'/subsidy_info/' + measure.id" class="measure-title col-12 col-md-9 stretched-link">
-        <h5 class="card-title"><span class="badge badge-primary">{{ measure.id }}</span>{{measure.name}}</h5>
+        <h5 class="card-title"><span :class="'badge badge-' + theme">{{ measure.id }}</span>{{measure.name}}</h5>
       </router-link>
       <div class="measure-period col-12 col-md-3">
         Приём заявок<br />
@@ -46,10 +46,10 @@
         </div>
       </div>
       <div class="measure-buttons col">
-        <button type="button" class="btn btn-outline-primary btn-icon-only_square measure-web-accessibility" title="По данной мере поддержки есть возможность электронной подачи">
+        <button type="button" :class="'btn btn-outline-' + theme + ' btn-icon-only_square measure-web-accessibility'" title="По данной мере поддержки есть возможность электронной подачи">
           <span class="material-icons">laptop</span>
         </button>
-        <router-link :to="'/subsidy_info/' + measure.id" class="btn btn-outline-primary" role="button">Получить поддержку</router-link>
+        <router-link :to="'/subsidy_info/' + measure.id" :class="'btn btn-outline-' + theme" role="button">Получить поддержку</router-link>
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@
 export default {
   name: "MeasuresCardsListItem",
 
-  props: ["measure"],
+  props: ["measure", "theme"],
 
   computed: {
     measurePeriod() {

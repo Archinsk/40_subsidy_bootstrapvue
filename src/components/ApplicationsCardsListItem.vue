@@ -2,10 +2,10 @@
   <div class="card request-card">
     <div class="card-body d-flex justify-content-between align-items-center">
       <h5 class="card-title mb-0">
-        <span class="badge badge-primary mr-2">№{{ application.id }}</span>
+        <span :class="'badge badge-' + theme + ' mr-2'">№{{ application.id }}</span>
         {{ application ? application.servName : "Наименование меры поддержки" }}
       </h5>
-      <b-button v-b-modal.edit-app @click="$emit('get-app-form')" variant="outline-primary">
+      <b-button v-b-modal.edit-app @click="$emit('get-app-form')" :variant="'outline-' + theme">
         Посмотреть заявку
       </b-button>
     </div>
@@ -21,7 +21,7 @@
 export default {
   name: "ApplicationsCardsListItem",
 
-  props: ["application", "index"],
+  props: ["application", "index", "theme"],
 
   data() {
     return {};

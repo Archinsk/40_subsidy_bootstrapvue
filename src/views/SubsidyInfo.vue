@@ -11,7 +11,7 @@
               Приём заявок<br />
               <b>{{ measurePeriod() }}</b>
             </div>
-            <button class="btn btn-outline-primary">Как подать заявку?</button>
+            <button :class="'btn btn-outline-' + theme">Как подать заявку?</button>
           </div>
         </div>
         <hr />
@@ -36,13 +36,10 @@
               <div class="support-size-info"></div>
             </div>
             <div class="support-buttons col">
-              <img
-                class="support-web-access-icon"
-                src="@/assets/electronic.png"
-                title="По данной мере поддержки есть возможность электронной подачи"
-                alt=""
-              />
-              <b-button v-b-modal.new-app variant="primary" @click="getStartForm"
+              <button type="button" :class="'btn btn-outline-' + theme + ' btn-icon-only_square measure-web-accessibility mr-2'" title="По данной мере поддержки есть возможность электронной подачи">
+                <span class="material-icons">laptop</span>
+              </button>
+              <b-button v-b-modal.new-app :variant="theme" @click="getStartForm"
                 >Подать заявку</b-button
               >
             </div>
@@ -371,11 +368,11 @@
                   </p>
                   <p>
                     Ссылка на сайт администратора меры поддержки:
-                    <a href="https://dep.test.ru">https://dep.test.ru/</a>
+                    <a href="https://dep.test.ru" :class="'text-' + theme">https://dep.test.ru/</a>
                   </p>
                   <p>
                     Контактная информация: 200-00-00, e-mail:
-                    <a href="mailto:test@test.ru">test@test.ru</a>
+                    <a href="mailto:test@test.ru" :class="'text-' + theme">test@test.ru</a>
                   </p>
                 </b-card-text>
               </b-tab>
@@ -445,6 +442,8 @@ export default {
     Loader,
     Form,
   },
+
+  props: ["theme"],
 
   data() {
     return {

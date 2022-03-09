@@ -4,7 +4,7 @@
         <div class="card-body row">
             <router-link :to="measure.measure_link" class="measure-title col-12 col-md-9 stretched-link">
                 <h5 class="card-title">
-                        <span class="badge badge-primary">{{ measure.subsidy_number }}</span>
+                        <span :class="'badge badge-' + theme">{{ measure.subsidy_number }}</span>
                         {{ measure.title }}
                 </h5>
             </router-link>
@@ -35,10 +35,10 @@
                 </div>
             </div>
             <div class="measure-buttons col">
-                <button type="button" class="btn btn-outline-primary btn-icon-only_square measure-web-accessibility" title="По данной мере поддержки есть возможность электронной подачи">
+                <button type="button" :class="'btn btn-outline-' + theme + ' btn-icon-only_square measure-web-accessibility'" title="По данной мере поддержки есть возможность электронной подачи">
                     <span class="material-icons">laptop</span>
                 </button>
-                <a href="#" class="btn btn-outline-primary">Получить поддержку</a>
+                <a href="#" :class="'btn btn-outline-' + theme">Получить поддержку</a>
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
         name: "MeasuresCardsListExampleItem",
 
         props: [
-            'measure',
+            "measure", "theme",
         ],
 
 

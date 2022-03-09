@@ -5,6 +5,7 @@
         v-model="selected"
         :options="options"
         :aria-describedby="ariaDescribedby"
+        :variant="theme"
         name="check-group"
         stacked
         @change="$emit('filter-changed', selected)"

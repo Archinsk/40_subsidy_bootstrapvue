@@ -4,7 +4,7 @@
       <div class="measures__wrapper">
         <h4 class="primary-title text-center">
           Заявления
-          <span class="badge badge-primary">{{ apps.totalElements }}</span>
+          <span :class="'badge badge-' + theme">{{ apps.totalElements }}</span>
         </h4>
         <ApplicationsCardsList
           :apps-cards-list="apps"
@@ -12,6 +12,7 @@
           :page="page"
           :page-size="pageSize"
           :items-per-page="itemsPerPage"
+          :theme="theme"
           @change-page-size="changePageSize($event)"
           @change-page="changePage"
           @get-app-form="getAppForm($event)"
@@ -68,6 +69,10 @@ export default {
     ApplicationsCardsList,
     Form,
   },
+
+  props: [
+          "theme"
+  ],
 
   data() {
     return {

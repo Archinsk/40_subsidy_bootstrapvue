@@ -7,6 +7,7 @@
     >
       <MeasuresCardsListItem
         :measure="measuresItem"
+        :theme="theme"
       />
     </div>
     <div class="col">
@@ -16,6 +17,7 @@
         :page="page"
         :page-size="pageSize"
         :items-per-page="itemsPerPage"
+        :theme="theme"
         @change-page-size="$emit('change-page-size', $event)"
         @change-page="$emit('change-page', $event)"
       ></Pagination>
@@ -39,6 +41,7 @@ export default {
     "page",
     "pageSize",
     "itemsPerPage",
+          "theme",
   ],
 };
 </script>

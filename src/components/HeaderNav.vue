@@ -3,7 +3,7 @@
     id="sidebar"
     title="Меню"
     backdrop
-    bg-variant="primary"
+    :bg-variant="theme"
     text-variant="light"
     shadow
   >
@@ -64,7 +64,7 @@
 <script>
 export default {
   name: "HeaderNav",
-  props: ["userType"],
+  props: ["userType", "theme"],
   data() {
     return {
       isAuth: this.userType === "authUser" || this.userType === "admin",

@@ -1,13 +1,13 @@
 <template>
   <div class="filter">
     <div
-      class="btn btn-outline-primary col-12"
+      :class="'btn btn-outline-' + theme + ' col-12'"
       @click="$emit('select-esia')"
     >
       Подобрать с учетом ЕСИА
     </div>
     <div
-      class="btn btn-outline-primary col-12"
+      :class="'btn btn-outline-' + theme + ' col-12'"
       @click="$emit('chat-activation')"
     >
       Подобрать с помощью чат-бота
@@ -21,7 +21,7 @@
     <div class="row filter-actions">
       <div class="col">
         <div
-          class="btn btn-primary btn-block"
+          :class="'btn btn-' + theme + ' btn-block'"
           @click="$emit('scenario-filter')"
         >
           Применить
@@ -29,7 +29,7 @@
       </div>
       <div class="col">
         <div
-          class="btn btn-outline-primary btn-block"
+          :class="'btn btn-outline-' + theme + ' btn-block'"
           @click="$emit('clear-filter')"
         >
           Очистить
@@ -44,7 +44,7 @@ import MeasuresFilterExampleCheckboxesGroup from "@/components/MeasuresFilterExa
 
 export default {
   name: "MeasuresFilterExample",
-  props: ["fd"],
+  props: ["fd", "theme"],
   components: {
     MeasuresFilterExampleCheckboxesGroup,
   },

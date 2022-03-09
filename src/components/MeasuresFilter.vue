@@ -12,7 +12,7 @@
       />
       <div class="input-group-append">
         <button
-          class="btn btn-primary btn-icon-only_square"
+          :class="'btn btn-' + theme + ' btn-icon-only_square'"
           type="button"
           id="searchMeasureButton"
           @click="searchMeasure"
@@ -23,13 +23,13 @@
     </div>
 
     <div
-      class="btn btn-outline-primary col-12"
+      :class="'btn btn-outline-' + theme + ' col-12'"
       @click="$emit('select-esia')"
     >
       Подобрать с учетом ЕСИА
     </div>
     <div
-      class="btn btn-outline-primary col-12"
+      :class="'btn btn-outline-' + theme + ' col-12'"
       @click="$emit('chat-activation')"
     >
       Подобрать с помощью чат-бота
@@ -39,18 +39,19 @@
       title="Теги:"
       :items="tags"
       :selected-items="selectedItems"
+      :theme="theme"
       @filter-changed="$emit('filter-changed', $event)"
     />
 
     <div class="row filter-actions">
       <div class="col">
-        <div class="btn btn-primary btn-block" @click="$emit('filter')">
+        <div :class="'btn btn-' + theme + ' btn-block'" @click="$emit('filter')">
           Применить
         </div>
       </div>
       <div class="col">
         <div
-          class="btn btn-outline-primary btn-block"
+          :class="'btn btn-outline-' + theme + ' btn-block'"
           @click="$emit('clear-filter')"
         >
           Очистить
@@ -68,7 +69,7 @@ export default {
   components: {
     MeasuresFilterCheckboxesGroup,
   },
-  props: ["tags", "selectedItems"],
+  props: ["tags", "selectedItems", "theme"],
   data() {
     return {
       searchText: "",

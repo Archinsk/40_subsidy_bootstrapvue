@@ -4,13 +4,14 @@
       <div class="container">
         <h4 class="title-primary text-center">
           Меры поддержки
-          <span class="badge badge-primary">{{ itemsTotal }}</span>
+          <span :class="'badge badge-' + theme">{{ itemsTotal }}</span>
         </h4>
         <div class="row justify-content-center mb-3">
           <div class="col-3">
             <MeasuresFilter
               :tags="tags"
               :selected-items="selectedFilters"
+              :theme="theme"
               @search-measures="searchMeasures($event)"
               @filter-changed="selectedFilters = $event"
               @filter="getServises"
@@ -26,6 +27,7 @@
               :page="page"
               :page-size="pageSize"
               :items-per-page="itemsPerPage"
+              :theme="theme"
               @change-page-size="changePageSize($event)"
               @change-page="changePage"
             ></MeasuresCardsList>
@@ -40,6 +42,7 @@
         isFlyingDown="true"
         :messages="replicsList"
         :quest="inputText"
+        :theme="theme"
         @close-chat="chatDisactivation"
         @add-quest="addQuest($event)"
       ></Chat>
@@ -61,6 +64,10 @@ export default {
     MeasuresFilter,
     Chat,
   },
+
+  props: [
+          "theme"
+  ],
 
   data() {
     return {

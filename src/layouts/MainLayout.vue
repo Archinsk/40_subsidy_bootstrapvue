@@ -1,10 +1,10 @@
 <template>
   <div class="page-wrapper">
-    <Header />
+    <Header :theme="theme"/>
     <main class="content">
-      <router-view />
+      <router-view :theme="theme"/>
     </main>
-    <Footer />
+    <Footer :theme="theme"/>
   </div>
 </template>
 
@@ -18,5 +18,8 @@ export default {
     Header,
     Footer,
   },
+  props: [
+          "theme"
+  ]
 };
 </script>

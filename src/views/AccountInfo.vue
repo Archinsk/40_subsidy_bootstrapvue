@@ -4,7 +4,7 @@
       <h4 class="title-primary text-center">Личный кабинет</h4>
       <section class="user-info">
         <div class="user-info__details">
-          <img class="user-avatar bg-primary border border-primary" src="@/assets/avatar.png" alt="" />
+          <img :class="'user-avatar bg-' + theme + ' border border-' + theme" src="@/assets/avatar.png" alt="" />
           <div class="user-text">
             <div class="user-text__name">Сергеев Иван Петрович</div>
             <div class="user-text__snils">СНИЛС: 073-976-837 25</div>
@@ -12,7 +12,7 @@
         </div>
         <button
           type="button"
-          class="user-info__edit-btn btn btn-outline-primary"
+          :class="'user-info__edit-btn btn btn-outline-' + theme"
           data-toggle="modal"
           href="#profileEdit"
         >
@@ -59,12 +59,12 @@
           <section class="user__competencies">
             <h5 class="secondary-title">Компетенции</h5>
             <div>
-              <span class="badge badge-primary mr-2"
+              <span :class="'badge badge-' + theme + ' mr-2'"
                 >Информационные технологии</span
               >
-              <span class="badge badge-primary mr-2">Инженерия</span>
-              <span class="badge badge-primary mr-2">Архитектура</span>
-              <button class="btn btn-outline-primary">+ Добавить</button>
+              <span :class="'badge badge-' + theme + ' mr-2'">Инженерия</span>
+              <span :class="'badge badge-' + theme + ' mr-2'">Архитектура</span>
+              <button :class="'btn btn-outline-' + theme">+ Добавить</button>
             </div>
           </section>
           <section class="experience">
@@ -151,7 +151,7 @@
           </section>
         </b-tab>
         <b-tab title="Заявления">
-          <Applications />
+          <Applications :theme="theme"/>
         </b-tab>
       </b-tabs>
     </article>
@@ -167,6 +167,8 @@ export default {
   components: {
     Applications,
   },
+
+  props: ["theme"],
 
   data() {
     return {

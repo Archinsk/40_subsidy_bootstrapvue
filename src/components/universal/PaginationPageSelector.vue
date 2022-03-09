@@ -101,6 +101,6 @@
 <script>
 export default {
   name: "PaginationPageSelector",
-  props: ["pages", "activePage"],
+  props: ["pages", "activePage", "theme"],
 };
 </script>

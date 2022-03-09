@@ -1,7 +1,7 @@
 <template>
-  <header class="header sticky-top shadow">
+  <header :class="'header sticky-top shadow bg-' + theme">
     <div class="container">
-      <b-navbar type="dark" variant="primary">
+      <b-navbar type="dark" :variant="theme">
         <b-navbar-brand class="logo" to="/">
           <img
             src="@/assets/iss_logo_white.svg"
@@ -11,9 +11,9 @@
           Информационные системы и сервисы
         </b-navbar-brand>
 
-        <HeaderNav user-type="admin"></HeaderNav>
+        <HeaderNav user-type="admin" :theme="theme"></HeaderNav>
 
-        <b-button variant="primary" class="d-lg-none btn-icon-only_square" v-b-toggle.sidebar>
+        <b-button :variant="theme" class="d-lg-none btn-icon-only_square" v-b-toggle.sidebar>
           <span class="material-icons">menu</span>
         </b-button>
       </b-navbar>
@@ -29,6 +29,6 @@ export default {
   components: {
     HeaderNav,
   },
-  props: ["auth"],
+  props: ["auth", "theme"],
 };
 </script>

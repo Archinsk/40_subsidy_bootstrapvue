@@ -4,15 +4,16 @@
       <div class="container">
         <h4 class="title-primary text-center">
           Меры поддержки
-          <span class="badge badge-primary">{{ totalItems }}</span>
+          <span :class="'badge badge-' + theme">{{ totalItems }}</span>
         </h4>
         <div class="row justify-content-center mb-2">
           <div class="col-3">
-            <MeasuresFilterExample :fd="filters"></MeasuresFilterExample>
+            <MeasuresFilterExample :fd="filters" :theme="theme"></MeasuresFilterExample>
           </div>
           <div class="col-9">
             <MeasuresCardsListExample
               :measuresPack="xhrResponse"
+              :theme="theme"
               count="10"
             ></MeasuresCardsListExample>
           </div>
@@ -26,6 +27,7 @@
         isFlyingDown="true"
         :messages="replicsList"
         :quest="inputText"
+        :theme="theme"
         @close-chat="chatDisactivation"
         @focus-input="focusInput"
         @add-quest="addQuest($event)"
@@ -47,6 +49,10 @@ export default {
     MeasuresFilterExample,
     Chat,
   },
+
+  props: [
+          "theme"
+  ],
 
   data() {
     return {

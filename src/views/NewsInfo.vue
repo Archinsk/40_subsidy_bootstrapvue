@@ -61,26 +61,26 @@
         </p>
         <p>
           Подробнее о конкурсе:
-          <a href="https://datamasters.ru/aianddata"
+          <a href="https://datamasters.ru/aianddata" :class="'text-' + theme"
             >https://datamasters.ru/aianddata</a
           >
         </p>
         <p>
           Остались вопросы? Задавай в telegram-чате
-          <a href="https://t.me/datamasters_asi">DataMasters</a>
+          <a href="https://t.me/datamasters_asi" :class="'text-' + theme">DataMasters</a>
         </p>
       </div>
 
       <div class="news-article-tags">
         Теги:
-        <a href="#">Информационные технологии</a>
-        <a href="#">Обучение</a>
-        <a href="#">Конкурсы</a>
+        <a href="#" :class="'text-' + theme">Информационные технологии</a>
+        <a href="#" :class="'text-' + theme">Обучение</a>
+        <a href="#" :class="'text-' + theme">Конкурсы</a>
       </div>
       <div class="news-article-comments">
         <p>
           <button
-            class="btn btn-outline-primary"
+            :class="'btn btn-outline-' + theme"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#collapseExample"
@@ -103,5 +103,6 @@
 <script>
 export default {
   name: "NewsInfo",
+  props: ["theme"]
 };
 </script>

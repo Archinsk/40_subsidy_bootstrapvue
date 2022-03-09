@@ -5,6 +5,7 @@
       :key="index ? appsItem.id + '-' + index : appsItem.id"
       :application="appsItem"
       :index="index"
+      :theme="theme"
       @get-app-form="$emit('get-app-form', appsItem.id)"
     />
     <Pagination
@@ -13,6 +14,7 @@
       :page="page"
       :page-size="pageSize"
       :items-per-page="itemsPerPage"
+      :theme="theme"
       @change-page-size="$emit('change-page-size', $event)"
       @change-page="$emit('change-page', $event)"
     ></Pagination>
@@ -29,6 +31,6 @@ export default {
     ApplicationsCardsListItem,
     Pagination,
   },
-  props: ["appsCardsList", "itemsTotal", "page", "pageSize", "itemsPerPage"],
+  props: ["appsCardsList", "itemsTotal", "page", "pageSize", "itemsPerPage", "theme"],
 };
 </script>

@@ -2,7 +2,7 @@
   <section class="news mb-2">
     <div class="container">
       <h4 class="title-primary text-center">
-        Новости <span class="badge badge-primary">{{ itemsTotal }}</span>
+        Новости <span :class="'badge badge-' + theme">{{ itemsTotal }}</span>
       </h4>
       <NewsPreviewList
         :news-list="newsCardsList"
@@ -27,6 +27,10 @@ export default {
   components: {
     NewsPreviewList,
   },
+
+  props: [
+    "theme"
+  ],
 
   data() {
     return {
