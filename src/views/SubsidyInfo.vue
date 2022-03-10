@@ -447,8 +447,8 @@ export default {
 
   data() {
     return {
-      // url: "http://192.168.18.171:8080/api/",
-      url: "https://open-demo.isands.ru/api/",
+      url: "http://192.168.18.171:8080/api/",
+      // url: "https://open-demo.isands.ru/api/",
       // url: "https://open-newtemplate.isands.ru/api/",
       loading: false,
       measure: [],
@@ -587,7 +587,8 @@ export default {
       axios
         .post(this.url + "app/action-invoke", request)
         .then((response) => {
-          console.log("Отправлен запрос");
+          console.log("Ответ");
+          console.log(response);
           this.appForm = response.data.applicationDTO;
         })
         .then(() => {

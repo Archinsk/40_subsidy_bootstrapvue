@@ -71,8 +71,8 @@ export default {
 
   data() {
     return {
-      // url: "http://192.168.18.171:8080/api/",
-      url: "https://open-demo.isands.ru/api/",
+      url: "http://192.168.18.171:8080/api/",
+      // url: "https://open-demo.isands.ru/api/",
       // url: "https://open-newtemplate.isands.ru/api/",
       searchText: "",
       tags: [],
@@ -258,6 +258,7 @@ export default {
         .then((response) => {
           this.measuresCardsList = response.data.content;
           this.itemsTotal = response.data.totalElements;
+          console.log(response);
           window.scrollTo(0, 0);
         });
     },

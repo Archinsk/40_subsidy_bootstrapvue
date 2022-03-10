@@ -30,9 +30,11 @@
     >
       <template v-if="isLoadedStartForm && !isRequested">
         <Form
+          ref="formInstanse"
           :form="appForm.form.scheme"
           :submission="appForm"
           :options="{ readOnly: !appForm.active }"
+          @change="validateForm"
         />
         <template v-for="action of appForm.form.actions">
           <b-button
@@ -70,14 +72,12 @@ export default {
     Form,
   },
 
-  props: [
-          "theme"
-  ],
+  props: ["theme"],
 
   data() {
     return {
-      // url: "http://192.168.18.171:8080/api/",
-      url: "https://open-demo.isands.ru/api/",
+      url: "http://192.168.18.171:8080/api/",
+      // url: "https://open-demo.isands.ru/api/",
       // url: "https://open-newtemplate.isands.ru/api/",
       apps: [],
       itemsTotal: 0,
@@ -97,6 +97,9 @@ export default {
         orderId: "",
         status: "",
       },
+      submitValidation: false,
+      isDataValid: false,
+      isFirstLoad: true,
       isLoadedStartForm: false,
       isRequested: false,
       isResponsed: false,
@@ -151,7 +154,26 @@ export default {
         });
     },
 
+    validateForm() {
+      console.log("qweqwe");
+      // let myData = this.appForm;
+      // let isDataValid = this.appForm.isValid;
+      if (this.isFirstLoad) {
+        console.log(this.$refs.formInstanse);
+        //   this.isDataValid = form.checkValidity(form.submission.data);
+        //   this.isFirstLoad = false;
+      }
+      // try {
+      //   if (submission.changed) {
+      //     updateFormDependableElements(formInstance, submission.changed);
+      //   }
+      // } catch (e) {
+      //   console.error("updateFormDependableElements");
+      // }
+    },
+
     invokeAction(actionId) {
+      console.log(this);
       this.isRequested = true;
       const request = {
         actionId: actionId,
