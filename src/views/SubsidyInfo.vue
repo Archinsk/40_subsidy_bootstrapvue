@@ -407,6 +407,8 @@
           :form="appForm.form.scheme"
           :submission="appForm"
           :options="{ readOnly: !appForm.active }"
+          ref="firstForm"
+          @change="validateForm"
         />
         <template v-if="appForm.active">
           <b-button
@@ -477,7 +479,11 @@ export default {
       isLoadedStartForm: false,
       isRequested: false,
       isResponsed: false,
-    };
+      submitValidation: false,
+      isDataValid: false,
+      isFirstLoad: true,
+      formInstance: null,
+  };
   },
 
   methods: {
@@ -546,7 +552,29 @@ export default {
         })
         .then(() => {
           this.isLoadedStartForm = true;
+          console.log("this:");
+          console.log(this.$refs);
+          this.formInstance = this.$refs.firstForm;
         });
+    },
+
+    validateForm() {
+      console.log(this.$refs.firstForm);
+      this.isDataValid = this.appForm.isValid;
+      if (this.isFirstLoad) {
+        this.$refs.firstForm.formio.checkValidity(this.$refs.firstForm.formio.submission.data);
+        console.log(this.$refs.firstForm.formio.checkValidity(this.$refs.firstForm.formio.submission.data));
+        console.log(this.$refs.firstForm.formio.checkValidity);
+        // this.isDataValid = this.formInstance.formio.checkValidity(this.formInstance.form.submission.data);
+        //         this.isFirstLoad = false;
+      }
+      // try {
+      //   if (submission.changed) {
+      //     updateFormDependableElements(formInstance, submission.changed);
+      //   }
+      // } catch (e) {
+      //   console.error("updateFormDependableElements");
+      // }
     },
 
     postAjaxRequest(service, request, responseTarget, log) {
@@ -572,11 +600,14 @@ export default {
     },
 
     invokeAction(actionId) {
+      console.log("this:");
+      console.log(this);
       console.log(
         "В отправляемой форме data:" +
           JSON.stringify(this.appForm.data) +
           actionId
       );
+      console.log("Invoke при подаче");
       this.isRequested = true;
       const request = {
         actionId: actionId,
@@ -645,3 +676,4 @@ export default {
   },
 };
 </script>
+

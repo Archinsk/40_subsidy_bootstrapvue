@@ -34,7 +34,7 @@
           :form="appForm.form.scheme"
           :submission="appForm"
           :options="{ readOnly: !appForm.active }"
-          @change="validateForm"
+          @change="validateForm()"
         />
         <template v-for="action of appForm.form.actions">
           <b-button
@@ -159,7 +159,7 @@ export default {
       // let myData = this.appForm;
       // let isDataValid = this.appForm.isValid;
       if (this.isFirstLoad) {
-        console.log(this.$refs.formInstanse);
+        console.log(this.$refs);
         //   this.isDataValid = form.checkValidity(form.submission.data);
         //   this.isFirstLoad = false;
       }
