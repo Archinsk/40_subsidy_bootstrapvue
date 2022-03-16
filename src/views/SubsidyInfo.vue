@@ -396,37 +396,46 @@
     <hr />
     <b-modal
       id="new-app"
-      title="Новое заявление"
+      :title="appForm.form.name"
       size="xl"
       hide-footer
       no-stacking
       @close="cleanAppForm"
     >
-      <template v-if="isLoadedStartForm && !isRequested">
-        <Form
-          :form="appForm.form.scheme"
-          :submission="appForm"
-          :options="{ readOnly: !appForm.active }"
-          ref="firstForm"
-          @change="validateForm"
-        />
-        <template v-if="appForm.active">
-          <b-button
-            v-for="action of appForm.form.actions"
-            :key="action.id"
-            @click="invokeAction(action.id)"
-            >{{ action.name }}</b-button
-          >
-        </template>
+      <template v-if="isResponsed">
+        <div class="row">
+          <div class="col-10">
+            <Form
+                    :form="appForm.form.scheme"
+                    :submission="appForm"
+                    :options="{ readOnly: !appForm.active }"
+                    ref="firstForm"
+                    @change="validateForm"
+            />
+          </div>
+          <div class="col-2">
+            <template v-if="appForm.active">
+              <b-button
+                      v-for="action of appForm.form.actions"
+                      :key="action.id"
+                      :variant="theme"
+                      @click="invokeAction(action.id)"
+              >{{ action.name }}</b-button
+              >
+            </template>
+          </div>
+        </div>
       </template>
 
       <template v-else>
-        <template v-if="!isResponsed">
+        <template v-if="!isRequested">
           <b-spinner variant="primary" label="Spinning"></b-spinner>
-          <p>Заявление отправляется...</p>
+          <p>Запрос формы заявления...</p>
         </template>
-        <p v-else>Заявление отправлено!</p>
-        <b-button @click="cleanAppForm">OK</b-button>
+        <template v-else>
+          <b-spinner variant="primary" label="Spinning"></b-spinner>
+          <p>Отправка заявления...</p>
+        </template>
       </template>
     </b-modal>
   </div>
@@ -539,11 +548,10 @@ export default {
     },
 
     getStartForm() {
-      console.log("Получаю стартовую форму");
       axios
         .get(this.url + "serv/get-appData?id=" + this.$route.params.subId)
         .then((response) => {
-          console.log("Отправлен запрос");
+          console.log("Стартовая форма");
           console.log(response);
           const newForm = response.data.applicationDTO;
           newForm.data = JSON.parse(newForm.data);
@@ -551,30 +559,17 @@ export default {
           this.appForm = newForm;
         })
         .then(() => {
-          this.isLoadedStartForm = true;
-          console.log("this:");
-          console.log(this.$refs);
           this.formInstance = this.$refs.firstForm;
+          this.isResponsed = true;
         });
     },
 
     validateForm() {
-      console.log(this.$refs.firstForm);
-      this.isDataValid = this.appForm.isValid;
-      if (this.isFirstLoad) {
+      this.isDataValid = this.$refs.firstForm.formio.checkValidity(this.$refs.firstForm.formio.submission.data);
+      if (!this.isFirstLoad) {
         this.$refs.firstForm.formio.checkValidity(this.$refs.firstForm.formio.submission.data);
-        console.log(this.$refs.firstForm.formio.checkValidity(this.$refs.firstForm.formio.submission.data));
-        console.log(this.$refs.firstForm.formio.checkValidity);
-        // this.isDataValid = this.formInstance.formio.checkValidity(this.formInstance.form.submission.data);
-        //         this.isFirstLoad = false;
+        this.isDataValid = this.$refs.firstForm.formio.checkValidity(this.$refs.firstForm.formio.submission.data, true);
       }
-      // try {
-      //   if (submission.changed) {
-      //     updateFormDependableElements(formInstance, submission.changed);
-      //   }
-      // } catch (e) {
-      //   console.error("updateFormDependableElements");
-      // }
     },
 
     postAjaxRequest(service, request, responseTarget, log) {
@@ -600,38 +595,33 @@ export default {
     },
 
     invokeAction(actionId) {
-      console.log("this:");
-      console.log(this);
-      console.log(
-        "В отправляемой форме data:" +
-          JSON.stringify(this.appForm.data) +
-          actionId
-      );
-      console.log("Invoke при подаче");
-      this.isRequested = true;
-      const request = {
-        actionId: actionId,
-        userId: 13,
-        appId: this.appForm.id,
-        data: JSON.stringify(this.appForm.data),
-      };
-      axios
-        .post(this.url + "app/action-invoke", request)
-        .then((response) => {
-          console.log("Ответ");
-          console.log(response);
-          this.appForm = response.data.applicationDTO;
-        })
-        .then(() => {
-          console.log("Записан ответ");
-          this.appForm.data = JSON.parse(this.appForm.data);
-          this.appForm.form.scheme = JSON.parse(this.appForm.form.scheme);
-        })
-        .then(() => {
-          console.log("Распарсена форма и ее заполнение");
-          this.isResponsed = true;
-          this.appForm = {};
-        });
+      this.isFirstLoad = false;
+      if (this.isDataValid) {
+        this.isRequested = true;
+        const request = {
+          actionId: actionId,
+          userId: 13,
+          appId: this.appForm.id,
+          data: JSON.stringify(this.appForm.data),
+        };
+        axios
+                .post(this.url + "app/action-invoke", request)
+                .then((response) => {
+                  console.log("Ответ");
+                  console.log(response);
+                  // this.appForm = response.data.applicationDTO;
+                  const newForm = response.data.applicationDTO;
+                  newForm.data = JSON.parse(newForm.data);
+                  newForm.form.scheme = JSON.parse(newForm.form.scheme);
+                  this.appForm = newForm;
+                })
+                .then(() => {
+                  this.isResponsed = true;
+                  this.isFirstLoad = true;
+                });
+      } else {
+        this.validateForm();
+      }
     },
 
     cleanAppForm() {
