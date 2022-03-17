@@ -11,7 +11,9 @@
               Приём заявок<br />
               <b>{{ measurePeriod() }}</b>
             </div>
-            <button :class="'btn btn-outline-' + theme">Как подать заявку?</button>
+            <button :class="'btn btn-outline-' + theme">
+              Как подать заявку?
+            </button>
           </div>
         </div>
         <hr />
@@ -36,7 +38,15 @@
               <div class="support-size-info"></div>
             </div>
             <div class="support-buttons col">
-              <button type="button" :class="'btn btn-outline-' + theme + ' btn-icon-only_square measure-web-accessibility mr-2'" title="По данной мере поддержки есть возможность электронной подачи">
+              <button
+                type="button"
+                :class="
+                  'btn btn-outline-' +
+                  theme +
+                  ' btn-icon-only_square measure-web-accessibility mr-2'
+                "
+                title="По данной мере поддержки есть возможность электронной подачи"
+              >
                 <span class="material-icons">laptop</span>
               </button>
               <b-button v-b-modal.new-app :variant="theme" @click="getStartForm"
@@ -368,11 +378,15 @@
                   </p>
                   <p>
                     Ссылка на сайт администратора меры поддержки:
-                    <a href="https://dep.test.ru" :class="'text-' + theme">https://dep.test.ru/</a>
+                    <a href="https://dep.test.ru" :class="'text-' + theme"
+                      >https://dep.test.ru/</a
+                    >
                   </p>
                   <p>
                     Контактная информация: 200-00-00, e-mail:
-                    <a href="mailto:test@test.ru" :class="'text-' + theme">test@test.ru</a>
+                    <a href="mailto:test@test.ru" :class="'text-' + theme"
+                      >test@test.ru</a
+                    >
                   </p>
                 </b-card-text>
               </b-tab>
@@ -406,21 +420,21 @@
         <div class="row">
           <div class="col-10">
             <Form
-                    :form="appForm.form.scheme"
-                    :submission="appForm"
-                    :options="{ readOnly: !appForm.active }"
-                    ref="firstForm"
-                    @change="validateForm"
+              :form="appForm.form.scheme"
+              :submission="appForm"
+              :options="{ readOnly: !appForm.active }"
+              ref="firstForm"
+              @change="validateForm"
             />
           </div>
           <div class="col-2">
             <template v-if="appForm.active">
               <b-button
-                      v-for="action of appForm.form.actions"
-                      :key="action.id"
-                      :variant="theme"
-                      @click="invokeAction(action.id)"
-              >{{ action.name }}</b-button
+                v-for="action of appForm.form.actions"
+                :key="action.id"
+                :variant="theme"
+                @click="invokeAction(action.id)"
+                >{{ action.name }}</b-button
               >
             </template>
           </div>
@@ -492,61 +506,20 @@ export default {
       isDataValid: false,
       isFirstLoad: true,
       formInstance: null,
-  };
+    };
   },
 
   methods: {
-    onLoad() {
-      this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-      }, 5000);
-    },
-
-    ajaxRequest(service, id, responseTarget, log) {
-      const xhr = new XMLHttpRequest();
-      const url = this.url + service + "?id=" + id;
-      xhr.open("GET", url);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log(log);
-        console.log(xhr.response);
-        if (xhr.response.applicationDTO) {
-          console.log(xhr.response);
-          this[responseTarget] = xhr.response.applicationDTO;
-          this[responseTarget].data = JSON.parse(
-            xhr.response.applicationDTO.data
-          );
-          this[responseTarget].form.scheme = JSON.parse(
-            xhr.response.applicationDTO.form.scheme
-          );
-        } else {
-          this[responseTarget] = xhr.response;
-        }
-        console.log(log);
-        console.log(this.appForm);
-      };
-      xhr.send();
-    },
-
+    // Информация о мере поддержки
     getMeasure() {
-      this.ajaxRequest(
-        "serv/get-model",
-        this.$route.params.subId,
-        "measure",
-        "Информация по мере поддержки"
-      );
+      axios
+        .get(this.url + "serv/get-model?id=" + this.$route.params.subId)
+        .then((response) => {
+          this.measure = response.data;
+        });
     },
 
-    getForms() {
-      this.ajaxRequest(
-        "serv/get-forms",
-        this.$route.params.subId,
-        "measureForms",
-        "Список форм"
-      );
-    },
-
+    // Стартовая форма заявления
     getStartForm() {
       axios
         .get(this.url + "serv/get-appData?id=" + this.$route.params.subId)
@@ -565,33 +538,18 @@ export default {
     },
 
     validateForm() {
-      this.isDataValid = this.$refs.firstForm.formio.checkValidity(this.$refs.firstForm.formio.submission.data);
+      this.isDataValid = this.$refs.firstForm.formio.checkValidity(
+        this.$refs.firstForm.formio.submission.data
+      );
       if (!this.isFirstLoad) {
-        this.$refs.firstForm.formio.checkValidity(this.$refs.firstForm.formio.submission.data);
-        this.isDataValid = this.$refs.firstForm.formio.checkValidity(this.$refs.firstForm.formio.submission.data, true);
+        this.$refs.firstForm.formio.checkValidity(
+          this.$refs.firstForm.formio.submission.data
+        );
+        this.isDataValid = this.$refs.firstForm.formio.checkValidity(
+          this.$refs.firstForm.formio.submission.data,
+          true
+        );
       }
-    },
-
-    postAjaxRequest(service, request, responseTarget, log) {
-      const xhr = new XMLHttpRequest();
-      const url = this.url + service;
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          console.log(log);
-          console.log(xhr.response);
-          // console.log(JSON.parse(xhr.response));
-          // console.log(JSON.parse(xhr.response).applicationDTO);
-          // let newForm = JSON.parse(xhr.response).applicationDTO;
-          // newForm.data = JSON.parse(newForm.data);
-          // newForm.form.scheme = JSON.parse(newForm.form.scheme);
-          // console.log("Новая форма из ответа:");
-          // console.log(newForm);
-          // this[responseTarget] = newForm;
-        }
-      };
-      xhr.open("POST", url, true);
-      xhr.setRequestHeader("Content-type", "application/json");
-      xhr.send(JSON.stringify(request));
     },
 
     invokeAction(actionId) {
@@ -605,20 +563,20 @@ export default {
           data: JSON.stringify(this.appForm.data),
         };
         axios
-                .post(this.url + "app/action-invoke", request)
-                .then((response) => {
-                  console.log("Ответ");
-                  console.log(response);
-                  // this.appForm = response.data.applicationDTO;
-                  const newForm = response.data.applicationDTO;
-                  newForm.data = JSON.parse(newForm.data);
-                  newForm.form.scheme = JSON.parse(newForm.form.scheme);
-                  this.appForm = newForm;
-                })
-                .then(() => {
-                  this.isResponsed = true;
-                  this.isFirstLoad = true;
-                });
+          .post(this.url + "app/action-invoke", request)
+          .then((response) => {
+            console.log("Ответ");
+            console.log(response);
+            // this.appForm = response.data.applicationDTO;
+            const newForm = response.data.applicationDTO;
+            newForm.data = JSON.parse(newForm.data);
+            newForm.form.scheme = JSON.parse(newForm.form.scheme);
+            this.appForm = newForm;
+          })
+          .then(() => {
+            this.isResponsed = true;
+            this.isFirstLoad = true;
+          });
       } else {
         this.validateForm();
       }
@@ -662,8 +620,6 @@ export default {
 
   mounted: function () {
     this.getMeasure();
-    this.getForms();
   },
 };
 </script>
-
