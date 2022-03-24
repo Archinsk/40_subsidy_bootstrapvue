@@ -542,6 +542,7 @@ export default {
         this.$refs.firstForm.formio.submission.data
       );
       if (!this.isFirstLoad) {
+        // this.$refs.firstForm.formio.submit();
         this.$refs.firstForm.formio.checkValidity(
           this.$refs.firstForm.formio.submission.data
         );
