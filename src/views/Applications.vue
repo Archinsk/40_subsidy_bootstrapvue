@@ -22,7 +22,7 @@
 
     <b-modal
       id="edit-app"
-      title="Редактирование заявления"
+      :title="appForm.form.name"
       size="xl"
       hide-footer
       no-stacking
@@ -32,35 +32,34 @@
         <div v-if="isAlertVisible" class="alert alert-success" role="alert">
           {{ successComment }}
         </div>
-        <h4 class="text-center">{{ formLayout.form.name }}</h4>
         <div class="row">
           <div class="col-10">
             <Form
-              ref="vueForm"
               :form="appForm.form.scheme"
               :submission="appForm"
               :options="{ readOnly: !appForm.active }"
+              ref="vueForm"
             />
           </div>
           <div
-            v-if="appForm.form.actions && formLayout.form.actions.length > 0"
+            v-if="appForm.form.actions && appForm.form.actions.length > 0"
             class="col-2"
           >
             <template v-for="action of appForm.form.actions">
-              <template v-if="formLayout.active || action.alwaysActive">
-                <b-button
+              <template v-if="appForm.active || action.alwaysActive">
+                <button
                   v-if="action.backAction"
                   :key="action.id"
                   type="button"
-                  class="btn btn-block btn-primary mb-2"
+                  class="btn btn-block btn-primary"
                   @click="invokeAction(action.id, true)"
-                  >{{ action.name }}</b-button
+                  >{{ action.name }}</button
                 >
                 <button
                   v-else
                   :key="action.id"
                   type="button"
-                  class="btn btn-block btn-primary mb-2"
+                  class="btn btn-block btn-primary"
                   @click="invokeAction(action.id)"
                 >
                   {{ action.name }}
@@ -72,7 +71,7 @@
       </template>
 
       <template v-else-if="isLoading">
-        <div class="card my-3">
+        <div class="card">
           <div class="card-body text-center">
             <div class="spinner-border text-primary" role="status">
               <span class="sr-only">Loading...</span>
@@ -110,11 +109,6 @@ export default {
       page: 1,
       pageSize: 10,
       itemsPerPage: [10, 25, 50],
-      isLoading: false,
-      loadingComment: "Загрузка формы заявления",
-      successComment: "Форма заявления успешно загружена!",
-      isResponse: false,
-      isAlertVisible: false,
       appForm: {
         active: false,
         data: {},
@@ -128,12 +122,14 @@ export default {
         orderId: "",
         status: "",
       },
+
+      isLoading: false,
+      loadingComment: "Загрузка заявления",
+      successComment: "Заявление успешно загружено!",
+      isResponse: false,
+      isAlertVisible: false,
       isValidFormData: false,
       isFirstLoad: true,
-
-      // isLoadedStartForm: false,
-      // isRequested: false,
-      // isResponsed: false,
     };
   },
 
@@ -156,12 +152,9 @@ export default {
         .then((response) => {
           this.apps = response.data;
           this.itemsTotal = response.data.totalElements;
-        })
-        .then(() => {
-          console.log("Ответ распарсен");
+          console.log("Список заявлений");
           console.log(this.apps);
-          this.isLoadedStartForm = true;
-        });
+        })
     },
 
     // Стартовая форма заявления
@@ -169,15 +162,15 @@ export default {
       this.isResponse = false;
       this.isLoading = true;
       this.loadingComment = "Загрузка формы заявления";
-      setTimeout(this.getForm(id), 1000);
+      setTimeout(this.getForm, 1000, id);
     },
     getForm(id) {
       axios
-        .get(this.url + "serv/get-appData?id=" + id)
+        .get(this.url + "app/get-appData?id=" + id)
         .then((response) => {
           console.log("Стартовая форма");
           console.log(response);
-          const newForm = response.data.applicationDTO;
+          const newForm = response.data;
           newForm.data = JSON.parse(newForm.data);
           newForm.form.scheme = JSON.parse(newForm.form.scheme);
           this.appForm = newForm;
@@ -190,27 +183,6 @@ export default {
         });
     },
 
-    // getAppForm(id) {
-    //   this.isLoadedStartForm = false;
-    //   this.isRequested = false;
-    //   this.isResponsed = false;
-    //   axios
-    //     .get(this.url + "app/get-appData?id=" + id)
-    //     .then((response) => {
-    //       console.log("Отправлен запрос");
-    //       console.log(response);
-    //       const newForm = response.data;
-    //       newForm.data = JSON.parse(newForm.data);
-    //       newForm.form.scheme = JSON.parse(newForm.form.scheme);
-    //       this.appForm = newForm;
-    //     })
-    //     .then(() => {
-    //       console.log("Ответ распарсен");
-    //       console.log(this.appForm);
-    //       this.isLoadedStartForm = true;
-    //     });
-    // },
-
     hideAlert() {
       this.isAlertVisible = false;
     },
@@ -220,41 +192,6 @@ export default {
         this.$refs.vueForm.formio.submission.data
       );
     },
-
-    // invokeAction(actionId) {
-    //   console.log(this);
-    //   this.isRequested = true;
-    //   const request = {
-    //     actionId: actionId,
-    //     userId: 13,
-    //     appId: this.appForm.id,
-    //     data: JSON.stringify(this.appForm.data),
-    //   };
-    //   axios
-    //     .post(this.url + "app/action-invoke", request)
-    //     .then((response) => {
-    //       console.log("Отправлен запрос");
-    //       console.log(response);
-    //
-    //       this.appForm = response.data.applicationDTO;
-    //     })
-    //     .then(() => {
-    //       console.log("Записан ответ");
-    //       this.appForm.data = JSON.parse(this.appForm.data);
-    //       this.appForm.form.scheme = JSON.parse(this.appForm.form.scheme);
-    //     })
-    //     .then(() => {
-    //       console.log("Распарсена форма и ее заполнение");
-    //       this.isResponsed = true;
-    //       this.appForm = {};
-    //     });
-    // },
-
-    // cleanAppForm() {
-    //   this.$bvModal.hide("edit-app");
-    //   this.isRequested = false;
-    //   this.isResponsed = false;
-    // },
 
     invokeAction(actionId, isBackAction = false) {
       console.log("Выполнение действия");
@@ -274,8 +211,8 @@ export default {
       const request = {
         actionId: actionId,
         userId: 13,
-        appId: this.formLayout.id,
-        data: JSON.stringify(this.formLayout.data),
+        appId: this.appForm.id,
+        data: JSON.stringify(this.appForm.data),
       };
       axios
         .post(this.url + "app/action-invoke", request)
@@ -295,7 +232,7 @@ export default {
             link.click();
           } else {
             if (isBackAction) {
-              this.$router.push("/registry");
+              this.cleanAppForm();
             } else {
               this.getNextForm(response);
             }
@@ -317,8 +254,19 @@ export default {
       let nextForm = response.data.applicationDTO;
       nextForm.data = JSON.parse(nextForm.data);
       nextForm.form.scheme = JSON.parse(nextForm.form.scheme);
-      this.formLayout = nextForm;
+      this.appForm = nextForm;
       this.successComment = "Заявление отправлено!";
+    },
+
+    cleanAppForm() {
+      this.$bvModal.hide("edit-app");
+      this.isLoading = false;
+      this.loadingComment = "Загрузка формы заявления";
+      this.successComment = "Форма заявления успешно загружена!";
+      this.isResponse = true;
+      this.isAlertVisible = true;
+      this.isValidFormData = false;
+      this.isFirstLoad = true;
     },
 
     changePageSize(newPageInfo) {
@@ -344,3 +292,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  .btn {
+    word-wrap: break-word;
+  }
+</style>

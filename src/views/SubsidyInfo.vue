@@ -406,8 +406,6 @@
         </div>
       </div>
     </section>
-    <Loader v-show="loading" />
-    <hr />
     <b-modal
       id="new-app"
       :title="appForm.form.name"
@@ -416,47 +414,66 @@
       no-stacking
       @close="cleanAppForm"
     >
-      <template v-if="isResponsed">
+      <template v-if="isResponse">
+        <div v-if="isAlertVisible" class="alert alert-success" role="alert">
+          {{ successComment }}
+        </div>
         <div class="row">
           <div class="col-10">
             <Form
-              :form="appForm.form.scheme"
-              :submission="appForm"
-              :options="{ readOnly: !appForm.active }"
-              ref="firstForm"
-              @change="validateForm"
+                    :form="appForm.form.scheme"
+                    :submission="appForm"
+                    :options="{
+              readOnly: !appForm.active,
+            }"
+                    ref="vueForm"
             />
           </div>
-          <div class="col-2">
-            <template v-if="appForm.active">
-              <b-button
-                v-for="action of appForm.form.actions"
-                :key="action.id"
-                :variant="theme"
-                @click="invokeAction(action.id)"
-                >{{ action.name }}</b-button
-              >
+          <div
+                  v-if="appForm.form.actions && appForm.form.actions.length > 0"
+                  class="col-2"
+          >
+            <template v-for="action of appForm.form.actions">
+              <template v-if="appForm.active || action.alwaysActive">
+                <button
+                        v-if="action.backAction"
+                        :key="action.id"
+                        type="button"
+                        class="btn btn-block btn-primary"
+                        @click="invokeAction(action.id, true)"
+                >
+                  {{ action.name }}
+                </button>
+                <button
+                        v-else
+                        :key="action.id"
+                        type="button"
+                        class="btn btn-block btn-primary"
+                        @click="invokeAction(action.id)"
+                >
+                  {{ action.name }}
+                </button>
+              </template>
             </template>
           </div>
         </div>
       </template>
 
-      <template v-else>
-        <template v-if="!isRequested">
-          <b-spinner variant="primary" label="Spinning"></b-spinner>
-          <p>Запрос формы заявления...</p>
-        </template>
-        <template v-else>
-          <b-spinner variant="primary" label="Spinning"></b-spinner>
-          <p>Отправка заявления...</p>
-        </template>
+      <template v-else-if="isLoading">
+        <div class="card">
+          <div class="card-body text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div>{{ loadingComment }}</div>
+          </div>
+        </div>
       </template>
     </b-modal>
   </div>
 </template>
 
 <script>
-import Loader from "@/components/Loader";
 import { Form } from "vue-formio";
 import axios from "axios";
 
@@ -464,7 +481,6 @@ export default {
   name: "SubsidyInfo",
 
   components: {
-    Loader,
     Form,
   },
 
@@ -475,7 +491,6 @@ export default {
       // url: "http://192.168.18.171:8080/api/",
       // url: "https://open-demo.isands.ru/api/",
       url: "https://open-newtemplate.isands.ru/api/",
-      loading: false,
       measure: [],
       measureForms: [
         {
@@ -499,13 +514,14 @@ export default {
         orderId: "",
         status: "",
       },
-      isLoadedStartForm: false,
-      isRequested: false,
-      isResponsed: false,
-      submitValidation: false,
-      isDataValid: false,
+
+      isLoading: false,
+      loadingComment: "Загрузка формы заявления",
+      successComment: "Форма заявления успешно загружена!",
+      isResponse: false,
+      isAlertVisible: false,
+      isValidFormData: false,
       isFirstLoad: true,
-      formInstance: null,
     };
   },
 
@@ -521,73 +537,114 @@ export default {
 
     // Стартовая форма заявления
     getStartForm() {
+      this.isResponse = false;
+      this.isLoading = true;
+      this.loadingComment = "Загрузка формы заявления";
+      setTimeout(this.getForm, 1000);
+    },
+    getForm() {
       axios
-        .get(this.url + "serv/get-appData?id=" + this.$route.params.subId)
-        .then((response) => {
-          console.log("Стартовая форма");
-          console.log(response);
-          const newForm = response.data.applicationDTO;
-          newForm.data = JSON.parse(newForm.data);
-          newForm.form.scheme = JSON.parse(newForm.form.scheme);
-          this.appForm = newForm;
-        })
-        .then(() => {
-          this.formInstance = this.$refs.firstForm;
-          this.isResponsed = true;
-        });
+              .get(this.url + "serv/get-appData?id=" + this.$route.params.subId)
+              .then((response) => {
+                console.log("Стартовая форма");
+                console.log(response);
+                const newForm = response.data.applicationDTO;
+                newForm.data = JSON.parse(newForm.data);
+                newForm.form.scheme = JSON.parse(newForm.form.scheme);
+                this.appForm = newForm;
+              })
+              .then(() => {
+                this.isResponse = true;
+                this.isLoading = false;
+                this.isAlertVisible = true;
+                setTimeout(this.hideAlert, 3000);
+              });
+    },
+
+    hideAlert() {
+      this.isAlertVisible = false;
     },
 
     validateForm() {
-      this.isDataValid = this.$refs.firstForm.formio.checkValidity(
-        this.$refs.firstForm.formio.submission.data
+      return this.$refs.vueForm.formio.checkValidity(
+              this.$refs.vueForm.formio.submission.data
       );
-      if (!this.isFirstLoad) {
-        // this.$refs.firstForm.formio.submit();
-        this.$refs.firstForm.formio.checkValidity(
-          this.$refs.firstForm.formio.submission.data
-        );
-        this.isDataValid = this.$refs.firstForm.formio.checkValidity(
-          this.$refs.firstForm.formio.submission.data,
-          true
-        );
-      }
     },
 
-    invokeAction(actionId) {
+    invokeAction(actionId, isBackAction = false) {
+      console.log("Выполнение действия");
       this.isFirstLoad = false;
-      if (this.isDataValid) {
-        this.isRequested = true;
-        const request = {
-          actionId: actionId,
-          userId: 13,
-          appId: this.appForm.id,
-          data: JSON.stringify(this.appForm.data),
-        };
-        axios
-          .post(this.url + "app/action-invoke", request)
-          .then((response) => {
-            console.log("Ответ");
-            console.log(response);
-            // this.appForm = response.data.applicationDTO;
-            const newForm = response.data.applicationDTO;
-            newForm.data = JSON.parse(newForm.data);
-            newForm.form.scheme = JSON.parse(newForm.form.scheme);
-            this.appForm = newForm;
-          })
-          .then(() => {
-            this.isResponsed = true;
-            this.isFirstLoad = true;
-          });
+      this.isValidFormData = this.validateForm();
+      console.log("Валидность формы:" + this.isValidFormData);
+      if (this.isValidFormData) {
+        this.loadingComment = "Отправка данных заявления";
+        this.isResponse = false;
+        this.isLoading = true;
+        setTimeout(this.invoke, 1000, actionId, isBackAction);
       } else {
-        this.validateForm();
+        this.$refs.vueForm.formio.submit();
       }
+    },
+    invoke(actionId, isBackAction = false) {
+      const request = {
+        actionId: actionId,
+        userId: 13,
+        appId: this.appForm.id,
+        data: JSON.stringify(this.appForm.data),
+      };
+      axios
+              .post(this.url + "app/action-invoke", request)
+              .then((response) => {
+                console.log("Ответ на экшн");
+                console.log(response);
+                if (response.data.responseObject) {
+                  let fileApp = JSON.parse(response.data.responseObject);
+                  console.log("Объект файла");
+                  console.log(fileApp);
+                  let link = document.createElement("a");
+                  link.setAttribute("download", fileApp.fileName);
+                  link.setAttribute(
+                          "href",
+                          "data:application/octet-stream;base64," + fileApp.fileData
+                  );
+                  link.click();
+                } else {
+                  if (isBackAction) {
+                    this.cleanAppForm();
+                  } else {
+                    this.getNextForm(response);
+                  }
+                }
+              })
+              .then(() => {
+                  this.isResponse = true;
+                  this.isLoading = false;
+                  this.isAlertVisible = true;
+                  this.isFirstLoad = true;
+                setTimeout(this.hideAlert, 3000);
+              });
+    },
+
+    // Переход к следующей форме (стандартное дейтвие)
+    getNextForm(response) {
+      console.log("Следующая форма");
+      console.log(response);
+      let nextForm = response.data.applicationDTO;
+      nextForm.data = JSON.parse(nextForm.data);
+      nextForm.form.scheme = JSON.parse(nextForm.form.scheme);
+      this.appForm = nextForm;
+      this.successComment = "Заявление отправлено!";
     },
 
     cleanAppForm() {
       this.$bvModal.hide("new-app");
-      this.isLoadedStartForm = false;
-      this.isRequested = false;
-      this.isResponsed = false;
+      this.isLoading = false;
+      this.loadingComment = "Загрузка формы заявления";
+      this.successComment = "Форма заявления успешно загружена!";
+      this.isResponse = true;
+      this.isAlertVisible = true;
+      this.isValidFormData = false;
+      this.isFirstLoad = true;
     },
 
     measurePeriod() {
@@ -624,3 +681,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  .btn {
+    word-wrap: break-word;
+  }
+</style>
