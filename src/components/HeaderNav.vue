@@ -30,6 +30,7 @@
         </b-nav-item>
         <b-button v-b-modal.auth :variant="theme">Вход</b-button>
         <b-button :variant="theme" @click="signOutLocal">Выход</b-button>
+        <div class="my-auto">{{user.roleLabel}}</div>
         <!--        <b-nav-item v-if="isAdmin" to="/siteAdmin">-->
         <!--          <span class="material-icons">settings</span>-->
         <!--        </b-nav-item>-->
@@ -63,79 +64,88 @@
       </b-navbar-nav>
     </b-collapse>
 
-    <b-modal id="auth" title="Авторизация" size="sm" hide-footer no-stacking>
-      <div id="logAuth" class="form-label-group mb-0">
-        <input
-          v-model.trim="login"
-          type="text"
-          id="inputLogin"
-          class="form-control error"
-          placeholder="Login"
-          name="userLogin"
-          value=""
-          required=""
-        />
-        <label for="inputLogin" id="inputLoginLabel">Введите логин</label>
-      </div>
-      <small
-        v-if="authError.type === 'login'"
-        id="emailHelp"
-        class="form-text text-danger"
+    <b-modal id="auth" ref="modal-auth" title="Авторизация" size="sm" hide-footer no-stacking>
+      <template v-if="!isAuthUser">
+        <div id="logAuth" class="form-label-group mb-0">
+          <input
+                  v-model.trim="login"
+                  type="text"
+                  id="inputLogin"
+                  class="form-control error"
+                  placeholder="Login"
+                  name="userLogin"
+                  value=""
+                  required=""
+          />
+          <label for="inputLogin" id="inputLoginLabel">Введите логин</label>
+        </div>
+        <small
+                v-if="authError.type === 'login'"
+                class="form-text text-danger"
         >{{ authError.text }}</small
-      >
-      <div class="form-label-group mt-3 mb-0 position-relative" id="pasAuth">
-        <input
-          v-model.trim="password"
-          :type="passwordVisibility ? 'text' : 'password'"
-          id="inputPassword"
-          class="form-control"
-          placeholder="Password"
-          name="userPassword"
-          value=""
-          required=""
-        />
-        <label for="inputPassword" id="inputPasswordLabel">Пароль</label>
-        <button
-          type="button"
-          class="btn position-absolute"
-          style="
+        >
+        <div class="form-label-group mt-3 mb-0 position-relative" id="pasAuth">
+          <input
+                  v-model.trim="password"
+                  :type="passwordVisibility ? 'text' : 'password'"
+                  id="inputPassword"
+                  class="form-control"
+                  placeholder="Password"
+                  name="userPassword"
+                  value=""
+                  required=""
+          />
+          <label for="inputPassword" id="inputPasswordLabel">Пароль</label>
+          <button
+                  type="button"
+                  class="btn position-absolute"
+                  style="
             top: 0.375rem;
             right: 0.375rem;
             padding-left: 0.375rem;
             padding-right: 0.375rem;
           "
-          @click="passwordVisibility = !passwordVisibility"
-        >
+                  @click="passwordVisibility = !passwordVisibility"
+          >
           <span class="material-icons">
             {{ passwordVisibility ? "visibility_off" : "visibility" }}
           </span>
-        </button>
-      </div>
-      <small
-        v-if="authError.type === 'password'"
-        id="emailHelp"
-        class="form-text text-danger"
+          </button>
+        </div>
+        <small
+                v-if="authError.type === 'password'"
+                class="form-text text-danger"
         >{{ authError.text }}</small
-      >
-      <a href="#" class="d-block mt-2 mb-3">Забыли пароль?</a>
-      <div class="row">
-        <div class="col">
-          <button :class="signInButtonClass" @click="signInLocal">Войти</button>
+        >
+        <a href="#" class="d-block mt-2 mb-3">Забыли пароль?</a>
+        <div class="row">
+          <div class="col">
+            <button :class="signInButtonClass" @click="signInLocal">Войти</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-outline-primary btn-block">Отмена</button>
+          </div>
         </div>
-        <div class="col">
-          <button class="btn btn-outline-primary btn-block">Отмена</button>
-        </div>
-      </div>
-      <hr />
-      <p class="mb-3">Авторизоваться через портал государственных услуг</p>
-      <button class="btn btn-primary btn-block">
-        <img
-          src="../assets/gu_icon.svg"
-          style="height: 1.5rem; padding: 0.125rem"
-          class="mr-2"
-          alt=""
-        />Войти с помощью ЕСИА
-      </button>
+        <hr />
+        <p class="mb-3">Авторизоваться через портал государственных услуг</p>
+        <button class="btn btn-primary btn-block">
+          <img
+                  src="../assets/gu_icon.svg"
+                  style="height: 1.5rem; padding: 0.125rem"
+                  class="mr-2"
+                  alt=""
+          />Войти с помощью ЕСИА
+        </button>
+      </template>
+      <template v-else-if="user.fullInfo.roles.length > 0">
+        <button v-for="role in user.fullInfo.roles"
+                :key="role.id"
+                class="btn btn-outline-primary btn-block"
+                @click=signInWithRole(role.label)
+        >
+          {{role.label}}
+        </button>
+      </template>
     </b-modal>
   </b-sidebar>
 </template>
@@ -162,6 +172,11 @@ export default {
         type: "",
         text: "",
       },
+      user: {
+        roleLabel: "Гость",
+        shortInfo: {},
+        fullInfo: {},
+      }
     };
   },
 
@@ -179,17 +194,9 @@ export default {
 
   methods: {
     getHeaderNav() {
-      const xhr = new XMLHttpRequest();
-      const url =
-        // "https://open-newtemplate.isands.ru/open-core/api/site-data/get-header";
-        "http://192.168.18.171:8080/api/site-data/get-header";
-      // "https://open-demo.isands.ru/api/site-data/get-header";
-      xhr.open("GET", url);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        this.navItems = xhr.response;
-      };
-      xhr.send();
+      axios(this.url + "site-data/get-header").then( response => {
+        this.navItems = response.data
+      });
     },
 
     signInLocal() {
@@ -202,6 +209,8 @@ export default {
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
+            this.getUserId();
+            this.getUserInfo();
             this.isAuthUser = true;
           }
         })
@@ -218,6 +227,31 @@ export default {
         });
     },
 
+    signInWithRole(roleLabel) {
+      this.$refs['modal-auth'].hide();
+      this.user.roleLabel = roleLabel;
+      this.login = "";
+      this.password = "";
+      this.authError.type = "";
+      this.authError.text = "";
+    },
+
+    getUserId() {
+      axios (this.url + "auth/get-user")
+              .then((response) => {
+                console.log(response);
+                this.user.shortInfo = response.data
+              })
+    },
+
+    getUserInfo() {
+      axios (this.url + "core/get-user")
+              .then((response) => {
+                console.log(response);
+                this.user.fullInfo = response.data
+              })
+    },
+
     signOutLocal() {
       axios
         .post(this.url + "auth/local-logout", "")
@@ -225,6 +259,9 @@ export default {
           console.log(response);
           if (response.status === 200) {
             this.isAuthUser = false;
+            this.user.roleLabel = "Гость";
+            this.user.shortInfo = {};
+            this.user.fullInfo = {};
           }
         })
         .catch((error) => {
