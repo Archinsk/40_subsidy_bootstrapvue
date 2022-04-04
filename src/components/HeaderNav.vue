@@ -30,6 +30,8 @@
         </b-nav-item>
         <b-button v-b-modal.auth :variant="theme">Вход</b-button>
         <b-button :variant="theme" @click="signOutLocal">Выход</b-button>
+        <a :href="esiaLink" class="btn btn-primary">Вход ЕСИА</a>
+        <a :href="esiaLogoutLink" class="btn btn-primary">Выход ЕСИА</a>
         <div class="my-auto">{{user.roleLabel}}</div>
         <!--        <b-nav-item v-if="isAdmin" to="/siteAdmin">-->
         <!--          <span class="material-icons">settings</span>-->
@@ -176,7 +178,9 @@ export default {
         roleLabel: "Гость",
         shortInfo: {},
         fullInfo: {},
-      }
+      },
+      esiaLink: "",
+      esiaLogoutLink: "",
     };
   },
 
@@ -268,9 +272,44 @@ export default {
           console.log(error);
         });
     },
+
+    getLogin() {
+      axios (this.url + "auth/get-login")
+              .then((response) => {
+                this.esiaLink = response.data.url;
+              })
+    },
+
+    getLogout() {
+      axios (this.url + "auth/get-logout")
+              .then((response) => {
+                this.esiaLogoutLink = response.data.url;
+              })
+    },
+
+    goToEsia() {
+      console.log("esiaLoginLink");
+      console.log(this.esiaLink);
+      axios (this.esiaLink)
+              .then((response) => {
+                console.log(response);
+              })
+    },
+
+    goOutEsia() {
+      console.log("esiaLogoutLink");
+      console.log(this.esiaLogoutLink);
+      axios (this.esiaLogoutLink)
+              .then((response) => {
+                console.log(response);
+              })
+    },
   },
+
   mounted: function () {
     // this.getHeaderNav();
+    this.getLogin();
+    this.getLogout();
   },
 };
 </script>
