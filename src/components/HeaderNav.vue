@@ -28,11 +28,12 @@
         <b-nav-item to="/account_info" active-class="active">
           Личный кабинет
         </b-nav-item>
-        <b-button v-b-modal.auth :variant="theme">Вход</b-button>
-        <b-button :variant="theme" @click="signOutLocal">Выход</b-button>
-        <a :href="esiaLink" class="btn btn-primary">Вход ЕСИА</a>
-        <a :href="esiaLogoutLink" class="btn btn-primary">Выход ЕСИА</a>
-        <div class="my-auto">{{user.roleLabel}}</div>
+        <b-button v-if="!isAuthUser" v-b-modal.auth :variant="theme"
+          >Вход</b-button
+        >
+        <b-button v-else :variant="theme" @click="signOut">Выход</b-button>
+        <!--        <div class="my-auto">{{ user.roleLabel }}</div>-->
+        <!--        <div class="my-auto">{{ authType }}</div>-->
         <!--        <b-nav-item v-if="isAdmin" to="/siteAdmin">-->
         <!--          <span class="material-icons">settings</span>-->
         <!--        </b-nav-item>-->
@@ -66,63 +67,72 @@
       </b-navbar-nav>
     </b-collapse>
 
-    <b-modal id="auth" ref="modal-auth" title="Авторизация" size="sm" hide-footer no-stacking>
+    <b-modal
+      id="auth"
+      ref="modal-auth"
+      title="Авторизация"
+      size="sm"
+      hide-footer
+      no-stacking
+    >
       <template v-if="!isAuthUser">
         <div id="logAuth" class="form-label-group mb-0">
           <input
-                  v-model.trim="login"
-                  type="text"
-                  id="inputLogin"
-                  class="form-control error"
-                  placeholder="Login"
-                  name="userLogin"
-                  value=""
-                  required=""
+            v-model.trim="login"
+            type="text"
+            id="inputLogin"
+            class="form-control error"
+            placeholder="Login"
+            name="userLogin"
+            value=""
+            required=""
           />
           <label for="inputLogin" id="inputLoginLabel">Введите логин</label>
         </div>
         <small
-                v-if="authError.type === 'login'"
-                class="form-text text-danger"
-        >{{ authError.text }}</small
+          v-if="authError.type === 'login'"
+          class="form-text text-danger"
+          >{{ authError.text }}</small
         >
         <div class="form-label-group mt-3 mb-0 position-relative" id="pasAuth">
           <input
-                  v-model.trim="password"
-                  :type="passwordVisibility ? 'text' : 'password'"
-                  id="inputPassword"
-                  class="form-control"
-                  placeholder="Password"
-                  name="userPassword"
-                  value=""
-                  required=""
+            v-model.trim="password"
+            :type="passwordVisibility ? 'text' : 'password'"
+            id="inputPassword"
+            class="form-control"
+            placeholder="Password"
+            name="userPassword"
+            value=""
+            required=""
           />
           <label for="inputPassword" id="inputPasswordLabel">Пароль</label>
           <button
-                  type="button"
-                  class="btn position-absolute"
-                  style="
-            top: 0.375rem;
-            right: 0.375rem;
-            padding-left: 0.375rem;
-            padding-right: 0.375rem;
-          "
-                  @click="passwordVisibility = !passwordVisibility"
+            type="button"
+            class="btn position-absolute"
+            style="
+              top: 0.375rem;
+              right: 0.375rem;
+              padding-left: 0.375rem;
+              padding-right: 0.375rem;
+            "
+            @click="passwordVisibility = !passwordVisibility"
           >
-          <span class="material-icons">
-            {{ passwordVisibility ? "visibility_off" : "visibility" }}
-          </span>
+            <span class="material-icons">
+              {{ passwordVisibility ? "visibility_off" : "visibility" }}
+            </span>
           </button>
         </div>
         <small
-                v-if="authError.type === 'password'"
-                class="form-text text-danger"
-        >{{ authError.text }}</small
+          v-if="authError.type === 'password'"
+          class="form-text text-danger"
+          >{{ authError.text }}</small
         >
         <a href="#" class="d-block mt-2 mb-3">Забыли пароль?</a>
         <div class="row">
           <div class="col">
-            <button :class="signInButtonClass" @click="signInLocal">Войти</button>
+            <button :class="signInButtonClass" @click="signInLocal">
+              Войти
+            </button>
           </div>
           <div class="col">
             <button class="btn btn-outline-primary btn-block">Отмена</button>
@@ -130,22 +140,23 @@
         </div>
         <hr />
         <p class="mb-3">Авторизоваться через портал государственных услуг</p>
-        <button class="btn btn-primary btn-block">
+        <button class="btn btn-primary btn-block" @click="getLogin">
           <img
-                  src="../assets/gu_icon.svg"
-                  style="height: 1.5rem; padding: 0.125rem"
-                  class="mr-2"
-                  alt=""
+            src="../assets/gu_icon.svg"
+            style="height: 1.5rem; padding: 0.125rem"
+            class="mr-2"
+            alt=""
           />Войти с помощью ЕСИА
         </button>
       </template>
       <template v-else-if="user.fullInfo.roles.length > 0">
-        <button v-for="role in user.fullInfo.roles"
-                :key="role.id"
-                class="btn btn-outline-primary btn-block"
-                @click=signInWithRole(role.label)
+        <button
+          v-for="role in user.fullInfo.roles"
+          :key="role.id"
+          class="btn btn-outline-primary btn-block"
+          @click="signInWithRole(role.label)"
         >
-          {{role.label}}
+          {{ role.label }}
         </button>
       </template>
     </b-modal>
@@ -170,14 +181,18 @@ export default {
       login: "",
       password: "",
       isAuthUser: false,
+      authType: "",
       authError: {
         type: "",
         text: "",
       },
+      isFirstLoad: true,
       user: {
         roleLabel: "Гость",
         shortInfo: {},
-        fullInfo: {},
+        fullInfo: {
+          roles: [],
+        },
       },
       esiaLink: "",
       esiaLogoutLink: "",
@@ -198,8 +213,8 @@ export default {
 
   methods: {
     getHeaderNav() {
-      axios(this.url + "site-data/get-header").then( response => {
-        this.navItems = response.data
+      axios(this.url + "site-data/get-header").then((response) => {
+        this.navItems = response.data;
       });
     },
 
@@ -209,14 +224,17 @@ export default {
         password: this.password,
       };
       axios
-        .post(this.url + "auth/local-login", request, {headers: {"accept": "*/*", "Content-Type": "application/json"}})
+        .post(this.url + "auth/local-login", request, {
+          headers: { accept: "*/*", "Content-Type": "application/json" },
+        })
         .then((response) => {
           console.log(response);
-          if (response.status === 200) {
-            this.getUserId();
-            this.getUserInfo();
-            this.isAuthUser = true;
-          }
+          // if (response.status === 200) {
+          this.getUserId();
+          this.getUserInfo();
+          this.authType = "local";
+          this.isAuthUser = true;
+          // }
         })
         .catch((error) => {
           if (error.toJSON().status === 401) {
@@ -232,7 +250,7 @@ export default {
     },
 
     signInWithRole(roleLabel) {
-      this.$refs['modal-auth'].hide();
+      this.$refs["modal-auth"].hide();
       this.user.roleLabel = roleLabel;
       this.login = "";
       this.password = "";
@@ -241,19 +259,26 @@ export default {
     },
 
     getUserId() {
-      axios (this.url + "auth/get-user")
-              .then((response) => {
-                console.log(response);
-                this.user.shortInfo = response.data
-              })
+      axios(this.url + "auth/get-user").then((response) => {
+        console.log(response);
+        this.user.shortInfo = response.data;
+      });
     },
 
     getUserInfo() {
-      axios (this.url + "core/get-user")
-              .then((response) => {
-                console.log(response);
-                this.user.fullInfo = response.data
-              })
+      axios(this.url + "core/get-user").then((response) => {
+        console.log(response);
+        this.user.fullInfo = response.data;
+      });
+    },
+
+    signOut() {
+      if (this.authType === "local") {
+        this.signOutLocal();
+      }
+      if (this.authType === "esia") {
+        this.getLogout();
+      }
     },
 
     signOutLocal() {
@@ -274,42 +299,56 @@ export default {
     },
 
     getLogin() {
-      axios (this.url + "auth/get-login")
-              .then((response) => {
-                this.esiaLink = response.data.url;
-              })
+      axios(this.url + "auth/get-login")
+        .then((response) => {
+          if (this.isFirstLoad) {
+            this.isFirstLoad = false;
+          } else {
+            console.log(response);
+            location.href = response.data.url;
+            // this.esiaLink = response.data.url;
+          }
+        })
+        .catch((error) => {
+          console.log("Ошибка входа есиа");
+          console.log(error);
+          this.authType = "esia";
+          this.isAuthUser = true;
+        });
     },
 
     getLogout() {
-      axios (this.url + "auth/get-logout")
-              .then((response) => {
-                this.esiaLogoutLink = response.data.url;
-              })
+      axios(this.url + "auth/get-logout")
+        .then((response) => {
+          console.log(response);
+          location.href = response.data.url;
+          // this.esiaLogoutLink = response.data.url;
+        })
+        .catch((error) => {
+          console.log("Ошибка выхода есиа");
+          console.log(error);
+        });
     },
 
     goToEsia() {
       console.log("esiaLoginLink");
       console.log(this.esiaLink);
-      axios (this.esiaLink)
-              .then((response) => {
-                console.log(response);
-              })
+      axios(this.esiaLink).then((response) => {
+        console.log(response);
+      });
     },
 
     goOutEsia() {
       console.log("esiaLogoutLink");
       console.log(this.esiaLogoutLink);
-      axios (this.esiaLogoutLink)
-              .then((response) => {
-                console.log(response);
-              })
+      axios(this.esiaLogoutLink).then((response) => {
+        console.log(response);
+      });
     },
   },
 
   mounted: function () {
-    // this.getHeaderNav();
     this.getLogin();
-    this.getLogout();
   },
 };
 </script>
