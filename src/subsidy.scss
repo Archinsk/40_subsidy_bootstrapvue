@@ -1,104 +1,107 @@
-  $main-hue: 225;
-  $main-saturation: 80%;
-  $main-lightness: 55%;
+$main-hue: 225;
+$main-saturation: 80%;
+$main-lightness: 55%;
 
-  // Define variable defaults
+// Define variable defaults
 //$primary: #325de9;
-  $primary: hsl($main-hue, $main-saturation, $main-lightness);
+$primary: hsl($main-hue, $main-saturation, $main-lightness);
 
 // Then import Bootstrap an BootstrapVue SCSS files (order is important)
 //@import "node_modules/bootstrap/scss/bootstrap.scss";
 
-  @import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/functions";
 
-  $custom-themes: (
-          "royal": #325de9,
-          "frosty": #32bbe9,
-          "turquoise": #32e9bb,
-          "malachite": #32e960,
-          "lime": #60e932,
-          "pear": #bbe932,
-          "sunrise": #e9be32,
-          "carrot": #e96332,
-          "cherry": #e9325d,
-          "fuchsia": #e932b8,
-          "orchid": #be32e9,
-          "violet": #6332e9,
-  );
+$custom-themes: (
+  "royal": #325de9,
+  "frosty": #32bbe9,
+  "turquoise": #32e9bb,
+  "malachite": #32e960,
+  "lime": #60e932,
+  "pear": #bbe932,
+  "sunrise": #e9be32,
+  "carrot": #e96332,
+  "cherry": #e9325d,
+  "fuchsia": #e932b8,
+  "orchid": #be32e9,
+  "violet": #6332e9,
+);
 
-  @import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables";
 
-  // Merge the maps
-  $theme-colors: map-merge($theme-colors, $custom-themes);
-  //$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
-  //$utilities-colors: $theme-colors-rgb;
-  //
-  //$utilities-text: map-merge(
-  //                $utilities-colors,
-  //                (
-  //                        "black": to-rgb($black),
-  //                        "white": to-rgb($white),
-  //                        "body": to-rgb($body-color),
-  //                )
-  //);
-  //$utilities-text-colors: map-loop(
-  //                $utilities-text,
-  //                rgba-css-var,
-  //                "$key",
-  //                "text"
-  //);
-  //$utilities-bg: map-merge(
-  //                $utilities-colors,
-  //                (
-  //                        "black": to-rgb($black),
-  //                        "white": to-rgb($white),
-  //                        "body": to-rgb($body-bg),
-  //                )
-  //);
-  //$utilities-bg-colors: map-loop(
-  //                $utilities-bg,
-  //                rgba-css-var,
-  //                "$key",
-  //                "bg"
-  //);
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $custom-themes);
+//$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+//$utilities-colors: $theme-colors-rgb;
+//
+//$utilities-text: map-merge(
+//                $utilities-colors,
+//                (
+//                        "black": to-rgb($black),
+//                        "white": to-rgb($white),
+//                        "body": to-rgb($body-color),
+//                )
+//);
+//$utilities-text-colors: map-loop(
+//                $utilities-text,
+//                rgba-css-var,
+//                "$key",
+//                "text"
+//);
+//$utilities-bg: map-merge(
+//                $utilities-colors,
+//                (
+//                        "black": to-rgb($black),
+//                        "white": to-rgb($white),
+//                        "body": to-rgb($body-bg),
+//                )
+//);
+//$utilities-bg-colors: map-loop(
+//                $utilities-bg,
+//                rgba-css-var,
+//                "$key",
+//                "bg"
+//);
 
-  @import "../node_modules/bootstrap/scss/mixins";
-  @import "../node_modules/bootstrap/scss/root";
-  @import "../node_modules/bootstrap/scss/reboot";
-  @import "../node_modules/bootstrap/scss/type";
-  @import "../node_modules/bootstrap/scss/images";
-  @import "../node_modules/bootstrap/scss/code";
-  @import "../node_modules/bootstrap/scss/grid";
-  @import "../node_modules/bootstrap/scss/tables";
-  @import "../node_modules/bootstrap/scss/forms";
-  @import "../node_modules/bootstrap/scss/buttons";
-  @import "../node_modules/bootstrap/scss/transitions";
-  @import "../node_modules/bootstrap/scss/dropdown";
-  @import "../node_modules/bootstrap/scss/button-group";
-  @import "../node_modules/bootstrap/scss/input-group";
-  @import "../node_modules/bootstrap/scss/custom-forms";
-  @import "../node_modules/bootstrap/scss/nav";
-  @import "../node_modules/bootstrap/scss/navbar";
-  @import "../node_modules/bootstrap/scss/card";
-  @import "../node_modules/bootstrap/scss/breadcrumb";
-  @import "../node_modules/bootstrap/scss/pagination";
-  @import "../node_modules/bootstrap/scss/badge";
-  @import "../node_modules/bootstrap/scss/jumbotron";
-  @import "../node_modules/bootstrap/scss/alert";
-  @import "../node_modules/bootstrap/scss/progress";
-  @import "../node_modules/bootstrap/scss/media";
-  @import "../node_modules/bootstrap/scss/list-group";
-  @import "../node_modules/bootstrap/scss/close";
-  @import "../node_modules/bootstrap/scss/toasts";
-  @import "../node_modules/bootstrap/scss/modal";
-  @import "../node_modules/bootstrap/scss/tooltip";
-  @import "../node_modules/bootstrap/scss/popover";
-  @import "../node_modules/bootstrap/scss/carousel";
-  @import "../node_modules/bootstrap/scss/spinners";
-  @import "../node_modules/bootstrap/scss/utilities";
-  @import "../node_modules/bootstrap/scss/print";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+@import "../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/type";
+@import "../node_modules/bootstrap/scss/images";
+@import "../node_modules/bootstrap/scss/code";
+@import "../node_modules/bootstrap/scss/grid";
+@import "../node_modules/bootstrap/scss/tables";
+@import "../node_modules/bootstrap/scss/forms";
+@import "../node_modules/bootstrap/scss/buttons";
+@import "../node_modules/bootstrap/scss/transitions";
+@import "../node_modules/bootstrap/scss/dropdown";
+@import "../node_modules/bootstrap/scss/button-group";
+@import "../node_modules/bootstrap/scss/input-group";
+@import "../node_modules/bootstrap/scss/custom-forms";
+@import "../node_modules/bootstrap/scss/nav";
+@import "../node_modules/bootstrap/scss/navbar";
+@import "../node_modules/bootstrap/scss/card";
+@import "../node_modules/bootstrap/scss/breadcrumb";
+@import "../node_modules/bootstrap/scss/pagination";
+@import "../node_modules/bootstrap/scss/badge";
+@import "../node_modules/bootstrap/scss/jumbotron";
+@import "../node_modules/bootstrap/scss/alert";
+@import "../node_modules/bootstrap/scss/progress";
+@import "../node_modules/bootstrap/scss/media";
+@import "../node_modules/bootstrap/scss/list-group";
+@import "../node_modules/bootstrap/scss/close";
+@import "../node_modules/bootstrap/scss/toasts";
+@import "../node_modules/bootstrap/scss/modal";
+@import "../node_modules/bootstrap/scss/tooltip";
+@import "../node_modules/bootstrap/scss/popover";
+@import "../node_modules/bootstrap/scss/carousel";
+@import "../node_modules/bootstrap/scss/spinners";
+@import "../node_modules/bootstrap/scss/utilities";
+@import "../node_modules/bootstrap/scss/print";
 
 @import "node_modules/bootstrap-vue/src/index.scss";
+
+//@import "../node_modules/@clayui/css/lib/css/atlas.css";
+//@import "../node_modules/@clayui/css/src/scss/atlas.scss";
 
 body {
   $gap: 1rem;
@@ -109,14 +112,22 @@ body {
   $text-color: #212529;
   $muted-color: #6c757d;
   //$back-color: #6688cc;
-  $back-color: hsl(calc(#{$main-hue} - 5), calc(#{$main-saturation} - 30%), calc(#{$main-lightness} + 5%));
+  $back-color: hsl(
+    calc(#{$main-hue} - 5),
+    calc(#{$main-saturation} - 30%),
+    calc(#{$main-lightness} + 5%)
+  );
   $bot-color: #fff;
   //$message-color: #acc0e6;
-  $message-color: hsl(calc(#{$main-hue} - 5), calc(#{$main-saturation} - 25%), calc(#{$main-lightness} + 25%));
+  $message-color: hsl(
+    calc(#{$main-hue} - 5),
+    calc(#{$main-saturation} - 25%),
+    calc(#{$main-lightness} + 25%)
+  );
 
-&.theme-1 {
-  //$basic-color: var(--secondary);
-}
+  &.theme-1 {
+    //$basic-color: var(--secondary);
+  }
 
   .page-wrapper {
     min-height: 100vh;
@@ -1116,13 +1127,29 @@ body {
       padding-bottom: $gap;
       color: $passive-color;
 
+      @media (min-width: 768px) {
+        padding-top: 0;
+      }
+
       .footer-content {
+        @media (min-width: 768px) {
+          padding-top: $gap;
+          padding-bottom: $gap;
+          align-items: center;
+        }
+
         .info {
           .logo {
             display: flex;
             align-items: center;
             text-decoration: none;
             margin-bottom: $gap;
+            justify-content: center;
+
+            @media (min-width: 768px) {
+              justify-content: stretch;
+              margin-bottom: 0;
+            }
 
             .logo__image {
               height: 1.875rem;
@@ -1131,6 +1158,7 @@ body {
 
             .logo__text {
               font-size: 1rem;
+              line-height: 0.9;
               font-weight: bold;
               color: $active-color;
             }
@@ -1151,12 +1179,24 @@ body {
           list-style: none;
           margin-bottom: $gap;
 
-          a {
-            text-decoration: none;
-            color: $passive-color;
+          @media (min-width: 768px) {
+            margin-bottom: 0;
+          }
 
-            &:hover {
-              color: $active-color;
+          li {
+            text-align: center;
+
+            @media (min-width: 768px) {
+              text-align: start;
+            }
+
+            a {
+              text-decoration: none;
+              color: $passive-color;
+
+              &:hover {
+                color: $active-color;
+              }
             }
           }
         }
@@ -1165,12 +1205,24 @@ body {
           list-style: none;
           margin-bottom: $gap;
 
-          a {
-            text-decoration: none;
-            color: $passive-color;
+          @media (min-width: 768px) {
+            margin-bottom: 0;
+          }
 
-            &:hover {
-              color: $active-color;
+          li {
+            text-align: center;
+
+            @media (min-width: 768px) {
+              text-align: start;
+            }
+
+            a {
+              text-decoration: none;
+              color: $passive-color;
+
+              &:hover {
+                color: $active-color;
+              }
             }
           }
         }
@@ -1222,6 +1274,53 @@ body {
     &.btn-icon-only_square {
       padding-left: 0.375rem;
       padding-right: 0.375rem;
+    }
+  }
+
+  //Элементы ClayUI
+  .formio-component {
+    .btn-secondary {
+      background-color: #fff;
+      border-color: #cdced9;
+      color: #6b6c7e;
+    }
+    .btn-secondary:hover {
+      background-color: #f7f8f9;
+      border-color: #cdced9;
+      color: #272833;
+    }
+    .btn-secondary:focus,
+    .focus.btn-secondary {
+      background-color: #f7f8f9;
+      border-color: #cdced9;
+      color: #272833;
+    }
+    .btn-secondary:active {
+      background-color: #f1f2f5;
+      border-color: #cdced9;
+      color: #272833;
+    }
+    .active.btn-secondary {
+      background-color: #f1f2f5;
+      border-color: #cdced9;
+      color: #272833;
+    }
+    .btn-secondary:disabled,
+    .disabled.btn-secondary {
+      background-color: #fff;
+      border-color: #cdced9;
+      color: #6b6c7e;
+    }
+    [aria-expanded="true"].btn-secondary,
+    .show.btn-secondary {
+      background-color: #f1f2f5;
+      border-color: #cdced9;
+      color: #272833;
+    }
+    .form-file-input:focus + .btn-secondary {
+      background-color: #f7f8f9;
+      border-color: #cdced9;
+      color: #272833;
     }
   }
 }

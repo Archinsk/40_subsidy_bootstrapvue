@@ -1,7 +1,10 @@
 <template>
   <div class="home-page">
     <section v-show="!chatIsActive" class="slider">
-      <Slider></Slider>
+      <!--      <Slider></Slider>-->
+      <div class="container">
+        <SliderNew></SliderNew>
+      </div>
     </section>
 
     <section class="bot">
@@ -21,9 +24,9 @@
       ></ChatQuickQuestions>
     </section>
 
-    <section v-show="!chatIsActive" class="advantages">
-      <Advantages></Advantages>
-    </section>
+    <!--    <section v-show="!chatIsActive" class="advantages">-->
+    <!--      <Advantages></Advantages>-->
+    <!--    </section>-->
 
     <section v-show="!chatIsActive" class="news mb-2">
       <div class="container">
@@ -39,20 +42,22 @@
 </template>
 
 <script>
-import Slider from "@/components/Slider";
+// import Slider from "@/components/Slider";
+import SliderNew from "@/components/SliderNew";
 import Chat from "@/components/Chat";
 import ChatQuickQuestions from "@/components/ChatQuickQuestions";
-import Advantages from "@/components/Advantages";
+// import Advantages from "@/components/Advantages";
 import NewsPreviewList from "@/components/NewsPreviewList";
 
 export default {
   name: "Home",
 
   components: {
-    Slider,
+    // Slider,
+    SliderNew,
     Chat,
     ChatQuickQuestions,
-    Advantages,
+    // Advantages,
     NewsPreviewList,
   },
 

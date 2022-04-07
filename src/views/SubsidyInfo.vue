@@ -38,18 +38,22 @@
               <div class="support-size-info"></div>
             </div>
             <div class="support-buttons col">
-              <button
-                type="button"
-                :class="
-                  'btn btn-outline-' +
-                  theme +
-                  ' btn-icon-only_square measure-web-accessibility mr-2'
-                "
-                title="По данной мере поддержки есть возможность электронной подачи"
-              >
-                <span class="material-icons">laptop</span>
-              </button>
-              <b-button v-b-modal.new-app :variant="theme" @click="getStartForm"
+              <!--              <button-->
+              <!--                type="button"-->
+              <!--                :class="-->
+              <!--                  'btn btn-outline-' +-->
+              <!--                  theme +-->
+              <!--                  ' btn-icon-only_square measure-web-accessibility mr-2'-->
+              <!--                "-->
+              <!--                title="По данной мере поддержки есть возможность электронной подачи"-->
+              <!--              >-->
+              <!--                <span class="material-icons">laptop</span>-->
+              <!--              </button>-->
+              <b-button
+                v-if="user.shortInfo.userId"
+                v-b-modal.new-app
+                :variant="theme"
+                @click="getStartForm"
                 >Подать заявку</b-button
               >
             </div>
@@ -415,41 +419,41 @@
       @close="cleanAppForm"
     >
       <template v-if="isResponse">
-        <div v-if="isAlertVisible" class="alert alert-success" role="alert">
-          {{ successComment }}
-        </div>
+        <!--        <div v-if="isAlertVisible" class="alert alert-success" role="alert">-->
+        <!--          {{ successComment }}-->
+        <!--        </div>-->
         <div class="row">
           <div class="col-10">
             <Form
-                    :form="appForm.form.scheme"
-                    :submission="appForm"
-                    :options="{
-              readOnly: !appForm.active,
-            }"
-                    ref="vueForm"
+              :form="appForm.form.scheme"
+              :submission="appForm"
+              :options="{
+                readOnly: !appForm.active,
+              }"
+              ref="vueForm"
             />
           </div>
           <div
-                  v-if="appForm.form.actions && appForm.form.actions.length > 0"
-                  class="col-2"
+            v-if="appForm.form.actions && appForm.form.actions.length > 0"
+            class="col-2"
           >
             <template v-for="action of appForm.form.actions">
               <template v-if="appForm.active || action.alwaysActive">
                 <button
-                        v-if="action.backAction"
-                        :key="action.id"
-                        type="button"
-                        class="btn btn-block btn-primary"
-                        @click="invokeAction(action.id, true)"
+                  v-if="action.backAction"
+                  :key="action.id"
+                  type="button"
+                  class="btn btn-block btn-primary"
+                  @click="invokeAction(action.id, true)"
                 >
                   {{ action.name }}
                 </button>
                 <button
-                        v-else
-                        :key="action.id"
-                        type="button"
-                        class="btn btn-block btn-primary"
-                        @click="invokeAction(action.id)"
+                  v-else
+                  :key="action.id"
+                  type="button"
+                  class="btn btn-block btn-primary"
+                  @click="invokeAction(action.id)"
                 >
                   {{ action.name }}
                 </button>
@@ -484,7 +488,7 @@ export default {
     Form,
   },
 
-  props: ["theme"],
+  props: ["theme", "user"],
 
   data() {
     return {
@@ -544,21 +548,21 @@ export default {
     },
     getForm() {
       axios
-              .get(this.url + "serv/get-appData?id=" + this.$route.params.subId)
-              .then((response) => {
-                console.log("Стартовая форма");
-                console.log(response);
-                const newForm = response.data.applicationDTO;
-                newForm.data = JSON.parse(newForm.data);
-                newForm.form.scheme = JSON.parse(newForm.form.scheme);
-                this.appForm = newForm;
-              })
-              .then(() => {
-                this.isResponse = true;
-                this.isLoading = false;
-                this.isAlertVisible = true;
-                setTimeout(this.hideAlert, 3000);
-              });
+        .get(this.url + "serv/get-appData?id=" + this.$route.params.subId)
+        .then((response) => {
+          console.log("Стартовая форма");
+          console.log(response);
+          const newForm = response.data.applicationDTO;
+          newForm.data = JSON.parse(newForm.data);
+          newForm.form.scheme = JSON.parse(newForm.form.scheme);
+          this.appForm = newForm;
+        })
+        .then(() => {
+          this.isResponse = true;
+          this.isLoading = false;
+          this.isAlertVisible = true;
+          setTimeout(this.hideAlert, 3000);
+        });
     },
 
     hideAlert() {
@@ -567,7 +571,7 @@ export default {
 
     validateForm() {
       return this.$refs.vueForm.formio.checkValidity(
-              this.$refs.vueForm.formio.submission.data
+        this.$refs.vueForm.formio.submission.data
       );
     },
 
@@ -593,36 +597,36 @@ export default {
         data: JSON.stringify(this.appForm.data),
       };
       axios
-              .post(this.url + "app/action-invoke", request)
-              .then((response) => {
-                console.log("Ответ на экшн");
-                console.log(response);
-                if (response.data.responseObject) {
-                  let fileApp = JSON.parse(response.data.responseObject);
-                  console.log("Объект файла");
-                  console.log(fileApp);
-                  let link = document.createElement("a");
-                  link.setAttribute("download", fileApp.fileName);
-                  link.setAttribute(
-                          "href",
-                          "data:application/octet-stream;base64," + fileApp.fileData
-                  );
-                  link.click();
-                } else {
-                  if (isBackAction) {
-                    this.cleanAppForm();
-                  } else {
-                    this.getNextForm(response);
-                  }
-                }
-              })
-              .then(() => {
-                  this.isResponse = true;
-                  this.isLoading = false;
-                  this.isAlertVisible = true;
-                  this.isFirstLoad = true;
-                setTimeout(this.hideAlert, 3000);
-              });
+        .post(this.url + "app/action-invoke", request)
+        .then((response) => {
+          console.log("Ответ на экшн");
+          console.log(response);
+          if (response.data.responseObject) {
+            let fileApp = JSON.parse(response.data.responseObject);
+            console.log("Объект файла");
+            console.log(fileApp);
+            let link = document.createElement("a");
+            link.setAttribute("download", fileApp.fileName);
+            link.setAttribute(
+              "href",
+              "data:application/octet-stream;base64," + fileApp.fileData
+            );
+            link.click();
+          } else {
+            if (isBackAction) {
+              this.cleanAppForm();
+            } else {
+              this.getNextForm(response);
+            }
+          }
+        })
+        .then(() => {
+          this.isResponse = true;
+          this.isLoading = false;
+          this.isAlertVisible = true;
+          this.isFirstLoad = true;
+          setTimeout(this.hideAlert, 3000);
+        });
     },
 
     // Переход к следующей форме (стандартное дейтвие)
@@ -683,7 +687,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .btn {
-    word-wrap: break-word;
-  }
+.btn {
+  word-wrap: break-word;
+}
 </style>

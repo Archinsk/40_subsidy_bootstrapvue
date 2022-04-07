@@ -4,20 +4,24 @@
       <h4 class="title-primary text-center">Личный кабинет</h4>
       <section class="user-info">
         <div class="user-info__details">
-          <img :class="'user-avatar bg-' + theme + ' border border-' + theme" src="@/assets/avatar.png" alt="" />
+          <img
+            :class="'user-avatar bg-' + theme + ' border border-' + theme"
+            src="@/assets/avatar.png"
+            alt=""
+          />
           <div class="user-text">
-            <div class="user-text__name">Сергеев Иван Петрович</div>
-            <div class="user-text__snils">СНИЛС: 073-976-837 25</div>
+            <div class="user-text__name">{{ userFullName ? userFullName : "ФИО не указаны"}}</div>
+            <div class="user-text__snils">{{ user.fullInfo.userData && user.fullInfo.userData.snils ? "СНИЛС: " + user.fullInfo.userData.snils : "СНИЛС не указан" }}</div>
           </div>
         </div>
-        <button
-          type="button"
-          :class="'user-info__edit-btn btn btn-outline-' + theme"
-          data-toggle="modal"
-          href="#profileEdit"
-        >
-          Редактировать
-        </button>
+        <!--        <button-->
+        <!--          type="button"-->
+        <!--          :class="'user-info__edit-btn btn btn-outline-' + theme"-->
+        <!--          data-toggle="modal"-->
+        <!--          href="#profileEdit"-->
+        <!--        >-->
+        <!--          Редактировать-->
+        <!--        </button>-->
       </section>
 
       <b-tabs>
@@ -26,132 +30,132 @@
           <section>
             <h5 class="secondary-title">Основная информация</h5>
             <div>
-              <div class="term">
-                <div class="term-title">
-                  Обо мне:
-                  <span class="dotted-line"></span>
-                </div>
-                <div>Биография. Дополнительная информация</div>
-              </div>
+              <!--              <div class="term">-->
+              <!--                <div class="term-title">-->
+              <!--                  Обо мне:-->
+              <!--                  <span class="dotted-line"></span>-->
+              <!--                </div>-->
+              <!--                <div>Биография. Дополнительная информация</div>-->
+              <!--              </div>-->
               <div class="term">
                 <div class="term-title">
                   Телефон:
                   <span class="dotted-line"></span>
                 </div>
-                <div>8-903-903-9039</div>
+                <div>не указан</div>
               </div>
               <div class="term">
                 <div class="term-title">
                   E-mail:
                   <span class="dotted-line"></span>
                 </div>
-                <div>sergeev@yandex.ru</div>
+                <div>{{ user.fullInfo.contacts && user.fullInfo.contacts[0].value ? user.fullInfo.contacts[0].value : "не указан" }}</div>
               </div>
-              <div class="term">
-                <div class="term-title">
-                  Соцсети:
-                  <span class="dotted-line"></span>
-                </div>
-                <div>vk.ru, ok.ru</div>
-              </div>
+              <!--              <div class="term">-->
+              <!--                <div class="term-title">-->
+              <!--                  Соцсети:-->
+              <!--                  <span class="dotted-line"></span>-->
+              <!--                </div>-->
+              <!--                <div>vk.ru, ok.ru</div>-->
+              <!--              </div>-->
             </div>
           </section>
-          <section class="user__competencies">
-            <h5 class="secondary-title">Компетенции</h5>
-            <div>
-              <span :class="'badge badge-' + theme + ' mr-2'"
-                >Информационные технологии</span
-              >
-              <span :class="'badge badge-' + theme + ' mr-2'">Инженерия</span>
-              <span :class="'badge badge-' + theme + ' mr-2'">Архитектура</span>
-              <button :class="'btn btn-outline-' + theme">+ Добавить</button>
-            </div>
-          </section>
-          <section class="experience">
-            <h5 class="secondary-title">Опыт работы</h5>
-            <div>
-              <div class="term">
-                <div class="term-title">
-                  Компания:
-                  <span class="dotted-line"></span>
-                </div>
-                <div>Информационные системы и сервисы</div>
-              </div>
-              <div class="term">
-                <div class="term-title">
-                  Должность:
-                  <span class="dotted-line"></span>
-                </div>
-                <div>Аналитик</div>
-              </div>
-              <div class="term">
-                <div class="term-title">
-                  Дата начала:
-                  <span class="dotted-line"></span>
-                </div>
-                <div>14.02.2018</div>
-              </div>
-              <div class="term">
-                <div class="term-title">
-                  Дата окончания:
-                  <span class="dotted__line"></span>
-                </div>
-                <div>14.02.2022</div>
-              </div>
-              <div class="term">
-                <div class="term-title">
-                  Описание:
-                  <span class="dotted-line"></span>
-                </div>
-                <div>
-                  Общение с заказчиком. Подготовка технических документов
-                </div>
-              </div>
-            </div>
-          </section>
-          <section class="education">
-            <h5 class="secondary-title">Образование</h5>
-            <div>
-              <div class="term">
-                <div class="term-title">
-                  Учебное заведение:
-                  <span class="dotted-line"></span>
-                </div>
-                <div>НГАХА</div>
-              </div>
-              <div class="term">
-                <div class="term-title">
-                  Специальность:
-                  <span class="dotted-line"></span>
-                </div>
-                <div>Архитектор</div>
-              </div>
-              <div class="term">
-                <div class="term-title">
-                  Степень:
-                  <span class="dotted-line"></span>
-                </div>
-                <div>Специалитет</div>
-              </div>
-              <div class="term">
-                <div class="term-title">
-                  Год начала:
-                  <span class="dotted-line"></span>
-                </div>
-                <div>1997</div>
-              </div>
-              <div class="term">
-                <div class="term-title">
-                  Год окончания:
-                  <span class="dotted-line"></span>
-                </div>
-                <div>2003</div>
-              </div>
-            </div>
-          </section>
+          <!--          <section class="user__competencies">-->
+          <!--            <h5 class="secondary-title">Компетенции</h5>-->
+          <!--            <div>-->
+          <!--              <span :class="'badge badge-' + theme + ' mr-2'"-->
+          <!--                >Информационные технологии</span-->
+          <!--              >-->
+          <!--              <span :class="'badge badge-' + theme + ' mr-2'">Инженерия</span>-->
+          <!--              <span :class="'badge badge-' + theme + ' mr-2'">Архитектура</span>-->
+          <!--              <button :class="'btn btn-outline-' + theme">+ Добавить</button>-->
+          <!--            </div>-->
+          <!--          </section>-->
+          <!--          <section class="experience">-->
+          <!--            <h5 class="secondary-title">Опыт работы</h5>-->
+          <!--            <div>-->
+          <!--              <div class="term">-->
+          <!--                <div class="term-title">-->
+          <!--                  Компания:-->
+          <!--                  <span class="dotted-line"></span>-->
+          <!--                </div>-->
+          <!--                <div>Информационные системы и сервисы</div>-->
+          <!--              </div>-->
+          <!--              <div class="term">-->
+          <!--                <div class="term-title">-->
+          <!--                  Должность:-->
+          <!--                  <span class="dotted-line"></span>-->
+          <!--                </div>-->
+          <!--                <div>Аналитик</div>-->
+          <!--              </div>-->
+          <!--              <div class="term">-->
+          <!--                <div class="term-title">-->
+          <!--                  Дата начала:-->
+          <!--                  <span class="dotted-line"></span>-->
+          <!--                </div>-->
+          <!--                <div>14.02.2018</div>-->
+          <!--              </div>-->
+          <!--              <div class="term">-->
+          <!--                <div class="term-title">-->
+          <!--                  Дата окончания:-->
+          <!--                  <span class="dotted__line"></span>-->
+          <!--                </div>-->
+          <!--                <div>14.02.2022</div>-->
+          <!--              </div>-->
+          <!--              <div class="term">-->
+          <!--                <div class="term-title">-->
+          <!--                  Описание:-->
+          <!--                  <span class="dotted-line"></span>-->
+          <!--                </div>-->
+          <!--                <div>-->
+          <!--                  Общение с заказчиком. Подготовка технических документов-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </section>-->
+          <!--          <section class="education">-->
+          <!--            <h5 class="secondary-title">Образование</h5>-->
+          <!--            <div>-->
+          <!--              <div class="term">-->
+          <!--                <div class="term-title">-->
+          <!--                  Учебное заведение:-->
+          <!--                  <span class="dotted-line"></span>-->
+          <!--                </div>-->
+          <!--                <div>НГАХА</div>-->
+          <!--              </div>-->
+          <!--              <div class="term">-->
+          <!--                <div class="term-title">-->
+          <!--                  Специальность:-->
+          <!--                  <span class="dotted-line"></span>-->
+          <!--                </div>-->
+          <!--                <div>Архитектор</div>-->
+          <!--              </div>-->
+          <!--              <div class="term">-->
+          <!--                <div class="term-title">-->
+          <!--                  Степень:-->
+          <!--                  <span class="dotted-line"></span>-->
+          <!--                </div>-->
+          <!--                <div>Специалитет</div>-->
+          <!--              </div>-->
+          <!--              <div class="term">-->
+          <!--                <div class="term-title">-->
+          <!--                  Год начала:-->
+          <!--                  <span class="dotted-line"></span>-->
+          <!--                </div>-->
+          <!--                <div>1997</div>-->
+          <!--              </div>-->
+          <!--              <div class="term">-->
+          <!--                <div class="term-title">-->
+          <!--                  Год окончания:-->
+          <!--                  <span class="dotted-line"></span>-->
+          <!--                </div>-->
+          <!--                <div>2003</div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </section>-->
         </b-tab>
         <b-tab title="Заявления">
-          <Applications :theme="theme"/>
+          <Applications :theme="theme" />
         </b-tab>
       </b-tabs>
     </article>
@@ -168,7 +172,7 @@ export default {
     Applications,
   },
 
-  props: ["theme"],
+  props: ["theme", "user"],
 
   data() {
     return {
@@ -176,6 +180,22 @@ export default {
       page: 1,
       pageSize: 10,
     };
+  },
+
+  computed: {
+    userFullName: function () {
+      let fullName = "";
+      if (this.user.fullInfo.userData && this.user.fullInfo.userData.lastName) {
+        fullName += this.user.fullInfo.userData.lastName;
+      }
+      if (this.user.fullInfo.userData && this.user.fullInfo.userData.firstName) {
+        fullName += " " + this.user.fullInfo.userData.firstName;
+      }
+      if (this.user.fullInfo.userData && this.user.fullInfo.userData.middleName) {
+        fullName += " " + this.user.fullInfo.userData.middleName;
+      }
+      return fullName;
+    },
   },
 
   methods: {
@@ -230,6 +250,7 @@ export default {
     };
     xhr.send();
   },
+
   mounted: function () {
     console.log("Смонтировано");
     const xhr = new XMLHttpRequest();

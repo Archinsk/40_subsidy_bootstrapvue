@@ -11,7 +11,7 @@
           Информационные системы и сервисы
         </b-navbar-brand>
 
-        <HeaderNav user-type="admin" :theme="theme"></HeaderNav>
+        <HeaderNav user-type="admin" :theme="theme" @assign-user="$emit('assign-user', $event)"></HeaderNav>
 
         <b-button :variant="theme" class="d-lg-none btn-icon-only_square" v-b-toggle.sidebar>
           <span class="material-icons">menu</span>

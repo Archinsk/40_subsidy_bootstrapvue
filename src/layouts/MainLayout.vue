@@ -1,10 +1,10 @@
 <template>
   <div class="page-wrapper">
-    <Header :theme="theme"/>
+    <Header :theme="theme" @assign-user="$emit('assign-user', $event)" />
     <main class="content">
-      <router-view :theme="theme"/>
+      <router-view :theme="theme" :user="user"/>
     </main>
-    <Footer :theme="theme"/>
+    <Footer :theme="theme" />
   </div>
 </template>
 
@@ -18,8 +18,6 @@ export default {
     Header,
     Footer,
   },
-  props: [
-          "theme"
-  ]
+  props: ["theme", "user"],
 };
 </script>

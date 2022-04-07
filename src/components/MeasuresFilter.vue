@@ -22,18 +22,18 @@
       </div>
     </div>
 
-    <div
-      :class="'btn btn-outline-' + theme + ' col-12'"
-      @click="$emit('select-esia')"
-    >
-      Подобрать с учетом ЕСИА
-    </div>
-    <div
-      :class="'btn btn-outline-' + theme + ' col-12'"
-      @click="$emit('chat-activation')"
-    >
-      Подобрать с помощью чат-бота
-    </div>
+    <!--    <div-->
+    <!--      :class="'btn btn-outline-' + theme + ' col-12'"-->
+    <!--      @click="$emit('select-esia')"-->
+    <!--    >-->
+    <!--      Подобрать с учетом ЕСИА-->
+    <!--    </div>-->
+    <!--    <div-->
+    <!--      :class="'btn btn-outline-' + theme + ' col-12'"-->
+    <!--      @click="$emit('chat-activation')"-->
+    <!--    >-->
+    <!--      Подобрать с помощью чат-бота-->
+    <!--    </div>-->
 
     <MeasuresFilterCheckboxesGroup
       title="Теги:"
@@ -45,7 +45,10 @@
 
     <div class="row filter-actions">
       <div class="col">
-        <div :class="'btn btn-' + theme + ' btn-block'" @click="$emit('filter')">
+        <div
+          :class="'btn btn-' + theme + ' btn-block'"
+          @click="$emit('filter')"
+        >
           Применить
         </div>
       </div>

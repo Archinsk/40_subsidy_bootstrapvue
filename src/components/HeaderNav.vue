@@ -25,13 +25,17 @@
         <!--        <b-nav-item v-if="!isAuth" to="/authPage" active-class="active">-->
         <!--          Войти-->
         <!--        </b-nav-item>-->
-        <b-nav-item to="/account_info" active-class="active">
+        <b-nav-item v-if="isAuthUser" to="/account_info" active-class="active">
           Личный кабинет
         </b-nav-item>
-        <b-button v-if="!isAuthUser" v-b-modal.auth :variant="theme"
-          >Вход</b-button
-        >
-        <b-button v-else :variant="theme" @click="signOut">Выход</b-button>
+        <b-nav-item v-if="!isAuthUser" v-b-modal.auth class="active">
+          Вход
+        </b-nav-item>
+        <b-nav-item v-else class="active" @click="signOut"> Выход </b-nav-item>
+        <!--        <b-button v-if="!isAuthUser" v-b-modal.auth :variant="theme"-->
+        <!--          >Вход</b-button-->
+        <!--        >-->
+        <!--        <b-button v-else :variant="theme" @click="signOut">Выход</b-button>-->
         <!--        <div class="my-auto">{{ user.roleLabel }}</div>-->
         <!--        <div class="my-auto">{{ authType }}</div>-->
         <!--        <b-nav-item v-if="isAdmin" to="/siteAdmin">-->
@@ -191,6 +195,11 @@ export default {
         roleLabel: "Гость",
         shortInfo: {},
         fullInfo: {
+          userData: {
+            // firstName: "ИМЯ",
+            // middleName: "ОТЧЕСТВО",
+            // lastName: "ФАМИЛИЯ",
+          },
           roles: [],
         },
       },
@@ -218,6 +227,7 @@ export default {
       });
     },
 
+    // Вход по логину и паролю
     signInLocal() {
       const request = {
         login: this.login,
@@ -249,6 +259,7 @@ export default {
         });
     },
 
+    // Выбор роли пользователя при авторизации по логину/паролю
     signInWithRole(roleLabel) {
       this.$refs["modal-auth"].hide();
       this.user.roleLabel = roleLabel;
@@ -269,6 +280,7 @@ export default {
       axios(this.url + "core/get-user").then((response) => {
         console.log(response);
         this.user.fullInfo = response.data;
+        this.$emit("assign-user", this.user);
       });
     },
 
@@ -298,6 +310,7 @@ export default {
         });
     },
 
+    // Вход через ЕСИА
     getLogin() {
       axios(this.url + "auth/get-login")
         .then((response) => {
@@ -312,11 +325,14 @@ export default {
         .catch((error) => {
           console.log("Ошибка входа есиа");
           console.log(error);
+          this.getUserId();
+          this.getUserInfo();
           this.authType = "esia";
           this.isAuthUser = true;
         });
     },
 
+    // Выход через ЕСИА
     getLogout() {
       axios(this.url + "auth/get-logout")
         .then((response) => {
@@ -349,6 +365,7 @@ export default {
 
   mounted: function () {
     this.getLogin();
+    // this.$emit('assign-user', this.user);
   },
 };
 </script>
