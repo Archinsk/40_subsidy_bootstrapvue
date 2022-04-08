@@ -13,7 +13,7 @@
             class="feature col"
           >
             <b-button
-              variant="outline-light"
+              variant="outline-primary"
               block
               href="#"
               @click="$emit('quick-question', feature.title)"

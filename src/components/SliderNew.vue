@@ -7,7 +7,7 @@
             controls
             indicators
             background="var(--primary)"
-            img-height="670"
+            img-height="580"
             style="text-shadow: 1px 1px 2px #333;"
             @sliding-start="onSlideStart"
             @sliding-end="onSlideEnd"
@@ -18,7 +18,7 @@
         >
             <template #img>
                 <img
-                        src="@/assets/banners/banner_31.jpg"
+                        src="@/assets/banners/banner_33.jpg"
                         alt="слот изображения"
                 >
             </template>
@@ -29,7 +29,7 @@
         >
             <template #img>
                 <img
-                        src="@/assets/banners/banner_32.jpg"
+                        src="@/assets/banners/banner_34.jpg"
                         alt="слот изображения"
                 >
             </template>

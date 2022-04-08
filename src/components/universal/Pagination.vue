@@ -1,23 +1,28 @@
 <template>
   <div class="paginator d-flex justify-content-between align-items-center">
-    <PaginationItemsPerPage
-      :items-per-page="itemsPerPage"
-      :page-size="pageSize"
-      :theme="theme"
-      @change-page-size="changePageSize($event)"
-    />
-    <div class="paginator__items-of-total">
-      {{ pageSize * (page - 1) + 1 }} -
-      {{ page === pages ? itemsTotal : pageSize * page }} из
-      {{ itemsTotal }}
+    <template v-if="itemsTotal > itemsPerPage[0]">
+      <PaginationItemsPerPage
+        :items-per-page="itemsPerPage"
+        :page-size="pageSize"
+        :theme="theme"
+        @change-page-size="changePageSize($event)"
+      />
+      <div class="paginator__items-of-total">
+        {{ pageSize * (page - 1) + 1 }} -
+        {{ page === pages ? itemsTotal : pageSize * page }} из
+        {{ itemsTotal }}
+      </div>
+      <PaginationPageSelector
+        v-if="itemsTotal > pageSize"
+        :pages="pages"
+        :active-page="page"
+        :theme="theme"
+        @change-page="$emit('change-page', $event)"
+      />
+    </template>
+    <div v-else-if="!itemsTotal" class="alert alert-danger w-100" role="alert">
+      По вашему запросу ничего не найдено! Попробуйте поиск с другими значениями.
     </div>
-    <PaginationPageSelector
-      v-if="itemsTotal > pageSize"
-      :pages="pages"
-      :active-page="page"
-      :theme="theme"
-      @change-page="$emit('change-page', $event)"
-    />
   </div>
 </template>
 

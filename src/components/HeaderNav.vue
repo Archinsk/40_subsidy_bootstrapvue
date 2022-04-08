@@ -28,10 +28,17 @@
         <b-nav-item v-if="isAuthUser" to="/account_info" active-class="active">
           Личный кабинет
         </b-nav-item>
-        <b-nav-item v-if="!isAuthUser" v-b-modal.auth class="active">
+        <b-nav-item
+          v-if="!isAuthUser"
+          v-b-modal.auth
+          class="active"
+          id="signInButton"
+        >
           Вход
         </b-nav-item>
-        <b-nav-item v-else class="active" @click="signOut"> Выход </b-nav-item>
+        <b-nav-item v-else class="active" @click="signOut" id="signOutButton">
+          Выход
+        </b-nav-item>
         <!--        <b-button v-if="!isAuthUser" v-b-modal.auth :variant="theme"-->
         <!--          >Вход</b-button-->
         <!--        >-->
@@ -239,12 +246,10 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          // if (response.status === 200) {
           this.getUserId();
           this.getUserInfo();
           this.authType = "local";
           this.isAuthUser = true;
-          // }
         })
         .catch((error) => {
           if (error.toJSON().status === 401) {
@@ -281,6 +286,9 @@ export default {
         console.log(response);
         this.user.fullInfo = response.data;
         this.$emit("assign-user", this.user);
+        if (this.user.fullInfo.roles.length <= 1) {
+          this.$refs["modal-auth"].hide();
+        }
       });
     },
 

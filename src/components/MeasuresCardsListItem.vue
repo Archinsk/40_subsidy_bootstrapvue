@@ -11,11 +11,13 @@
         </h5>
       </router-link>
       <div class="measure-period col-12 col-md-3">
-        Приём заявок<br />
-        <b> {{ measurePeriod }} </b>
-        <template v-if="!measure.active">
-          <br />
-          <i> {{ isActive }} </i>
+        <template v-if="measure.startDate && measure.endDate">
+          Приём заявок<br />
+          <b> {{ measurePeriod }} </b>
+          <template v-if="!measure.active">
+            <br />
+            <i> {{ isActive }} </i>
+          </template>
         </template>
       </div>
     </div>

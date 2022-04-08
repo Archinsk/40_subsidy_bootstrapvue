@@ -142,6 +142,7 @@ body {
         flex-wrap: wrap;
         padding-left: 0;
         padding-right: 0;
+        position: static;
 
         .logo {
           font-size: 1rem;
@@ -171,11 +172,13 @@ body {
 
           /*Выезжающая панель*/
           .b-sidebar {
+
             @media (min-width: 992px) {
               display: block !important;
               box-shadow: none !important;
               position: static;
               width: auto;
+              transform: none;
             }
 
             /*Шапка выезжающей панели*/
@@ -243,6 +246,13 @@ body {
                       }
                     }
                   }
+
+                  #signInButton, #signOutButton {
+                    @media (min-width: 992px) {
+                      position: absolute;
+                      right: 0;
+                    }
+                  }
                 }
               }
             }
@@ -263,51 +273,58 @@ body {
 
       .home-page {
         .slider {
-          .carousel-item {
-            img {
-              @media (max-width: 575.98px) {
-                height: 180px;
-              }
+          .container{
+            @media (max-width: 575.98px) {
+              padding-left: 0;
+              padding-right: 0;
             }
 
-            .carousel-caption {
-              padding-left: 15px;
-              padding-right: 15px;
-
-              @media (max-width: 575.98px) {
-                height: 90px;
-                width: 100%;
-                position: static;
-                display: block;
-              }
-
-              h3 {
+            .carousel-item {
+              img {
                 @media (max-width: 575.98px) {
-                  font-size: 1.25rem;
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
+                  width: 100%;
                 }
               }
 
-              p {
+              .carousel-caption {
+                padding-left: 15px;
+                padding-right: 15px;
+
                 @media (max-width: 575.98px) {
-                  display: none;
+                  height: 90px;
+                  width: 100%;
+                  position: static;
+                  display: block;
                 }
+
+                h3 {
+                  @media (max-width: 575.98px) {
+                    font-size: 1.25rem;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  }
+                }
+
+                p {
+                  @media (max-width: 575.98px) {
+                    display: none;
+                  }
+                }
+              }
+
+              &.active,
+              &carousel-item-next,
+              &.carousel-item-prev {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
               }
             }
 
-            &.active,
-            &carousel-item-next,
-            &.carousel-item-prev {
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: center;
+            .carousel-indicators {
+              margin-bottom: calc(#{$gap} / 2);
             }
-          }
-
-          .carousel-indicators {
-            margin-bottom: calc(#{$gap} / 2);
           }
         }
 
@@ -348,7 +365,7 @@ body {
       }
 
       .bot {
-        background-color: $back-color;
+        //background-color: $back-color;
 
         .chat {
           .chat-header-full {
@@ -431,7 +448,8 @@ body {
 
               .alert {
                 display: inline-block;
-                border: none;
+                //border: none;
+                border: $basic-color 1px solid;
                 padding: 0.375rem 0.75rem;
                 max-width: calc(100% - 3.5rem);
                 margin-bottom: 0.5rem;
@@ -497,6 +515,7 @@ body {
                     width: 100%;
                     padding-top: 0.125rem;
                     padding-bottom: 0.125rem;
+                    border: $basic-color 1px solid;
 
                     @media (min-width: 992px) {
                       border-radius: 0.25rem !important;
