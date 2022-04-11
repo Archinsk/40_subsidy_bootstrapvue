@@ -52,7 +52,7 @@
               <!--                <span class="material-icons">laptop</span>-->
               <!--              </button>-->
               <b-button
-                v-if="user.shortInfo.userId"
+                v-if="user.shortInfo.userId && periodIsValid()"
                 v-b-modal.new-app
                 :variant="theme"
                 @click="getStartForm"
@@ -722,6 +722,13 @@ export default {
         period = "даты не указаны";
       }
       return period;
+    },
+
+    periodIsValid() {
+      let now = new Date();
+      let measureStartDate = new Date(this.measure.startDate);
+      let measureFinishDate = new Date(this.measure.endDate);
+      return now >= measureStartDate && now <= measureFinishDate;
     },
   },
 

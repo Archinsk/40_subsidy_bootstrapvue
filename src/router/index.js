@@ -76,6 +76,12 @@ const routes = [
     meta: { layout: "main-layout" },
     component: () => import("../views/SiteAdmin"),
   },
+  {
+    path: "/contacts",
+    name: "ContactsView",
+    meta: { layout: "main-layout" },
+    component: () => import("../views/ContactsView"),
+  },
 ];
 
 const router = new VueRouter({

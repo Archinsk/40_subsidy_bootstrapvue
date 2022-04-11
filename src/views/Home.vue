@@ -66,7 +66,7 @@ export default {
       url: "https://www.d-skills.ru/40_subsidy_bootstrapvue/news2.php",
       newsCardsList: [],
       page: 1,
-      pageSize: 3,
+      pageSize: 6,
       inputText: "",
       replics: [
         {

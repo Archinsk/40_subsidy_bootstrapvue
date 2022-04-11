@@ -20,7 +20,7 @@
         @change-page="$emit('change-page', $event)"
       />
     </template>
-    <div v-else-if="!itemsTotal" class="alert alert-danger w-100" role="alert">
+    <div v-else-if="!itemsTotal && !firstLoad" class="alert alert-danger w-100" role="alert">
       По вашему запросу ничего не найдено! Попробуйте поиск с другими значениями.
     </div>
   </div>
@@ -39,6 +39,16 @@ export default {
   },
 
   props: ["itemsTotal", "page", "pageSize", "itemsPerPage", "theme"],
+
+  data() {
+    return {
+      firstLoad: true,
+    }
+  },
+
+  updated: function() {
+    this.firstLoad = false;
+  },
 
   methods: {
     changePageSize(newPageSize) {

@@ -5,7 +5,7 @@
       <a href="tel:+73833541011" class="contacts__phone">8-383-354-1011</a>
     </li>
     <li>
-      <a href="mailto:info@is-n-s.ru" class="contacts__mail">info@isands.ru</a>
+      <a href="mailto:info@isands.ru" class="contacts__mail">info@isands.ru</a>
     </li>
     <!--    <li>-->
     <!--      <a href="#modal-1" role="button" class="contacts__support">Техническая поддержка</a>-->

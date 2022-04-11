@@ -22,6 +22,9 @@
         <b-nav-item to="/measures" active-class="active">
           Меры поддержки
         </b-nav-item>
+        <b-nav-item to="/contacts" active-class="active">
+          Контакты
+        </b-nav-item>
         <!--        <b-nav-item v-if="!isAuth" to="/authPage" active-class="active">-->
         <!--          Войти-->
         <!--        </b-nav-item>-->
