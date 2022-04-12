@@ -3,8 +3,6 @@
     <h4 class="title-primary text-center">Контакты</h4>
     <p>Новосибирск, Советская 4а, 6 эт.</p>
     <p>
-      <a href="tel:+78007751986" class="contacts__phone">8-800-775-1986</a
-      ><br />
       <a href="tel:+73833541011" class="contacts__phone">8-383-354-1011</a
       ><br />
       <a href="mailto:info@isands.ru" class="contacts__mail">info@isands.ru</a>
