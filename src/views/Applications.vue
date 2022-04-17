@@ -29,15 +29,19 @@
       @close="cleanAppForm"
     >
       <template v-if="isResponse">
-        <div v-if="isAlertVisible" class="alert alert-success" role="alert">
-          {{ successComment }}
-        </div>
+<!--        <div v-if="isAlertVisible" class="alert alert-success" role="alert">-->
+<!--          {{ successComment }}-->
+<!--        </div>-->
         <div class="row">
           <div class="col-10">
             <Form
               :form="appForm.form.scheme"
               :submission="appForm"
-              :options="{ readOnly: !appForm.active }"
+              language="ru"
+              :options="{
+                readOnly: !appForm.active,
+                i18n: formOptions.i18n,
+                }"
               ref="vueForm"
             />
           </div>
@@ -122,7 +126,111 @@ export default {
         orderId: "",
         status: "",
       },
-
+      formOptions: {
+        i18n: {
+          ru: {
+            Name: "Имя",
+            "Last name": "Фамилия",
+            dict: "Тип заявителя",
+            "Type to search": "Поиск...",
+            "Last name is required": "Фамилия - это обязательное поле",
+            "No results found": "Поиск не дал результатов",
+            "is required": "обязательное поле",
+            Number: "Число",
+            Submit: "Подтвердить",
+            Layout: "Расположение",
+            "Drag and Drop a form component": "Переместите компонент сюда",
+            "No Matches Found": "Ничего не найдено",
+            "Text Field": "Текстовое поле",
+            Email: "Электронная почта",
+            "Text Area": "Текстовая область",
+            "Phone Number": "Номер телефона",
+            Checkbox: "Флажок",
+            Select: "Выпадающий список",
+            Radio: "Радио кнопка",
+            Url: "Ссылка",
+            "Data Map": "Ключ - Значение",
+            "Data Grid": "Динамический список",
+            "Edit Grid": "Сетка данных",
+            Table: "Таблица",
+            "Date / Time": "Дата / Время",
+            Day: "День",
+            Time: "Время",
+            File: "Файл",
+            Signature: "Подпись",
+            Content: "Контент",
+            Columns: "Столбцы",
+            "Field Set": "Набор полей",
+            Panel: "Панель",
+            Tabs: "Вкладки",
+            Well: "Лист",
+            Label: "Название",
+            "Please fix the following errors before submitting":
+                    "Пожалуйста исправьте ошибки перед теп как продолжить",
+            "Email: Email must be a valid email.": "Не правильный e-mail",
+            Placeholder: "Заполнитель",
+            Description: "Описание",
+            Tooltip: "Подсказка",
+            "To add a tooltip to this field,enter text here.":
+                    "Введите подсказку здесь",
+            "Input Mask": "Маска ввода",
+            Hidden: "Скрытый",
+            "Hide Label": "Скрыть название",
+            Save: "Сохранить",
+            Cancel: "Отмена",
+            Remove: "Удалить",
+            Preview: "Предварительный просмотр",
+            Disabled: "Отключен",
+            Validation: "Проверка",
+            Data: "Данные",
+            "Property Name": "Имя переменной",
+            Display: "Отображение",
+            Widget: "Тип компонента",
+            required: "обязательно для заполнения",
+            pattern: "не соответствует маске!",
+            error: "Пожалуйста исправьте ошибки прежде чем продолжить.",
+            submitError:
+                    "Пожалуйста исправьте все ошибки прежде чем продолжить.",
+            invalid_regex: "не соответствует маске!",
+            mask: "{{field}} не соответствует маске.",
+            valueIsNotAvailable: "неправильное значение.",
+            Edit: "Редактировать",
+            "Label Position": "Расположение",
+            "Label Width": "Ширина",
+            "Label Margin": "Отступ",
+            Prefix: "Прификс",
+            Suffix: "Суффикс",
+            "Custom CSS Class": "CSS класс",
+            "Show Word Counter": "Показать счетчик слов",
+            "Show Character Counter": "Показать счетчик символов",
+            "Hide Input": "Скрыть ввод",
+            "Initial Focus": "Начальный фокус",
+            "Allow Spellcheck": "Проверка орфографии",
+            "Modal Edit": "Показать во всплывающем окне",
+            "Tab Index": "Индекс вкладки",
+            Autocomplete: "Автозавершение",
+            month: "Месяц",
+            day: "День",
+            year: "Год",
+            january: "Январь",
+            february: "Февраль",
+            march: "Март",
+            april: "Апрель",
+            may: "Май",
+            june: "Июнь",
+            july: "Июль",
+            august: "Август",
+            september: "Сентябрь",
+            october: "Октябрь",
+            november: "Ноябрь",
+            december: "Декабрь",
+            next: "Далее",
+            previous: "Назад",
+            cancel: "Отмена",
+            submit: "Отправить",
+          },
+        },
+      },
       isLoading: false,
       loadingComment: "Загрузка заявления",
       successComment: "Заявление успешно загружено!",

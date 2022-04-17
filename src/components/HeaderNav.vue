@@ -34,12 +34,12 @@
         <b-nav-item
           v-if="!isAuthUser"
           v-b-modal.auth
-          class="active"
+          class="active mr-md-5"
           id="signInButton"
         >
           Вход
         </b-nav-item>
-        <b-nav-item v-else class="active" @click="signOut" id="signOutButton">
+        <b-nav-item v-else class="active mr-md-5" @click="signOut" id="signOutButton">
           Выход
         </b-nav-item>
         <!--        <b-button v-if="!isAuthUser" v-b-modal.auth :variant="theme"-->

@@ -12,11 +12,11 @@
       <router-link to="/measures">Поддержка юридических лиц</router-link>
     </li>
     <li>
-      <router-link to="/measures">Поддержка индивидуальных предпринимателей</router-link>
+      <router-link to="/measures">Поддержка физических лиц</router-link>
     </li>
-    <li>
-      <router-link to="/measures_example">Пример верстки каталога мер</router-link>
-    </li>
+<!--    <li>-->
+<!--      <router-link to="/measures_example">Пример верстки каталога мер</router-link>-->
+<!--    </li>-->
   </ul>
 </template>
 
