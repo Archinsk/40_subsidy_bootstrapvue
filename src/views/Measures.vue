@@ -7,7 +7,7 @@
           <span :class="'badge badge-' + theme">{{ itemsTotal }}</span>
         </h4>
         <div class="row justify-content-center mb-3">
-          <div class="col-3">
+          <div class="col-12 col-md-3">
             <MeasuresFilter
               :tags="tags"
               :selected-items="selectedFilters"
@@ -20,7 +20,7 @@
               @chat-activation="chatActivation"
             ></MeasuresFilter>
           </div>
-          <div class="col-9">
+          <div class="col-12 col-md-9">
             <MeasuresCardsList
               :measures-cards-list="measuresCardsList"
               :items-total="itemsTotal"

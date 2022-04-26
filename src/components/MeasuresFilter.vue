@@ -11,6 +11,7 @@
         @keyup.enter="searchMeasure"
       />
       <div class="input-group-append">
+        <!--        <button class="btn btn-outline-primary btn-icon-only_square d-md-none"><span class="material-icons">filter_list</span></button>-->
         <button
           :class="'btn btn-' + theme + ' btn-icon-only_square'"
           type="button"
