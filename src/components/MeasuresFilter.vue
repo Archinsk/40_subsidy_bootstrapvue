@@ -11,7 +11,14 @@
         @keyup.enter="searchMeasure"
       />
       <div class="input-group-append">
-        <!--        <button class="btn btn-outline-primary btn-icon-only_square d-md-none"><span class="material-icons">filter_list</span></button>-->
+        <b-button
+          type="button"
+          v-b-toggle.measures-filters-small
+          variant="outline-primary"
+          class="btn-icon-only_square d-md-none"
+        >
+          <span class="material-icons">filter_list</span>
+        </b-button>
         <button
           :class="'btn btn-' + theme + ' btn-icon-only_square'"
           type="button"
@@ -36,29 +43,64 @@
     <!--      Подобрать с помощью чат-бота-->
     <!--    </div>-->
 
-    <MeasuresFilterCheckboxesGroup
-      title="Теги:"
-      :items="tags"
-      :selected-items="selectedItems"
-      :theme="theme"
-      @filter-changed="$emit('filter-changed', $event)"
-    />
+    <!--    Filters for small screens-->
+    <b-collapse id="measures-filters-small" class="collapse">
+      <div class="d-block d-md-none">
+        <MeasuresFilterCheckboxesGroup
+          title="Теги:"
+          :items="tags"
+          :selected-items="selectedItems"
+          :theme="theme"
+          @filter-changed="$emit('filter-changed', $event)"
+        />
 
-    <div class="row filter-actions">
-      <div class="col">
-        <div
-          :class="'btn btn-' + theme + ' btn-block'"
-          @click="$emit('filter')"
-        >
-          Применить
+        <div class="row filter-actions">
+          <div class="col">
+            <div
+              :class="'btn btn-' + theme + ' btn-block'"
+              @click="$emit('filter')"
+            >
+              Применить
+            </div>
+          </div>
+          <div class="col">
+            <div
+              :class="'btn btn-outline-' + theme + ' btn-block'"
+              @click="$emit('clear-filter')"
+            >
+              Очистить
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col">
-        <div
-          :class="'btn btn-outline-' + theme + ' btn-block'"
-          @click="$emit('clear-filter')"
-        >
-          Очистить
+    </b-collapse>
+
+    <!--    Filters for large screens-->
+    <div class="d-none d-md-block">
+      <MeasuresFilterCheckboxesGroup
+        title="Теги:"
+        :items="tags"
+        :selected-items="selectedItems"
+        :theme="theme"
+        @filter-changed="$emit('filter-changed', $event)"
+      />
+
+      <div class="row filter-actions">
+        <div class="col">
+          <div
+            :class="'btn btn-' + theme + ' btn-block'"
+            @click="$emit('filter')"
+          >
+            Применить
+          </div>
+        </div>
+        <div class="col">
+          <div
+            :class="'btn btn-outline-' + theme + ' btn-block'"
+            @click="$emit('clear-filter')"
+          >
+            Очистить
+          </div>
         </div>
       </div>
     </div>
