@@ -1,65 +1,77 @@
 <template>
-  <div class="home-page">
-    <section v-show="!chatIsActive" class="slider">
-      <!--      <Slider></Slider>-->
-      <div class="container">
-        <SliderNew></SliderNew>
+  <div class="page-wrapper">
+    <Header :theme="theme" @assign-user="$emit('assign-user', $event)" />
+    <main class="content">
+      <div class="home-page">
+        <section v-show="!chatIsActive" class="slider">
+          <!--      <Slider></Slider>-->
+          <div class="container">
+            <SliderNew></SliderNew>
+          </div>
+        </section>
+
+        <section class="bot">
+          <Chat
+            :isActive="chatIsActive"
+            :isFlyingUp="flyingRobotUp"
+            :isFlyingDown="flyingRobotDown"
+            :messages="replicsList"
+            @close-chat="closeChat"
+            :quest="inputText"
+            @focus-input="focusInput"
+            @add-quest="addQuest($event)"
+          ></Chat>
+          <ChatQuickQuestions
+            v-show="!chatIsActive"
+            @quick-question="enterQuestion($event)"
+          ></ChatQuickQuestions>
+        </section>
+
+        <!--    <section v-show="!chatIsActive" class="advantages">-->
+        <!--      <Advantages></Advantages>-->
+        <!--    </section>-->
+
+        <section v-show="!chatIsActive" class="news mb-2">
+          <div class="container">
+            <h4 class="title-primary text-center">Новости</h4>
+            <NewsPreviewList
+              :newsList="newsCardsList"
+              :everythingLittle="true"
+              :isPagination="false"
+            ></NewsPreviewList>
+          </div>
+        </section>
       </div>
-    </section>
-
-    <section class="bot">
-      <Chat
-        :isActive="chatIsActive"
-        :isFlyingUp="flyingRobotUp"
-        :isFlyingDown="flyingRobotDown"
-        :messages="replicsList"
-        @close-chat="closeChat"
-        :quest="inputText"
-        @focus-input="focusInput"
-        @add-quest="addQuest($event)"
-      ></Chat>
-      <ChatQuickQuestions
-        v-show="!chatIsActive"
-        @quick-question="enterQuestion($event)"
-      ></ChatQuickQuestions>
-    </section>
-
-    <!--    <section v-show="!chatIsActive" class="advantages">-->
-    <!--      <Advantages></Advantages>-->
-    <!--    </section>-->
-
-    <section v-show="!chatIsActive" class="news mb-2">
-      <div class="container">
-        <h4 class="title-primary text-center">Новости</h4>
-        <NewsPreviewList
-          :newsList="newsCardsList"
-          :everythingLittle="true"
-          :isPagination="false"
-        ></NewsPreviewList>
-      </div>
-    </section>
+    </main>
+    <Footer v-show="!chatIsActive" :theme="theme" />
   </div>
 </template>
 
 <script>
+import Header from "@/components/Header";
 // import Slider from "@/components/Slider";
 import SliderNew from "@/components/SliderNew";
 import Chat from "@/components/Chat";
 import ChatQuickQuestions from "@/components/ChatQuickQuestions";
 // import Advantages from "@/components/Advantages";
 import NewsPreviewList from "@/components/NewsPreviewList";
+import Footer from "@/components/Footer";
 
 export default {
   name: "Home",
 
   components: {
+    Header,
     // Slider,
     SliderNew,
     Chat,
     ChatQuickQuestions,
     // Advantages,
     NewsPreviewList,
+    Footer,
   },
+
+  props: ["theme", "user"],
 
   data() {
     return {
@@ -75,117 +87,19 @@ export default {
           content:
             "Я - чат-бот Василий. Я помогу Вам с поиском меры поддержки.",
         },
-        // {id: 2, author: "user", content: "Найди слово охота"},
-        // {id: 3, author: "bot", content: "Вот что найдено по слову"},
-        // {id: 4, author: "user", content: "А теперь рыбалка",},
-        // {id: 5, author: "bot", content: "К сожалению, ничего не найдено",},
       ],
       faq: [
         {
           id: 1,
-          keywords: ["covid", "ковид", "корона"],
-          answers: [
-            { content: "Запись на вакцинацию", link: "https://google.com" },
-            { content: "Сертификат вакцинированного", link: "https://ya.ru" },
-            { content: "Мои QR-коды", link: "https://ya.ru" },
-          ],
-        },
-        {
-          id: 2,
-          keywords: ["спорт"],
-          answers: [
-            {
-              content: "Присвоение спортивных разрядов",
-              link: "https://google.com",
-            },
-            {
-              content: "Присвоение квалификационных категорий спортивных судей",
-              link: "https://google.com",
-            },
-            {
-              content:
-                "Государственная регистрация региональных общественных организаций или структурных подразделений (региональных отделений) общероссийской спортивной федерации",
-              link: "https://google.com",
-            },
-          ],
-        },
-        {
-          id: 3,
-          keywords: ["грант", "гранты"],
-          answers: [
-            {
-              content:
-                "Гранты в форме субсидий в сфере научной и инновационной деятельности",
-              link: "./subsidyinfo1",
-            },
-            {
-              content:
-                "Гранты в форме субсидии на развитие инновационного проекта",
-              link: "./subsidyinfo2",
-            },
-            {
-              content:
-                "Гранты субъектам малого и среднего предпринимательства на реализацию проектов в приоритетных сферах экономики",
-              link: "./subsidyinfo3",
-            },
-          ],
-        },
-        {
-          id: 4,
           keywords: ["субсидия", "субсидии"],
           answers: [
             {
-              content:
-                "Гранты в форме субсидий в сфере научной и инновационной деятельности",
-              link: "./subsidyinfo1",
+              content: "Субсидия №1",
+              link: "./subsidy_info/67",
             },
             {
-              content:
-                "Гранты в форме субсидии на развитие инновационного проекта",
-              link: "./subsidyinfo2",
-            },
-          ],
-        },
-        {
-          id: 5,
-          keywords: ["инновация", "инновации"],
-          answers: [
-            {
-              content:
-                "Гранты в форме субсидий в сфере научной и инновационной деятельности",
-              link: "./subsidyinfo1",
-            },
-            {
-              content:
-                "Гранты в форме субсидии на развитие инновационного проекта",
-              link: "./subsidyinfo2",
-            },
-          ],
-        },
-        {
-          id: 6,
-          keywords: ["наука"],
-          answers: [
-            {
-              content:
-                "Гранты в форме субсидий в сфере научной и инновационной деятельности",
-              link: "./subsidyinfo1",
-            },
-          ],
-        },
-        {
-          id: 7,
-          keywords: [
-            "20000000",
-            "20000000 руб",
-            "20 000 000",
-            "20 000 000 руб",
-          ],
-          answers: [
-            {
-              content:
-                "Гранты в форме субсидий в сфере научной и инновационной деятельности",
-              link: "./subsidyinfo1",
+              content: "Субсидия №2",
+              link: "./subsidy_info/141",
             },
           ],
         },
@@ -209,7 +123,7 @@ export default {
   methods: {
     focusInput() {
       this.chatIsActive = true;
-      setTimeout(this.fly, 300);
+      setTimeout(this.fly, 500);
     },
     fly() {
       this.flyingRobotUp = false;
@@ -224,13 +138,13 @@ export default {
       if (this.chatIsActive) {
         this.flyingRobotUp = true;
         this.flyingRobotDown = false;
-        setTimeout(this.dontfly, 1000);
+        setTimeout(this.dontfly, 500);
       }
     },
     enterQuestion(question) {
       this.inputText = question;
       this.chatIsActive = true;
-      setTimeout(this.fly, 1000);
+      setTimeout(this.fly, 500);
     },
     addQuest(inputValue) {
       let quest = {
@@ -239,6 +153,7 @@ export default {
         content: inputValue,
       };
       this.replics.push(quest);
+
       let answer;
       let answers;
       this.faq.forEach(function (item) {
@@ -283,6 +198,15 @@ export default {
       };
       xhr.send();
     },
+
+    scrollDown() {
+      let cont = document.getElementById("chat-field-wrapper");
+      cont.scrollTop = 0;
+    },
+  },
+
+  updated: function () {
+    this.scrollDown();
   },
 
   mounted: function () {

@@ -129,10 +129,12 @@ body {
     //$basic-color: var(--secondary);
   }
 
+  //Стили компонентов
   .page-wrapper {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
 
     .header {
       background-color: $basic-color;
@@ -172,7 +174,6 @@ body {
 
           /*Выезжающая панель*/
           .b-sidebar {
-
             @media (min-width: 992px) {
               display: block !important;
               box-shadow: none !important;
@@ -247,7 +248,8 @@ body {
                     }
                   }
 
-                  #signInButton, #signOutButton {
+                  #signInButton,
+                  #signOutButton {
                     @media (min-width: 992px) {
                       position: absolute;
                       right: 0;
@@ -273,7 +275,7 @@ body {
 
       .home-page {
         .slider {
-          .container{
+          .container {
             @media (max-width: 575.98px) {
               padding-left: 0;
               padding-right: 0;
@@ -421,30 +423,30 @@ body {
               }
             }
 
+            .chat-field-wrapper.active {
+              height: calc(100vh - 3.5rem - 3.5rem - 3.5rem);
+              overflow-y: auto;
+              display: flex;
+              flex-direction: column-reverse;
+              scroll-behavior: smooth;
+              scrollbar-color: var(--primary) transparent;
+              scrollbar-width: thin;
+
+              &::-webkit-scrollbar {
+                background-color: transparent;
+                width: 0.5rem;
+              }
+
+              &::-webkit-scrollbar-thumb {
+                background-color: var(--primary);
+              }
+            }
+
             .chat-field {
-              height: 3.4375rem;
               display: flex;
               flex-direction: column;
-              justify-content: end;
-              overflow-y: auto;
               padding-top: $gap;
-
-              &.active {
-                height: 31.4375rem;
-                padding-top: 29rem;
-
-                &.flyingDown {
-                  transition: all 1s;
-                  height: calc(100vh - 3.5rem - 3.5rem - 3.5rem - 11.0625rem);
-                  padding-top: 0;
-                }
-
-                &.flyingUp {
-                  transition: all 1s;
-                  height: 31.4375rem;
-                  padding-top: 29rem;
-                }
-              }
+              min-height: min-content;
 
               .alert {
                 display: inline-block;
@@ -486,24 +488,10 @@ body {
             .search-group {
               overflow: hidden;
 
-              &.active {
-                padding-bottom: calc(100vh - 29rem);
-
-                &.flyingDown {
-                  transition: all 1s;
-                  padding-bottom: 0;
-                }
-
-                &.flyingUp {
-                  transition: all 1s;
-                  padding-bottom: calc(100vh - 29rem);
-                }
-              }
-
               form {
                 display: flex;
-                padding-top: 0.3125rem;
-                padding-bottom: 0.3125rem;
+                padding-top: 0.5625rem;
+                padding-bottom: 0.5625rem;
 
                 #inputGroupQuestion {
                   margin-bottom: 0;

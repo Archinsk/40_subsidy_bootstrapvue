@@ -9,27 +9,29 @@
         alt=""
       />
     </div>
-    <div :class="'chat-field col-lg-9 ' + chatFieldClass()">
-      <b-alert
-        v-for="message of messages"
-        :key="message.id"
-        :variant="getAuthor(message.author)"
-        show
-      >
-        <div v-if="message.findedAnswers">
-          <div v-if="message.findedAnswers[0].link">Вот, что я нашел:</div>
-          <div v-for="answ of message.findedAnswers" :key="answ.content">
-            <router-link
-              v-if="answ.link"
-              :to="answ.link"
-              class="answer-link btn btn-primary"
-              >{{ answ.content }}</router-link
-            >
-            <div v-else class="answer-text">{{ answ.content }}</div>
+    <div id="chat-field-wrapper" :class="['chat-field-wrapper col-lg-9 ', {active: isActive}]">
+      <div :class="'chat-field ' + chatFieldClass()">
+        <b-alert
+          v-for="message of messages"
+          :key="message.id"
+          :variant="getAuthor(message.author)"
+          show
+        >
+          <div v-if="message.findedAnswers">
+            <div v-if="message.findedAnswers[0].link">Вот, что я нашел:</div>
+            <div v-for="answ of message.findedAnswers" :key="answ.content">
+              <router-link
+                v-if="answ.link"
+                :to="answ.link"
+                class="answer-link btn btn-primary"
+                >{{ answ.content }}</router-link
+              >
+              <div v-else class="answer-text">{{ answ.content }}</div>
+            </div>
           </div>
-        </div>
-        {{ message.content }}
-      </b-alert>
+          {{ message.content }}
+        </b-alert>
+      </div>
     </div>
   </div>
 </template>

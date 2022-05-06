@@ -1,7 +1,14 @@
 <template>
   <div class="search-section row justify-content-end">
-    <div :class="'search-group col-lg-9 ' + chatFieldClass()">
-      <b-form :class="textInField" @submit="onSubmit">
+    <div
+      :class="[
+        'search-group col-lg-9',
+        { active: isActive },
+        { flyingDown: isFlyingDown },
+        { flyingUp: isFlyingUp },
+      ]"
+    >
+      <b-form :class="{ isActive: inputValue }" @submit="onSubmit">
         <b-form-group
           id="inputGroupQuestion"
           label=""
@@ -9,16 +16,21 @@
         >
           <b-form-input
             id="inputQuestion"
-            v-model="inputValue"
+            v-model.trim="inputValue"
             type="text"
             placeholder="Просто напишите то, что ищете..."
             autocomplete="off"
             required
-            :class="roundedPill"
+            class="rounded-pill"
             @focus="$emit('focus-input')"
           ></b-form-input>
         </b-form-group>
-        <b-button type="submit" variant="primary" class="rounded-circle" tabindex="-1">
+        <b-button
+          type="submit"
+          variant="primary"
+          class="rounded-circle"
+          tabindex="-1"
+        >
           <span class="material-icons">send</span>
         </b-button>
       </b-form>
@@ -35,8 +47,6 @@ export default {
   data() {
     return {
       inputValue: "",
-      roundedPill: "rounded-pill",
-      textInField: "",
     };
   },
 
@@ -48,37 +58,9 @@ export default {
         this.inputValue = "";
       }
     },
-    chatFieldClass() {
-      let act = this.isActive;
-      let flyUp = this.isFlyingUp;
-      let flyDown = this.isFlyingDown;
-
-      if (act) {
-        if (!flyUp && !flyDown) {
-          return "active";
-        }
-        if (flyUp) {
-          return "active flyingUp";
-        }
-        if (flyDown) {
-          return "active flyingDown";
-        }
-      } else {
-        return "";
-      }
-    },
   },
 
   watch: {
-    inputValue: function () {
-      if (this.inputValue.trim()) {
-        console.log("Работает");
-        this.textInField = "isActive";
-      } else {
-        console.log("В поле пусто");
-        this.textInField = "";
-      }
-    },
     quest: function () {
       this.inputValue = this.quest;
     },

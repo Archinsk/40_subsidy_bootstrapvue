@@ -7,7 +7,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    meta: { layout: "main-layout" },
+    meta: { layout: "empty-layout" },
     component: () => import("../views/Home"),
   },
   {

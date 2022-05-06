@@ -1,7 +1,12 @@
 <template>
   <div id="app">
-    <component :is="layout" :theme="theme" @assign-user="assignUser($event)" :user="user">
-      <router-view :theme="theme" />
+    <component
+      :is="layout"
+      :theme="theme"
+      @assign-user="assignUser($event)"
+      :user="user"
+    >
+      <router-view />
     </component>
   </div>
 </template>
@@ -36,7 +41,7 @@ export default {
   methods: {
     assignUser(user) {
       this.user = user;
-    }
+    },
   },
 };
 </script>
