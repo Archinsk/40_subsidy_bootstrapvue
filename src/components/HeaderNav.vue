@@ -9,25 +9,11 @@
   >
     <b-collapse is-nav>
       <b-navbar-nav>
-        <!-- Статические пункты меню -->
         <b-nav-item to="/news" active-class="active"> Новости </b-nav-item>
-        <!--        <b-nav-item-dropdown active-class="active" text="Фейковые меры поддержки">-->
-        <!--          <b-dropdown-item to="/measures"> Все меры поддержки </b-dropdown-item>-->
-        <!--          <b-dropdown-item to="/measures"> Юридическим лицам </b-dropdown-item>-->
-        <!--          <b-dropdown-item to="/measures">-->
-        <!--            Индивидуальным предпринимателям-->
-        <!--          </b-dropdown-item>-->
-        <!--          <b-dropdown-item to="/measures"> Физическим лицам </b-dropdown-item>-->
-        <!--        </b-nav-item-dropdown>-->
         <b-nav-item to="/measures" active-class="active">
           Меры поддержки
         </b-nav-item>
-        <b-nav-item to="/contacts" active-class="active">
-          Контакты
-        </b-nav-item>
-        <!--        <b-nav-item v-if="!isAuth" to="/authPage" active-class="active">-->
-        <!--          Войти-->
-        <!--        </b-nav-item>-->
+        <b-nav-item to="/contacts" active-class="active"> Контакты </b-nav-item>
         <b-nav-item v-if="isAuthUser" to="/account_info" active-class="active">
           Личный кабинет
         </b-nav-item>
@@ -39,45 +25,14 @@
         >
           Вход
         </b-nav-item>
-        <b-nav-item v-else class="active mr-md-5" @click="signOut" id="signOutButton">
+        <b-nav-item
+          v-else
+          class="active mr-md-5"
+          @click="signOut"
+          id="signOutButton"
+        >
           Выход
         </b-nav-item>
-        <!--        <b-button v-if="!isAuthUser" v-b-modal.auth :variant="theme"-->
-        <!--          >Вход</b-button-->
-        <!--        >-->
-        <!--        <b-button v-else :variant="theme" @click="signOut">Выход</b-button>-->
-        <!--        <div class="my-auto">{{ user.roleLabel }}</div>-->
-        <!--        <div class="my-auto">{{ authType }}</div>-->
-        <!--        <b-nav-item v-if="isAdmin" to="/siteAdmin">-->
-        <!--          <span class="material-icons">settings</span>-->
-        <!--        </b-nav-item>-->
-        <!--        <b-nav-item v-if="isAdmin" to="/applications">-->
-        <!--          Заявления-->
-        <!--        </b-nav-item>-->
-        <!-- Динамические пункты меню футера -->
-        <!--        <template v-for="item of navItems">-->
-        <!--          <b-nav-item-dropdown-->
-        <!--            v-if="item.childs"-->
-        <!--            :key="item.id"-->
-        <!--            active-class="active"-->
-        <!--            :text="item.title[0].text"-->
-        <!--          >-->
-        <!--            <b-dropdown-item-->
-        <!--              v-for="child of item.childs"-->
-        <!--              :key="child.id"-->
-        <!--              :to="child.url"-->
-        <!--            >-->
-        <!--              {{ child.title[0].text }}-->
-        <!--            </b-dropdown-item>-->
-        <!--          </b-nav-item-dropdown>-->
-        <!--          <b-nav-item-->
-        <!--            v-else-->
-        <!--            :key="item.id"-->
-        <!--            :to="item.url"-->
-        <!--            active-class="active"-->
-        <!--            >{{ item.title[0].text }}</b-nav-item-->
-        <!--          >-->
-        <!--        </template>-->
       </b-navbar-nav>
     </b-collapse>
 
@@ -95,11 +50,8 @@
             v-model.trim="login"
             type="text"
             id="inputLogin"
-            class="form-control error"
+            class="form-control"
             placeholder="Login"
-            name="userLogin"
-            value=""
-            required=""
           />
           <label for="inputLogin" id="inputLoginLabel">Введите логин</label>
         </div>
@@ -108,6 +60,7 @@
           class="form-text text-danger"
           >{{ authError.text }}</small
         >
+
         <div class="form-label-group mt-3 mb-0 position-relative" id="pasAuth">
           <input
             v-model.trim="password"
@@ -115,9 +68,6 @@
             id="inputPassword"
             class="form-control"
             placeholder="Password"
-            name="userPassword"
-            value=""
-            required=""
           />
           <label for="inputPassword" id="inputPasswordLabel">Пароль</label>
           <button
@@ -144,7 +94,13 @@
         <a href="#" class="d-block mt-2 mb-3">Забыли пароль?</a>
         <div class="row">
           <div class="col">
-            <button :class="signInButtonClass" @click="signInLocal">
+            <button
+              :class="[
+                'btn btn-primary btn-block',
+                { disabled: !login || !password },
+              ]"
+              @click="signInLocal"
+            >
               Войти
             </button>
           </div>
@@ -182,89 +138,79 @@ import axios from "axios";
 
 export default {
   name: "HeaderNav",
-  props: ["userType", "theme"],
+  props: ["theme", "user"],
+
   data() {
     return {
       // url: "http://192.168.18.171:8080/api/",
       // url: "https://open-demo.isands.ru/api/",
       url: "https://open-newtemplate.isands.ru/api/",
-      isAuth: this.userType === "authUser" || this.userType === "admin",
-      isAdmin: this.userType === "admin",
-      navItems: [],
-      passwordVisibility: false,
       login: "",
       password: "",
-      isAuthUser: false,
-      authType: "",
+      passwordVisibility: false,
+
+      userInfoFromResponse: {
+        roleLabel: "Гость",
+        shortInfo: {
+          userId: null,
+          userName: "",
+          typeAuth: "",
+        },
+        fullInfo: {
+          roles: [],
+        },
+      },
+
       authError: {
         type: "",
         text: "",
       },
+
       isFirstLoad: true,
-      user: {
-        roleLabel: "Гость",
-        shortInfo: {},
-        fullInfo: {
-          userData: {
-            // firstName: "ИМЯ",
-            // middleName: "ОТЧЕСТВО",
-            // lastName: "ФАМИЛИЯ",
-          },
-          roles: [],
-        },
-      },
+
       esiaLink: "",
       esiaLogoutLink: "",
     };
   },
 
   computed: {
-    isValidAuthData: function () {
-      return this.login && this.password;
+    isAuthUser: function () {
+      return !!this.user.shortInfo.userId;
     },
 
-    signInButtonClass: function () {
-      return this.isValidAuthData
-        ? "btn btn-primary btn-block"
-        : "btn btn-primary btn-block disabled";
+    isValidAuthData: function () {
+      return !!this.login && !!this.password;
     },
   },
 
   methods: {
-    getHeaderNav() {
-      axios(this.url + "site-data/get-header").then((response) => {
-        this.navItems = response.data;
-      });
-    },
-
     // Вход по логину и паролю
     signInLocal() {
-      const request = {
-        login: this.login,
-        password: this.password,
-      };
-      axios
-        .post(this.url + "auth/local-login", request, {
-          headers: { accept: "*/*", "Content-Type": "application/json" },
-        })
-        .then((response) => {
-          console.log(response);
-          this.getUserId();
-          this.getUserInfo();
-          this.authType = "local";
-          this.isAuthUser = true;
-        })
-        .catch((error) => {
-          if (error.toJSON().status === 401) {
-            this.authError.type = "password";
-            this.authError.text = "Неверно указан пароль!";
-          }
-          if (error.toJSON().status === 404) {
-            this.authError.type = "login";
-            this.authError.text =
-              "Пользователь с указанным логином не зарегистрирован!";
-          }
-        });
+      if (this.isValidAuthData) {
+        const request = {
+          login: this.login,
+          password: this.password,
+        };
+        axios
+          .post(this.url + "auth/local-login", request, {
+            headers: { "Content-Type": "application/json" },
+          })
+          .then(() => {
+            this.getUserId();
+            this.getUserInfo();
+          })
+          .catch((error) => {
+            if (error.toJSON().status === 401) {
+              this.authError.type = "password";
+              this.authError.text = "Неверно указан пароль!";
+            }
+            if (error.toJSON().status === 404) {
+              this.authError.type = "login";
+              this.authError.text =
+                "Пользователь с указанным логином не зарегистрирован!";
+            }
+          });
+      }
     },
 
     // Выбор роли пользователя при авторизации по логину/паролю
@@ -280,26 +226,26 @@ export default {
     getUserId() {
       axios(this.url + "auth/get-user").then((response) => {
         console.log(response);
-        this.user.shortInfo = response.data;
+        this.userInfoFromResponse.shortInfo = response.data;
       });
     },
 
     getUserInfo() {
       axios(this.url + "core/get-user").then((response) => {
         console.log(response);
-        this.user.fullInfo = response.data;
-        this.$emit("assign-user", this.user);
-        if (this.user.fullInfo.roles.length <= 1) {
+        this.userInfoFromResponse.fullInfo = response.data;
+        this.$emit("assign-user", this.userInfoFromResponse);
+        if (this.userInfoFromResponse.fullInfo.roles.length <= 1) {
           this.$refs["modal-auth"].hide();
         }
       });
     },
 
     signOut() {
-      if (this.authType === "local") {
+      if (this.user.shortInfo.typeAuth === "local") {
         this.signOutLocal();
       }
-      if (this.authType === "esia") {
+      if (this.user.shortInfo.typeAuth === "esia") {
         this.getLogout();
       }
     },
@@ -330,7 +276,6 @@ export default {
           } else {
             console.log(response);
             location.href = response.data.url;
-            // this.esiaLink = response.data.url;
           }
         })
         .catch((error) => {
@@ -338,8 +283,6 @@ export default {
           console.log(error);
           this.getUserId();
           this.getUserInfo();
-          this.authType = "esia";
-          this.isAuthUser = true;
         });
     },
 
@@ -376,7 +319,7 @@ export default {
 
   mounted: function () {
     this.getLogin();
-    // this.$emit('assign-user', this.user);
+    // this.checkAuth();
   },
 };
 </script>

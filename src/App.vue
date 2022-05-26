@@ -21,7 +21,11 @@ export default {
     return {
       theme: "primary",
       user: {
-        shortInfo: {},
+        shortInfo: {
+          userId: null,
+          userName: "",
+          typeAuth: "",
+        },
         fullInfo: {
           roles: [],
         },

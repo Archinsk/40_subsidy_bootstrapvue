@@ -11,9 +11,17 @@
           Информационные системы и сервисы
         </b-navbar-brand>
 
-        <HeaderNav user-type="admin" :theme="theme" @assign-user="$emit('assign-user', $event)"></HeaderNav>
+        <HeaderNav
+          :theme="theme"
+          :user="user"
+          @assign-user="$emit('assign-user', $event)"
+        ></HeaderNav>
 
-        <b-button :variant="theme" class="d-lg-none btn-icon-only_square" v-b-toggle.sidebar>
+        <b-button
+          :variant="theme"
+          class="d-lg-none btn-icon-only_square"
+          v-b-toggle.sidebar
+        >
           <span class="material-icons">menu</span>
         </b-button>
       </b-navbar>
@@ -29,6 +37,6 @@ export default {
   components: {
     HeaderNav,
   },
-  props: ["auth", "theme"],
+  props: ["theme", "user"],
 };
 </script>

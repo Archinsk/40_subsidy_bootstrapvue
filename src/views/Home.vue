@@ -1,6 +1,10 @@
 <template>
   <div class="page-wrapper">
-    <Header :theme="theme" @assign-user="$emit('assign-user', $event)" />
+    <Header
+      :theme="theme"
+      :user="user"
+      @assign-user="$emit('assign-user', $event)"
+    />
     <main class="content">
       <div class="home-page">
         <section v-show="!chatIsActive" class="slider">

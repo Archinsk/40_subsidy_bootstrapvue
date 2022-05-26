@@ -1,8 +1,12 @@
 <template>
   <div class="page-wrapper">
-    <Header :theme="theme" @assign-user="$emit('assign-user', $event)" />
+    <Header
+      :theme="theme"
+      :user="user"
+      @assign-user="$emit('assign-user', $event)"
+    />
     <main class="content">
-      <router-view :theme="theme" :user="user"/>
+      <router-view :theme="theme" :user="user" />
     </main>
     <Footer :theme="theme" />
   </div>
