@@ -213,14 +213,23 @@ export default {
       }
     },
 
-    // Выбор роли пользователя при авторизации по логину/паролю
-    signInWithRole(roleLabel) {
-      this.$refs["modal-auth"].hide();
-      this.user.roleLabel = roleLabel;
-      this.login = "";
-      this.password = "";
-      this.authError.type = "";
-      this.authError.text = "";
+    // Вход через ЕСИА
+    getLogin() {
+      axios(this.url + "auth/get-login")
+              .then((response) => {
+                if (this.isFirstLoad) {
+                  this.isFirstLoad = false;
+                } else {
+                  console.log(response);
+                  location.href = response.data.url;
+                }
+              })
+              .catch((error) => {
+                console.log("Ошибка входа есиа");
+                console.log(error);
+                this.getUserId();
+                this.getUserInfo();
+              });
     },
 
     getUserId() {
@@ -235,10 +244,20 @@ export default {
         console.log(response);
         this.userInfoFromResponse.fullInfo = response.data;
         this.$emit("assign-user", this.userInfoFromResponse);
-        if (this.userInfoFromResponse.fullInfo.roles.length <= 1) {
+        if (this.user.fullInfo.roles.length <= 1) {
           this.$refs["modal-auth"].hide();
         }
       });
+    },
+
+    // Выбор роли пользователя при авторизации по логину/паролю
+    signInWithRole(roleLabel) {
+      this.$refs["modal-auth"].hide();
+      this.user.roleLabel = roleLabel;
+      this.login = "";
+      this.password = "";
+      this.authError.type = "";
+      this.authError.text = "";
     },
 
     signOut() {
@@ -264,25 +283,6 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-        });
-    },
-
-    // Вход через ЕСИА
-    getLogin() {
-      axios(this.url + "auth/get-login")
-        .then((response) => {
-          if (this.isFirstLoad) {
-            this.isFirstLoad = false;
-          } else {
-            console.log(response);
-            location.href = response.data.url;
-          }
-        })
-        .catch((error) => {
-          console.log("Ошибка входа есиа");
-          console.log(error);
-          this.getUserId();
-          this.getUserInfo();
         });
     },
 
