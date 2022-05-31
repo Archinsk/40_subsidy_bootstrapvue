@@ -51,8 +51,14 @@
               <!--              >-->
               <!--                <span class="material-icons">laptop</span>-->
               <!--              </button>-->
+              <router-link
+                :to="appLink"
+                :class="'btn btn-outline-' + theme"
+                role="button"
+                >Получить поддержку на отдельной странице</router-link
+              >
               <b-button
-                v-if="user.shortInfo.userId && periodIsValid()"
+                v-if="user.shortInfo.userId && measure.active && isValidPeriod"
                 v-b-modal.new-app
                 :variant="theme"
                 @click="getStartForm"
@@ -605,13 +611,13 @@ export default {
             Well: "Лист",
             Label: "Название",
             "Please fix the following errors before submitting":
-                    "Пожалуйста исправьте ошибки перед теп как продолжить",
+              "Пожалуйста исправьте ошибки перед теп как продолжить",
             "Email: Email must be a valid email.": "Не правильный e-mail",
             Placeholder: "Заполнитель",
             Description: "Описание",
             Tooltip: "Подсказка",
             "To add a tooltip to this field,enter text here.":
-                    "Введите подсказку здесь",
+              "Введите подсказку здесь",
             "Input Mask": "Маска ввода",
             Hidden: "Скрытый",
             "Hide Label": "Скрыть название",
@@ -629,7 +635,7 @@ export default {
             pattern: "не соответствует маске!",
             error: "Пожалуйста исправьте ошибки прежде чем продолжить.",
             submitError:
-                    "Пожалуйста исправьте все ошибки прежде чем продолжить.",
+              "Пожалуйста исправьте все ошибки прежде чем продолжить.",
             invalid_regex: "не соответствует маске!",
             mask: "{{field}} не соответствует маске.",
             valueIsNotAvailable: "неправильное значение.",
@@ -669,7 +675,8 @@ export default {
             submit: "Отправить",
             "File Name": "Имя файла",
             Size: "Размер",
-            "Drop files to attach, or browse": "Перетащите файл сюда, или выберите с диска",
+            "Drop files to attach, or browse":
+              "Перетащите файл сюда, или выберите с диска",
           },
         },
       },
@@ -683,12 +690,20 @@ export default {
     };
   },
 
+  computed: {
+    appLink: function () {
+      return "/application_view/" + this.$route.params.subId;
+    },
+  },
+
   methods: {
     // Информация о мере поддержки
     getMeasure() {
       axios
         .get(this.url + "serv/get-model?id=" + this.$route.params.subId)
         .then((response) => {
+          console.log("getMeasure");
+          console.log(response);
           this.measure = response.data;
         });
     },
@@ -833,11 +848,31 @@ export default {
       return period;
     },
 
-    periodIsValid() {
+    isValidPeriod() {
       let now = new Date();
-      let measureStartDate = new Date(this.measure.startDate);
-      let measureFinishDate = new Date(this.measure.endDate);
-      return now >= measureStartDate && now <= measureFinishDate;
+      let measureStartDate, measureFinishDate;
+      if (this.measure.startDate) {
+        measureStartDate = new Date(this.measure.startDate);
+      }
+      if (this.measure.endDate) {
+        measureFinishDate = new Date(this.measure.endDate);
+        measureFinishDate.setDate(measureFinishDate.getDate() + 1);
+      }
+      console.log("startDate");
+      console.log(measureStartDate);
+      console.log("now");
+      console.log(now);
+      console.log("measureFinishDate");
+      console.log(measureFinishDate);
+      if (measureStartDate && measureFinishDate) {
+        return now >= measureStartDate && now <= measureFinishDate;
+      } else if (measureStartDate && !measureFinishDate) {
+        return now >= measureStartDate;
+      } else if (!measureStartDate && measureFinishDate) {
+        return now <= measureFinishDate;
+      } else if (!measureStartDate && !measureFinishDate) {
+        return true;
+      }
     },
   },
 

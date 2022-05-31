@@ -216,20 +216,20 @@ export default {
     // Вход через ЕСИА
     getLogin() {
       axios(this.url + "auth/get-login")
-              .then((response) => {
-                if (this.isFirstLoad) {
-                  this.isFirstLoad = false;
-                } else {
-                  console.log(response);
-                  location.href = response.data.url;
-                }
-              })
-              .catch((error) => {
-                console.log("Ошибка входа есиа");
-                console.log(error);
-                this.getUserId();
-                this.getUserInfo();
-              });
+        .then((response) => {
+          if (this.isFirstLoad) {
+            this.isFirstLoad = false;
+          } else {
+            console.log(response);
+            location.href = response.data.url;
+          }
+        })
+        .catch((error) => {
+          console.log("Ошибка входа есиа");
+          console.log(error);
+          this.getUserId();
+          this.getUserInfo();
+        });
     },
 
     getUserId() {
@@ -290,13 +290,26 @@ export default {
     getLogout() {
       axios(this.url + "auth/get-logout")
         .then((response) => {
+          console.log("Ссылка на выход ЕСИА");
           console.log(response);
-          location.href = response.data.url;
-          // this.esiaLogoutLink = response.data.url;
+          // location.href = response.data.url;
+          this.esiaLogoutLink = response.data.url;
+          this.shortInfo = {
+            userId: null,
+            userName: "",
+            typeAuth: "",
+          };
+          this.fullInfo = {
+            roles: [],
+          };
+          this.signOutEsia();
         })
         .catch((error) => {
           console.log("Ошибка выхода есиа");
           console.log(error);
+        })
+        .then(() => {
+          this.$router.push("/");
         });
     },
 
@@ -308,10 +321,9 @@ export default {
       });
     },
 
-    goOutEsia() {
-      console.log("esiaLogoutLink");
-      console.log(this.esiaLogoutLink);
+    signOutEsia() {
       axios(this.esiaLogoutLink).then((response) => {
+        console.log("Ответ на запрос о выходе из ЕСИА");
         console.log(response);
       });
     },
