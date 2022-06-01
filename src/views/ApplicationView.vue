@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div class="container">
     <template v-if="isResponse">
-      <div class="row">
+      <div class="row pt-2">
+        <div class="col-12">
+          <h4 class="text-center py-2">{{measure.name + ': ' + appForm.form.name}}</h4>
+        </div>
         <div class="col-10">
           <Form
             :form="appForm.form.scheme"
@@ -45,7 +48,7 @@
     </template>
 
     <template v-else-if="isLoading">
-      <div class="card">
+      <div class="card pt-2">
         <div class="card-body text-center">
           <div class="spinner-border text-primary" role="status">
             <span class="sr-only">Loading...</span>
@@ -70,6 +73,7 @@ export default {
   data() {
     return {
       url: "https://open-newtemplate.isands.ru/api/",
+      measure: {},
       isResponse: false,
       isLoading: false,
       isFirstLoad: true,
@@ -203,6 +207,17 @@ export default {
   },
 
   methods: {
+    // Информация о мере поддержки
+    getMeasure() {
+      axios
+              .get(this.url + "serv/get-model?id=" + this.$route.params.subId)
+              .then((response) => {
+                console.log("getMeasure");
+                console.log(response);
+                this.measure = response.data;
+              });
+    },
+
     // Стартовая форма заявления
     getStartForm() {
       this.isResponse = false;
@@ -317,6 +332,7 @@ export default {
   },
 
   mounted: function () {
+    this.getMeasure();
     this.getStartForm();
   },
 };

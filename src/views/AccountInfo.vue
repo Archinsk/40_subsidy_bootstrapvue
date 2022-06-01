@@ -25,7 +25,10 @@
       </section>
 
       <b-tabs>
-        <b-tab title="Личные данные" active>
+        <b-tab title="Заявления" active>
+          <Applications :theme="theme" />
+        </b-tab>
+        <b-tab title="Личные данные" >
           <h4 class="text-center">Личные данные</h4>
           <section>
             <h5 class="secondary-title">Основная информация</h5>
@@ -153,9 +156,6 @@
           <!--              </div>-->
           <!--            </div>-->
           <!--          </section>-->
-        </b-tab>
-        <b-tab title="Заявления">
-          <Applications :theme="theme" />
         </b-tab>
       </b-tabs>
     </article>

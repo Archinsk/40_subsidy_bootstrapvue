@@ -47,6 +47,12 @@ const routes = [
     component: () => import("../views/ApplicationView"),
   },
   {
+    path: "/application_completed_view/:subId/model/:modelId",
+    name: "ApplicationCompletedView",
+    meta: { layout: "main-layout" },
+    component: () => import("../views/ApplicationCompletedView"),
+  },
+  {
     path: "/subsidy_info_example",
     name: "SubsidyInfoExample",
     meta: { layout: "main-layout" },

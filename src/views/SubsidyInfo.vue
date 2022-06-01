@@ -53,17 +53,17 @@
               <!--              </button>-->
               <router-link
                 :to="appLink"
-                :class="'btn btn-outline-' + theme"
+                :class="'btn btn-' + theme"
                 role="button"
-                >Получить поддержку на отдельной странице</router-link
+                >Подать заявку</router-link
               >
-              <b-button
-                v-if="user.shortInfo.userId && measure.active && isValidPeriod"
-                v-b-modal.new-app
-                :variant="theme"
-                @click="getStartForm"
-                >Подать заявку</b-button
-              >
+<!--              <b-button-->
+<!--                v-if="user.shortInfo.userId && measure.active && isValidPeriod"-->
+<!--                v-b-modal.new-app-->
+<!--                :variant="theme"-->
+<!--                @click="getStartForm"-->
+<!--                >Подать заявку</b-button-->
+<!--              >-->
             </div>
           </div>
           <hr />

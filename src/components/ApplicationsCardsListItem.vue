@@ -7,13 +7,20 @@
         >
         {{ application ? application.servName : "Наименование меры поддержки" }}
       </h5>
-      <b-button
-        v-b-modal.edit-app
-        @click="$emit('get-app-form')"
-        :variant="'outline-' + theme"
+      <router-link
+              :to="appLink"
+              :class="'btn btn-outline-' + theme"
+
+              role="button"
+      >Открыть</router-link
       >
-        Открыть
-      </b-button>
+<!--      <b-button-->
+<!--        v-b-modal.edit-app-->
+<!--        @click="$emit('get-app-form')"-->
+<!--        :variant="'outline-' + theme"-->
+<!--      >-->
+<!--        Открыть-->
+<!--      </b-button>-->
     </div>
     <div class="card-footer bg-transparent">
       <p>Текущий статус: {{ application.status }}</p>
@@ -33,6 +40,10 @@ export default {
     return {};
   },
 
-  computed: {},
+  computed: {
+    appLink: function () {
+      return "/application_completed_view/" + this.application.id + "/model/" + this.application.servId;
+    },
+  },
 };
 </script>
