@@ -5,8 +5,9 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import dateFilter from "./filters/date.filter";
 
 import App from "./App.vue";
-import "./subsidy.scss"
-import i18n from './i18n'
+import "./subsidy.scss";
+import i18n from "./i18n";
+import "bootstrap";
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
@@ -16,5 +17,5 @@ Vue.filter("date", dateFilter);
 new Vue({
   router,
   i18n,
-  render: (h) => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

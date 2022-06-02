@@ -94,6 +94,12 @@ const routes = [
     meta: { layout: "main-layout" },
     component: () => import("../views/ContactsView"),
   },
+  {
+    path: "/signature",
+    name: "DigitalSignature",
+    meta: { layout: "main-layout" },
+    component: () => import("../views/DigitalSignature"),
+  },
 ];
 
 const router = new VueRouter({
