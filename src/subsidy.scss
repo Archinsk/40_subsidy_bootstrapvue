@@ -1237,6 +1237,10 @@ body {
   }
 
   //Глобальные стили
+  .container {
+    max-width: 80%;
+  }
+
   .title-primary {
     margin-top: $gap;
     margin-bottom: $gap;

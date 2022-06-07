@@ -52,18 +52,19 @@
               <!--                <span class="material-icons">laptop</span>-->
               <!--              </button>-->
               <router-link
+                v-if="user.shortInfo.userId && measure.active && isValidPeriod()"
                 :to="appLink"
                 :class="'btn btn-' + theme"
                 role="button"
                 >Подать заявку</router-link
               >
-<!--              <b-button-->
-<!--                v-if="user.shortInfo.userId && measure.active && isValidPeriod"-->
-<!--                v-b-modal.new-app-->
-<!--                :variant="theme"-->
-<!--                @click="getStartForm"-->
-<!--                >Подать заявку</b-button-->
-<!--              >-->
+              <!--              <b-button-->
+              <!--                v-if="user.shortInfo.userId && measure.active && isValidPeriod"-->
+              <!--                v-b-modal.new-app-->
+              <!--                :variant="theme"-->
+              <!--                @click="getStartForm"-->
+              <!--                >Подать заявку</b-button-->
+              <!--              >-->
             </div>
           </div>
           <hr />
@@ -548,7 +549,7 @@ export default {
       // url: "http://192.168.18.171:8080/api/",
       // url: "https://open-demo.isands.ru/api/",
       url: "https://open-newtemplate.isands.ru/api/",
-      measure: [],
+      measure: {},
       measureForms: [
         {
           actions: [],

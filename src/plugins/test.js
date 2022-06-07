@@ -1,18 +1,17 @@
 import axios from "axios";
 export default function testAlert() {
-    alert("JS-файл подключен");
 
     // -----cades----
     let cadesplugin;
+    let pluginObject;
 
+    // Инициализация плагина CAdES
+    // Проблемы с ActiveXObject и cpcsp_chrome_nmcades
     function initCades () {
         //already loaded
-        console.log("Внутри ИнитКадес");
-        console.log(window.cadesplugin);
         if (window.cadesplugin) {
             return;
         }
-        let pluginObject;
         let plugin_resolved = 0;
         let plugin_reject;
         let plugin_resolve;
@@ -530,6 +529,7 @@ export default function testAlert() {
                     fileref.onload = nmcades_api_onload;
                     document.getElementsByTagName("head")[0].appendChild(fileref);
                 } else {
+                    console.log("chrome");
                     // для Chrome, Chromium, Chromium Edge расширение из Chrome store
                     let fileref = document.createElement('script');
                     fileref.setAttribute("type", "text/javascript");
@@ -541,8 +541,323 @@ export default function testAlert() {
             }
         }
 
+        function loadChromeExtension() {
+            //already loaded
+            if(window.cpcsp_chrome_nmcades)
+                return;
+
+            let cpcsp_chrome_nmcades = {};
+            var callbackFuncs = [];
+
+            function Print2Digit(digit)
+            {
+                return (digit<10) ? "0"+digit : digit;
+            }
+
+            function DateToUTCStr(d)
+            {
+                let ret = d.getUTCFullYear() + "-";
+                ret = ret + Print2Digit(d.getUTCMonth() + 1) ;
+                ret = ret + "-";
+                ret = ret + Print2Digit(d.getUTCDate()) + "T";
+                ret = ret + Print2Digit(d.getUTCHours()) + ":" + Print2Digit(d.getUTCMinutes()) + ":" + Print2Digit(d.getUTCSeconds()) + ".";
+                let ms = d.getUTCMilliseconds();
+                if(ms < 100)
+                {
+                    if(ms < 10)
+                        ms = "00" + ms;
+                    else
+                        ms = "0" + ms;
+                }
+                ret = ret + ms + "Z";
+                return ret;
+            }
+
+            function cpcsp_console_log(level, msg)
+            {
+                if (level <= cadesplugin.current_log_level){
+                    if (level === cadesplugin.LOG_LEVEL_DEBUG)
+                        console.log("DEBUG: %s", msg);
+                    if (level === cadesplugin.LOG_LEVEL_INFO)
+                        console.info("INFO: %s", msg);
+                    if (level === cadesplugin.LOG_LEVEL_ERROR)
+                        console.error("ERROR: %s", msg);
+                }
+            }
+
+            // eslint-disable-next-line no-unused-vars
+            function set_log_level(level)
+            {
+                cadesplugin.current_log_level = level;
+                if (cadesplugin.current_log_level === cadesplugin.LOG_LEVEL_DEBUG)
+                    cpcsp_console_log(cadesplugin.LOG_LEVEL_INFO, "log_level = DEBUG");
+                if (cadesplugin.current_log_level === cadesplugin.LOG_LEVEL_INFO)
+                    cpcsp_console_log(cadesplugin.LOG_LEVEL_INFO, "log_level = INFO");
+                if (cadesplugin.current_log_level === cadesplugin.LOG_LEVEL_ERROR)
+                    cpcsp_console_log(cadesplugin.LOG_LEVEL_INFO, "log_level = ERROR");
+            }
+
+            function check_chrome_plugin(plugin_loaded, plugin_loaded_error)
+            {
+                cadesplugin.async_spawn(function*(args){
+                    try {
+                        let pluginObject = yield CreatePluginObject();
+                        // eslint-disable-next-line no-unused-vars
+                        let oAbout = yield pluginObject.CreateObjectAsync("CAdESCOM.About");
+                        cadesplugin.set(pluginObject);
+                        args[0]();
+                    } catch(err) {
+                        args[1]("РџР»Р°РіРёРЅ РЅРµРґРѕСЃС‚СѓРїРµРЅ");
+                    }
+                }, plugin_loaded, plugin_loaded_error);
+
+            }
+            cpcsp_chrome_nmcades.check_chrome_plugin = check_chrome_plugin;
+
+            //Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёР№ РґР»СЏ РѕР±СЃР»СѓР¶РёРІР°РЅРёСЏ Promise
+            let g_resolve_function = {};
+            let g_reject_function = {};
+            let g_request_id = 1;
+
+            function Json_to_javascript(data)
+            {
+                if(data.retval.type === "object")
+                {
+                    let obj = {};
+                    obj['objid'] = data.retval.value;
+                    if(typeof data.retval.properties === "object")
+                    {
+                        const props = data.retval.properties;
+                        for(let i = 0; i < props.length; i++)
+                        {
+                            //                Object.defineProperty(obj, props[i], {get : CallGetProperty.bind(obj, props[i]),
+                            //                                                      set : CallSetProperty.bind(obj, props[i])});
+                            Object.defineProperty(obj, props[i], {get : CallGetProperty.bind(obj, props[i])});
+                            obj["propset_" + props[i]] = CallSetProperty.bind(obj, props[i]);
+                        }
+                    }
+                    if(typeof data.retval.methods === "object")
+                    {
+                        const methods = data.retval.methods;
+                        for(let i = 0; i < methods.length; i++)
+                        {
+                            obj[methods[i]] = CallMethod.bind(obj, methods[i]);
+                        }
+
+                    }
+                    return obj;
+                }
+                if(data.retval.type === "string")
+                {
+                    return data.retval.value;
+                }
+                if(data.retval.type === "number")
+                {
+                    return parseInt(data.retval.value);
+                }
+                if(data.retval.type === "boolean")
+                {
+                    return Boolean(data.retval.value);
+                }
+                if(data.retval.type === "OK")
+                {
+                    return;
+                }
+            }
+
+            function CallMethod(){
+                //create message structure
+                g_request_id++;
+                let args = new Array();
+                let arg;
+                for(let i = 1; i < arguments.length; i++)
+                {
+                    if (typeof arguments[i] === "object")
+                    {
+                        if (arguments[i] instanceof Date)
+                        {
+                            arg = { type: "string", value: DateToUTCStr(arguments[i]) };
+                            args.push(arg);
+                            continue;
+                        }
+                        arg = { type: typeof arguments[i], value: arguments[i]["objid"] };
+                        args.push(arg);
+                        continue;
+                    }
+                    else if (typeof arguments[i] === "function") {
+                        let j = 0;
+                        for (; j < callbackFuncs.length; j++) {
+                            if (arguments[i] === callbackFuncs[j].value) {
+                                let func;
+                                func = { type: "function", id: j, value: arguments[i] };
+                                arg = { type: "number", value: func.id };
+                                args.push(arg);
+                                break;
+                            }
+                        }
+                        if (j !== callbackFuncs.length)
+                            continue;
+                        let func;
+                        func = { type: "function", id: callbackFuncs.length, value: arguments[i] };
+                        callbackFuncs.push(func);
+                        arg = { type: "number", value: func.id };
+                        args.push(arg);
+                        continue;
+                    }
+                    arg = {type: typeof arguments[i], value: arguments[i]};
+                    args.push(arg);
+                }
+                let object_messsage;
+                object_messsage = {destination:"nmcades", requestid: g_request_id, objid: this["objid"], method: arguments[0],
+                    params: args};
+                cpcsp_console_log(cadesplugin.LOG_LEVEL_DEBUG, "nmcades_plugin_api.js: Sent message:" + JSON.stringify(object_messsage));
+                const requestPromise = new Promise ( function (resolve, reject) {
+                    g_resolve_function[g_request_id] = resolve;
+                    g_reject_function[g_request_id] = reject;
+                    window.postMessage( object_messsage, "*");
+                });
+                return requestPromise.then(function (result) {
+                    return Json_to_javascript(result.data);
+                });
+            }
+
+            function CreatePluginObject()
+            {
+                //create message structure
+                g_request_id++;
+                const docURL = window.document.URL;
+                let object_messsage;
+                object_messsage = {destination:"nmcades", requestid: g_request_id, type: "init", url: docURL};
+                cpcsp_console_log(cadesplugin.LOG_LEVEL_DEBUG, "nmcades_plugin_api.js: Sent message:" + JSON.stringify(object_messsage));
+                const requestPromise = new Promise ( function (resolve, reject) {
+                    g_resolve_function[g_request_id] = resolve;
+                    g_reject_function[g_request_id] = reject;
+                    window.postMessage( object_messsage, "*");
+                });
+                return requestPromise.then(function (result) {
+                    let obj = {};
+                    obj['objid'] = result.data.value;
+                    obj.CreateObjectAsync = CallMethod.bind(obj, "CreateObject");
+                    return obj;
+                });
+            }
+            cpcsp_chrome_nmcades.CreatePluginObject = CreatePluginObject;
+
+            function ReleasePluginObjects()
+            {
+                //create message structure
+                g_request_id++;
+                const docURL = window.document.URL;
+                let object_messsage;
+                object_messsage = {destination:"nmcades", requestid: g_request_id, type: "reset", url: docURL};
+                cpcsp_console_log(cadesplugin.LOG_LEVEL_DEBUG, "nmcades_plugin_api.js: Sent message:" + JSON.stringify(object_messsage));
+                const requestPromise = new Promise ( function (resolve, reject) {
+                    g_resolve_function[g_request_id] = resolve;
+                    g_reject_function[g_request_id] = reject;
+                    window.postMessage( object_messsage, "*");
+                });
+                return requestPromise.then(function (result) {
+                    if (result.data.value == 0)
+                        return true;
+                    return false;
+                });
+            }
+            cpcsp_chrome_nmcades.ReleasePluginObjects = ReleasePluginObjects;
+
+            function CallGetProperty(){
+                g_request_id++;
+                let object_messsage = {destination:"nmcades", requestid: g_request_id, objid: this['objid'], get_property: arguments[0]};
+                cpcsp_console_log(cadesplugin.LOG_LEVEL_DEBUG, "nmcades_plugin_api.js: Sent message:" + JSON.stringify(object_messsage));
+                const requestPromise = new Promise ( function (resolve, reject) {
+                    g_resolve_function[g_request_id] = resolve;
+                    g_reject_function[g_request_id] = reject;
+                    window.postMessage( object_messsage, "*");
+                });
+                return requestPromise.then(function (result) {
+                    return Json_to_javascript(result.data);
+                });
+            }
+
+            function CallSetProperty(){
+                g_request_id++;
+                let args = new Array();
+                let arg;
+                if(typeof arguments[1] === "object")
+                {
+                    if(arguments[1] instanceof Date)
+                    {
+                        arg = {type: "string", value: DateToUTCStr(arguments[1])};
+                    }else
+                    {
+                        arg = {type: typeof arguments[1], value: arguments[1]["objid"]};
+                    }
+                }else {
+                    arg = {type: typeof arguments[1], value: arguments[1]};
+                }
+                args.push(arg);
+                let object_messsage = {destination:"nmcades", requestid: g_request_id, objid: this['objid'], set_property: arguments[0], params: args};
+                cpcsp_console_log(cadesplugin.LOG_LEVEL_DEBUG, "nmcades_plugin_api.js: Sent message:" + JSON.stringify(object_messsage));
+                const requestPromise = new Promise ( function (resolve, reject) {
+                    g_resolve_function[g_request_id] = resolve;
+                    g_reject_function[g_request_id] = reject;
+                    window.postMessage( object_messsage, "*");
+                });
+                return requestPromise.then(function (result) {
+                    return Json_to_javascript(result.data);
+                });
+            }
+
+            function windowListner (event){
+                if (event.source !== window)
+                    return;
+                if (event.data.tabid) {
+                    cpcsp_console_log(cadesplugin.LOG_LEVEL_DEBUG, "nmcades_plugin_api.js: Received message: " + JSON.stringify(event.data));
+                    if(event.data.data.type === "result"){
+                        if(g_resolve_function[event.data.data.requestid] === null) {
+                            return;
+                        }
+                        g_resolve_function[event.data.data.requestid](event.data);
+                        g_reject_function[event.data.data.requestid] = null;
+                        g_resolve_function[event.data.data.requestid] = null;
+                    }
+                    else if(event.data.data.type === "error"){
+                        g_reject_function[event.data.data.requestid](event.data.data);
+                        g_resolve_function[event.data.data.requestid] = null;
+                        g_reject_function[event.data.data.requestid] = null;
+                    }
+                }
+            }
+
+            function EnableInternalCSPListener(event){
+                if (event.source !== window)
+                    return;
+                if (event.data === "EnableInternalCSP_request")
+                    window.postMessage("EnableInternalCSP=" + cadesplugin.EnableInternalCSP, "*");
+            }
+
+            function storeCallback(event){
+                if (event.source !== window)
+                    return;
+                if (event.data.object !== undefined) {
+                    var certobj = JSON.parse(event.data.object);
+                    var cert = Json_to_javascript(certobj.data);
+                    var id = event.data.value;
+                    callbackFuncs[id].value(cert);
+                    return;
+                }
+            }
+
+            window.addEventListener("message", windowListner, false);
+            window.addEventListener("message", EnableInternalCSPListener, false);
+            window.addEventListener("message", storeCallback, false);
+            window.postMessage("EnableInternalCSP=" + cadesplugin.EnableInternalCSP, "*");
+            window.cpcsp_chrome_nmcades = cpcsp_chrome_nmcades;
+        }
+        loadChromeExtension();
+
         //Загружаем плагин для NPAPI
         function load_npapi_plugin() {
+            console.log("NPAPI");
             let elem = document.createElement('object');
             elem.setAttribute("id", "cadesplugin_object");
             elem.setAttribute("type", "application/x-cades");
@@ -626,6 +941,7 @@ export default function testAlert() {
 
         //Проверяем работает ли плагин
         function check_plugin_working() {
+            console.log("check!!")
             let div = document.createElement("div");
             div.innerHTML = "<!--[if lt IE 9]><i></i><![endif]-->";
             let isIeLessThan9 = (div.getElementsByTagName("i").length === 1);
@@ -635,9 +951,10 @@ export default function testAlert() {
             }
 
             if (isNativeMessageSupported()) {
+                console.log("isNativeMessageSupported");
                 load_extension();
-                console.log("плагин загружен")
             } else if (!canPromise) {
+                console.log("!canPromise");
                 window.addEventListener("message", function (event) {
                         if (event.data !== "cadesplugin_echo_request")
                             return;
@@ -646,6 +963,7 @@ export default function testAlert() {
                     },
                     false);
             } else {
+                console.log("else");
                 if (document.readyState === "complete") {
                     load_npapi_plugin();
                     check_npapi_plugin();
@@ -660,6 +978,9 @@ export default function testAlert() {
 
         function set_pluginObject(obj) {
             pluginObject = obj;
+            console.log("Сет обжект")
+            console.log(obj);
+            console.log(pluginObject);
         }
 
         function is_capilite_enabled() {
@@ -694,12 +1015,14 @@ export default function testAlert() {
         cadesplugin.current_log_level = cadesplugin.LOG_LEVEL_ERROR;
         window.cadesplugin = cadesplugin;
         check_plugin_working();
-    }
-    initCades ();
-    InternalJasperSignatureSign();
-    getSignedData();
 
-// -----end of cades-----
+        console.log("Плагин CAdES");
+        console.log(cadesplugin);
+        console.log("pluginObject");
+        console.log(pluginObject);
+    }
+
+    // -----end of cades-----
 
     // -----custom-----
     function getJasperSignatureCertificatesList() {
@@ -707,11 +1030,20 @@ export default function testAlert() {
         let oStore;
 
         if (cadesplugin.CreateObjectAsync) {
+            console.log("место 1");
+            console.log(!!cadesplugin.CreateObjectAsync);
             cadesplugin.async_spawn(function* () {
                 try {
+                    console.log("значение oStore");
+                    console.log(cadesplugin.CreateObjectAsync);
+                    console.log(pluginObject);
                     oStore = yield cadesplugin.CreateObjectAsync("CAPICOM.Store");
+                    console.log("значение oStore");
+                    console.log(oStore);
                 } catch (e) {
                     let err = cadesplugin.getLastError(e);
+                    console.log("Текст ошибки");
+                    console.log(err);
                     if (err.indexOf("0x80090019") + 1) {
                         showError("Указанный CSP не установлен");
                         return;
@@ -731,7 +1063,7 @@ export default function testAlert() {
 
                 const oCerts = yield oStore.Certificates;
                 const certCnt = yield oCerts.Count;
-                var Adjust = new CertificateAdjuster();
+                let Adjust = new CertificateAdjuster();
 
                 if (certificatesList.length > 0) certificatesList = [];
 
@@ -746,10 +1078,10 @@ export default function testAlert() {
                     }
                     let temp = {};
                     try {
-                        var ValidToDate = new Date((yield certx.ValidToDate));
-                        var ValidFromDate = new Date((yield certx.ValidFromDate));
-                        var Validator;
-                        var IsValid = false;
+                        let ValidToDate = new Date((yield certx.ValidToDate));
+                        let ValidFromDate = new Date((yield certx.ValidFromDate));
+                        let Validator;
+                        let IsValid = false;
                         //если попадется сертификат с неизвестным алгоритмом
                         //тут будет исключение. В таком сертификате просто пропускаем такое поле
                         try {
@@ -768,9 +1100,9 @@ export default function testAlert() {
                         temp.signatureData.from = Adjust.GetCertDate(ValidFromDate);
                         temp.validFrom = "Действителен до: <b>" + Adjust.GetCertDate(ValidToDate) + "<b>";
                         temp.signatureData.validDue = Adjust.GetCertDate(ValidToDate);
-                        var pubKey = yield certx.PublicKey();
-                        var algo = yield pubKey.Algorithm;
-                        var fAlgoName = yield algo.FriendlyName;
+                        let pubKey = yield certx.PublicKey();
+                        let algo = yield pubKey.Algorithm;
+                        let fAlgoName = yield algo.FriendlyName;
 
                         temp.pubKey = pubKey;
                         temp.algo = algo;
@@ -778,15 +1110,15 @@ export default function testAlert() {
 
                         temp.algorithm = "Алгоритм ключа: <b>" + fAlgoName + "<b>";
 
-                        var hasPrivateKey = yield certx.HasPrivateKey();
-                        var Now = new Date();
+                        let hasPrivateKey = yield certx.HasPrivateKey();
+                        let Now = new Date();
 
                         if (hasPrivateKey) {
-                            var oPrivateKey = yield certx.PrivateKey;
-                            var sProviderName = yield oPrivateKey.ProviderName;
+                            let oPrivateKey = yield certx.PrivateKey;
+                            let sProviderName = yield oPrivateKey.ProviderName;
                             temp.provname = "Криптопровайдер: <b>" + sProviderName + "<b>";
                             try {
-                                var sPrivateKeyLink = yield oPrivateKey.UniqueContainerName;
+                                let sPrivateKeyLink = yield oPrivateKey.UniqueContainerName;
                                 temp.privateKeyLink = "Ссылка на закрытый ключ: <b> " + sPrivateKeyLink + "<b>";
                             } catch (e) {
                                 temp.privateKeyLink = "Ссылка на закрытый ключ: <b>" + e.message + "<b>";
@@ -947,11 +1279,11 @@ export default function testAlert() {
     async function SignCreateAsync(oCert, dataToSign) {
         return new Promise(function () {
             cadesplugin.async_spawn(function* () {
-                var oSigner = yield cadesplugin.CreateObjectAsync("CAdESCOM.CPSigner");
+                let oSigner = yield cadesplugin.CreateObjectAsync("CAdESCOM.CPSigner");
                 yield oSigner.propset_Certificate(oCert);
                 yield oSigner.propset_CheckCertificate(true);
 
-                var oSignedData = yield cadesplugin.CreateObjectAsync("CAdESCOM.CadesSignedData");
+                let oSignedData = yield cadesplugin.CreateObjectAsync("CAdESCOM.CadesSignedData");
                 yield oSignedData.propset_ContentEncoding(cadesplugin.CADESCOM_BASE64_TO_BINARY);
                 yield oSignedData.propset_Content(dataToSign);
                 try {
@@ -978,7 +1310,7 @@ export default function testAlert() {
     }
 
     CertificateAdjuster.prototype.checkQuotes = function (str) {
-        var result = 0, i = 0;
+        let result = 0, i = 0;
         for (i; i < str.length; i++) if (str[i] === '"')
             result++;
         return !(result % 2);
@@ -987,10 +1319,10 @@ export default function testAlert() {
     CertificateAdjuster.prototype.extract = function (from, what) {
         let certName = "";
 
-        var begin = from.indexOf(what);
+        let begin = from.indexOf(what);
 
         if (begin >= 0) {
-            var end = from.indexOf(', ', begin);
+            let end = from.indexOf(', ', begin);
             while (end > 0) {
                 if (this.checkQuotes(from.substr(begin, end - begin)))
                     break;
@@ -1007,7 +1339,7 @@ export default function testAlert() {
     }
 
     CertificateAdjuster.prototype.GetCertDate = function (paramDate) {
-        var certDate = new Date(paramDate);
+        let certDate = new Date(paramDate);
         return this.Print2Digit(certDate.getUTCDate()) + "." + this.Print2Digit(certDate.getUTCMonth() + 1) + "." + certDate.getFullYear() + " " +
             this.Print2Digit(certDate.getUTCHours()) + ":" + this.Print2Digit(certDate.getUTCMinutes()) + ":" + this.Print2Digit(certDate.getUTCSeconds());
     }
@@ -1024,29 +1356,32 @@ export default function testAlert() {
         return this.extract(certSubjectName, 'CN=') + "; Выдан: " + this.GetCertDate(certFromDate);
     }
 
-
+    // Вывод сведений о КриптоПро и плагине CAdES
     function CheckForPlugIn_AsyncJasperSignature() {
+        console.log("Запуск проверки КриптоПро и плагина");
         window.onload = function () {
-            document.getElementById('PluginEnabledImg').setAttribute("src", "/o/jasper_internal/img/green_dot.png");
+            document.getElementById('PluginEnabledImg').setAttribute("src", "./green_dot.png");
             document.getElementById('PlugInEnabledTxt').innerHTML = "Плагин загружен";
-            document.getElementById('CspEnabledImg').setAttribute("src", "/o/jasper_internal/img/yellow_dot.png");
+            document.getElementById('CspEnabledImg').setAttribute("src", "./yellow_dot.png");
             document.getElementById('CspEnabledTxt').innerHTML = "КриптоПро CSP не загружен";
         }
-        document.getElementById('PluginEnabledImg').setAttribute("src", "/o/jasper_internal/img/green_dot.png");
+        document.getElementById('PluginEnabledImg').setAttribute("src", "./green_dot.png");
         document.getElementById('PlugInEnabledTxt').innerHTML = "Плагин загружен";
-        document.getElementById('CspEnabledImg').setAttribute("src", "/o/jasper_internal/img/yellow_dot.png");
+        document.getElementById('CspEnabledImg').setAttribute("src", "./yellow_dot.png");
         document.getElementById('CspEnabledTxt').innerHTML = "КриптоПро CSP не загружен";
 
         cadesplugin.async_spawn(function* () {
-            var oAbout = yield cadesplugin.CreateObjectAsync("CAdESCOM.About");
-            var CurrentPluginVersion = yield oAbout.PluginVersion;
+            console.log("Содежимое cadesplugin");
+            console.log(cadesplugin);
+            let oAbout = yield cadesplugin.CreateObjectAsync("CAdESCOM.About");
+            let CurrentPluginVersion = yield oAbout.PluginVersion;
             document.getElementById('PlugInVersionTxt').innerHTML = "Версия плагина: " + (yield CurrentPluginVersion.toString());
 
-            var ver = yield oAbout.CSPVersion("", 80);
-            var ret = (yield ver.MajorVersion) + "." + (yield ver.MinorVersion) + "." + (yield ver.BuildVersion);
+            let ver = yield oAbout.CSPVersion("", 80);
+            let ret = (yield ver.MajorVersion) + "." + (yield ver.MinorVersion) + "." + (yield ver.BuildVersion);
             document.getElementById('CSPVersionTxt').innerHTML = "Версия криптопровайдера: " + ret;
             try {
-                var sCSPName = yield oAbout.CSPName(80);
+                let sCSPName = yield oAbout.CSPName(80);
                 document.getElementById('CspEnabledImg').setAttribute("src", "/o/jasper_internal/img/green_dot.png");
                 document.getElementById('CspEnabledTxt').innerHTML = "Криптопровайдер загружен";
                 document.getElementById('CSPNameTxt').innerHTML = "Криптопровайдер: " + sCSPName;
@@ -1057,26 +1392,27 @@ export default function testAlert() {
 
 
     }
-// ----- end of custom -----
+    // ----- end of custom -----
 
     // -----internal jasper-----
     let jasperDataToSign = null;
-// eslint-disable-next-line no-unused-vars
     let certificatesList = [];
     let jasperResultSignature = null;
 
-    // eslint-disable-next-line no-unused-vars
-    async function InternalJasperSignatureSign(actionPayload, submitPayload) {
-        let appData = actionPayload.appData;
 
-        let payload = {};
-        payload["params_handler_model"] = appData.modelId;
-        payload["params_handler_form_id"] = appData.formId;
-        payload["params_handler_data"] = appData.formData;
-        payload["params_handler_application"] = appData.appId;
-        payload["params_handler_action"] = actionPayload.endpoint;
+    async function InternalJasperSignatureSign() {
+        // let appData = actionPayload.appData;
+        //
+        // let payload = {};
+        // payload["params_handler_model"] = appData.modelId;
+        // payload["params_handler_form_id"] = appData.formId;
+        // payload["params_handler_data"] = appData.formData;
+        // payload["params_handler_application"] = appData.appId;
+        // payload["params_handler_action"] = actionPayload.endpoint;
         // payload["camunda_session_id"] = camunda_session_id;
-        jasperDataToSign = payload;
+        // jasperDataToSign = payload;
+        console.log("jasperDataToSign");
+        console.log(jasperDataToSign);
         CheckForPlugIn_AsyncJasperSignature();
         getJasperSignatureCertificatesList();
     }
@@ -1136,5 +1472,10 @@ export default function testAlert() {
     function showError(err) {
         console.log(err);
     }
+
+
+    initCades ();
+    InternalJasperSignatureSign();
+    // getSignedData();
 }
 

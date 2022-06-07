@@ -194,6 +194,7 @@ export default {
         axios
           .post(this.url + "auth/local-login", request, {
             headers: { "Content-Type": "application/json" },
+            withCredentials: true,
           })
           .then(() => {
             this.getUserId();
@@ -215,7 +216,9 @@ export default {
 
     // Вход через ЕСИА
     getLogin() {
-      axios(this.url + "auth/get-login")
+      axios(this.url + "auth/get-login", {
+        withCredentials: true,
+      })
         .then((response) => {
           if (this.isFirstLoad) {
             this.isFirstLoad = false;
@@ -233,14 +236,18 @@ export default {
     },
 
     getUserId() {
-      axios(this.url + "auth/get-user").then((response) => {
+      axios(this.url + "auth/get-user", {
+        withCredentials: true,
+      }).then((response) => {
         console.log(response);
         this.userInfoFromResponse.shortInfo = response.data;
       });
     },
 
     getUserInfo() {
-      axios(this.url + "core/get-user").then((response) => {
+      axios(this.url + "core/get-user", {
+        withCredentials: true,
+      }).then((response) => {
         console.log(response);
         this.userInfoFromResponse.fullInfo = response.data;
         this.$emit("assign-user", this.userInfoFromResponse);
@@ -271,7 +278,7 @@ export default {
 
     signOutLocal() {
       axios
-        .post(this.url + "auth/local-logout", "")
+        .post(this.url + "auth/local-logout", "", { withCredentials: true })
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
@@ -288,7 +295,9 @@ export default {
 
     // Выход через ЕСИА
     getLogout() {
-      axios(this.url + "auth/get-logout")
+      axios(this.url + "auth/get-logout", {
+        withCredentials: true,
+      })
         .then((response) => {
           console.log("Ссылка на выход ЕСИА");
           console.log(response);
@@ -322,7 +331,9 @@ export default {
     },
 
     signOutEsia() {
-      axios(this.esiaLogoutLink).then((response) => {
+      axios(this.esiaLogoutLink, {
+        withCredentials: true,
+      }).then((response) => {
         console.log("Ответ на запрос о выходе из ЕСИА");
         console.log(response);
       });

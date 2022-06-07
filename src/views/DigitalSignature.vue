@@ -89,7 +89,6 @@
 
     <!-- Кнопка-триггер модального окна -->
     <div class="btn btn-info" @click="invokeAction">Action</div>
-    <div class="btn btn-info" @click="InternalJasperSignatureSign()">IGSS</div>
     <button
       type="button"
       class="btn btn-primary"
