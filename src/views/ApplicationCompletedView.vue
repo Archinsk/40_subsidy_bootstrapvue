@@ -73,6 +73,7 @@
 
         data() {
             return {
+                // url: "https://open-demo.isands.ru/api/",
                 url: "https://open-newtemplate.isands.ru/api/",
                 measure: {},
                 isResponse: false,
