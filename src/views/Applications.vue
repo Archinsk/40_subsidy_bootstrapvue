@@ -242,7 +242,7 @@ export default {
   },
 
   methods: {
-    getApps(page, pageSize, sortCol = "id", sortDesc = true, active = true) {
+    getApps(page, pageSize, sortCol = "id", sortDesc = true, userList = true, active = true) {
       axios
         .get(
           this.url +
@@ -254,6 +254,8 @@ export default {
             sortCol +
             "&sortDesc=" +
             sortDesc +
+            "&userList=" +
+                userList +
             "&active=" +
             active
         )

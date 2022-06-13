@@ -69,6 +69,7 @@ export default {
   components: {
     Form,
   },
+  props: ["user"],
 
   data() {
     return {
@@ -228,7 +229,9 @@ export default {
     },
     getForm() {
       axios
-        .get(this.url + "serv/get-appData?id=" + this.$route.params.subId)
+        .get(this.url + "serv/get-appData?id=" + this.$route.params.subId, {
+          withCredentials: true,
+        })
         .then((response) => {
           console.log("Стартовая форма");
           console.log(response);
@@ -272,12 +275,17 @@ export default {
     invoke(actionId, isBackAction = false) {
       const request = {
         actionId: actionId,
-        userId: 13,
+        userId: this.user.shortInfo.userId,
+        roleId: this.user.selectedRole.id,
         appId: this.appForm.id,
         data: JSON.stringify(this.appForm.data),
       };
+      console.log(request.data);
       axios
-        .post(this.url + "app/action-invoke", request)
+        .post(this.url + "app/action-invoke", request, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
         .then((response) => {
           console.log("Ответ на экшн");
           console.log(response);

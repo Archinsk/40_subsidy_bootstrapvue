@@ -39,10 +39,13 @@
     <b-modal
       id="auth"
       ref="modal-auth"
-      title="Авторизация"
+      :title="!user.shortInfo.userId ? 'Авторизация' : 'Выбор роли'"
       size="sm"
       hide-footer
       no-stacking
+      :hide-header-close="!!user.shortInfo.userId"
+      :no-close-on-backdrop="!!user.shortInfo.userId"
+      :no-close-on-esc="!!user.shortInfo.userId"
     >
       <template v-if="!isAuthUser">
         <div id="logAuth" class="form-label-group mb-0">
@@ -119,12 +122,12 @@
           />Войти с помощью ЕСИА
         </button>
       </template>
-      <template v-else-if="user.fullInfo.roles.length > 0">
+      <template v-else-if="userInfoFromResponse.fullInfo.roles.length > 1">
         <button
           v-for="role in user.fullInfo.roles"
           :key="role.id"
           class="btn btn-outline-primary btn-block"
-          @click="signInWithRole(role.label)"
+          @click="signInWithRole(role)"
         >
           {{ role.label }}
         </button>
@@ -145,12 +148,11 @@ export default {
       // url: "http://192.168.18.171:8080/api/",
       // url: "https://open-demo.isands.ru/api/",
       url: "https://open-newtemplate.isands.ru/api/",
-      login: "",
-      password: "",
+      login: "mihail",
+      password: "12345",
       passwordVisibility: false,
 
       userInfoFromResponse: {
-        roleLabel: "Гость",
         shortInfo: {
           userId: null,
           userName: "",
@@ -159,6 +161,7 @@ export default {
         fullInfo: {
           roles: [],
         },
+        selectedRole: {},
       },
 
       authError: {
@@ -251,16 +254,21 @@ export default {
         console.log(response);
         this.userInfoFromResponse.fullInfo = response.data;
         this.$emit("assign-user", this.userInfoFromResponse);
-        if (this.user.fullInfo.roles.length <= 1) {
+        if (this.userInfoFromResponse.fullInfo.roles.length === 0) {
+          this.$refs["modal-auth"].hide();
+        } else if (this.userInfoFromResponse.fullInfo.roles.length === 1) {
+          this.$emit("select-role", this.userInfoFromResponse.fullInfo.roles[0]);
           this.$refs["modal-auth"].hide();
         }
       });
     },
 
     // Выбор роли пользователя при авторизации по логину/паролю
-    signInWithRole(roleLabel) {
+    signInWithRole(role) {
+      console.log("Выбранная роль");
+      console.log(role);
+      this.$emit("select-role", role);
       this.$refs["modal-auth"].hide();
-      this.user.roleLabel = roleLabel;
       this.login = "";
       this.password = "";
       this.authError.type = "";
@@ -277,8 +285,9 @@ export default {
     },
 
     signOutLocal() {
-      axios
-        .post(this.url + "auth/local-logout", "", { withCredentials: true })
+      axios(this.url + "auth/local-logout", {
+        withCredentials: true,
+      })
         .then((response) => {
           console.log(response);
           if (response.status === 200) {

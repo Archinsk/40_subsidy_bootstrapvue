@@ -3,8 +3,9 @@
     <component
       :is="layout"
       :theme="theme"
-      @assign-user="assignUser($event)"
       :user="user"
+      @assign-user="assignUser($event)"
+      @select-role="user.selectedRole = $event"
     >
       <router-view />
     </component>
@@ -28,6 +29,11 @@ export default {
         },
         fullInfo: {
           roles: [],
+        },
+        selectedRole: {
+          id: null,
+          key: "",
+          label: "",
         },
       },
     };

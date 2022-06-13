@@ -15,6 +15,7 @@
           :theme="theme"
           :user="user"
           @assign-user="$emit('assign-user', $event)"
+          @select-role="$emit('select-role', $event)"
         ></HeaderNav>
 
         <b-button

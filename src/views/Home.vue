@@ -4,6 +4,7 @@
       :theme="theme"
       :user="user"
       @assign-user="$emit('assign-user', $event)"
+      @select-role="$emit('select-role', $event)"
     />
     <main class="content">
       <div class="home-page">
