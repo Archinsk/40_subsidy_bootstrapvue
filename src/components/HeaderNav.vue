@@ -257,7 +257,10 @@ export default {
         if (this.userInfoFromResponse.fullInfo.roles.length === 0) {
           this.$refs["modal-auth"].hide();
         } else if (this.userInfoFromResponse.fullInfo.roles.length === 1) {
-          this.$emit("select-role", this.userInfoFromResponse.fullInfo.roles[0]);
+          this.$emit(
+            "select-role",
+            this.userInfoFromResponse.fullInfo.roles[0]
+          );
           this.$refs["modal-auth"].hide();
         }
       });
@@ -265,8 +268,15 @@ export default {
 
     // Выбор роли пользователя при авторизации по логину/паролю
     signInWithRole(role) {
-      console.log("Выбранная роль");
-      console.log(role);
+      axios
+        .put(this.url + "core/put-metadata?orgId=0&roleId=" + role.id, "", {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
+        .then((response) => {
+          console.log("Выбранная роль");
+          console.log(response.data);
+        });
       this.$emit("select-role", role);
       this.$refs["modal-auth"].hide();
       this.login = "";
