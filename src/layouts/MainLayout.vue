@@ -7,7 +7,11 @@
       @select-role="$emit('select-role', $event)"
     />
     <main class="content">
-      <router-view :theme="theme" :user="user" />
+      <router-view
+        :theme="theme"
+        :user="user"
+        @select-role="$emit('select-role', $event)"
+      />
     </main>
     <Footer :theme="theme" />
   </div>

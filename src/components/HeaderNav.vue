@@ -148,8 +148,8 @@ export default {
       // url: "http://192.168.18.171:8080/api/",
       // url: "https://open-demo.isands.ru/api/",
       url: "https://open-newtemplate.isands.ru/api/",
-      login: "mihail",
-      password: "12345",
+      login: "",
+      password: "",
       passwordVisibility: false,
 
       userInfoFromResponse: {
@@ -250,20 +250,26 @@ export default {
     getUserInfo() {
       axios(this.url + "core/get-user", {
         withCredentials: true,
-      }).then((response) => {
-        console.log(response);
-        this.userInfoFromResponse.fullInfo = response.data;
-        this.$emit("assign-user", this.userInfoFromResponse);
-        if (this.userInfoFromResponse.fullInfo.roles.length === 0) {
-          this.$refs["modal-auth"].hide();
-        } else if (this.userInfoFromResponse.fullInfo.roles.length === 1) {
-          this.$emit(
-            "select-role",
-            this.userInfoFromResponse.fullInfo.roles[0]
-          );
-          this.$refs["modal-auth"].hide();
-        }
-      });
+      })
+        .then((response) => {
+          console.log(response);
+          this.userInfoFromResponse.fullInfo = response.data;
+          this.$emit("assign-user", this.userInfoFromResponse);
+        })
+        .then(() => {
+          if (this.userInfoFromResponse.fullInfo.roles.length === 0) {
+            this.$refs["modal-auth"].hide();
+          } else if (this.userInfoFromResponse.fullInfo.roles.length === 1) {
+            console.log("Роль при обновлении страницы");
+            console.log(this.userInfoFromResponse.shortInfo);
+            this.$emit("select-role", this.userInfoFromResponse.shortInfo);
+            this.$refs["modal-auth"].hide();
+          } else {
+            console.log("Роль при обновлении страницы");
+            console.log(this.userInfoFromResponse.shortInfo);
+            this.$emit("select-role", this.userInfoFromResponse.shortInfo);
+          }
+        });
     },
 
     // Выбор роли пользователя при авторизации по логину/паролю
@@ -276,13 +282,13 @@ export default {
         .then((response) => {
           console.log("Выбранная роль");
           console.log(response.data);
+          this.$emit("select-role", response.data);
+          this.$refs["modal-auth"].hide();
+          this.login = "";
+          this.password = "";
+          this.authError.type = "";
+          this.authError.text = "";
         });
-      this.$emit("select-role", role);
-      this.$refs["modal-auth"].hide();
-      this.login = "";
-      this.password = "";
-      this.authError.type = "";
-      this.authError.text = "";
     },
 
     signOut() {
@@ -302,10 +308,12 @@ export default {
           console.log(response);
           if (response.status === 200) {
             this.isAuthUser = false;
-            this.user.roleLabel = "Гость";
-            this.user.shortInfo = {};
-            this.user.fullInfo = {};
+            this.user.shortInfo = { userId: null, userName: "", typeAuth: "" };
+            this.user.fullInfo = { roles: [] };
           }
+        })
+        .then(() => {
+          this.$router.push("/");
         })
         .catch((error) => {
           console.log(error);

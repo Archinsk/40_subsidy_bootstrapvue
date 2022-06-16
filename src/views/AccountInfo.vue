@@ -53,12 +53,22 @@
                   }}
                 </div>
               </div>
-              <div class="term">
+              <div class="term align-items-center">
                 <label class="term-title" for="exampleFormControlSelect1">
                   Текущая роль:
                 </label>
-                <select v-model="selectedUserRole" class="form-control" id="exampleFormControlSelect1">
-                  <option v-for="role of user.fullInfo.roles" :key="role.id">
+                <select
+                  v-model="selectedUserRole"
+                  class="form-control"
+                  id="exampleFormControlSelect1"
+                  @change="setRole(selectedUserRole)"
+                >
+                  <option
+                    v-for="role of user.fullInfo.roles"
+                    :key="role.id"
+                    :value="role.id"
+                    :selected="role.id === user.selectedRole.roleId"
+                  >
                     {{ role.label }}
                   </option>
                 </select>
@@ -73,6 +83,7 @@
 
 <script>
 import Applications from "@/views/Applications";
+import axios from "axios";
 
 export default {
   name: "AccountInfo",
@@ -85,10 +96,12 @@ export default {
 
   data() {
     return {
+      url: "https://open-newtemplate.isands.ru/api/",
+
       xhrResponse: [],
       page: 1,
       pageSize: 10,
-      selectedUserRole: "",
+      selectedUserRole: this.user.selectedRole.roleId,
     };
   },
 
@@ -141,47 +154,56 @@ export default {
       };
       xhr.send();
     },
-  },
-  getMeasuresCardslist(pageNum, pageSize, sortCol = "id", sortDesc = false) {
-    const xhr = new XMLHttpRequest();
-    const url =
-      // "https://open-newtemplate.isands.ru/open-core/api/serv/get-services?pageNum=" +
-      // "http://192.168.18.171:8080/open-core/api/serv/get-services?pageNum=" +
-      // "http://192.168.18.171:8180/api/serv/get-services?pageNum=" +
-      "http://192.168.18.171:8080/api/serv/get-services?pageNum=" +
-      (pageNum - 1) +
-      "&pageSize=" +
-      pageSize +
-      "&sortCol=" +
-      sortCol +
-      "&sortDesc=" +
-      sortDesc;
-    xhr.open("GET", url);
-    xhr.responseType = "json";
-    xhr.onload = () => {
-      console.log("Список мер");
-      console.log(xhr.response);
-      this.measuresCardsList = xhr.response;
-      this.itemsTotal = xhr.response.totalElements;
-    };
-    xhr.send();
+
+    getMeasuresCardslist(pageNum, pageSize, sortCol = "id", sortDesc = false) {
+      const xhr = new XMLHttpRequest();
+      const url =
+        this.url +
+        "serv/get-services?pageNum=" +
+        (pageNum - 1) +
+        "&pageSize=" +
+        pageSize +
+        "&sortCol=" +
+        sortCol +
+        "&sortDesc=" +
+        sortDesc;
+      xhr.open("GET", url);
+      xhr.responseType = "json";
+      xhr.onload = () => {
+        console.log("Список мер");
+        console.log(xhr.response);
+        this.measuresCardsList = xhr.response;
+        this.itemsTotal = xhr.response.totalElements;
+      };
+      xhr.send();
+    },
+
+    setRole(roleId) {
+      console.log("Меняю роль");
+      console.log(roleId);
+      // this.selectedUserRole = roleId;
+      axios
+        .put(this.url + "core/put-metadata?orgId=0&roleId=" + roleId, "", {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
+        .then((response) => {
+          console.log("Выбранная роль");
+          console.log(response.data);
+          this.$emit("select-role", response.data);
+        });
+    },
   },
 
-  mounted: function () {
-    console.log("Смонтировано");
-    const xhr = new XMLHttpRequest();
-    let request =
-      "https://www.d-skills.ru/40_subsidy_bootstrapvue/requests.php?page=" +
-      this.page +
-      "&pageSize=" +
-      this.pageSize;
-    xhr.open("GET", request);
-    xhr.responseType = "json";
-    xhr.onload = () => {
-      console.log(xhr.response);
-      this.xhrResponse = xhr.response;
-    };
-    xhr.send();
+  mounted() {
+    console.log("Смонтирована страница AccountInfo");
+    console.log(this.user.selectedRole.roleId);
+  },
+
+  updated() {
+    console.log("Обновление страницы AccountInfo");
+    console.log(this.user.selectedRole.roleId);
+    this.selectedUserRole = this.user.selectedRole.roleId;
   },
 };
 </script>

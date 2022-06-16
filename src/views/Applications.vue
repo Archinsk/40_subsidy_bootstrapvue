@@ -29,9 +29,9 @@
       @close="cleanAppForm"
     >
       <template v-if="isResponse">
-<!--        <div v-if="isAlertVisible" class="alert alert-success" role="alert">-->
-<!--          {{ successComment }}-->
-<!--        </div>-->
+        <!--        <div v-if="isAlertVisible" class="alert alert-success" role="alert">-->
+        <!--          {{ successComment }}-->
+        <!--        </div>-->
         <div class="row">
           <div class="col-10">
             <Form
@@ -41,7 +41,7 @@
               :options="{
                 readOnly: !appForm.active,
                 i18n: formOptions.i18n,
-                }"
+              }"
               ref="vueForm"
             />
           </div>
@@ -57,8 +57,9 @@
                   type="button"
                   class="btn btn-block btn-primary"
                   @click="invokeAction(action.id, true)"
-                  >{{ action.name }}</button
                 >
+                  {{ action.name }}
+                </button>
                 <button
                   v-else
                   :key="action.id"
@@ -166,13 +167,13 @@ export default {
             Well: "Лист",
             Label: "Название",
             "Please fix the following errors before submitting":
-                    "Пожалуйста исправьте ошибки перед теп как продолжить",
+              "Пожалуйста исправьте ошибки перед теп как продолжить",
             "Email: Email must be a valid email.": "Не правильный e-mail",
             Placeholder: "Заполнитель",
             Description: "Описание",
             Tooltip: "Подсказка",
             "To add a tooltip to this field,enter text here.":
-                    "Введите подсказку здесь",
+              "Введите подсказку здесь",
             "Input Mask": "Маска ввода",
             Hidden: "Скрытый",
             "Hide Label": "Скрыть название",
@@ -190,7 +191,7 @@ export default {
             pattern: "не соответствует маске!",
             error: "Пожалуйста исправьте ошибки прежде чем продолжить.",
             submitError:
-                    "Пожалуйста исправьте все ошибки прежде чем продолжить.",
+              "Пожалуйста исправьте все ошибки прежде чем продолжить.",
             invalid_regex: "не соответствует маске!",
             mask: "{{field}} не соответствует маске.",
             valueIsNotAvailable: "неправильное значение.",
@@ -242,7 +243,14 @@ export default {
   },
 
   methods: {
-    getApps(page, pageSize, sortCol = "id", sortDesc = true, userList = true, active = true) {
+    getApps(
+      page,
+      pageSize,
+      sortCol = "id",
+      sortDesc = true,
+      userList = true,
+      active = true
+    ) {
       axios
         .get(
           this.url +
@@ -255,16 +263,19 @@ export default {
             "&sortDesc=" +
             sortDesc +
             "&userList=" +
-                userList +
+            userList +
             "&active=" +
-            active
+            active,
+          {
+            withCredentials: true,
+          }
         )
         .then((response) => {
           this.apps = response.data;
           this.itemsTotal = response.data.totalElements;
           console.log("Список заявлений");
           console.log(this.apps);
-        })
+        });
     },
 
     // Стартовая форма заявления
@@ -404,7 +415,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .btn {
-    word-wrap: break-word;
-  }
+.btn {
+  word-wrap: break-word;
+}
 </style>

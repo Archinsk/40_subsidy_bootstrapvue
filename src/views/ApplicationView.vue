@@ -199,8 +199,6 @@ export default {
             submit: "Отправить",
             "File Name": "Имя файла",
             Size: "Размер",
-            "Drop files to attach, or browse":
-              "Перетащите файл сюда, или выберите с диска",
           },
         },
       },
@@ -276,7 +274,8 @@ export default {
       const request = {
         actionId: actionId,
         userId: this.user.shortInfo.userId,
-        roleId: this.user.selectedRole.id,
+        roleId: this.user.selectedRole.roleId,
+        orgId: this.user.selectedRole.orgId,
         appId: this.appForm.id,
         data: JSON.stringify(this.appForm.data),
       };

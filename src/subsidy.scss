@@ -953,6 +953,11 @@ body {
               }
             }
           }
+
+          .form-control {
+            width: unset;
+            min-width: 10rem;
+          }
         }
       }
 
