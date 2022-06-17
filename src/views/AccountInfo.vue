@@ -155,29 +155,6 @@ export default {
       xhr.send();
     },
 
-    getMeasuresCardslist(pageNum, pageSize, sortCol = "id", sortDesc = false) {
-      const xhr = new XMLHttpRequest();
-      const url =
-        this.url +
-        "serv/get-services?pageNum=" +
-        (pageNum - 1) +
-        "&pageSize=" +
-        pageSize +
-        "&sortCol=" +
-        sortCol +
-        "&sortDesc=" +
-        sortDesc;
-      xhr.open("GET", url);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log("Список мер");
-        console.log(xhr.response);
-        this.measuresCardsList = xhr.response;
-        this.itemsTotal = xhr.response.totalElements;
-      };
-      xhr.send();
-    },
-
     setRole(roleId) {
       console.log("Меняю роль");
       console.log(roleId);
