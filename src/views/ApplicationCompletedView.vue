@@ -229,7 +229,7 @@
                     .then((response) => {
                         console.log("Стартовая форма");
                         console.log(response);
-                        const newForm = response.data;
+                        const newForm = response.data.applicationDTO;
                         newForm.data = JSON.parse(newForm.data);
                         newForm.form.scheme = JSON.parse(newForm.form.scheme);
                         this.appForm = newForm;
@@ -269,7 +269,9 @@
             invoke(actionId, isBackAction = false) {
                 const request = {
                     actionId: actionId,
-                    userId: 13,
+                    userId: 0,
+                    roleId: 0,
+                    orgId: 0,
                     appId: this.appForm.id,
                     data: JSON.stringify(this.appForm.data),
                 };
