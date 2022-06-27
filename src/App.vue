@@ -20,7 +20,8 @@ export default {
   name: "App",
   data() {
     return {
-      theme: "primary",
+      url: "https://open-newtemplate.isands.ru/api/",
+      // url: "https://open-demo.isands.ru/api/",
       user: {
         shortInfo: {
           userId: null,
@@ -36,6 +37,7 @@ export default {
           label: "",
         },
       },
+      theme: "primary",
     };
   },
   components: {

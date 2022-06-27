@@ -52,12 +52,19 @@
               <!--                <span class="material-icons">laptop</span>-->
               <!--              </button>-->
               <router-link
-                v-if="user.shortInfo.userId && measure.active && isValidPeriod()"
+                v-if="
+                  user.shortInfo.userId && measure.active && isValidPeriod() && availabilityByRole
+                "
                 :to="appLink"
                 :class="'btn btn-' + theme"
                 role="button"
                 >Подать заявку</router-link
               >
+              <div v-else-if="user.shortInfo.userId && measure.active && isValidPeriod()">
+                Вы не подходите под категорию лиц, для которых доступна подача
+                обращения
+              </div>
+              <!--              Кнопка открытия заявки в модальном окне-->
               <!--              <b-button-->
               <!--                v-if="user.shortInfo.userId && measure.active && isValidPeriod"-->
               <!--                v-b-modal.new-app-->
@@ -695,6 +702,18 @@ export default {
     appLink: function () {
       return "/application_view/" + this.$route.params.subId;
     },
+    availabilityByRole: function () {
+      if (!this.measure.id) {
+        return false;
+      } else {
+        for (let i = 0; i < this.measure.roles.length; i++) {
+          if (this.user.selectedRole.roleId === this.measure.roles[i].id) {
+            return true;
+          }
+        }
+        return false;
+      }
+    },
   },
 
   methods: {
@@ -703,7 +722,7 @@ export default {
       axios
         .get(this.url + "serv/get-model?id=" + this.$route.params.subId)
         .then((response) => {
-          console.log("getMeasure");
+          console.log("Детальная информация по мере поддержки (getMeasure)");
           console.log(response);
           this.measure = response.data;
         });
@@ -859,12 +878,6 @@ export default {
         measureFinishDate = new Date(this.measure.endDate);
         measureFinishDate.setDate(measureFinishDate.getDate() + 1);
       }
-      console.log("startDate");
-      console.log(measureStartDate);
-      console.log("now");
-      console.log(now);
-      console.log("measureFinishDate");
-      console.log(measureFinishDate);
       if (measureStartDate && measureFinishDate) {
         return now >= measureStartDate && now <= measureFinishDate;
       } else if (measureStartDate && !measureFinishDate) {
