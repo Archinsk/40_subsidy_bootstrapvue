@@ -28,7 +28,7 @@
                 :key="action.id"
                 type="button"
                 class="btn btn-block btn-primary"
-                @click="invokeAction(action.id, true)"
+                @click="invokeAction(action, true)"
               >
                 {{ action.name }}
               </button>
@@ -37,7 +37,7 @@
                 :key="action.id"
                 type="button"
                 class="btn btn-block btn-primary"
-                @click="invokeAction(action.id)"
+                @click="invokeAction(action)"
               >
                 {{ action.name }}
               </button>
@@ -256,16 +256,21 @@ export default {
       );
     },
 
-    invokeAction(actionId, isBackAction = false) {
-      console.log("Выполнение действия");
+    invokeAction(action, isBackAction = false) {
+      console.log("Выполнение действия " + action.id);
       this.isFirstLoad = false;
       this.isValidFormData = this.validateForm();
-      console.log("Валидность формы:" + this.isValidFormData);
-      if (this.isValidFormData) {
+      // Действие "Без проверки" или форма заполнена верно
+      if (this.isValidFormData || action.notRequiredAction) {
+        if (action.notRequiredAction) {
+          console.log("Выполняется действие без проверки");
+        } else {
+          console.log("Форма валидна");
+        }
         this.loadingComment = "Отправка данных заявления";
         this.isResponse = false;
         this.isLoading = true;
-        setTimeout(this.invoke, 1000, actionId, isBackAction);
+        setTimeout(this.invoke, 1000, action.id, isBackAction);
       } else {
         this.$refs.vueForm.formio.submit();
       }
@@ -279,7 +284,8 @@ export default {
         appId: this.appForm.id,
         data: JSON.stringify(this.appForm.data),
       };
-      console.log(request.data);
+      console.log("Тело запроса Action-invoke");
+      console.log(request);
       axios
         .post(this.url + "app/action-invoke", request, {
           headers: { "Content-Type": "application/json" },
@@ -311,7 +317,6 @@ export default {
           this.isResponse = true;
           this.isLoading = false;
           this.isAlertVisible = true;
-          this.isFirstLoad = true;
           setTimeout(this.hideAlert, 3000);
         });
     },
