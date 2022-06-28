@@ -23,12 +23,6 @@ const routes = [
     component: () => import("../views/NewsInfo"),
   },
   {
-    path: "/measures_example",
-    name: "MeasuresExample",
-    meta: { layout: "main-layout" },
-    component: () => import("../views/MeasuresExample"),
-  },
-  {
     path: "/measures",
     name: "Measures",
     meta: { layout: "main-layout" },
@@ -53,12 +47,6 @@ const routes = [
     component: () => import("../views/ApplicationCompletedView"),
   },
   {
-    path: "/subsidy_info_example",
-    name: "SubsidyInfoExample",
-    meta: { layout: "main-layout" },
-    component: () => import("../views/SubsidyInfoExample"),
-  },
-  {
     path: "/account_info",
     name: "AccountInfo",
     meta: { layout: "main-layout" },
@@ -68,7 +56,7 @@ const routes = [
     path: "/applications",
     name: "Applications",
     meta: { layout: "main-layout" },
-    component: () => import("../views/Applications"),
+    component: () => import("../components/Applications"),
   },
   {
     path: "/authPage",

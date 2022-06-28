@@ -26,7 +26,7 @@
 
       <b-tabs>
         <b-tab title="Заявления" active>
-          <Applications :theme="theme" />
+          <Applications :url="url" :theme="theme" />
         </b-tab>
         <b-tab title="Личные данные">
           <h4 class="text-center">Личные данные</h4>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import Applications from "@/views/Applications";
+import Applications from "@/components/Applications";
 import axios from "axios";
 
 export default {
@@ -92,12 +92,10 @@ export default {
     Applications,
   },
 
-  props: ["theme", "user"],
+  props: ["url", "user", "theme"],
 
   data() {
     return {
-      url: "https://open-newtemplate.isands.ru/api/",
-
       xhrResponse: [],
       page: 1,
       pageSize: 10,

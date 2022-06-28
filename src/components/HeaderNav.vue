@@ -20,7 +20,7 @@
         <b-nav-item
           v-if="!isAuthUser"
           v-b-modal.auth
-          class="active mr-md-5"
+          class="active pr-md-5"
           id="signInButton"
         >
           Вход
@@ -141,11 +141,10 @@ import axios from "axios";
 
 export default {
   name: "HeaderNav",
-  props: ["theme", "user"],
+  props: ["url", "theme", "user"],
 
   data() {
     return {
-      url: "https://open-newtemplate.isands.ru/api/",
       login: "",
       password: "",
       passwordVisibility: false,
@@ -305,9 +304,22 @@ export default {
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
-            this.isAuthUser = false;
-            this.user.shortInfo = { userId: null, userName: "", typeAuth: "" };
-            this.user.fullInfo = { roles: [] };
+            const guestUser = {
+              shortInfo: {
+                userId: null,
+                userName: "",
+                typeAuth: "",
+              },
+              fullInfo: {
+                roles: [],
+              },
+              selectedRole: {
+                id: null,
+                key: "",
+                label: "",
+              },
+            };
+            this.$emit("assign-user", guestUser);
           }
         })
         .then(() => {

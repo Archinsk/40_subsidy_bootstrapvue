@@ -12,8 +12,9 @@
         </b-navbar-brand>
 
         <HeaderNav
-          :theme="theme"
+          :url="url"
           :user="user"
+          :theme="theme"
           @assign-user="$emit('assign-user', $event)"
           @select-role="$emit('select-role', $event)"
         ></HeaderNav>
@@ -38,6 +39,6 @@ export default {
   components: {
     HeaderNav,
   },
-  props: ["theme", "user"],
+  props: ["url", "user", "theme"],
 };
 </script>

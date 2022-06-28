@@ -1,10 +1,5 @@
 <template>
   <ul class="footer-nav col-md-5">
-    <!-- Пункты меню футера получаемые с сервера -->
-<!--    <li v-for="item of footerLinksList" :key="item.id">-->
-<!--      <router-link to="/news">{{ item.title[0].text }}</router-link>-->
-<!--    </li>-->
-    <!-- Статические пункты меню футера -->
     <li>
       <router-link to="/news">Новости</router-link>
     </li>
@@ -14,20 +9,11 @@
     <li>
       <router-link to="/measures">Поддержка физических лиц</router-link>
     </li>
-<!--    <li>-->
-<!--      <router-link to="/measures_example">Пример верстки каталога мер</router-link>-->
-<!--    </li>-->
   </ul>
 </template>
 
 <script>
 export default {
   name: "FooterNav",
-
-  data() {
-    return {
-      footerLinksList: [],
-    };
-  },
 };
 </script>

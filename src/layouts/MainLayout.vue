@@ -1,15 +1,17 @@
 <template>
   <div class="page-wrapper">
     <Header
-      :theme="theme"
+      :url="url"
       :user="user"
+      :theme="theme"
       @assign-user="$emit('assign-user', $event)"
       @select-role="$emit('select-role', $event)"
     />
     <main class="content">
       <router-view
-        :theme="theme"
+        :url="url"
         :user="user"
+        :theme="theme"
         @select-role="$emit('select-role', $event)"
       />
     </main>
@@ -27,6 +29,6 @@ export default {
     Header,
     Footer,
   },
-  props: ["theme", "user"],
+  props: ["url", "user", "theme"],
 };
 </script>

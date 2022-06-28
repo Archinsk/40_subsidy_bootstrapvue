@@ -9,7 +9,10 @@
         alt=""
       />
     </div>
-    <div id="chat-field-wrapper" :class="['chat-field-wrapper col-lg-9 ', {active: isActive}]">
+    <div
+      id="chat-field-wrapper"
+      :class="['chat-field-wrapper col-lg-9 ', { active: isActive }]"
+    >
       <div :class="'chat-field ' + chatFieldClass()">
         <b-alert
           v-for="message of messages"

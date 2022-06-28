@@ -3,7 +3,9 @@
     <template v-if="isResponse">
       <div class="row pt-2">
         <div class="col-12">
-          <h4 class="text-center py-2">{{measure.name + ': ' + appForm.form.name}}</h4>
+          <h4 class="text-center py-2">
+            {{ measure.name + ": " + appForm.form.name }}
+          </h4>
         </div>
         <div class="col-10">
           <Form
@@ -69,12 +71,10 @@ export default {
   components: {
     Form,
   },
-  props: ["user"],
+  props: ["url", "user"],
 
   data() {
     return {
-      // url: "https://open-demo.isands.ru/api/",
-      url: "https://open-newtemplate.isands.ru/api/",
       measure: {},
       isResponse: false,
       isLoading: false,
@@ -199,6 +199,7 @@ export default {
             submit: "Отправить",
             "File Name": "Имя файла",
             Size: "Размер",
+            "Add another": "Добавить",
           },
         },
       },
@@ -210,12 +211,12 @@ export default {
     // Информация о мере поддержки
     getMeasure() {
       axios
-              .get(this.url + "serv/get-model?id=" + this.$route.params.subId)
-              .then((response) => {
-                console.log("getMeasure");
-                console.log(response);
-                this.measure = response.data;
-              });
+        .get(this.url + "serv/get-model?id=" + this.$route.params.subId)
+        .then((response) => {
+          console.log("getMeasure");
+          console.log(response);
+          this.measure = response.data;
+        });
     },
 
     // Стартовая форма заявления

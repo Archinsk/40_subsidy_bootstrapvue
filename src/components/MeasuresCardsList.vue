@@ -5,10 +5,7 @@
       :key="measuresItem.id"
       class="col"
     >
-      <MeasuresCardsListItem
-        :measure="measuresItem"
-        :theme="theme"
-      />
+      <MeasuresCardsListItem :measure="measuresItem" :theme="theme" />
     </div>
     <div class="col">
       <Pagination
@@ -41,7 +38,7 @@ export default {
     "page",
     "pageSize",
     "itemsPerPage",
-          "theme",
+    "theme",
   ],
 };
 </script>

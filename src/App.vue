@@ -2,8 +2,9 @@
   <div id="app">
     <component
       :is="layout"
-      :theme="theme"
+      :url="url"
       :user="user"
+      :theme="theme"
       @assign-user="assignUser($event)"
       @select-role="user.selectedRole = $event"
     >

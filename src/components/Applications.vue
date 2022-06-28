@@ -102,13 +102,10 @@ export default {
     Form,
   },
 
-  props: ["theme"],
+  props: ["url", "theme"],
 
   data() {
     return {
-      // url: "http://192.168.18.171:8080/api/",
-      // url: "https://open-demo.isands.ru/api/",
-      url: "https://open-newtemplate.isands.ru/api/",
       apps: [],
       itemsTotal: 0,
       page: 1,

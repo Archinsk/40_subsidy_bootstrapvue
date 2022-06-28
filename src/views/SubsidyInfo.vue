@@ -40,27 +40,23 @@
               <div class="support-size-info"></div>
             </div>
             <div class="support-buttons col">
-              <!--              <button-->
-              <!--                type="button"-->
-              <!--                :class="-->
-              <!--                  'btn btn-outline-' +-->
-              <!--                  theme +-->
-              <!--                  ' btn-icon-only_square measure-web-accessibility mr-2'-->
-              <!--                "-->
-              <!--                title="По данной мере поддержки есть возможность электронной подачи"-->
-              <!--              >-->
-              <!--                <span class="material-icons">laptop</span>-->
-              <!--              </button>-->
               <router-link
                 v-if="
-                  user.shortInfo.userId && measure.active && isValidPeriod() && availabilityByRole
+                  user.shortInfo.userId &&
+                  measure.active &&
+                  isValidPeriod() &&
+                  availabilityByRole
                 "
                 :to="appLink"
                 :class="'btn btn-' + theme"
                 role="button"
                 >Подать заявку</router-link
               >
-              <div v-else-if="user.shortInfo.userId && measure.active && isValidPeriod()">
+              <div
+                v-else-if="
+                  user.shortInfo.userId && measure.active && isValidPeriod()
+                "
+              >
                 Вы не подходите под категорию лиц, для которых доступна подача
                 обращения
               </div>
@@ -549,13 +545,10 @@ export default {
     Form,
   },
 
-  props: ["theme", "user"],
+  props: ["url", "theme", "user"],
 
   data() {
     return {
-      // url: "http://192.168.18.171:8080/api/",
-      // url: "https://open-demo.isands.ru/api/",
-      url: "https://open-newtemplate.isands.ru/api/",
       measure: {},
       measureForms: [
         {

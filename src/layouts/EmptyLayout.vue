@@ -1,7 +1,8 @@
 <template>
   <router-view
-    :theme="theme"
+    :url="url"
     :user="user"
+    :theme="theme"
     @assign-user="$emit('assign-user', $event)"
     @select-role="$emit('select-role', $event)"
   />
@@ -10,6 +11,6 @@
 <script>
 export default {
   name: "EmptyLayout",
-  props: ["theme", "user"],
+  props: ["url", "user", "theme"],
 };
 </script>

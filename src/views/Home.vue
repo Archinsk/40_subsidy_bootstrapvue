@@ -1,6 +1,7 @@
 <template>
   <div class="page-wrapper">
     <Header
+      :url="url"
       :theme="theme"
       :user="user"
       @assign-user="$emit('assign-user', $event)"
@@ -9,7 +10,6 @@
     <main class="content">
       <div class="home-page">
         <section v-show="!chatIsActive" class="slider">
-          <!--      <Slider></Slider>-->
           <div class="container">
             <SliderNew></SliderNew>
           </div>
@@ -32,10 +32,6 @@
           ></ChatQuickQuestions>
         </section>
 
-        <!--    <section v-show="!chatIsActive" class="advantages">-->
-        <!--      <Advantages></Advantages>-->
-        <!--    </section>-->
-
         <section v-show="!chatIsActive" class="news mb-2">
           <div class="container">
             <h4 class="title-primary text-center">Новости</h4>
@@ -54,11 +50,9 @@
 
 <script>
 import Header from "@/components/Header";
-// import Slider from "@/components/Slider";
 import SliderNew from "@/components/SliderNew";
 import Chat from "@/components/Chat";
 import ChatQuickQuestions from "@/components/ChatQuickQuestions";
-// import Advantages from "@/components/Advantages";
 import NewsPreviewList from "@/components/NewsPreviewList";
 import Footer from "@/components/Footer";
 
@@ -67,20 +61,18 @@ export default {
 
   components: {
     Header,
-    // Slider,
     SliderNew,
     Chat,
     ChatQuickQuestions,
-    // Advantages,
     NewsPreviewList,
     Footer,
   },
 
-  props: ["theme", "user"],
+  props: ["url", "user", "theme"],
 
   data() {
     return {
-      url: "https://www.d-skills.ru/40_subsidy_bootstrapvue/news2.php",
+      tempUrl: "https://www.d-skills.ru/40_subsidy_bootstrapvue/news2.php",
       newsCardsList: [],
       page: 1,
       pageSize: 6,
@@ -193,7 +185,7 @@ export default {
 
     getNews(page, pageSize) {
       const xhr = new XMLHttpRequest();
-      const request = this.url + "?page=" + page + "&pageSize=" + pageSize;
+      const request = this.tempUrl + "?page=" + page + "&pageSize=" + pageSize;
       xhr.open("GET", request);
       xhr.responseType = "json";
       xhr.onload = () => {
