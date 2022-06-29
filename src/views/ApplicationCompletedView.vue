@@ -201,7 +201,7 @@ export default {
             submit: "Отправить",
             "File Name": "Имя файла",
             Size: "Размер",
-            "Add another": "Добавить",
+            "Add Another": "Добавить",
           },
         },
       },
@@ -273,14 +273,14 @@ export default {
         this.loadingComment = "Отправка данных заявления";
         this.isResponse = false;
         this.isLoading = true;
-        setTimeout(this.invoke, 1000, action.id, isBackAction);
+        setTimeout(this.invoke, 1000, action, isBackAction);
       } else {
         this.$refs.vueForm.formio.submit();
       }
     },
-    invoke(actionId, isBackAction = false) {
+    invoke(action, isBackAction = false) {
       const request = {
-        actionId: actionId,
+        actionId: action.id,
         userId: 0,
         roleId: 0,
         orgId: 0,
@@ -310,7 +310,8 @@ export default {
             link.click();
           } else {
             if (isBackAction) {
-              this.cleanAppForm();
+              this.$router.go(-1);
+              // this.cleanAppForm();
             } else {
               this.getNextForm(response);
             }
@@ -354,5 +355,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>
