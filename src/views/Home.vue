@@ -55,6 +55,7 @@ import Chat from "@/components/Chat";
 import ChatQuickQuestions from "@/components/ChatQuickQuestions";
 import NewsPreviewList from "@/components/NewsPreviewList";
 import Footer from "@/components/Footer";
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -184,16 +185,14 @@ export default {
     },
 
     getNews(page, pageSize) {
-      const xhr = new XMLHttpRequest();
-      const request = this.tempUrl + "?page=" + page + "&pageSize=" + pageSize;
-      xhr.open("GET", request);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log("Cписок новостей");
-        console.log(xhr.response);
-        this.newsCardsList = xhr.response;
-      };
-      xhr.send();
+      axios(this.tempUrl + "?page=" + page + "&pageSize=" + pageSize).then(
+        (response) => {
+          console.groupCollapsed("Список новостей");
+          console.log(response.data);
+          console.groupEnd();
+          this.newsCardsList = response.data;
+        }
+      );
     },
 
     scrollDown() {

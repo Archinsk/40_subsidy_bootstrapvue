@@ -8,23 +8,22 @@
         {{ application ? application.servName : "Наименование меры поддержки" }}
       </h5>
       <router-link
-              :to="appLink"
-              :class="'btn btn-outline-' + theme"
-
-              role="button"
-      >Открыть</router-link
+        :to="appLink"
+        :class="'btn btn-outline-' + theme"
+        role="button"
+        >Открыть</router-link
       >
-<!--      <b-button-->
-<!--        v-b-modal.edit-app-->
-<!--        @click="$emit('get-app-form')"-->
-<!--        :variant="'outline-' + theme"-->
-<!--      >-->
-<!--        Открыть-->
-<!--      </b-button>-->
+      <!--      <b-button-->
+      <!--        v-b-modal.edit-app-->
+      <!--        @click="$emit('get-app-form')"-->
+      <!--        :variant="'outline-' + theme"-->
+      <!--      >-->
+      <!--        Открыть-->
+      <!--      </b-button>-->
     </div>
     <div class="card-footer bg-transparent">
       <p>Текущий статус: {{ application.status }}</p>
-      <p>Дата подачи: 01.01.2022</p>
+      <p>Дата начала: {{ startDate }}</p>
       <p>Статус обновлен: 19.01.2022</p>
     </div>
   </div>
@@ -42,7 +41,27 @@ export default {
 
   computed: {
     appLink: function () {
-      return "/application_completed_view/" + this.application.id + "/model/" + this.application.servId;
+      return (
+        "/application_completed_view/" +
+        this.application.id +
+        "/model/" +
+        this.application.servId
+      );
+    },
+
+    startDate: function () {
+      const options = {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      };
+      if (this.application.startDate) {
+        return new Intl.DateTimeFormat("ru-RU", options).format(
+          new Date(this.application.startDate)
+        );
+      } else {
+        return "";
+      }
     },
   },
 };

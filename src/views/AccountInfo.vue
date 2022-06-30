@@ -170,14 +170,7 @@ export default {
     },
   },
 
-  mounted() {
-    console.log("Смонтирована страница AccountInfo");
-    console.log(this.user.selectedRole.roleId);
-  },
-
   updated() {
-    console.log("Обновление страницы AccountInfo");
-    console.log(this.user.selectedRole.roleId);
     this.selectedUserRole = this.user.selectedRole.roleId;
   },
 };
