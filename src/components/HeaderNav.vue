@@ -131,7 +131,7 @@
           v-for="role in user.fullInfo.roles"
           :key="role.id"
           class="btn btn-outline-primary btn-block"
-          @click="signInWithRole(role)"
+          @click="signInWithRole(role, true)"
         >
           {{ role.label }}
         </button>
@@ -227,12 +227,11 @@ export default {
         })
         .then(() => {
           this.getUserId();
-          this.getUserInfo();
+          this.getUserInfo(false);
         })
         .then(() => {
           this.$emit("assign-user", this.userInfoFromResponse);
         })
-        .then(() => {})
         .catch((error) => {
           if (error.response.status === 401) {
             this.authError.type = "password";
@@ -257,7 +256,7 @@ export default {
       });
     },
 
-    getUserInfo() {
+    getUserInfo(hideModal=true) {
       axios(this.url + "core/get-user", {
         withCredentials: true,
       }).then((response) => {
@@ -265,39 +264,60 @@ export default {
         console.log(response.data);
         console.groupEnd();
         this.userInfoFromResponse.fullInfo = response.data;
+        this.$emit("assign-user", this.userInfoFromResponse);
         if (this.userInfoFromResponse.fullInfo.roles.length === 0) {
           this.$refs["modal-auth"].hide();
           console.log("У пользователя отсутствуют роли");
         } else if (this.userInfoFromResponse.fullInfo.roles.length === 1) {
-          this.$emit(
-            "select-role",
-            this.userInfoFromResponse.fullInfo.roles[0]
-          );
           this.$refs["modal-auth"].hide();
+          this.signInWithRole(this.userInfoFromResponse.fullInfo.roles[0]);
           console.groupCollapsed(
             "Пользователь авторизован с единственной имеющейся ролью"
           );
           console.log(this.userInfoFromResponse.fullInfo.roles[0]);
           console.groupEnd();
+        } else {
+          let currentRole = this.selectRoleById(response.data.roles, this.userInfoFromResponse.shortInfo.roleId);
+          if (currentRole) {
+            this.signInWithRole(currentRole, hideModal);
+          }
         }
       });
     },
 
+    selectRoleById(roles, roleId) {
+      for (let i=0; i < roles.length; i++){
+        if (roleId === roles[i].id) {
+          console.groupCollapsed("Пользователь уже авторизован с ролью");
+          console.log(roles[i]);
+          console.groupEnd();
+          return roles[i];
+        }
+      }
+    },
+
     // Выбор роли пользователя при авторизации по логину/паролю
-    signInWithRole(role) {
+    signInWithRole(role, hideModal) {
       axios
         .put(this.url + "core/put-metadata?orgId=0&roleId=" + role.id, "", {
           withCredentials: true,
         })
         .then((response) => {
-          this.$emit("select-role", response.data);
-          this.$refs["modal-auth"].hide();
-          this.login = "";
-          this.password = "";
-          this.authError.type = "";
-          this.authError.text = "";
+          this.userInfoFromResponse.shortInfo = response.data;
+          this.userInfoFromResponse.selectedRole = role;
+          if (hideModal) {
+            this.$refs["modal-auth"].hide();
+          }
+          this.cleanSignInForm();
           console.log('Пользователь авторизован с ролью "' + role.label + '"');
         });
+    },
+
+    cleanSignInForm() {
+      this.login = "";
+      this.password = "";
+      this.authError.type = "";
+      this.authError.text = "";
     },
 
     signOut() {
@@ -375,14 +395,6 @@ export default {
         .then(() => {
           this.$router.push("/");
         });
-    },
-
-    goToEsia() {
-      console.log("esiaLoginLink");
-      console.log(this.esiaLink);
-      axios(this.esiaLink).then((response) => {
-        console.log(response);
-      });
     },
 
     signOutEsia() {

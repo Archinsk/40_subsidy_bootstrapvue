@@ -7,6 +7,7 @@
       :theme="theme"
       @assign-user="assignUser($event)"
       @select-role="user.selectedRole = $event"
+      @change-user-short-info="user.shortInfo = $event"
     >
       <router-view />
     </component>
@@ -55,6 +56,8 @@ export default {
     assignUser(user) {
       this.user = user;
     },
+
+
   },
 };
 </script>

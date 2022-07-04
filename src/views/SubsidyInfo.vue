@@ -700,7 +700,7 @@ export default {
         return false;
       } else {
         for (let i = 0; i < this.measure.roles.length; i++) {
-          if (this.user.selectedRole.roleId === this.measure.roles[i].id) {
+          if (this.user.selectedRole.id === this.measure.roles[i].id) {
             return true;
           }
         }

@@ -61,7 +61,7 @@
                   v-model="selectedUserRole"
                   class="form-control"
                   id="exampleFormControlSelect1"
-                  @change="setRole(selectedUserRole)"
+                  @change="setRole(selectRoleById(user.fullInfo.roles, selectedUserRole))"
                 >
                   <option
                     v-for="role of user.fullInfo.roles"
@@ -99,7 +99,7 @@ export default {
       xhrResponse: [],
       page: 1,
       pageSize: 10,
-      selectedUserRole: this.user.selectedRole.roleId,
+      selectedUserRole: this.user.selectedRole.id,
     };
   },
 
@@ -153,25 +153,32 @@ export default {
       xhr.send();
     },
 
-    setRole(roleId) {
-      console.log("Меняю роль");
-      console.log(roleId);
-      // this.selectedUserRole = roleId;
+    selectRoleById(roles, roleId) {
+      for (let i=0; i < roles.length; i++){
+        if (roleId === roles[i].id) {
+          console.groupCollapsed("Пользователь уже авторизован с ролью");
+          console.log(roles[i]);
+          console.groupEnd();
+          return roles[i];
+        }
+      }
+    },
+
+    setRole(role) {
       axios
-        .put(this.url + "core/put-metadata?orgId=0&roleId=" + roleId, "", {
-          headers: { "Content-Type": "application/json" },
+        .put(this.url + "core/put-metadata?orgId=0&roleId=" + role.id, "", {
           withCredentials: true,
         })
         .then((response) => {
-          console.log("Выбранная роль");
-          console.log(response.data);
-          this.$emit("select-role", response.data);
+          this.$emit("change-user-short-info", response.data);
+          this.$emit("select-role", role);
+          console.log('Роль пользователя изменена на "' + role.label + '"');
         });
     },
   },
 
   updated() {
-    this.selectedUserRole = this.user.selectedRole.roleId;
+    this.selectedUserRole = this.user.selectedRole.id;
   },
 };
 </script>

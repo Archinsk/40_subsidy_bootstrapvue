@@ -13,6 +13,7 @@
         :user="user"
         :theme="theme"
         @select-role="$emit('select-role', $event)"
+        @change-user-short-info="$emit('change-user-short-info', $event)"
       />
     </main>
     <Footer :theme="theme" />
