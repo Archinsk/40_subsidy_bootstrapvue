@@ -60,117 +60,81 @@
       </div>
     </template>
 
-    <div class="text-center">
-      <button class="btn btn-info" @click="openModalSignature()">Модалка</button>
-    </div>
-
-<!--    <div ref="modal-signature" class="modal fade" id="signatureModal" tabindex="-1" aria-labelledby="signatureModalLabel" aria-hidden="true">-->
-<!--      <div data-v-109035ba="" class="modal-dialog modal-xl">-->
-<!--        <div data-v-109035ba="" class="modal-content">-->
-<!--          <div data-v-109035ba="" class="modal-header">-->
-<!--            <h5 data-v-109035ba="" id="signatureModalLabel" class="modal-title" >Подпись файла</h5>-->
-<!--            <button data-v-109035ba="" type="button" data-dismiss="modal" aria-label="Close" class="close" >-->
-<!--              <span data-v-109035ba="" aria-hidden="true">×</span>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--          <div data-v-109035ba="" class="modal-body">-->
-<!--            <label for="CertListBox">Выберите сертификат</label>-->
-<!--            <select name="CertListBox" id="CertListBox" class="form-control">-->
-<!--              <option disabled value="" selected>Выбор сертификата</option>-->
-<!--            </select>-->
-<!--            <div class="row">-->
-<!--              <div class="col-6" id="cryptoProStatusDiv" style="margin-top: 1rem;">-->
-<!--                <h2>Информация о программном обеспечении</h2>-->
-<!--                <div id="info_msg">-->
-<!--                  <span id="ExtensionEnabledTxt">Расширение не загружено</span>-->
-<!--                  <img src="Img/red_dot.png" width="10" height="10" alt="Расширение не загружено" id="ExtensionEnabledImg" />-->
-<!--                  <br>-->
-<!--                  <span id="PlugInEnabledTxt">Плагин: ожидание загрузки расширения</span>-->
-<!--                  <img src="Img/grey_dot.png" width="10" height="10" alt="Плагин не загружен" id="PluginEnabledImg" />-->
-<!--                  <br>-->
-<!--                  <span id="CspEnabledTxt">Криптопровайдер: ожидание загрузки плагина</span>-->
-<!--                  <img src="Img/grey_dot.png" width="10" height="10" alt="КриптоПро CSP не загружен" id="CspEnabledImg" />-->
-<!--                  <br>-->
-<!--                  <span id="PlugInVersionTxt" lang="ru"></span>-->
-<!--                  <span id="CSPVersionTxt" lang="ru"></span>-->
-<!--                  <br>-->
-<!--                  <span id="CSPNameTxt" lang="ru"></span>-->
-<!--                </div>-->
-
-<!--                <div id="boxdiv" style="display:none">-->
-<!--                                            <span id="errorarea">-->
-<!--                                                У вас отсутствуют личные сертификаты. Вы можете-->
-<!--                                                <a href="#" onClick="Common_RetrieveCertificate();" style="color:#0837ff"> получить</a>-->
-<!--                                                сертификат от тестового УЦ, предварительно установив-->
-<!--                                                <a href="https://testca.cryptopro.ru/certsrv/certnew.cer?ReqID=CACert&Renewal=1&Enc=bin" style="color:#0837ff">корневой сертификат тестового УЦ</a>-->
-<!--                                                в доверенные.-->
-<!--                                            </span>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="col-6" id="cert_info" name="CertInfo" style="display:none">-->
-<!--                <h2>Информация о сертификате</h2>-->
-<!--                <p class="info_field" id="subject"></p>-->
-<!--                <p class="info_field" id="issuer"></p>-->
-<!--                <p class="info_field" id="from"></p>-->
-<!--                <p class="info_field" id="till"></p>-->
-<!--                <p class="info_field" id="provname"></p>-->
-<!--                <p class="info_field" id="privateKeyLink"></p>-->
-<!--                <p class="info_field" id="algorithm"></p>-->
-<!--                <p class="info_field" id="status"></p>-->
-<!--                <p class="info_field" id="location"></p>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div data-v-109035ba="" class="modal-footer">-->
-<!--            <button data-v-109035ba="" type="button" data-dismiss="modal" class="btn btn-secondary">Отмена</button>-->
-<!--            <button data-v-109035ba="" id="SignBtn" type="button" class="btn btn-primary" onclick="Common_SignCadesBES('CertListBox');">Подписать</button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
     <b-modal
-            id="auth"
-            ref="modal-signature"
-            title="Подпись файла"
-            size="xl"
-            hide-footer
-            no-stacking
+      id="auth"
+      ref="modal-signature"
+      title="Подпись файла"
+      size="xl"
+      cancel-title="Отмена"
+      ok-title="Подписать"
+      @ok="signAction"
     >
       <label for="CertListBox">Выберите сертификат</label>
       <select name="CertListBox" id="CertListBox" class="form-control">
-        <option disabled value="" selected>Выбор сертификата</option>
+<!--        <option disabled value="" selected>Выбор сертификата</option>-->
       </select>
       <div class="row">
-        <div class="col-6" id="cryptoProStatusDiv" style="margin-top: 1rem;">
+        <div class="col-6" id="cryptoProStatusDiv" style="margin-top: 1rem">
           <h2>Информация о программном обеспечении</h2>
           <div id="info_msg">
             <span id="ExtensionEnabledTxt">Расширение не загружено</span>
-            <img src="Img/red_dot.png" width="10" height="10" alt="Расширение не загружено" id="ExtensionEnabledImg" />
-            <br>
-            <span id="PlugInEnabledTxt">Плагин: ожидание загрузки расширения</span>
-            <img src="Img/grey_dot.png" width="10" height="10" alt="Плагин не загружен" id="PluginEnabledImg" />
-            <br>
-            <span id="CspEnabledTxt">Криптопровайдер: ожидание загрузки плагина</span>
-            <img src="Img/grey_dot.png" width="10" height="10" alt="КриптоПро CSP не загружен" id="CspEnabledImg" />
-            <br>
+            <img
+              src="Img/red_dot.png"
+              width="10"
+              height="10"
+              alt="Расширение не загружено"
+              id="ExtensionEnabledImg"
+            />
+            <br />
+            <span id="PlugInEnabledTxt"
+              >Плагин: ожидание загрузки расширения</span
+            >
+            <img
+              src="Img/grey_dot.png"
+              width="10"
+              height="10"
+              alt="Плагин не загружен"
+              id="PluginEnabledImg"
+            />
+            <br />
+            <span id="CspEnabledTxt"
+              >Криптопровайдер: ожидание загрузки плагина</span
+            >
+            <img
+              src="Img/grey_dot.png"
+              width="10"
+              height="10"
+              alt="КриптоПро CSP не загружен"
+              id="CspEnabledImg"
+            />
+            <br />
             <span id="PlugInVersionTxt" lang="ru"></span>
             <span id="CSPVersionTxt" lang="ru"></span>
-            <br>
+            <br />
             <span id="CSPNameTxt" lang="ru"></span>
           </div>
 
-          <div id="boxdiv" style="display:none">
-                                            <span id="errorarea">
-                                                У вас отсутствуют личные сертификаты. Вы можете
-                                                <a href="#" onClick="Common_RetrieveCertificate();" style="color:#0837ff"> получить</a>
-                                                сертификат от тестового УЦ, предварительно установив
-                                                <a href="https://testca.cryptopro.ru/certsrv/certnew.cer?ReqID=CACert&Renewal=1&Enc=bin" style="color:#0837ff">корневой сертификат тестового УЦ</a>
-                                                в доверенные.
-                                            </span>
+          <div id="boxdiv" style="display: none">
+            <span id="errorarea">
+              У вас отсутствуют личные сертификаты. Вы можете
+              <a
+                href="#"
+                onClick="Common_RetrieveCertificate();"
+                style="color: #0837ff"
+              >
+                получить</a
+              >
+              сертификат от тестового УЦ, предварительно установив
+              <a
+                href="https://testca.cryptopro.ru/certsrv/certnew.cer?ReqID=CACert&Renewal=1&Enc=bin"
+                style="color: #0837ff"
+                >корневой сертификат тестового УЦ</a
+              >
+              в доверенные.
+            </span>
           </div>
         </div>
-        <div class="col-6" id="cert_info" name="CertInfo" style="display:none">
+        <div class="col-6" id="cert_info" name="CertInfo" style="display: none">
           <h2>Информация о сертификате</h2>
           <p class="info_field" id="subject"></p>
           <p class="info_field" id="issuer"></p>
@@ -182,8 +146,32 @@
           <p class="info_field" id="status"></p>
           <p class="info_field" id="location"></p>
         </div>
+        <div class="col-12">
+          <p>Данные для подписи:</p>
+          <div id="item_border" name="DataToSignItemBorder">
+            <textarea
+              id="DataToSignTxtBox"
+              name="DataToSignTxtBox"
+              style="height: 50px; width: 100%; resize: none; border: 0"
+            >Информация, которую требуется подписать</textarea>
+          </div>
+
+        </div>
       </div>
     </b-modal>
+
+    <p>Подписанные данные:</p>
+    <textarea
+            id="SignatureTxtBox"
+            readonly
+            style="
+              font-size: 9pt;
+              height: 100px;
+              width: 100%;
+              resize: none;
+              border: 0;
+            "
+    ></textarea>
   </div>
 </template>
 
@@ -404,6 +392,15 @@ export default {
       }
     },
     invoke(action, isBackAction = false) {
+      if (action.signAction) {
+        this.openModalSignature();
+        this.isResponse = true;
+        this.isLoading = false;
+        this.isAlertVisible = true;
+        this.isFirstLoad = true;
+        setTimeout(this.hideAlert, 3000);
+        // return;
+      }
       const request = {
         actionId: action.id,
         userId: 0,
@@ -477,14 +474,40 @@ export default {
       console.log("---Точка 4");
       console.log("Открытие модального окна");
       this.$refs["modal-signature"].show();
-      // $('#signatureModal').modal('show');
-      // checkExtension(true);
-    }
+      window.checkExtension(true);
+    },
+
+    // Загрузка скриптов КриптоПро
+    loadCrypto() {
+      var file1 = document.createElement("script");
+      file1.setAttribute("type", "text/javascript");
+      file1.setAttribute("src", "extensionLoading.js");
+      document.getElementsByTagName("head")[0].appendChild(file1);
+      var file2 = document.createElement("script");
+      file2.setAttribute("type", "text/javascript");
+      file2.setAttribute("src", "cadesplugin_api.js");
+      document.getElementsByTagName("head")[0].appendChild(file2);
+      var file3 = document.createElement("script");
+      file3.setAttribute("type", "text/javascript");
+      file3.setAttribute("src", "Code.js");
+      document.getElementsByTagName("head")[0].appendChild(file3);
+      var file4 = document.createElement("script");
+      file4.setAttribute("type", "text/javascript");
+      file4.setAttribute("src", "pluginLoading.js");
+      document.getElementsByTagName("body")[0].appendChild(file4);
+    },
+
+    // Подпись файла
+    signAction() {
+      window.Common_SignCadesBES('CertListBox');
+      alert("Привет от BV");
+    },
   },
 
   mounted: function () {
     this.getMeasure();
     this.getStartForm(this.$route.params.subId);
+    setTimeout(this.loadCrypto, 3000);
   },
 };
 </script>
