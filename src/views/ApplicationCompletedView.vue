@@ -153,11 +153,26 @@
               id="DataToSignTxtBox"
               name="DataToSignTxtBox"
               style="height: 50px; width: 100%; resize: none; border: 0"
-            >Информация, которую требуется подписать</textarea>
+            >Hello World - Подписать</textarea>
           </div>
 
         </div>
       </div>
+
+      <template #modal-footer="{ ok, cancel }">
+        <b>Custom Footer</b>
+        <!-- Emulate built in modal footer ok and cancel button actions -->
+        <b-button size="sm" variant="success" @click="ok()">
+          OK
+        </b-button>
+        <b-button size="sm" variant="danger" @click="cancel()">
+          Cancel
+        </b-button>
+        <!-- Button with custom close trigger value -->
+        <b-button size="sm" variant="outline-secondary" @click="signAction">
+          Подписать
+        </b-button>
+      </template>
     </b-modal>
 
     <p>Подписанные данные:</p>
@@ -319,6 +334,8 @@ export default {
         },
       },
       isValidFormData: false,
+      hashToSign: "",
+      signedFileName: "",
     };
   },
 
@@ -399,7 +416,7 @@ export default {
         this.isAlertVisible = true;
         this.isFirstLoad = true;
         setTimeout(this.hideAlert, 3000);
-        // return;
+        return;
       }
       const request = {
         actionId: action.id,
@@ -499,8 +516,63 @@ export default {
 
     // Подпись файла
     signAction() {
-      window.Common_SignCadesBES('CertListBox');
-      alert("Привет от BV");
+      // window.Common_SignCadesBES('CertListBox');
+      // alert("Привет от BV");
+      const request = {
+        certificate: {
+          thumbprint: window.dataToSign.thumbprint,
+          subject: window.dataToSign.subject,
+          from: window.dataToSign.from,
+          validDue: window.dataToSign.validDue,
+        },
+        actionPayloadDTO: {
+          actionId: 54516,
+          userId: 0,
+          roleId: 0,
+          orgId: 0,
+          appId: this.appForm.id,
+          data: JSON.stringify(this.appForm.data)
+        }
+      };
+      console.log(request);
+      axios
+              .post(this.url + "app/action-pdfstamp", request, {
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true,
+              }).then((response) => {
+        console.log("Ответ на экшн");
+        console.log(response);
+        console.log("Содержимое data.applicationDTO.data");
+        console.log(JSON.parse(response.data.applicationDTO.data));
+        console.log("Содержимое data.responseObject");
+        console.log(JSON.parse(response.data.responseObject));
+        this.hashToSign = JSON.parse(response.data.responseObject).hashToSign;
+        console.log(this.hashToSign);
+        this.signedFileName = JSON.parse(response.data.responseObject).fileName;
+        console.log(this.signedFileName);
+        window.Common_SignCadesBES('CertListBox');
+        // let hashField = document.getElementById("DataToSignTxtBox");
+        // console.log(hashField);
+        // hashField.textContent = JSON.parse(response.data.responseObject).hashToSign
+      }).then( () => {
+        console.log(window.dataToSign);
+        const request = {
+          applicationId: this.appForm.id,
+          signature: window.dataToSign.signature,
+          hashToSign: this.hashToSign,
+          filename: this.signedFileName,
+        };
+        console.log("Данные отправляемые для подписанного файла");
+        console.log(request);
+        axios
+                .post(this.url + "app/action-insert-signdata", request, {
+                  headers: { "Content-Type": "application/json" },
+                  withCredentials: true,
+                }).then((response) => {
+          console.log(response);
+        })
+      })
+      // return;
     },
   },
 

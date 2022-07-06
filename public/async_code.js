@@ -41,7 +41,7 @@ CertificateAdjuster.prototype.GetCertDate = function(paramDate)
 {
     var certDate = new Date(paramDate);
     return this.Print2Digit(certDate.getUTCDate())+"."+this.Print2Digit(certDate.getUTCMonth()+1)+"."+certDate.getFullYear() + " " +
-             this.Print2Digit(certDate.getUTCHours()) + ":" + this.Print2Digit(certDate.getUTCMinutes()) + ":" + this.Print2Digit(certDate.getUTCSeconds());
+        this.Print2Digit(certDate.getUTCHours()) + ":" + this.Print2Digit(certDate.getUTCMinutes()) + ":" + this.Print2Digit(certDate.getUTCSeconds());
 }
 
 CertificateAdjuster.prototype.GetCertName = function(certSubjectName)
@@ -119,7 +119,7 @@ function CheckForPlugIn_Async() {
         var xmlhttp = getXmlHttp();
         xmlhttp.open("GET", "https://cryptopro.ru/sites/default/files/products/cades/latest_2_0.txt", true);
         xmlhttp.onreadystatechange = function() {
-        var PluginBaseVersion;
+            var PluginBaseVersion;
             if (xmlhttp.readyState == 4) {
                 if(xmlhttp.status == 200) {
                     PluginBaseVersion = xmlhttp.responseText;
@@ -159,6 +159,8 @@ function CheckForPlugIn_Async() {
 }
 
 function onCertificateSelected(event) {
+    console.log("----- Выбор сертификата в async_code.js onCertificateSelected(event)");
+    console.log(event);
     cadesplugin.async_spawn(function *(args) {
         var selectedCertID = args[0][args[0].selectedIndex].value;
         var certificate = global_selectbox_container[selectedCertID];
@@ -383,6 +385,9 @@ function CreateSimpleSign_Async() {
 
 function SignCadesBES_Async(certListBoxId, data, setDisplayData) {
     cadesplugin.async_spawn(function*(arg) {
+        console.log("Поиск элемента");
+        console.log(arg[0]);
+        console.log(document.getElementById(arg[0]));
         var e = document.getElementById(arg[0]);
         var selectedCertID = e.selectedIndex;
         if (selectedCertID == -1) {
@@ -452,8 +457,11 @@ function SignCadesBES_Async(certListBoxId, data, setDisplayData) {
                 errormes = "Не удалось создать подпись из-за ошибки: " + cadesplugin.getLastError(err);
                 throw errormes;
             }
-            document.getElementById("SignatureTxtBox").innerHTML = Signature;
-            SignatureFieldTitle[0].innerHTML = "Подпись сформирована успешно:";
+            // document.getElementById("SignatureTxtBox").innerHTML = Signature;
+
+            // Вынос подписи в глобальный объект window
+            window.dataToSign.signature = Signature;
+            // SignatureFieldTitle[0].innerHTML = "Подпись сформирована успешно:";
         }
         catch(err)
         {
@@ -537,7 +545,7 @@ function SignCadesBES_Async_File(certListBoxId) {
             document.getElementById("SignatureTxtBox").innerHTML = err;
         }
     }, certListBoxId); //cadesplugin.async_spawn
-    }
+}
 
 function SignCadesEnhanced_Async(certListBoxId, sign_type) {
     cadesplugin.async_spawn(function*(arg) {
@@ -687,6 +695,10 @@ function SignCadesXML_Async(certListBoxId, signatureType) {
 
 function FillCertInfo_Async(certificate, certBoxId, isFromContainer)
 {
+    console.log("----- Запуск async_code.js FillCertInfo_Async(certificate, certBoxId, isFromContainer)");
+    console.log(certificate);
+    console.log(certBoxId);
+    console.log(isFromContainer);
     var BoxId;
     var field_prefix;
     if(typeof(certBoxId) == 'undefined' || certBoxId == "CertListBox")
@@ -705,7 +717,6 @@ function FillCertInfo_Async(certificate, certBoxId, isFromContainer)
     }
     cadesplugin.async_spawn (function*(args) {
         var Adjust = new CertificateAdjuster();
-
         var ValidToDate = new Date((yield args[0].ValidToDate));
         var ValidFromDate = new Date((yield args[0].ValidFromDate));
         var Validator;
@@ -720,6 +731,20 @@ function FillCertInfo_Async(certificate, certBoxId, isFromContainer)
         }
         var hasPrivateKey = yield args[0].HasPrivateKey();
         var Now = new Date();
+
+        console.log("----- Выполнение cadesplugin.async_spawn()");
+        console.log(args);
+        console.log(Adjust);
+        console.log(certificate);
+        console.log(certBoxId);
+        console.log(isFromContainer);
+        // Вынос данных для подписи в глобальный объект window
+        window.dataToSign = {};
+        window.dataToSign.thumbprint = yield args[0].Thumbprint;
+        window.dataToSign.subject = Adjust.GetCertName(yield args[0].SubjectName);
+        window.dataToSign.from = Adjust.GetCertDate(ValidFromDate);
+        window.dataToSign.validDue = Adjust.GetCertDate(ValidToDate);
+        console.log("----------");
 
         document.getElementById(args[1]).style.display = '';
         document.getElementById(args[2] + "subject").innerHTML = "Владелец: <b>" + Adjust.GetCertName(yield args[0].SubjectName) + "<b>";
@@ -961,10 +986,10 @@ function RetrieveCertificate_Async()
         var CERT_NON_REPUDIATION_KEY_USAGE = 0x40;
 
         yield KeyUsageExtension.InitializeEncode(
-                    CERT_KEY_ENCIPHERMENT_KEY_USAGE |
-                    CERT_DATA_ENCIPHERMENT_KEY_USAGE |
-                    CERT_DIGITAL_SIGNATURE_KEY_USAGE |
-                    CERT_NON_REPUDIATION_KEY_USAGE);
+            CERT_KEY_ENCIPHERMENT_KEY_USAGE |
+            CERT_DATA_ENCIPHERMENT_KEY_USAGE |
+            CERT_DIGITAL_SIGNATURE_KEY_USAGE |
+            CERT_NON_REPUDIATION_KEY_USAGE);
 
         yield (yield CertificateRequestPkcs10.X509Extensions).Add(KeyUsageExtension);
 
@@ -986,9 +1011,9 @@ function RetrieveCertificate_Async()
         }
 
         var params = 'CertRequest=' + encodeURIComponent(cert_req) +
-                     '&Mode=' + encodeURIComponent('newreq') +
-                     '&TargetStoreFlags=' + encodeURIComponent('0') +
-                     '&SaveCert=' + encodeURIComponent('no');
+            '&Mode=' + encodeURIComponent('newreq') +
+            '&TargetStoreFlags=' + encodeURIComponent('0') +
+            '&SaveCert=' + encodeURIComponent('no');
 
         var xmlhttp = getXmlHttp();
         xmlhttp.open("POST", "https://testca.cryptopro.ru/certsrv/certfnsh.asp", true);
@@ -1079,7 +1104,7 @@ function CheckForPlugInUEC_Async()
                 }
             }else if((yield CurrentPluginVersion.MinorVersion) < parseInt(arr[1]))
             {
-                    isActualVersion = false;
+                isActualVersion = false;
             }
         }else if((yield CurrentPluginVersion.MajorVersion) < parseInt(arr[0]))
         {
@@ -1190,48 +1215,48 @@ function FoundCertInStore_Async(cerToFind) {
 
 function getUECCertificate_Async() {
     return new Promise(function(resolve, reject)
-        {
-            showWaitMessage("Выполняется загрузка сертификата, это может занять несколько секунд...");
-            cadesplugin.async_spawn(function *(args) {
-                try {
-                    var oCard = yield cadesplugin.CreateObjectAsync("CAdESCOM.UECard");
-                    var oCertTemp = yield oCard.Certificate;
+    {
+        showWaitMessage("Выполняется загрузка сертификата, это может занять несколько секунд...");
+        cadesplugin.async_spawn(function *(args) {
+            try {
+                var oCard = yield cadesplugin.CreateObjectAsync("CAdESCOM.UECard");
+                var oCertTemp = yield oCard.Certificate;
 
-                    if(typeof oCertTemp == "undefined")
-                    {
-                        document.getElementById("cert_info1").style.display = '';
-                        document.getElementById("certerror").innerHTML = "Сертификат не найден или отсутствует.";
-                        throw "";
-                    }
-
-                    if(oCertTemp==null)
-                    {
-                        document.getElementById("cert_info1").style.display = '';
-                        document.getElementById("certerror").innerHTML = "Сертификат не найден или отсутствует.";
-                        throw "";
-                    }
-
-                    if(yield FoundCertInStore_Async(oCertTemp)) {
-                        FillCertInfo_Async(oCertTemp);
-                        g_oCert = oCertTemp;
-                    }
-                    else {
-                        document.getElementById("cert_info1").style.display = '';
-                        document.getElementById("certerror").innerHTML = "Сертификат не найден в хранилище MY.";
-                        throw "";
-                    }
-                    args[0]();
+                if(typeof oCertTemp == "undefined")
+                {
+                    document.getElementById("cert_info1").style.display = '';
+                    document.getElementById("certerror").innerHTML = "Сертификат не найден или отсутствует.";
+                    throw "";
                 }
-                catch (e) {
-                    var message = cadesplugin.getLastError(e);
-                    if("The action was cancelled by the user. (0x8010006E)" == message) {
-                        document.getElementById("cert_info1").style.display = '';
-                        document.getElementById("certerror").innerHTML = "Карта не найдена или отсутствует сертификат на карте.";
-                    }
-                    args[1]();
+
+                if(oCertTemp==null)
+                {
+                    document.getElementById("cert_info1").style.display = '';
+                    document.getElementById("certerror").innerHTML = "Сертификат не найден или отсутствует.";
+                    throw "";
                 }
-            }, resolve, reject);
-        });
+
+                if(yield FoundCertInStore_Async(oCertTemp)) {
+                    FillCertInfo_Async(oCertTemp);
+                    g_oCert = oCertTemp;
+                }
+                else {
+                    document.getElementById("cert_info1").style.display = '';
+                    document.getElementById("certerror").innerHTML = "Сертификат не найден в хранилище MY.";
+                    throw "";
+                }
+                args[0]();
+            }
+            catch (e) {
+                var message = cadesplugin.getLastError(e);
+                if("The action was cancelled by the user. (0x8010006E)" == message) {
+                    document.getElementById("cert_info1").style.display = '';
+                    document.getElementById("certerror").innerHTML = "Карта не найдена или отсутствует сертификат на карте.";
+                }
+                args[1]();
+            }
+        }, resolve, reject);
+    });
 }
 
 function createSignature_Async() {
