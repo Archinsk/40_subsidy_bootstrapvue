@@ -156,7 +156,7 @@ body {
           margin-right: 0;
 
           @media (max-width: 991.98px) {
-            width: calc(100% - 2.375rem);
+            width: calc(100% - 5.25rem);
           }
 
           .logo__image {
@@ -1238,6 +1238,66 @@ body {
         margin-top: 0;
         margin-bottom: $gap;
       }
+    }
+  }
+
+  //Модальное окно сообщений
+  #accordionMessages {
+    .btn:focus {
+      box-shadow: none;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: all 0.5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+      transform: scale(0, 0);
+      opacity: 0;
+    }
+  }
+
+  #accordionMessages2 {
+    .list-item {
+      display: inline-block;
+    }
+
+    .list-enter-active {
+      animation: list-in 0.75s;
+    }
+    .list-leave-active {
+      animation: list-in 0.75s reverse;
+    }
+    .list-complete-leave-active {
+      position: absolute;
+    }
+
+    @keyframes list-in {
+      0% {
+        transform: scale(0);
+      }
+      90% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  }
+
+  #accordionMessages3 {
+    overflow: hidden;
+
+    .list-complete-item {
+      transition: all 1s;
+      display: inline-block;
+    }
+    .list-complete-enter, .list-complete-leave-to {
+      opacity: 0;
+      transform: translate(30px);
+    }
+    .list-complete-leave-active {
+      position: absolute;
     }
   }
 

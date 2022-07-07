@@ -61,7 +61,11 @@
                   v-model="selectedUserRole"
                   class="form-control"
                   id="exampleFormControlSelect1"
-                  @change="setRole(selectRoleById(user.fullInfo.roles, selectedUserRole))"
+                  @change="
+                    setRole(
+                      selectRoleById(user.fullInfo.roles, selectedUserRole)
+                    )
+                  "
                 >
                   <option
                     v-for="role of user.fullInfo.roles"
@@ -76,6 +80,9 @@
             </div>
           </section>
         </b-tab>
+        <b-tab title="Уведомления">
+          <MessagesList />
+        </b-tab>
       </b-tabs>
     </article>
   </div>
@@ -84,11 +91,13 @@
 <script>
 import Applications from "@/components/Applications";
 import axios from "axios";
+import MessagesList from "@/components/MessagesList";
 
 export default {
   name: "AccountInfo",
 
   components: {
+    MessagesList,
     Applications,
   },
 
@@ -154,7 +163,7 @@ export default {
     },
 
     selectRoleById(roles, roleId) {
-      for (let i=0; i < roles.length; i++){
+      for (let i = 0; i < roles.length; i++) {
         if (roleId === roles[i].id) {
           console.groupCollapsed("Пользователь уже авторизован с ролью");
           console.log(roles[i]);

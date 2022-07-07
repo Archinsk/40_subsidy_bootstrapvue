@@ -172,6 +172,9 @@
         <b-button size="sm" variant="outline-secondary" @click="signAction">
           Подписать
         </b-button>
+        <b-button size="sm" variant="outline-secondary" @click="requestSignAction">
+          Отправить
+        </b-button>
       </template>
     </b-modal>
 
@@ -546,6 +549,8 @@ export default {
         console.log(JSON.parse(response.data.applicationDTO.data));
         console.log("Содержимое data.responseObject");
         console.log(JSON.parse(response.data.responseObject));
+        console.log("Содержимое hashToSign");
+        console.log(JSON.parse(response.data.responseObject).hashToSign);
         this.hashToSign = JSON.parse(response.data.responseObject).hashToSign;
         console.log(this.hashToSign);
         this.signedFileName = JSON.parse(response.data.responseObject).fileName;
@@ -554,26 +559,27 @@ export default {
         // let hashField = document.getElementById("DataToSignTxtBox");
         // console.log(hashField);
         // hashField.textContent = JSON.parse(response.data.responseObject).hashToSign
-      }).then( () => {
-        console.log(window.dataToSign);
-        const request = {
-          applicationId: this.appForm.id,
-          signature: window.dataToSign.signature,
-          hashToSign: this.hashToSign,
-          filename: this.signedFileName,
-        };
-        console.log("Данные отправляемые для подписанного файла");
-        console.log(request);
-        axios
-                .post(this.url + "app/action-insert-signdata", request, {
-                  headers: { "Content-Type": "application/json" },
-                  withCredentials: true,
-                }).then((response) => {
-          console.log(response);
-        })
       })
-      // return;
     },
+
+    requestSignAction() {
+      console.log(window.dataToSign);
+      const request = {
+        applicationId: this.appForm.id,
+        signature: window.dataToSign.signature,
+        hashToSign: this.hashToSign,
+        filename: this.signedFileName,
+      };
+      console.log("Данные отправляемые для подписанного файла");
+      console.log(request);
+      axios
+              .post(this.url + "app/action-insert-signdata", request, {
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true,
+              }).then((response) => {
+        console.log(response);
+      })
+    }
   },
 
   mounted: function () {
