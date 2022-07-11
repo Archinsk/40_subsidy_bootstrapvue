@@ -3,6 +3,7 @@
     <Header
       :url="url"
       :theme="theme"
+      :unread-messages="unreadMessages"
       :user="user"
       @assign-user="$emit('assign-user', $event)"
       @select-role="$emit('select-role', $event)"
@@ -69,7 +70,7 @@ export default {
     Footer,
   },
 
-  props: ["url", "user", "theme"],
+  props: ["url", "user", "unreadMessages", "theme"],
 
   data() {
     return {

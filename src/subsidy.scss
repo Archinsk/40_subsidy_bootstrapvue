@@ -156,7 +156,7 @@ body {
           margin-right: 0;
 
           @media (max-width: 991.98px) {
-            width: calc(100% - 5.25rem);
+            width: calc(100% - 6.25rem);
           }
 
           .logo__image {
@@ -1242,62 +1242,55 @@ body {
   }
 
   //Модальное окно сообщений
-  #accordionMessages {
-    .btn:focus {
-      box-shadow: none;
-    }
+  #messages {
+    #accordionMessages {
+      .card {
+        .card-header {
+          padding: 0.375rem 0.375rem 0.75rem 0.75rem;
 
-    .fade-enter-active,
-    .fade-leave-active {
-      transition: all 0.5s;
-    }
-    .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
-      transform: scale(0, 0);
-      opacity: 0;
-    }
-  }
+          .d-flex {
+            .btn:not(:first-child) {
+              align-self: start;
+            }
+          }
+        }
 
-  #accordionMessages2 {
-    .list-item {
-      display: inline-block;
-    }
-
-    .list-enter-active {
-      animation: list-in 0.75s;
-    }
-    .list-leave-active {
-      animation: list-in 0.75s reverse;
-    }
-    .list-complete-leave-active {
-      position: absolute;
-    }
-
-    @keyframes list-in {
-      0% {
-        transform: scale(0);
+        .card-body {
+          padding: 1.5rem;
+        }
       }
-      90% {
-        transform: scale(1.1);
+      .btn:focus {
+        box-shadow: none;
       }
-      100% {
-        transform: scale(1);
+
+      //Анимация удаления пунктов списка
+      .card {
+        @media (max-width: 575.98px) {
+          width: 100%;
+        }
+        width: 28.0625rem;
+        transition: all 0.5s;
+      }
+      .fade-out-group-leave-to {
+        transform: scale(0, 0);
+        opacity: 0;
+      }
+      .fade-out-group-leave-active {
+        position: absolute;
+      }
+
+      //Анимация удаления одиночного объекта
+      .btn-fade {
+        transition: all 0.5s;
+      }
+      .fade-out-leave-to {
+        transform: scale(0, 0);
+        opacity: 0;
       }
     }
-  }
 
-  #accordionMessages3 {
-    overflow: hidden;
-
-    .list-complete-item {
-      transition: all 1s;
-      display: inline-block;
-    }
-    .list-complete-enter, .list-complete-leave-to {
-      opacity: 0;
-      transform: translate(30px);
-    }
-    .list-complete-leave-active {
-      position: absolute;
+    .alert {
+      margin-bottom: 0;
     }
   }
 
@@ -1335,6 +1328,13 @@ body {
   }
 
   .btn {
+    &.btn-outline-light {
+      &:hover,
+      &:active {
+        color: var(--primary);
+      }
+    }
+
     .material-icons {
       font-size: 1.5rem;
       vertical-align: -0.375rem;

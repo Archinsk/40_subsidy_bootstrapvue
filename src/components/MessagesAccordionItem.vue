@@ -1,24 +1,28 @@
 <template>
-  <transition name="fade">
-    <div v-if="!deleted" class="card">
-      <div class="card-header" :id="'heading-' + tempId">
+    <div class="card">
+      <div class="card-header" :id="'heading-' + message.id">
         <h2 class="mb-0">
           <div class="d-flex">
             <button
               class="btn btn-link btn-block pl-0 text-left"
               type="button"
               data-toggle="collapse"
-              :data-target="'#collapse-' + tempId"
+              :data-target="'#collapse-' + message.id"
               aria-expanded="true"
-              :aria-controls="'collapse-' + tempId"
-              @click="readMessage"
+              :aria-controls="'collapse-' + message.id"
+              @click="$emit('read-message')"
             >
-              Заголовок уведомления #{{ tempId }}
+              {{ message.messageTitle + message.id }}
             </button>
-            <div v-if="!wasRead" class="btn btn-icon-only_square">
-              <span class="material-icons mr-2 text-muted">mail</span>
-            </div>
-            <button class="btn btn-icon-only_square" @click="deleteMessage">
+            <transition name="fade-out">
+              <div v-if="!message.wasRead" class="btn btn-icon-only_square btn-fade">
+                <span class="material-icons text-muted">mail</span>
+              </div>
+            </transition>
+            <button
+              class="btn btn-icon-only_square"
+              @click="$emit('delete-message')"
+            >
               <span class="material-icons">close</span>
             </button>
           </div>
@@ -27,39 +31,21 @@
       </div>
 
       <div
-        :id="'collapse-' + tempId"
+        :id="'collapse-' + message.id"
         class="collapse"
-        :aria-labelledby="'heading-' + tempId"
+        :aria-labelledby="'heading-' + message.id"
         data-parent="#accordionMessages"
       >
         <div class="card-body">
-          Статус заявления №{{ tempId }} обновлен. Подробная информация
-          направлена на вашу электронную почту.
+          {{ message.messageText }}
         </div>
       </div>
     </div>
-  </transition>
 </template>
 
 <script>
 export default {
   name: "MessagesAccordionItem",
-  props: ["tempId"],
-
-  data() {
-    return {
-      wasRead: false,
-      deleted: false,
-    };
-  },
-
-  methods: {
-    readMessage() {
-      this.wasRead = true;
-    },
-    deleteMessage() {
-      this.deleted = true;
-    },
-  },
+  props: ["message"],
 };
 </script>

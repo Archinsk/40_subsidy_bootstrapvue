@@ -61,7 +61,7 @@
     </template>
 
     <b-modal
-      id="auth"
+      id="signature"
       ref="modal-signature"
       title="Подпись файла"
       size="xl"
