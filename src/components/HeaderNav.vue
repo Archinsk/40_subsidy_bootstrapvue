@@ -1,6 +1,7 @@
 <template>
   <b-sidebar
     id="sidebar"
+    ref="nav-sidebar"
     title="Меню"
     backdrop
     :bg-variant="theme"
@@ -27,7 +28,7 @@
         </b-nav-item>
         <b-nav-item
           v-else
-          class="active mr-md-5"
+          class="active pr-md-5"
           @click="signOut"
           id="signOutButton"
         >
@@ -231,6 +232,7 @@ export default {
         })
         .then(() => {
           this.$emit("assign-user", this.userInfoFromResponse);
+          this.$refs["nav-sidebar"].hide();
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -256,7 +258,7 @@ export default {
       });
     },
 
-    getUserInfo(hideModal=true) {
+    getUserInfo(hideModal = true) {
       axios(this.url + "core/get-user", {
         withCredentials: true,
       }).then((response) => {
@@ -277,7 +279,10 @@ export default {
           console.log(this.userInfoFromResponse.fullInfo.roles[0]);
           console.groupEnd();
         } else {
-          let currentRole = this.selectRoleById(response.data.roles, this.userInfoFromResponse.shortInfo.roleId);
+          let currentRole = this.selectRoleById(
+            response.data.roles,
+            this.userInfoFromResponse.shortInfo.roleId
+          );
           if (currentRole) {
             this.signInWithRole(currentRole, hideModal);
           }
@@ -286,7 +291,7 @@ export default {
     },
 
     selectRoleById(roles, roleId) {
-      for (let i=0; i < roles.length; i++){
+      for (let i = 0; i < roles.length; i++) {
         if (roleId === roles[i].id) {
           console.groupCollapsed("Пользователь уже авторизован с ролью");
           console.log(roles[i]);
@@ -355,6 +360,7 @@ export default {
           }
         })
         .then(() => {
+          this.$refs["nav-sidebar"].hide();
           if (this.$route.path !== "/") {
             this.$router.push("/");
           }
@@ -396,11 +402,11 @@ export default {
           this.$router.push("/");
         });
     },
-
     signOutEsia() {
       axios(this.esiaLogoutLink, {
         withCredentials: true,
       }).then((response) => {
+        this.$refs["nav-sidebar"].hide();
         console.log("Ответ на запрос о выходе из ЕСИА");
         console.log(response);
       });

@@ -85,7 +85,7 @@
         @filter-changed="$emit('filter-changed', $event)"
       />
 
-      <div class="row filter-actions">
+      <div class="row mt-2 filter-actions">
         <div class="col">
           <div
             :class="'btn btn-' + theme + ' btn-block'"

@@ -71,7 +71,7 @@
     >
       <label for="CertListBox">Выберите сертификат</label>
       <select name="CertListBox" id="CertListBox" class="form-control">
-<!--        <option disabled value="" selected>Выбор сертификата</option>-->
+        <!--        <option disabled value="" selected>Выбор сертификата</option>-->
       </select>
       <div class="row">
         <div class="col-6" id="cryptoProStatusDiv" style="margin-top: 1rem">
@@ -146,50 +146,36 @@
           <p class="info_field" id="status"></p>
           <p class="info_field" id="location"></p>
         </div>
-        <div class="col-12">
-          <p>Данные для подписи:</p>
-          <div id="item_border" name="DataToSignItemBorder">
-            <textarea
-              id="DataToSignTxtBox"
-              name="DataToSignTxtBox"
-              style="height: 50px; width: 100%; resize: none; border: 0"
-            >Hello World - Подписать</textarea>
-          </div>
-
-        </div>
       </div>
 
-      <template #modal-footer="{ ok, cancel }">
-        <b>Custom Footer</b>
-        <!-- Emulate built in modal footer ok and cancel button actions -->
-        <b-button size="sm" variant="success" @click="ok()">
-          OK
-        </b-button>
-        <b-button size="sm" variant="danger" @click="cancel()">
-          Cancel
-        </b-button>
-        <!-- Button with custom close trigger value -->
+      <template #modal-footer="">
         <b-button size="sm" variant="outline-secondary" @click="signAction">
           Подписать
         </b-button>
-        <b-button size="sm" variant="outline-secondary" @click="requestSignAction">
+        <b-button
+          size="sm"
+          variant="outline-secondary"
+          @click="requestSignAction"
+        >
           Отправить
         </b-button>
       </template>
     </b-modal>
 
-    <p>Подписанные данные:</p>
-    <textarea
-            id="SignatureTxtBox"
-            readonly
-            style="
-              font-size: 9pt;
-              height: 100px;
-              width: 100%;
-              resize: none;
-              border: 0;
-            "
-    ></textarea>
+    <div style="display: none">
+      <p>Подписанные данные:</p>
+      <textarea
+        id="SignatureTxtBox"
+        readonly
+        style="
+          font-size: 9pt;
+          height: 100px;
+          width: 100%;
+          resize: none;
+          border: 0;
+        "
+      ></textarea>
+    </div>
   </div>
 </template>
 
@@ -534,32 +520,35 @@ export default {
           roleId: 0,
           orgId: 0,
           appId: this.appForm.id,
-          data: JSON.stringify(this.appForm.data)
-        }
+          data: JSON.stringify(this.appForm.data),
+        },
       };
       console.log(request);
       axios
-              .post(this.url + "app/action-pdfstamp", request, {
-                headers: { "Content-Type": "application/json" },
-                withCredentials: true,
-              }).then((response) => {
-        console.log("Ответ на экшн");
-        console.log(response);
-        console.log("Содержимое data.applicationDTO.data");
-        console.log(JSON.parse(response.data.applicationDTO.data));
-        console.log("Содержимое data.responseObject");
-        console.log(JSON.parse(response.data.responseObject));
-        console.log("Содержимое hashToSign");
-        console.log(JSON.parse(response.data.responseObject).hashToSign);
-        this.hashToSign = JSON.parse(response.data.responseObject).hashToSign;
-        console.log(this.hashToSign);
-        this.signedFileName = JSON.parse(response.data.responseObject).fileName;
-        console.log(this.signedFileName);
-        window.Common_SignCadesBES('CertListBox');
-        // let hashField = document.getElementById("DataToSignTxtBox");
-        // console.log(hashField);
-        // hashField.textContent = JSON.parse(response.data.responseObject).hashToSign
-      })
+        .post(this.url + "app/action-pdfstamp", request, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
+        .then((response) => {
+          console.log("Ответ на экшн");
+          console.log(response);
+          console.log("Содержимое data.applicationDTO.data");
+          console.log(JSON.parse(response.data.applicationDTO.data));
+          console.log("Содержимое data.responseObject");
+          console.log(JSON.parse(response.data.responseObject));
+          console.log("Содержимое hashToSign");
+          console.log(JSON.parse(response.data.responseObject).hashToSign);
+          this.hashToSign = JSON.parse(response.data.responseObject).hashToSign;
+          console.log(this.hashToSign);
+          this.signedFileName = JSON.parse(
+            response.data.responseObject
+          ).fileName;
+          console.log(this.signedFileName);
+          window.Common_SignCadesBES("CertListBox");
+          // let hashField = document.getElementById("DataToSignTxtBox");
+          // console.log(hashField);
+          // hashField.textContent = JSON.parse(response.data.responseObject).hashToSign
+        });
     },
 
     requestSignAction() {
@@ -573,13 +562,14 @@ export default {
       console.log("Данные отправляемые для подписанного файла");
       console.log(request);
       axios
-              .post(this.url + "app/action-insert-signdata", request, {
-                headers: { "Content-Type": "application/json" },
-                withCredentials: true,
-              }).then((response) => {
-        console.log(response);
-      })
-    }
+        .post(this.url + "app/action-insert-signdata", request, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
+        .then((response) => {
+          console.log(response);
+        });
+    },
   },
 
   mounted: function () {

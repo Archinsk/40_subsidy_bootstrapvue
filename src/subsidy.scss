@@ -282,8 +282,17 @@ body {
             }
 
             .carousel-item {
+
+              @media (min-width: 1444px) {
+                max-height: 36.25rem;
+              }
+
               img {
                 @media (max-width: 575.98px) {
+                  width: 100%;
+                }
+
+                @media (min-width: 1444px) {
                   width: 100%;
                 }
               }
@@ -322,6 +331,10 @@ body {
                 flex-wrap: wrap;
                 justify-content: center;
               }
+            }
+
+            .carousel-control-prev, .carousel-control-next {
+              width: 3rem;
             }
 
             .carousel-indicators {
@@ -1296,7 +1309,9 @@ body {
 
   //Глобальные стили
   .container {
-    max-width: 80%;
+    @media (min-width: 576px) {
+      max-width: 80%;
+    }
   }
 
   .title-primary {

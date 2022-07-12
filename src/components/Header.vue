@@ -20,6 +20,7 @@
         ></HeaderNav>
 
         <button
+          v-if="user.shortInfo.userId"
           type="button"
           :class="[
             'btn btn-outline-light position-relative btn-icon-only_square',
