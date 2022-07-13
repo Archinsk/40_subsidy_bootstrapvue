@@ -246,7 +246,7 @@ export default {
       sortCol = "id",
       sortDesc = true,
       userList = true,
-      active = true
+      active = false
     ) {
       axios
         .get(

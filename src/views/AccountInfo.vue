@@ -80,9 +80,6 @@
             </div>
           </section>
         </b-tab>
-        <b-tab title="Уведомления">
-          <MessagesList />
-        </b-tab>
       </b-tabs>
     </article>
   </div>
@@ -91,13 +88,11 @@
 <script>
 import Applications from "@/components/Applications";
 import axios from "axios";
-import MessagesList from "@/components/MessagesList";
 
 export default {
   name: "AccountInfo",
 
   components: {
-    MessagesList,
     Applications,
   },
 

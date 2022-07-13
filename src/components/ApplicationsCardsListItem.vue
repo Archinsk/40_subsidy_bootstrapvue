@@ -24,7 +24,7 @@
     <div class="card-footer bg-transparent">
       <p>Текущий статус: {{ application.status }}</p>
       <p>Дата начала: {{ startDate }}</p>
-      <p>Статус обновлен: 19.01.2022</p>
+      <p style="visibility: hidden">Статус обновлен: 19.01.2022</p>
     </div>
   </div>
 </template>
