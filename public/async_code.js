@@ -397,7 +397,8 @@ function SignCadesBES_Async(certListBoxId, data, setDisplayData) {
 
         var certificate = global_selectbox_container[selectedCertID];
 
-        var dataToSign = document.getElementById("DataToSignTxtBox").value;
+        // Хеш для подписи берем из глобального объекта window
+        var dataToSign = window.dataToSign.hashToSign;
         if(typeof(data) != 'undefined')
         {
             dataToSign = Base64.encode(data);

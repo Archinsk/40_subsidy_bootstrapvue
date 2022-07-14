@@ -40,11 +40,22 @@
               <div class="support-size-info"></div>
             </div>
             <div class="support-buttons col">
+              <!--              <router-link-->
+              <!--                v-if="-->
+              <!--                  user.shortInfo.userId &&-->
+              <!--                  measure.active &&-->
+              <!--                  isValidPeriod() &&-->
+              <!--                  availabilityByRole-->
+              <!--                "-->
+              <!--                :to="appLink"-->
+              <!--                :class="'btn btn-' + theme"-->
+              <!--                role="button"-->
+              <!--                >Подать заявку</router-link-->
+              <!--              >-->
               <router-link
                 v-if="
                   user.shortInfo.userId &&
-                  measure.active &&
-                  isValidPeriod() &&
+                  measure.available &&
                   availabilityByRole
                 "
                 :to="appLink"

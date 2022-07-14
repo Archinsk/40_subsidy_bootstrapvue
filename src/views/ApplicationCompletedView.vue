@@ -323,6 +323,7 @@ export default {
         },
       },
       isValidFormData: false,
+      signActionId: null,
       hashToSign: "",
       signedFileName: "",
     };
@@ -398,7 +399,10 @@ export default {
       }
     },
     invoke(action, isBackAction = false) {
+      console.log("Внутри Invoke");
+      console.log(action);
       if (action.signAction) {
+        this.signActionId = action.id;
         this.openModalSignature();
         this.isResponse = true;
         this.isLoading = false;
@@ -426,16 +430,19 @@ export default {
           console.log("Ответ на экшн");
           console.log(response);
           if (response.data.responseObject) {
-            let fileApp = JSON.parse(response.data.responseObject);
-            console.log("Объект файла");
-            console.log(fileApp);
-            let link = document.createElement("a");
-            link.setAttribute("download", fileApp.fileName);
-            link.setAttribute(
-              "href",
-              "data:application/octet-stream;base64," + fileApp.fileData
+            // let fileApp = JSON.parse(response.data.responseObject);
+            // console.log("Объект файла");
+            // console.log(fileApp);
+            // let link = document.createElement("a");
+            // link.setAttribute("download", fileApp.fileName);
+            // link.setAttribute(
+            //   "href",
+            //   "data:application/octet-stream;base64," + fileApp.fileData
+            // );
+            // link.click();
+            this.downloadFileFromObject(
+              JSON.parse(response.data.responseObject)
             );
-            link.click();
           } else {
             if (isBackAction) {
               this.$router.go(-1);
@@ -452,6 +459,18 @@ export default {
           this.isFirstLoad = true;
           setTimeout(this.hideAlert, 3000);
         });
+    },
+
+    downloadFileFromObject(fileObject) {
+      console.log("Объект файла");
+      console.log(fileObject);
+      let link = document.createElement("a");
+      link.setAttribute("download", fileObject.fileName);
+      link.setAttribute(
+        "href",
+        "data:application/octet-stream;base64," + fileObject.fileData
+      );
+      link.click();
     },
 
     // Переход к следующей форме (стандартное дейтвие)
@@ -515,7 +534,7 @@ export default {
           validDue: window.dataToSign.validDue,
         },
         actionPayloadDTO: {
-          actionId: 54516,
+          actionId: this.signActionId,
           userId: 0,
           roleId: 0,
           orgId: 0,
@@ -539,14 +558,17 @@ export default {
           console.log("Содержимое hashToSign");
           console.log(JSON.parse(response.data.responseObject).hashToSign);
           this.hashToSign = JSON.parse(response.data.responseObject).hashToSign;
+          window.dataToSign.hashToSign = JSON.parse(
+            response.data.responseObject
+          ).hashToSign;
           console.log(this.hashToSign);
           this.signedFileName = JSON.parse(
             response.data.responseObject
           ).fileName;
           console.log(this.signedFileName);
           window.Common_SignCadesBES("CertListBox");
-          // let hashField = document.getElementById("DataToSignTxtBox");
-          // console.log(hashField);
+          let hashField = document.getElementById("DataToSignTxtBox");
+          console.log(hashField);
           // hashField.textContent = JSON.parse(response.data.responseObject).hashToSign
         });
     },
@@ -568,6 +590,11 @@ export default {
         })
         .then((response) => {
           console.log(response);
+          if (response.data.responseObject) {
+            this.downloadFileFromObject(
+              JSON.parse(response.data.responseObject)
+            );
+          }
         });
     },
   },
