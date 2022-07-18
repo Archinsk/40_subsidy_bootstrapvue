@@ -372,6 +372,7 @@ function CreateSimpleSign_Async() {
                 throw errormes;
             }
             document.getElementById("SignatureTxtBox").innerHTML = Signature;
+            console.log("---CreateSimpleSign_Async");
             SignatureFieldTitle[0].innerHTML = "Подпись сформирована успешно:";
         }
         catch(err)
@@ -384,6 +385,7 @@ function CreateSimpleSign_Async() {
 
 
 function SignCadesBES_Async(certListBoxId, data, setDisplayData) {
+    console.log('---SignCadesBES_Async');
     cadesplugin.async_spawn(function*(arg) {
         console.log("Поиск элемента");
         console.log(arg[0]);
@@ -473,6 +475,7 @@ function SignCadesBES_Async(certListBoxId, data, setDisplayData) {
 }
 
 function SignCadesBES_Async_File(certListBoxId) {
+    console.log('---SignCadesBES_Async_File');
     cadesplugin.async_spawn(function*(arg) {
         var e = document.getElementById(arg[0]);
         var selectedCertID = e.selectedIndex;
@@ -549,6 +552,7 @@ function SignCadesBES_Async_File(certListBoxId) {
 }
 
 function SignCadesEnhanced_Async(certListBoxId, sign_type) {
+    console.log('---SignCadesBES_Async_File');
     cadesplugin.async_spawn(function*(arg) {
         var e = document.getElementById(arg[0]);
         var selectedCertID = e.selectedIndex;
@@ -607,6 +611,7 @@ function SignCadesEnhanced_Async(certListBoxId, sign_type) {
 }
 
 function SignCadesXML_Async(certListBoxId, signatureType) {
+    console.log('---SignCadesXML_Async');
     cadesplugin.async_spawn(function*(arg) {
         var e = document.getElementById(arg[0]);
         var selectedCertID = e.selectedIndex;
