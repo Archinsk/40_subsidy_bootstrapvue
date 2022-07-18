@@ -282,7 +282,6 @@ body {
             }
 
             .carousel-item {
-
               @media (min-width: 1444px) {
                 max-height: 36.25rem;
               }
@@ -333,7 +332,8 @@ body {
               }
             }
 
-            .carousel-control-prev, .carousel-control-next {
+            .carousel-control-prev,
+            .carousel-control-next {
               width: 3rem;
             }
 
@@ -999,6 +999,14 @@ body {
         }
       }
 
+      #application-form {
+        #action-buttons {
+          .btn {
+            word-wrap: break-word;
+          }
+        }
+      }
+
       .support {
         padding-top: calc(#{$gap} / 2);
 
@@ -1304,6 +1312,27 @@ body {
 
     .alert {
       margin-bottom: 0;
+    }
+  }
+
+  //Модальное окно подписи файла
+  #signature {
+    #cryptoProStatusDiv {
+      img {
+        margin-left: 0.5rem;
+      }
+
+      #PlugInVersionTxt {
+        margin-right: 1rem;
+      }
+    }
+
+    #cert_info {
+      margin-top: 1rem;
+
+      .info_field {
+        margin-bottom: 0;
+      }
     }
   }
 

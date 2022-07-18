@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <template v-if="isResponse">
-      <div class="row pt-2">
+      <div id="application-form" class="row pt-2">
         <div class="col-12">
           <h4 class="text-center py-2">
             {{ measure.name + ": " + appForm.form.name }}
@@ -21,6 +21,7 @@
         </div>
         <div
           v-if="appForm.form.actions && appForm.form.actions.length > 0"
+          id="action-buttons"
           class="col-2"
         >
           <template v-for="action of appForm.form.actions">
@@ -71,11 +72,11 @@
     >
       <label for="CertListBox">Выберите сертификат</label>
       <select name="CertListBox" id="CertListBox" class="form-control">
-        <!--        <option disabled value="" selected>Выбор сертификата</option>-->
+        <!--        <option disabled value="-1" selected>Выберите сертификат</option>-->
       </select>
       <div class="row">
         <div class="col-6" id="cryptoProStatusDiv" style="margin-top: 1rem">
-          <h2>Информация о программном обеспечении</h2>
+          <h4>Информация о программном обеспечении</h4>
           <div id="info_msg">
             <span id="ExtensionEnabledTxt">Расширение не загружено</span>
             <img
@@ -135,7 +136,7 @@
           </div>
         </div>
         <div class="col-6" id="cert_info" name="CertInfo" style="display: none">
-          <h2>Информация о сертификате</h2>
+          <h4>Информация о сертификате</h4>
           <p class="info_field" id="subject"></p>
           <p class="info_field" id="issuer"></p>
           <p class="info_field" id="from"></p>
@@ -148,34 +149,25 @@
         </div>
       </div>
 
-      <template #modal-footer="">
-        <b-button size="sm" variant="outline-secondary" @click="signAction">
-          Подписать
+      <template #modal-footer="{ cancel }">
+        <b-button size="sm" variant="outline-secondary" @click="cancel()">
+          Отмена
         </b-button>
-        <b-button
-          size="sm"
-          variant="outline-secondary"
-          @click="requestSignAction"
-        >
-          Отправить
+        <b-button size="sm" variant="primary" @click="signAction">
+          Подписать
         </b-button>
       </template>
     </b-modal>
 
-    <div style="display: none">
-      <p>Подписанные данные:</p>
-      <textarea
-        id="SignatureTxtBox"
-        readonly
-        style="
-          font-size: 9pt;
-          height: 100px;
-          width: 100%;
-          resize: none;
-          border: 0;
-        "
-      ></textarea>
-    </div>
+    <b-modal
+      id="signSuccess"
+      ref="modal-signature-success"
+      title="Уведомление"
+      size="sm"
+      ok-only
+    >
+      <p class="mb-0">Файл успешно подписан!</p>
+    </b-modal>
   </div>
 </template>
 
@@ -185,12 +177,10 @@ import axios from "axios";
 
 export default {
   name: "ApplicationCompletedView",
-
   components: {
     Form,
   },
-
-  props: ["url", "theme"],
+  props: ["url", "user", "theme"],
 
   data() {
     return {
@@ -198,9 +188,7 @@ export default {
       isResponse: false,
       isLoading: false,
       isFirstLoad: true,
-      loadingComment: "Загрузка заявления",
-      successComment: "Заявление успешно загружено!",
-      isAlertVisible: false,
+      loadingComment: "",
       appForm: {
         active: false,
         data: {},
@@ -326,11 +314,15 @@ export default {
       signActionId: null,
       hashToSign: "",
       signedFileName: "",
+      cspIntervalId: null,
+      signatureTimeoutId: null,
+      signatureIntervalId: null,
     };
   },
 
   methods: {
     // Информация о мере поддержки
+    // !!!Исправить subId на modelId в $route.params при подаче заявления
     getMeasure() {
       axios
         .get(this.url + "serv/get-model?id=" + this.$route.params.modelId)
@@ -345,12 +337,22 @@ export default {
     getStartForm(id) {
       this.isResponse = false;
       this.isLoading = true;
-      this.loadingComment = "Загрузка формы заявления";
-      setTimeout(this.getForm, 1000, id);
+      if (id) {
+        setTimeout(this.getForm, 1000, id);
+      } else {
+        setTimeout(this.getForm, 1000);
+      }
     },
     getForm(id) {
+      let requestUrl;
+      if (id) {
+        requestUrl = this.url + "app/get-appData?id=" + id;
+      } else {
+        requestUrl =
+          this.url + "serv/get-appData?id=" + this.$route.params.modelId;
+      }
       axios
-        .get(this.url + "app/get-appData?id=" + id, {
+        .get(requestUrl, {
           withCredentials: true,
         })
         .then((response) => {
@@ -364,13 +366,7 @@ export default {
         .then(() => {
           this.isResponse = true;
           this.isLoading = false;
-          this.isAlertVisible = true;
-          setTimeout(this.hideAlert, 3000);
         });
-    },
-
-    hideAlert() {
-      this.isAlertVisible = false;
     },
 
     validateForm() {
@@ -399,16 +395,10 @@ export default {
       }
     },
     invoke(action, isBackAction = false) {
-      console.log("Внутри Invoke");
-      console.log(action);
       if (action.signAction) {
         this.signActionId = action.id;
         this.openModalSignature();
-        this.isResponse = true;
-        this.isLoading = false;
-        this.isAlertVisible = true;
-        this.isFirstLoad = true;
-        setTimeout(this.hideAlert, 3000);
+        this.cspIntervalId = setInterval(this.cspWaiting, 500);
         return;
       }
       const request = {
@@ -430,23 +420,16 @@ export default {
           console.log("Ответ на экшн");
           console.log(response);
           if (response.data.responseObject) {
-            // let fileApp = JSON.parse(response.data.responseObject);
-            // console.log("Объект файла");
-            // console.log(fileApp);
-            // let link = document.createElement("a");
-            // link.setAttribute("download", fileApp.fileName);
-            // link.setAttribute(
-            //   "href",
-            //   "data:application/octet-stream;base64," + fileApp.fileData
-            // );
-            // link.click();
             this.downloadFileFromObject(
               JSON.parse(response.data.responseObject)
             );
           } else {
             if (isBackAction) {
-              this.$router.go(-1);
-              // this.cleanAppForm();
+              if (this.$route.params.subId) {
+                this.$router.go(-1);
+              } else {
+                this.$router.go(-2);
+              }
             } else {
               this.getNextForm(response);
             }
@@ -455,12 +438,11 @@ export default {
         .then(() => {
           this.isResponse = true;
           this.isLoading = false;
-          this.isAlertVisible = true;
           this.isFirstLoad = true;
-          setTimeout(this.hideAlert, 3000);
         });
     },
 
+    // Скачивание файла из объекта
     downloadFileFromObject(fileObject) {
       console.log("Объект файла");
       console.log(fileObject);
@@ -481,18 +463,30 @@ export default {
       nextForm.data = JSON.parse(nextForm.data);
       nextForm.form.scheme = JSON.parse(nextForm.form.scheme);
       this.appForm = nextForm;
-      this.successComment = "Заявление отправлено!";
     },
 
     cleanAppForm() {
       this.$bvModal.hide("edit-app");
       this.isLoading = false;
-      this.loadingComment = "Загрузка формы заявления";
-      this.successComment = "Форма заявления успешно загружена!";
+      if (this.$route.params.subId) {
+        this.loadingComment = "Загрузка формы заявления";
+      } else {
+        this.loadingComment = "Загрузка формы заявления";
+      }
       this.isResponse = true;
-      this.isAlertVisible = true;
       this.isValidFormData = false;
       this.isFirstLoad = true;
+    },
+
+    cspWaiting() {
+      console.log("Проверка загрузки Крипто-ПРО");
+      if (window.cspEnabled) {
+        this.isResponse = true;
+        this.isLoading = false;
+        this.isFirstLoad = true;
+        clearInterval(this.cspIntervalId);
+        console.log("Крипто-ПРО загружен");
+      }
     },
 
     openModalSignature() {
@@ -570,7 +564,24 @@ export default {
           let hashField = document.getElementById("DataToSignTxtBox");
           console.log(hashField);
           // hashField.textContent = JSON.parse(response.data.responseObject).hashToSign
+          this.signatureIntervalId = setInterval(this.signWaiting, 1000);
+          this.$bvModal.hide("signature");
         });
+    },
+
+    signWaiting() {
+      this.signatureTimeoutId = setTimeout(this.clearSignWaitingTimers, 600000);
+      console.log("Проверка наличия подписи");
+      if (window.dataToSign.signature) {
+        this.requestSignAction();
+        this.clearSignWaitingTimers();
+        window.dataToSign = {};
+      }
+    },
+
+    clearSignWaitingTimers() {
+      clearInterval(this.signatureIntervalId);
+      clearTimeout(this.signatureTimeoutId);
     },
 
     requestSignAction() {
@@ -595,14 +606,27 @@ export default {
               JSON.parse(response.data.responseObject)
             );
           }
+        })
+        .then(() => {
+          this.$bvModal.show("signSuccess");
         });
     },
   },
 
+  beforeMount: function () {
+    console.log("Перед монтажом");
+    console.log(this.$route.params.modelId);
+    if (this.$route.params.subId) {
+      this.loadingComment = "Загрузка заявления";
+    } else {
+      this.loadingComment = "Загрузка формы заявления";
+    }
+  },
+
   mounted: function () {
+    this.loadCrypto();
     this.getMeasure();
     this.getStartForm(this.$route.params.subId);
-    setTimeout(this.loadCrypto, 3000);
   },
 };
 </script>

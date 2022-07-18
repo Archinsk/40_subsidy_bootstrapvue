@@ -351,9 +351,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.btn {
-  word-wrap: break-word;
-}
-</style>

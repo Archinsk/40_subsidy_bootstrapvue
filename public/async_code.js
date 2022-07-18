@@ -139,6 +139,8 @@ function CheckForPlugIn_Async() {
     }
     document.getElementById('PluginEnabledImg').setAttribute("src", "Img/green_dot.png");
     document.getElementById('PlugInEnabledTxt').innerHTML = "Плагин загружен";
+    // Вынос в глобальный объект window маркера успешной проверки плагина
+    window.cspEnabled = true;
     document.getElementById('CspEnabledImg').setAttribute("src", "Img/yellow_dot.png");
     document.getElementById('CspEnabledTxt').innerHTML = "КриптоПро CSP не загружен";
     var CurrentPluginVersion;
@@ -203,6 +205,15 @@ function FillCertList_Async(lstId) {
                 alert("Ошибка при получении Certificates или Count: " + cadesplugin.getLastError(ex));
                 return;
             }
+
+            // Добавлен нулевой пункт селекта "Выберите сертификат"
+            var firstOopt = document.createElement("OPTION");
+            firstOopt.text = "Выберите сертификат";
+            firstOopt.setAttribute("disabled", "");
+            firstOopt.setAttribute("selected", "");
+            firstOopt.setAttribute("value", "");
+            lst.options.add(firstOopt);
+
             for (var i = 1; i <= certCnt; i++) {
                 var cert;
                 try {
@@ -391,7 +402,9 @@ function SignCadesBES_Async(certListBoxId, data, setDisplayData) {
         console.log(arg[0]);
         console.log(document.getElementById(arg[0]));
         var e = document.getElementById(arg[0]);
-        var selectedCertID = e.selectedIndex;
+
+        // Индекс уменьшен на 1 в связи с дабавлением нулевого пункта "Выберите сертификат"
+        var selectedCertID = e.selectedIndex - 1;
         if (selectedCertID == -1) {
             alert("Select certificate");
             return;
