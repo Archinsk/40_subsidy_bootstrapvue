@@ -8,7 +8,7 @@
       @assign-user="$emit('assign-user', $event)"
       @select-role="$emit('select-role', $event)"
     />
-    <LoaderIsis />
+    <!--    <LoaderIsis />-->
     <main class="content">
       <div class="home-page">
         <section v-show="!chatIsActive" class="slider">
@@ -58,13 +58,13 @@ import ChatQuickQuestions from "@/components/ChatQuickQuestions";
 import NewsPreviewList from "@/components/NewsPreviewList";
 import Footer from "@/components/Footer";
 import axios from "axios";
-import LoaderIsis from "@/components/LoaderIsis";
+// import LoaderIsis from "@/components/LoaderIsis";
 
 export default {
   name: "Home",
 
   components: {
-    LoaderIsis,
+    // LoaderIsis,
     Header,
     SliderNew,
     Chat,

@@ -42,10 +42,10 @@ export default {
   computed: {
     appLink: function () {
       return (
-        "/application_completed_view/" +
-        this.application.id +
-        "/model/" +
-        this.application.servId
+        "/application_view/model/" +
+        this.application.servId +
+        "/app/" +
+        this.application.id
       );
     },
 

@@ -704,7 +704,12 @@ export default {
 
   computed: {
     appLink: function () {
-      return "/application_view/" + this.$route.params.subId;
+      // return "/application_view/" + this.$route.params.subId;
+      return (
+        "/application_view/model/" +
+        this.$route.params.modelId +
+        "/app/0"
+      );
     },
     availabilityByRole: function () {
       if (!this.measure.id) {
@@ -724,7 +729,7 @@ export default {
     // Информация о мере поддержки
     getMeasure() {
       axios
-        .get(this.url + "serv/get-model?id=" + this.$route.params.subId)
+        .get(this.url + "serv/get-model?id=" + this.$route.params.modelId)
         .then((response) => {
           console.log("Детальная информация по мере поддержки (getMeasure)");
           console.log(response);
@@ -741,7 +746,7 @@ export default {
     },
     getForm() {
       axios
-        .get(this.url + "serv/get-appData?id=" + this.$route.params.subId)
+        .get(this.url + "serv/get-appData?id=" + this.$route.params.modelId)
         .then((response) => {
           console.log("Стартовая форма");
           console.log(response);

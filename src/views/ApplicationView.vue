@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <template v-if="isResponse">
-      <div class="row pt-2">
+      <div id="application-form" class="row pt-2">
         <div class="col-12">
           <h4 class="text-center py-2">
             {{ measure.name + ": " + appForm.form.name }}
@@ -21,21 +21,12 @@
         </div>
         <div
           v-if="appForm.form.actions && appForm.form.actions.length > 0"
+          id="action-buttons"
           class="col-2"
         >
           <template v-for="action of appForm.form.actions">
             <template v-if="appForm.active || action.alwaysActive">
               <button
-                v-if="action.backAction"
-                :key="action.id"
-                type="button"
-                class="btn btn-block btn-primary"
-                @click="invokeAction(action, true)"
-              >
-                {{ action.name }}
-              </button>
-              <button
-                v-else
                 :key="action.id"
                 type="button"
                 class="btn btn-block btn-primary"
@@ -59,6 +50,114 @@
         </div>
       </div>
     </template>
+
+    <b-modal
+      id="signature"
+      ref="modal-signature"
+      title="Подпись файла"
+      size="xl"
+      cancel-title="Отмена"
+      ok-title="Подписать"
+      @ok="signAction"
+    >
+      <label for="CertListBox">Выберите сертификат</label>
+      <select name="CertListBox" id="CertListBox" class="form-control">
+        <!--        <option disabled value="-1" selected>Выберите сертификат</option>-->
+      </select>
+      <div class="row">
+        <div class="col-6" id="cryptoProStatusDiv" style="margin-top: 1rem">
+          <h4>Информация о программном обеспечении</h4>
+          <div id="info_msg">
+            <span id="ExtensionEnabledTxt">Расширение не загружено</span>
+            <img
+              src="Img/red_dot.png"
+              width="10"
+              height="10"
+              alt="Расширение не загружено"
+              id="ExtensionEnabledImg"
+            />
+            <br />
+            <span id="PlugInEnabledTxt"
+              >Плагин: ожидание загрузки расширения</span
+            >
+            <img
+              src="Img/grey_dot.png"
+              width="10"
+              height="10"
+              alt="Плагин не загружен"
+              id="PluginEnabledImg"
+            />
+            <br />
+            <span id="CspEnabledTxt"
+              >Криптопровайдер: ожидание загрузки плагина</span
+            >
+            <img
+              src="Img/grey_dot.png"
+              width="10"
+              height="10"
+              alt="КриптоПро CSP не загружен"
+              id="CspEnabledImg"
+            />
+            <br />
+            <span id="PlugInVersionTxt" lang="ru"></span>
+            <span id="CSPVersionTxt" lang="ru"></span>
+            <br />
+            <span id="CSPNameTxt" lang="ru"></span>
+          </div>
+
+          <div id="boxdiv" style="display: none">
+            <span id="errorarea">
+              У вас отсутствуют личные сертификаты. Вы можете
+              <a
+                href="#"
+                onClick="Common_RetrieveCertificate();"
+                style="color: #0837ff"
+              >
+                получить</a
+              >
+              сертификат от тестового УЦ, предварительно установив
+              <a
+                href="https://testca.cryptopro.ru/certsrv/certnew.cer?ReqID=CACert&Renewal=1&Enc=bin"
+                style="color: #0837ff"
+                >корневой сертификат тестового УЦ</a
+              >
+              в доверенные.
+            </span>
+          </div>
+        </div>
+        <div class="col-6" id="cert_info" name="CertInfo" style="display: none">
+          <h4>Информация о сертификате</h4>
+          <p class="info_field" id="subject"></p>
+          <p class="info_field" id="issuer"></p>
+          <p class="info_field" id="from"></p>
+          <p class="info_field" id="till"></p>
+          <p class="info_field" id="provname"></p>
+          <p class="info_field" id="privateKeyLink"></p>
+          <p class="info_field" id="algorithm"></p>
+          <p class="info_field" id="status"></p>
+          <p class="info_field" id="location"></p>
+        </div>
+      </div>
+
+      <template #modal-footer="{ cancel }">
+        <b-button size="sm" variant="outline-secondary" @click="cancel()">
+          Отмена
+        </b-button>
+        <b-button size="sm" variant="primary" @click="signAction">
+          Подписать
+        </b-button>
+      </template>
+    </b-modal>
+
+    <b-modal
+      id="signSuccess"
+      ref="modal-signature-success"
+      title="Уведомление"
+      size="sm"
+      ok-only
+    >
+      <p class="mb-0">Файл успешно подписан!</p>
+    </b-modal>
   </div>
 </template>
 
@@ -71,7 +170,7 @@ export default {
   components: {
     Form,
   },
-  props: ["url", "user"],
+  props: ["url", "user", "theme"],
 
   data() {
     return {
@@ -79,9 +178,7 @@ export default {
       isResponse: false,
       isLoading: false,
       isFirstLoad: true,
-      loadingComment: "Загрузка формы заявления",
-      successComment: "Форма заявления успешно загружена!",
-      isAlertVisible: false,
+      loadingComment: "",
       appForm: {
         active: false,
         data: {},
@@ -204,6 +301,12 @@ export default {
         },
       },
       isValidFormData: false,
+      signActionId: null,
+      hashToSign: "",
+      signedFileName: "",
+      cspIntervalId: null,
+      signatureTimeoutId: null,
+      signatureIntervalId: null,
     };
   },
 
@@ -211,7 +314,7 @@ export default {
     // Информация о мере поддержки
     getMeasure() {
       axios
-        .get(this.url + "serv/get-model?id=" + this.$route.params.subId)
+        .get(this.url + "serv/get-model?id=" + this.$route.params.modelId)
         .then((response) => {
           console.log("getMeasure");
           console.log(response);
@@ -220,15 +323,25 @@ export default {
     },
 
     // Стартовая форма заявления
-    getStartForm() {
+    getStartForm(id) {
       this.isResponse = false;
       this.isLoading = true;
-      this.loadingComment = "Загрузка формы заявления";
-      setTimeout(this.getForm, 1000);
+      if (id) {
+        setTimeout(this.getForm, 500, id);
+      } else {
+        setTimeout(this.getForm, 500);
+      }
     },
-    getForm() {
+    getForm(id) {
+      let requestUrl;
+      if (id) {
+        requestUrl = this.url + "app/get-appData?id=" + id;
+      } else {
+        requestUrl =
+          this.url + "serv/get-appData?id=" + this.$route.params.modelId;
+      }
       axios
-        .get(this.url + "serv/get-appData?id=" + this.$route.params.subId, {
+        .get(requestUrl, {
           withCredentials: true,
         })
         .then((response) => {
@@ -242,13 +355,7 @@ export default {
         .then(() => {
           this.isResponse = true;
           this.isLoading = false;
-          this.isAlertVisible = true;
-          setTimeout(this.hideAlert, 3000);
         });
-    },
-
-    hideAlert() {
-      this.isAlertVisible = false;
     },
 
     validateForm() {
@@ -257,10 +364,11 @@ export default {
       );
     },
 
-    invokeAction(action, isBackAction = false) {
+    invokeAction(action) {
       console.log("Выполнение действия " + action.id);
       this.isFirstLoad = false;
       this.isValidFormData = this.validateForm();
+      const isBackAction = action.backAction;
       // Действие "Без проверки" или форма заполнена верно
       if (this.isValidFormData || action.notRequiredAction) {
         if (action.notRequiredAction) {
@@ -277,11 +385,19 @@ export default {
       }
     },
     invoke(action, isBackAction = false) {
+      console.log(isBackAction);
+      console.log(typeof isBackAction);
+      if (action.signAction) {
+        this.signActionId = action.id;
+        this.openModalSignature();
+        this.cspIntervalId = setInterval(this.cspWaiting, 500);
+        return;
+      }
       const request = {
         actionId: action.id,
-        userId: this.user.shortInfo.userId,
-        roleId: this.user.selectedRole.roleId,
-        orgId: this.user.selectedRole.orgId,
+        userId: 0,
+        roleId: 0,
+        orgId: 0,
         appId: this.appForm.id,
         data: JSON.stringify(this.appForm.data),
       };
@@ -296,19 +412,16 @@ export default {
           console.log("Ответ на экшн");
           console.log(response);
           if (response.data.responseObject) {
-            let fileApp = JSON.parse(response.data.responseObject);
-            console.log("Объект файла");
-            console.log(fileApp);
-            let link = document.createElement("a");
-            link.setAttribute("download", fileApp.fileName);
-            link.setAttribute(
-              "href",
-              "data:application/octet-stream;base64," + fileApp.fileData
+            this.downloadFileFromObject(
+              JSON.parse(response.data.responseObject)
             );
-            link.click();
           } else {
             if (isBackAction) {
-              this.$router.go(-2);
+              if (+this.$route.params.appId) {
+                this.$router.go(-1);
+              } else {
+                this.$router.go(-2);
+              }
             } else {
               this.getNextForm(response);
             }
@@ -317,12 +430,24 @@ export default {
         .then(() => {
           this.isResponse = true;
           this.isLoading = false;
-          this.isAlertVisible = true;
-          setTimeout(this.hideAlert, 3000);
+          this.isFirstLoad = true;
         });
     },
 
-    // Переход к следующей форме (стандартное действие)
+    // Скачивание файла из объекта
+    downloadFileFromObject(fileObject) {
+      console.log("Объект файла");
+      console.log(fileObject);
+      let link = document.createElement("a");
+      link.setAttribute("download", fileObject.fileName);
+      link.setAttribute(
+        "href",
+        "data:application/octet-stream;base64," + fileObject.fileData
+      );
+      link.click();
+    },
+
+    // Переход к следующей форме (стандартное дейcтвие)
     getNextForm(response) {
       console.log("Следующая форма");
       console.log(response);
@@ -330,24 +455,172 @@ export default {
       nextForm.data = JSON.parse(nextForm.data);
       nextForm.form.scheme = JSON.parse(nextForm.form.scheme);
       this.appForm = nextForm;
-      this.successComment = "Заявление отправлено!";
     },
 
     cleanAppForm() {
-      this.$bvModal.hide("new-app");
+      this.$bvModal.hide("edit-app");
       this.isLoading = false;
-      this.loadingComment = "Загрузка формы заявления";
-      this.successComment = "Форма заявления успешно загружена!";
+      if (+this.$route.params.appId) {
+        this.loadingComment = "Загрузка формы заявления";
+      } else {
+        this.loadingComment = "Загрузка формы заявления";
+      }
       this.isResponse = true;
-      this.isAlertVisible = true;
       this.isValidFormData = false;
       this.isFirstLoad = true;
     },
+
+    cspWaiting() {
+      console.log("Проверка загрузки Крипто-ПРО");
+      if (window.cspEnabled) {
+        this.isResponse = true;
+        this.isLoading = false;
+        this.isFirstLoad = true;
+        clearInterval(this.cspIntervalId);
+        console.log("Крипто-ПРО загружен");
+      }
+    },
+
+    openModalSignature() {
+      console.log("---Точка 4");
+      console.log("Открытие модального окна");
+      this.$refs["modal-signature"].show();
+      window.checkExtension(true);
+    },
+
+    // Загрузка скриптов КриптоПро
+    loadCrypto() {
+      var file1 = document.createElement("script");
+      file1.setAttribute("type", "text/javascript");
+      file1.setAttribute("src", "extensionLoading.js");
+      document.getElementsByTagName("head")[0].appendChild(file1);
+      var file2 = document.createElement("script");
+      file2.setAttribute("type", "text/javascript");
+      file2.setAttribute("src", "cadesplugin_api.js");
+      document.getElementsByTagName("head")[0].appendChild(file2);
+      var file3 = document.createElement("script");
+      file3.setAttribute("type", "text/javascript");
+      file3.setAttribute("src", "Code.js");
+      document.getElementsByTagName("head")[0].appendChild(file3);
+      var file4 = document.createElement("script");
+      file4.setAttribute("type", "text/javascript");
+      file4.setAttribute("src", "pluginLoading.js");
+      document.getElementsByTagName("body")[0].appendChild(file4);
+    },
+
+    // Подпись файла
+    signAction() {
+      // window.Common_SignCadesBES('CertListBox');
+      // alert("Привет от BV");
+      const request = {
+        certificate: {
+          thumbprint: window.dataToSign.thumbprint,
+          subject: window.dataToSign.subject,
+          from: window.dataToSign.from,
+          validDue: window.dataToSign.validDue,
+        },
+        actionPayloadDTO: {
+          actionId: this.signActionId,
+          userId: 0,
+          roleId: 0,
+          orgId: 0,
+          appId: this.appForm.id,
+          data: JSON.stringify(this.appForm.data),
+        },
+      };
+      console.log(request);
+      axios
+        .post(this.url + "app/action-pdfstamp", request, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
+        .then((response) => {
+          console.log("Ответ на экшн");
+          console.log(response);
+          console.log("Содержимое data.applicationDTO.data");
+          console.log(JSON.parse(response.data.applicationDTO.data));
+          console.log("Содержимое data.responseObject");
+          console.log(JSON.parse(response.data.responseObject));
+          console.log("Содержимое hashToSign");
+          console.log(JSON.parse(response.data.responseObject).hashToSign);
+          this.hashToSign = JSON.parse(response.data.responseObject).hashToSign;
+          window.dataToSign.hashToSign = JSON.parse(
+            response.data.responseObject
+          ).hashToSign;
+          console.log(this.hashToSign);
+          this.signedFileName = JSON.parse(
+            response.data.responseObject
+          ).fileName;
+          console.log(this.signedFileName);
+          window.Common_SignCadesBES("CertListBox");
+          let hashField = document.getElementById("DataToSignTxtBox");
+          console.log(hashField);
+          // hashField.textContent = JSON.parse(response.data.responseObject).hashToSign
+          this.signatureIntervalId = setInterval(this.signWaiting, 1000);
+          this.$bvModal.hide("signature");
+        });
+    },
+
+    signWaiting() {
+      this.signatureTimeoutId = setTimeout(this.clearSignWaitingTimers, 600000);
+      console.log("Проверка наличия подписи");
+      if (window.dataToSign.signature) {
+        this.requestSignAction();
+        this.clearSignWaitingTimers();
+        window.dataToSign = {};
+      }
+    },
+
+    clearSignWaitingTimers() {
+      clearInterval(this.signatureIntervalId);
+      clearTimeout(this.signatureTimeoutId);
+    },
+
+    requestSignAction() {
+      console.log(window.dataToSign);
+      const request = {
+        applicationId: this.appForm.id,
+        signature: window.dataToSign.signature,
+        hashToSign: this.hashToSign,
+        filename: this.signedFileName,
+      };
+      console.log("Данные отправляемые для подписанного файла");
+      console.log(request);
+      axios
+        .post(this.url + "app/action-insert-signdata", request, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.responseObject) {
+            this.downloadFileFromObject(
+              JSON.parse(response.data.responseObject)
+            );
+          }
+        })
+        .then(() => {
+          this.$bvModal.show("signSuccess");
+        });
+    },
+  },
+
+  beforeMount: function () {
+    if (+this.$route.params.appId) {
+      this.loadingComment = "Загрузка заявления";
+    } else {
+      this.loadingComment = "Загрузка формы заявления";
+    }
   },
 
   mounted: function () {
+    this.loadCrypto();
     this.getMeasure();
-    this.getStartForm();
+    if (+this.$route.params.appId) {
+      this.getStartForm(this.$route.params.appId);
+    } else {
+      this.getStartForm();
+    }
   },
 };
 </script>

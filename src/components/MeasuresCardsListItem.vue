@@ -58,7 +58,7 @@
         <!--          <span class="material-icons">laptop</span>-->
         <!--        </button>-->
         <router-link
-          :to="'/subsidy_info/' + measure.id"
+          :to="'/subsidy_info/model/' + measure.id"
           :class="'btn btn-outline-' + theme"
           role="button"
           >Получить поддержку</router-link

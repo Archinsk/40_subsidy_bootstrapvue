@@ -29,22 +29,16 @@ const routes = [
     component: () => import("../views/Measures"),
   },
   {
-    path: "/subsidy_info/:subId",
+    path: "/subsidy_info/model/:modelId",
     name: "SubsidyInfo",
     meta: { layout: "main-layout" },
     component: () => import("../views/SubsidyInfo"),
   },
   {
-    path: "/application_view/:subId",
+    path: "/application_view/model/:modelId/app/:appId",
     name: "ApplicationView",
     meta: { layout: "main-layout" },
     component: () => import("../views/ApplicationView"),
-  },
-  {
-    path: "/application_completed_view/:subId/model/:modelId",
-    name: "ApplicationCompletedView",
-    meta: { layout: "main-layout" },
-    component: () => import("../views/ApplicationCompletedView"),
   },
   {
     path: "/account_info",
@@ -93,13 +87,13 @@ const routes = [
 const router = new VueRouter({
   routes,
   // mode: "history"
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition
+      return savedPosition;
     } else {
-      return { x: 0, y: 0 }
+      return { x: 0, y: 0 };
     }
-  }
+  },
 });
 
 export default router;
