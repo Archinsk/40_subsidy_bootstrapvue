@@ -467,7 +467,8 @@ function SignCadesBES_Async(certListBoxId, data, setDisplayData) {
             }
 
             try {
-                Signature = yield oSignedData.SignCades(oSigner, cadesplugin.CADESCOM_CADES_BES);
+                // Добавлен параметр true
+                Signature = yield oSignedData.SignCades(oSigner, cadesplugin.CADESCOM_CADES_BES, true);
             }
             catch (err) {
                 errormes = "Не удалось создать подпись из-за ошибки: " + cadesplugin.getLastError(err);

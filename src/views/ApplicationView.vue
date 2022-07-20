@@ -194,6 +194,7 @@ export default {
       },
       formOptions: {
         i18n: {
+          lng: "ru",
           ru: {
             Name: "Имя",
             "Last name": "Фамилия",
@@ -285,6 +286,7 @@ export default {
             may: "Май",
             june: "Июнь",
             july: "Июль",
+            July: "Июль",
             august: "Август",
             september: "Сентябрь",
             october: "Октябрь",
@@ -439,7 +441,12 @@ export default {
       console.log("Объект файла");
       console.log(fileObject);
       let link = document.createElement("a");
-      link.setAttribute("download", fileObject.fileName);
+      if (fileObject.fileName) {
+        link.setAttribute("download", fileObject.fileName);
+      }
+      if (fileObject.name) {
+        link.setAttribute("download", fileObject.name);
+      }
       link.setAttribute(
         "href",
         "data:application/octet-stream;base64," + fileObject.fileData
@@ -593,10 +600,9 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          if (response.data.responseObject) {
-            this.downloadFileFromObject(
-              JSON.parse(response.data.responseObject)
-            );
+          if (response.data.fileData) {
+            console.log(response.data);
+            this.downloadFileFromObject(response.data);
           }
         })
         .then(() => {
