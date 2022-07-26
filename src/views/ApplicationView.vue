@@ -148,16 +148,6 @@
         </b-button>
       </template>
     </b-modal>
-
-    <b-modal
-      id="signSuccess"
-      ref="modal-signature-success"
-      title="Уведомление"
-      size="sm"
-      ok-only
-    >
-      <p class="mb-0">Файл успешно подписан!</p>
-    </b-modal>
   </div>
 </template>
 
@@ -604,9 +594,6 @@ export default {
             console.log(response.data);
             this.downloadFileFromObject(response.data);
           }
-        })
-        .then(() => {
-          this.$bvModal.show("signSuccess");
         });
     },
   },
