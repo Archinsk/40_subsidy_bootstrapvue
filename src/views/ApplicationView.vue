@@ -444,7 +444,7 @@ export default {
       link.click();
     },
 
-    // Переход к следующей форме (стандартное дейcтвие)
+    // Переход к следующей форме (стандартное действие)
     getNextForm(response) {
       console.log("Следующая форма");
       console.log(response);
@@ -607,6 +607,9 @@ export default {
   },
 
   mounted: function () {
+    console.log("Смонтирован AppView");
+    let formioField = document.getElementById("formiojs");
+    console.log(formioField);
     this.loadCrypto();
     this.getMeasure();
     if (+this.$route.params.appId) {
