@@ -253,7 +253,9 @@ export default {
         .then((response) => {
           this.measuresCardsList = response.data.content;
           this.itemsTotal = response.data.totalElements;
-          console.log(response);
+          console.groupCollapsed("Список мер поддержки");
+          console.log(response.data);
+          console.groupEnd();
           window.scrollTo(0, 0);
         });
     },

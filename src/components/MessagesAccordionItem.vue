@@ -31,8 +31,8 @@
         </div>
       </h2>
       <div class="small text-muted">
-        Получено {{ new Date(message.receiptDate) | dateFilter("date") }} в
-        16:30
+        Получено {{ receiptDate }} в
+        {{ receiptTime }}
       </div>
     </div>
 
@@ -53,5 +53,21 @@
 export default {
   name: "MessagesAccordionItem",
   props: ["message"],
+  computed: {
+    receiptDate: function () {
+      const options = {};
+        options.day = "2-digit";
+        options.month = "2-digit";
+        options.year = "numeric";
+      return new Intl.DateTimeFormat("ru-RU", options).format(new Date(Date.parse(this.message.receiptDate)));
+    },
+    receiptTime: function () {
+      const options = {};
+      options.hour = "2-digit";
+      options.minute = "2-digit";
+      options.second = "2-digit";
+      return new Intl.DateTimeFormat("ru-RU", options).format(new Date(Date.parse(this.message.receiptDate)));
+    }
+  }
 };
 </script>

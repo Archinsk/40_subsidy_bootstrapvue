@@ -731,8 +731,9 @@ export default {
       axios
         .get(this.url + "serv/get-model?id=" + this.$route.params.modelId)
         .then((response) => {
-          console.log("Детальная информация по мере поддержки (getMeasure)");
-          console.log(response);
+          console.groupCollapsed("Детальная информация по мере поддержки ", response.data.name);
+          console.log(response.data);
+          console.groupEnd();
           this.measure = response.data;
         });
     },

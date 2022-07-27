@@ -25,7 +25,7 @@
           class="col-2"
         >
           <template v-for="action of appForm.form.actions">
-            <template v-if="appForm.active || action.alwaysActive">
+            <template v-if="appForm.active || (action.alwaysActive && !isLastForm)">
               <button
                 :key="action.id"
                 type="button"
@@ -165,6 +165,15 @@ export default {
   data() {
     return {
       measure: {},
+      measureForms: [
+        {
+          actions: [],
+          id: 0,
+          modelId: 0,
+          name: "Заявление",
+          scheme: {},
+        },
+      ],
       isResponse: false,
       isLoading: false,
       isFirstLoad: true,
@@ -302,6 +311,12 @@ export default {
     };
   },
 
+  computed: {
+    isLastForm: function () {
+      return this.measureForms[this.measureForms.length-1].id === this.appForm.form.id
+    },
+  },
+
   methods: {
     // Информация о мере поддержки
     getMeasure() {
@@ -312,6 +327,18 @@ export default {
           console.log(response);
           this.measure = response.data;
         });
+    },
+
+    // Формы по мере поддержки
+    getMeasureForms() {
+      axios
+              .get(this.url + "serv/get-forms?id=" + this.$route.params.modelId)
+              .then((response) => {
+                console.groupCollapsed("Формы по мере поддержки");
+                console.log(response.data);
+                console.groupEnd();
+                this.measureForms = response.data;
+              });
     },
 
     // Стартовая форма заявления
@@ -337,8 +364,9 @@ export default {
           withCredentials: true,
         })
         .then((response) => {
-          console.log("Стартовая форма");
-          console.log(response);
+          console.groupCollapsed("Стартовая форма");
+          console.log(response.data.applicationDTO);
+          console.groupEnd();
           const newForm = response.data.applicationDTO;
           newForm.data = JSON.parse(newForm.data);
           newForm.form.scheme = JSON.parse(newForm.form.scheme);
@@ -612,6 +640,7 @@ export default {
     console.log(formioField);
     this.loadCrypto();
     this.getMeasure();
+    this.getMeasureForms();
     if (+this.$route.params.appId) {
       this.getStartForm(this.$route.params.appId);
     } else {

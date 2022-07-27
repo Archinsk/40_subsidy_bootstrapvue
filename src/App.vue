@@ -27,7 +27,7 @@
         id="accordionMessages"
       >
         <MessagesAccordionItem
-          v-for="message of messagesList"
+          v-for="message of sortedMessagesList"
           :key="message.id"
           :message="message"
           @read-message="readMessage(message.id)"
@@ -79,7 +79,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 10:31:33 GMT+0700 (Новосибирск, стандартное время)",
+          "2022-07-11T10:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -89,7 +89,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 18 2022 10:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-18T10:31:33.750+00:00",
           wasRead: true,
           deleted: false,
         },
@@ -99,7 +99,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 04 2022 10:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-04T10:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -109,7 +109,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Sun Jul 10 2022 10:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-10T10:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -119,7 +119,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Sun Jul 17 2022 10:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-17T10:31:33.750+00:00",
           wasRead: true,
           deleted: false,
         },
@@ -129,7 +129,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Sun Jul 03 2022 10:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-03T10:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -139,7 +139,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Sat Jul 09 2022 10:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-09T10:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -149,7 +149,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Sat Jul 02 2022 10:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-12T10:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -159,7 +159,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Sat Jul 16 2022 10:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-16T10:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -169,7 +169,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 19:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-11T19:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -179,7 +179,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 18:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-11T18:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -189,7 +189,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 13:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-11T13:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -199,7 +199,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 15:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-11T15:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -209,7 +209,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 14:31:33 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-11T14:31:33.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -219,7 +219,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 21:00:25 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-11T21:00:25.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -229,7 +229,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 21:45:45 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-11T21:45:45.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -239,7 +239,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 22:05:15 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-11T22:05:15.750+00:00",
           wasRead: false,
           deleted: false,
         },
@@ -249,7 +249,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 07:35:25 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-11T07:35:25.750+00:00",
           wasRead: true,
           deleted: false,
         },
@@ -259,7 +259,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 20:05:50 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-11T20:05:50.750+00:00",
           wasRead: true,
           deleted: false,
         },
@@ -269,7 +269,7 @@ export default {
           messageText:
             "Статус заявления обновлен. Подробная информация направлена на вашу электронную почту.",
           receiptDate:
-            "Mon Jul 11 2022 14:33:55 GMT+0700 (Новосибирск, стандартное время)",
+                  "2022-07-11T14:33:55.750+00:00",
           wasRead: true,
           deleted: false,
         },
@@ -289,6 +289,19 @@ export default {
     unreadMessages: function () {
       return this.messagesList.filter((item) => !item.wasRead).length;
     },
+
+    sortedMessagesList: function () {
+      let sortedMessages = [];
+      this.messagesList.forEach(function(item) {
+        sortedMessages.push(item)
+      });
+      sortedMessages.sort(function(a, b) {
+        if (a.receiptDate > b.receiptDate) return 1; // если первое значение больше второго
+        if (a.receiptDate == b.receiptDate) return 0; // если равны
+        if (a.receiptDate < b.receiptDate) return -1; // если первое значение меньше второго
+      });
+      return sortedMessages.reverse();
+    }
   },
 
   methods: {
