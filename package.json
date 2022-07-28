@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clayui/css": "^3.52.0",
+    "@editorjs/editorjs": "^2.25.0",
     "axios": "^0.25.0",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.2",
@@ -23,12 +24,15 @@
     "vue-router": "^3.2.0"
   },
   "devDependencies": {
+    "@editorjs/image": "^2.6.2",
+    "@editorjs/link": "^2.4.1",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
+    "editorjs-inline-image": "^1.1.2",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",

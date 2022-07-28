@@ -25,7 +25,12 @@
           class="col-2"
         >
           <template v-for="action of appForm.form.actions">
-            <template v-if="appForm.active || (action.alwaysActive && !isLastForm)">
+            <template
+              v-if="
+                !action.hidden &&
+                (appForm.active || (action.alwaysActive && !isLastForm))
+              "
+            >
               <button
                 :key="action.id"
                 type="button"
@@ -298,6 +303,9 @@ export default {
             "File Name": "Имя файла",
             Size: "Размер",
             "Add Another": "Добавить",
+            "Drop files to attach,": "Перетащите файл сюда,",
+            or: "или",
+            browse: "выберите с диска",
           },
         },
       },
@@ -313,7 +321,10 @@ export default {
 
   computed: {
     isLastForm: function () {
-      return this.measureForms[this.measureForms.length-1].id === this.appForm.form.id
+      return (
+        this.measureForms[this.measureForms.length - 1].id ===
+        this.appForm.form.id
+      );
     },
   },
 
@@ -332,13 +343,13 @@ export default {
     // Формы по мере поддержки
     getMeasureForms() {
       axios
-              .get(this.url + "serv/get-forms?id=" + this.$route.params.modelId)
-              .then((response) => {
-                console.groupCollapsed("Формы по мере поддержки");
-                console.log(response.data);
-                console.groupEnd();
-                this.measureForms = response.data;
-              });
+        .get(this.url + "serv/get-forms?id=" + this.$route.params.modelId)
+        .then((response) => {
+          console.groupCollapsed("Формы по мере поддержки");
+          console.log(response.data);
+          console.groupEnd();
+          this.measureForms = response.data;
+        });
     },
 
     // Стартовая форма заявления
