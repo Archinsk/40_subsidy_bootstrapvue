@@ -2,7 +2,7 @@
   <div class="card measure-card">
     <div class="card-body row">
       <router-link
-        :to="'/subsidy_info/' + measure.id"
+        :to="'/subsidy_info/model/' + measure.id"
         class="measure-title col-12 col-md-9 stretched-link"
       >
         <h5 class="card-title">
@@ -35,24 +35,24 @@
           </div>
         </div>
       </div>
-      <div class="measure-details col-md-6 col-lg-3">
-        <div class="measure-size">
-          <div class="measure-size__header">
-            {{
-              measure.measure_size === "нф"
-                ? "Нефинансовая мера поддержки"
-                : "Размер поддержки"
-            }}
-          </div>
-          <div
-            v-show="measure.measure_size !== 'нф'"
-            class="measure-size__value"
-          >
-            до {{ measure.measure_size }}
-            рублей
-          </div>
-        </div>
-      </div>
+      <!--      <div class="measure-details col-md-6 col-lg-3">-->
+      <!--        <div class="measure-size">-->
+      <!--          <div class="measure-size__header">-->
+      <!--            {{-->
+      <!--              measure.measure_size === "нф"-->
+      <!--                ? "Нефинансовая мера поддержки"-->
+      <!--                : "Размер поддержки"-->
+      <!--            }}-->
+      <!--          </div>-->
+      <!--          <div-->
+      <!--            v-show="measure.measure_size !== 'нф'"-->
+      <!--            class="measure-size__value"-->
+      <!--          >-->
+      <!--            до {{ measure.measure_size }}-->
+      <!--            рублей-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
       <div class="measure-buttons col">
         <!--        <button type="button" :class="'btn btn-outline-' + theme + ' btn-icon-only_square measure-web-accessibility'" title="По данной мере поддержки есть возможность электронной подачи">-->
         <!--          <span class="material-icons">laptop</span>-->
