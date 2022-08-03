@@ -41,6 +41,7 @@
               </button>
             </template>
           </template>
+<!--          <button class="btn btn-warning" @click="hideLoaders">убрать лоадеры</button>-->
         </div>
       </div>
     </template>
@@ -635,6 +636,14 @@ export default {
           }
         });
     },
+
+    // hideLoaders() {
+    //   let elements = document.querySelectorAll('.formio-component-file .fileSelector .loader-wrapper');
+    //   for (let elem of elements) {
+    //     elem.hidden=true;
+    //     console.log(elem);
+    //   }
+    // }
   },
 
   beforeMount: function () {
