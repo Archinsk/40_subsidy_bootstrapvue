@@ -96,12 +96,19 @@ export default {
           keywords: ["субсидия", "субсидии"],
           answers: [
             {
-              content: "Субсидия №1",
-              link: "./subsidy_info/67",
+              content:
+                "Субсидии юридическим лицам на возмещение затрат, связанных с участием в выставочно-ярмарочных мероприятиях",
+              link: "./subsidy_info/model/42",
             },
+          ],
+        },
+        {
+          id: 2,
+          keywords: ["конкурс", "конкурсы"],
+          answers: [
             {
-              content: "Субсидия №2",
-              link: "./subsidy_info/141",
+              content: "Конкурс предоставления грантов для ученых",
+              link: "./subsidy_info/model/28",
             },
           ],
         },
