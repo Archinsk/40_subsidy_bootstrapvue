@@ -82,6 +82,12 @@ const routes = [
     meta: { layout: "main-layout" },
     component: () => import("../views/DigitalSignature"),
   },
+  {
+    path: "/settings",
+    name: "SettingsView",
+    meta: { layout: "main-layout" },
+    component: () => import("../views/SettingsView"),
+  },
 ];
 
 const router = new VueRouter({

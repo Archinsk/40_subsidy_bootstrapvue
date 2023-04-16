@@ -18,6 +18,9 @@
         <b-nav-item v-if="isAuthUser" to="/account_info" active-class="active">
           Личный кабинет
         </b-nav-item>
+        <b-nav-item to="/settings" active-class="active">
+          Настройки
+        </b-nav-item>
         <b-nav-item
           v-if="!isAuthUser"
           v-b-modal.auth

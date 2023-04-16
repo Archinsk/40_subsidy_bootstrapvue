@@ -1354,6 +1354,63 @@ body {
     }
   }
 
+  //Страница настроек
+  #settings-view {
+    .card-list > div:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    .card-list {
+      .card {
+        .card-body {
+          padding: 0;
+        }
+      }
+    }
+
+    .btn-collapse {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: start;
+      padding: 1.375rem;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      .collapse-title {
+        font-weight: bold;
+      }
+
+      .marker-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f5f6f8;
+        width: 1.375rem;
+        height: 1.375rem;
+        border-radius: 50%;
+
+        img {
+          width: 0.625rem;
+          transition: all 0.3s ease-in;
+        }
+
+        &.active {
+          img {
+            transform: rotateX(180deg);
+          }
+        }
+      }
+    }
+
+    .collapse-content {
+      padding: 0 1.375rem 1.375rem;
+    }
+  }
+
   //Глобальные стили
   .container {
     @media (min-width: 576px) {
