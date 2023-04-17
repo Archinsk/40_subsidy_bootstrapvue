@@ -385,7 +385,7 @@ export default {
             // "No choises to choose from": "Нет вариантов для выбора",
             "No choises": "Нет вариантов",
             "to choose from": "для выбора",
-            "No": "Нет",
+            No: "Нет",
           },
         },
       },

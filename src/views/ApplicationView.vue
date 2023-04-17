@@ -41,7 +41,7 @@
               </button>
             </template>
           </template>
-<!--          <button class="btn btn-warning" @click="hideLoaders">убрать лоадеры</button>-->
+          <!--          <button class="btn btn-warning" @click="hideLoaders">убрать лоадеры</button>-->
         </div>
       </div>
     </template>

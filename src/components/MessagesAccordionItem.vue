@@ -56,18 +56,22 @@ export default {
   computed: {
     receiptDate: function () {
       const options = {};
-        options.day = "2-digit";
-        options.month = "2-digit";
-        options.year = "numeric";
-      return new Intl.DateTimeFormat("ru-RU", options).format(new Date(Date.parse(this.message.receiptDate)));
+      options.day = "2-digit";
+      options.month = "2-digit";
+      options.year = "numeric";
+      return new Intl.DateTimeFormat("ru-RU", options).format(
+        new Date(Date.parse(this.message.receiptDate))
+      );
     },
     receiptTime: function () {
       const options = {};
       options.hour = "2-digit";
       options.minute = "2-digit";
       options.second = "2-digit";
-      return new Intl.DateTimeFormat("ru-RU", options).format(new Date(Date.parse(this.message.receiptDate)));
-    }
-  }
+      return new Intl.DateTimeFormat("ru-RU", options).format(
+        new Date(Date.parse(this.message.receiptDate))
+      );
+    },
+  },
 };
 </script>

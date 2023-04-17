@@ -67,7 +67,9 @@
         </p>
         <p>
           Остались вопросы? Задавай в telegram-чате
-          <a href="https://t.me/datamasters_asi" :class="'text-' + theme">DataMasters</a>
+          <a href="https://t.me/datamasters_asi" :class="'text-' + theme"
+            >DataMasters</a
+          >
         </p>
       </div>
 
@@ -103,6 +105,6 @@
 <script>
 export default {
   name: "NewsInfo",
-  props: ["theme"]
+  props: ["theme"],
 };
 </script>

@@ -28,9 +28,7 @@ export default {
     NewsPreviewList,
   },
 
-  props: [
-    "theme"
-  ],
+  props: ["theme"],
 
   data() {
     return {

@@ -14,7 +14,7 @@
                       target-id="notificationCollapse"
                       @click="selectAccordionItem(0)"
                     >
-                      <div class="collapse-title">Уведомления</div>
+                      <div class="collapse-title">Уведомление</div>
                       <div
                         :class="[
                           'marker-container',
@@ -29,7 +29,12 @@
                     id="notificationCollapse"
                     parent-id="settingsAccordion"
                   >
-                    <div>Настройка уведомлений</div>
+                    <div>
+                      <Form
+                        :form-data="config.adminSettings.notification.form"
+                        @change-form="$emit('change-form-part1', $event)"
+                      />
+                    </div>
                   </Collapse>
                 </template>
               </Card>
@@ -54,7 +59,12 @@
                     </CollapseButton>
                   </div>
                   <Collapse id="serverCollapse" parent-id="settingsAccordion">
-                    <div>Настройка сервера</div>
+                    <div>
+                      <Form
+                        :form-data="config.adminSettings.server.form"
+                        @change-form="$emit('change-form-part1', $event)"
+                      />
+                    </div>
                   </Collapse>
                 </template>
               </Card>
@@ -79,7 +89,12 @@
                     </CollapseButton>
                   </div>
                   <Collapse id="logoCollapse" parent-id="settingsAccordion">
-                    <div>Настройка логотипа</div>
+                    <div>
+                      <Form
+                        :form-data="config.adminSettings.logo.form"
+                        @change-form="$emit('change-form-part1', $event)"
+                      />
+                    </div>
                   </Collapse>
                 </template>
               </Card>
@@ -104,7 +119,12 @@
                     </CollapseButton>
                   </div>
                   <Collapse id="footerCollapse" parent-id="settingsAccordion">
-                    <div>Настройка футера</div>
+                    <div>
+                      <Form
+                        :form-data="config.adminSettings.footer.form"
+                        @change-form="$emit('change-form-part1', $event)"
+                      />
+                    </div>
                   </Collapse>
                 </template>
               </Card>
@@ -120,9 +140,11 @@
 import Card from "../components/universal/BS46Card";
 import CollapseButton from "../components/universal/BS46CollapseButton";
 import Collapse from "../components/universal/BS46Collapse";
+import Form from "../components/universal/BS46Form";
 export default {
   name: "SettingsView",
-  components: { Collapse, CollapseButton, Card },
+  components: { Form, Collapse, CollapseButton, Card },
+  props: ["config"],
   data() {
     return {
       selectedItem: null,

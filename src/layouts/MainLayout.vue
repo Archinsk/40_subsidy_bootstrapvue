@@ -13,6 +13,7 @@
         :url="url"
         :user="user"
         :theme="theme"
+        :config="config"
         @select-role="$emit('select-role', $event)"
         @change-user-short-info="$emit('change-user-short-info', $event)"
       />
@@ -31,6 +32,6 @@ export default {
     Header,
     Footer,
   },
-  props: ["url", "user", "unreadMessages", "theme"],
+  props: ["url", "user", "unreadMessages", "theme", "config"],
 };
 </script>
