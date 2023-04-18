@@ -1,6 +1,6 @@
 <template>
   <div id="settings-view">
-    <section class="mb-2">
+    <section class="mb-3">
       <div class="container">
         <h4 class="title-primary text-center">Настройки</h4>
 
@@ -62,7 +62,7 @@
                     <div>
                       <Form
                         :form-data="config.adminSettings.server.form"
-                        @change-form="$emit('change-form-part1', $event)"
+                        @change-form="$emit('change-form-part2', $event)"
                       />
                     </div>
                   </Collapse>
@@ -92,7 +92,7 @@
                     <div>
                       <Form
                         :form-data="config.adminSettings.logo.form"
-                        @change-form="$emit('change-form-part1', $event)"
+                        @change-form="$emit('change-form-part3', $event)"
                       />
                     </div>
                   </Collapse>
@@ -122,12 +122,22 @@
                     <div>
                       <Form
                         :form-data="config.adminSettings.footer.form"
-                        @change-form="$emit('change-form-part1', $event)"
+                        @change-form="$emit('change-form-part4', $event)"
                       />
                     </div>
                   </Collapse>
                 </template>
               </Card>
+            </div>
+            <div class="col-12">
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-secondary">
+                  Отменить изменения
+                </button>
+                <button class="btn btn-primary ml-3">
+                  Сохранить изменения
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -158,6 +168,9 @@ export default {
         this.selectedItem = index;
       }
     },
+    // changeForm(item) {
+    //   console.log(item);
+    // },
   },
 };
 </script>

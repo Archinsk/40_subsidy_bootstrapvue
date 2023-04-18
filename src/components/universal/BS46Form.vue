@@ -4,7 +4,11 @@
       <div class="row">
         <template v-for="formItem of formData.fields">
           <Input
-            v-if="formItem.type === 'input' && formItem.subtype !== 'file'"
+            v-if="
+              formItem.type === 'input' &&
+              formItem.subtype !== 'file' &&
+              formItem.visibility
+            "
             :key="formItem.id"
             :id="formItem.id"
             :label="formItem.label"
@@ -22,7 +26,11 @@
             @focus="$emit('focus', formItem.id)"
           />
           <InputFileMinsport
-            v-if="formItem.type === 'input' && formItem.subtype === 'file'"
+            v-if="
+              formItem.type === 'input' &&
+              formItem.subtype === 'file' &&
+              formItem.visibility
+            "
             :key="formItem.id"
             :id="formItem.id"
             :label="formItem.label"
@@ -41,7 +49,7 @@
             @change="$emit('change-form', { id: formItem.id, value: $event })"
           />
           <TextArea
-            v-if="formItem.type === 'textarea'"
+            v-if="formItem.type === 'textarea' && formItem.visibility"
             :key="formItem.id"
             :id="formItem.id"
             :label="formItem.label"
@@ -57,7 +65,7 @@
             @input="$emit('change-form', { id: formItem.id, value: $event })"
           />
           <Select
-            v-if="formItem.type === 'select'"
+            v-if="formItem.type === 'select' && formItem.visibility"
             :key="formItem.id"
             :id="formItem.id"
             :label="formItem.label"
@@ -75,7 +83,7 @@
             @change="$emit('change-form', { id: formItem.id, values: $event })"
           />
           <Checkbox
-            v-if="formItem.type === 'checkbox'"
+            v-if="formItem.type === 'checkbox' && formItem.visibility"
             :key="formItem.id"
             :id="formItem.id"
             :label="formItem.label"
@@ -89,7 +97,7 @@
             @change="$emit('change-form', { id: formItem.id, value: $event })"
           />
           <FilterRange
-            v-if="formItem.type === 'range'"
+            v-if="formItem.type === 'range' && formItem.visibility"
             :key="formItem.id"
             :filter-data="formItem"
             @input="

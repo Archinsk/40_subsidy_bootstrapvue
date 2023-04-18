@@ -9,14 +9,7 @@
       @select-role="$emit('select-role', $event)"
     />
     <main class="content">
-      <router-view
-        :url="url"
-        :user="user"
-        :theme="theme"
-        :config="config"
-        @select-role="$emit('select-role', $event)"
-        @change-user-short-info="$emit('change-user-short-info', $event)"
-      />
+      <slot></slot>
     </main>
     <Footer :theme="theme" />
   </div>

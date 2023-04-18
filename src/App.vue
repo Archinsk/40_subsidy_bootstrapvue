@@ -11,7 +11,36 @@
       @select-role="user.selectedRole = $event"
       @change-user-short-info="user.shortInfo = $event"
     >
-      <router-view />
+      <router-view
+        :url="url"
+        :user="user"
+        :theme="theme"
+        :config="config"
+        @select-role="user.selectedRole = $event"
+        @change-user-short-info="user.shortInfo = $event"
+        @change-form-part1="
+          changeFormWithValidate(
+            config.adminSettings.notification.form,
+            $event,
+            'changeSettingsNotification'
+          )
+        "
+        @change-form-part2="
+          changeFormWithValidate(
+            config.adminSettings.server.form,
+            $event,
+            'changeSettingsServer'
+          )
+        "
+        @change-form-part3="changeForm(config.adminSettings.logo.form, $event)"
+        @change-form-part4="
+          changeFormWithValidate(
+            config.adminSettings.footer.form,
+            $event,
+            'changeSettingsFooter'
+          )
+        "
+      />
     </component>
     <b-modal
       scrollable
@@ -260,6 +289,7 @@ export default {
           notification: {
             form: {
               title: "Настройки уведомления",
+              validity: false,
               horizontal: true,
               horizontalWidth: {
                 label: {
@@ -279,6 +309,7 @@ export default {
                   width: 12,
                   responsive: "",
                   required: false,
+                  visibility: true,
                   defaultValueLabel: "Выберите",
                   horizontal: false,
                   horizontalWidth: {
@@ -300,7 +331,8 @@ export default {
                   width: 12,
                   responsive: "",
                   required: false,
-                  disabled: true,
+                  disabled: false,
+                  visibility: false,
                   defaultValueLabel: "Выберите",
                   horizontal: false,
                   horizontalWidth: {
@@ -323,7 +355,8 @@ export default {
                   width: 12,
                   responsive: "",
                   required: true,
-                  disabled: true,
+                  disabled: false,
+                  visibility: false,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -344,7 +377,7 @@ export default {
                   width: 12,
                   responsive: "",
                   required: false,
-                  disabled: true,
+                  disabled: false,
                   defaultValueLabel: "Выберите",
                   horizontal: false,
                   horizontalWidth: {
@@ -367,7 +400,8 @@ export default {
                   width: 12,
                   responsive: "",
                   required: true,
-                  disabled: true,
+                  disabled: false,
+                  visibility: false,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -388,7 +422,8 @@ export default {
                   width: 12,
                   responsive: "",
                   required: true,
-                  disabled: true,
+                  disabled: false,
+                  visibility: false,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -414,7 +449,8 @@ export default {
                   width: 12,
                   responsive: "",
                   required: true,
-                  disabled: true,
+                  disabled: false,
+                  visibility: false,
                   defaultValueLabel: "Выберите размер",
                   horizontal: true,
                   horizontalWidth: {
@@ -446,7 +482,8 @@ export default {
                   width: 12,
                   responsive: "",
                   required: true,
-                  disabled: true,
+                  disabled: false,
+                  visibility: false,
                   defaultValueLabel: "Выберите цвет",
                   horizontal: true,
                   horizontalWidth: {
@@ -467,6 +504,7 @@ export default {
           server: {
             form: {
               title: "Настройки уведомления",
+              validity: false,
               horizontal: true,
               horizontalWidth: {
                 label: {
@@ -487,6 +525,7 @@ export default {
                   width: 12,
                   responsive: "",
                   required: false,
+                  visibility: true,
                   defaultValueLabel: "Выберите",
                   horizontal: false,
                   horizontalWidth: {
@@ -509,7 +548,8 @@ export default {
                   width: 12,
                   responsive: "",
                   required: true,
-                  disabled: true,
+                  disabled: false,
+                  visibility: false,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -529,6 +569,7 @@ export default {
           logo: {
             form: {
               title: "Настройки уведомления",
+              validity: false,
               horizontal: true,
               horizontalWidth: {
                 label: {
@@ -561,7 +602,8 @@ export default {
                   },
                   width: 12,
                   responsive: "",
-                  required: true,
+                  required: false,
+                  visibility: true,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -577,12 +619,13 @@ export default {
                 },
                 {
                   id: "logo-brand",
-                  label: "Наименование структуры/организации",
+                  label: "Наименование организации",
                   type: "input",
                   subtype: "text",
                   width: 12,
                   responsive: "",
                   required: false,
+                  visibility: true,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -594,7 +637,7 @@ export default {
                       responsive: "col-sm-7",
                     },
                   },
-                  value: null,
+                  value: "Информационные системы и сервисы",
                 },
               ],
             },
@@ -602,6 +645,7 @@ export default {
           footer: {
             form: {
               title: "Настройки футера",
+              validity: false,
               horizontal: true,
               horizontalWidth: {
                 label: {
@@ -622,6 +666,7 @@ export default {
                   width: 12,
                   responsive: "",
                   required: false,
+                  visibility: true,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -633,7 +678,7 @@ export default {
                       responsive: "col-sm-7",
                     },
                   },
-                  value: null,
+                  value: "8-383-354-1011",
                 },
                 {
                   id: "footer-email",
@@ -642,7 +687,8 @@ export default {
                   subtype: "text",
                   width: 12,
                   responsive: "",
-                  required: true,
+                  required: false,
+                  visibility: true,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -654,7 +700,7 @@ export default {
                       responsive: "col-sm-7",
                     },
                   },
-                  value: null,
+                  value: "info@isands.ru",
                 },
                 {
                   id: "footer-link-01-name",
@@ -664,6 +710,7 @@ export default {
                   width: 12,
                   responsive: "",
                   required: false,
+                  visibility: true,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -685,7 +732,8 @@ export default {
                   width: 12,
                   responsive: "",
                   required: true,
-                  disabled: true,
+                  disabled: false,
+                  visibility: false,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -707,6 +755,7 @@ export default {
                   width: 12,
                   responsive: "",
                   required: false,
+                  visibility: true,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -728,7 +777,8 @@ export default {
                   width: 12,
                   responsive: "",
                   required: true,
-                  disabled: true,
+                  disabled: false,
+                  visibility: false,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -750,6 +800,7 @@ export default {
                   width: 12,
                   responsive: "",
                   required: false,
+                  visibility: true,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -771,7 +822,8 @@ export default {
                   width: 12,
                   responsive: "",
                   required: true,
-                  disabled: true,
+                  disabled: false,
+                  visibility: false,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -792,6 +844,7 @@ export default {
                   width: 12,
                   responsive: "",
                   required: false,
+                  visibility: true,
                   defaultValueLabel: "Выберите",
                   horizontal: false,
                   horizontalWidth: {
@@ -815,6 +868,7 @@ export default {
                   responsive: "",
                   required: true,
                   disabled: false,
+                  visibility: true,
                   horizontal: true,
                   horizontalWidth: {
                     label: {
@@ -891,6 +945,228 @@ export default {
         (item) => item.id === messageId
       );
       this.messagesList.splice(messageIndex, 1);
+    },
+
+    // Изменения формы с валидацией и возможной кастомной обработкой
+    changeFormWithValidate(formData, newFormData, customChangeFormMethodName) {
+      console.groupCollapsed(
+        `Изменение формы «${formData.title}» с валидацией`
+      );
+      console.groupCollapsed("Входные данные для изменения формы");
+      console.log("Данные формы до внесения изменений");
+      console.log(formData);
+      console.log("Поле с обновленными значениями");
+      console.log(newFormData);
+      console.groupEnd();
+      // Поиск редактируемого поля формы
+      if (customChangeFormMethodName) {
+        console.groupCollapsed(
+          `Кастомная обработка изменения формы методом ${customChangeFormMethodName}`
+        );
+        this[customChangeFormMethodName](formData, newFormData);
+        console.groupEnd();
+      } else {
+        this.changeForm(formData, newFormData);
+      }
+      let formField = this.findFieldInForm(formData, newFormData.id);
+      if (formField.required) {
+        this.validateForm(formData);
+      }
+      console.groupCollapsed("Форма после внесения изменений");
+      console.log(formData);
+      console.groupEnd();
+      console.groupEnd();
+    },
+    // Изменения формы типовое
+    changeForm(formData, newFormData) {
+      console.log("Обработка изменения формы типовым методом changeForm");
+      // Поиск редактируемого поля формы
+      let formField = this.findFieldInForm(formData, newFormData.id);
+      if (formField.type === "select") {
+        formField.values = newFormData.values;
+      } else if (formField.type === "range") {
+        formField.itemsList[newFormData.index].value = newFormData.value;
+      } else if (formField.type === "input" && formField.subtype === "file") {
+        formField.file = newFormData.value;
+      } else {
+        formField.value = newFormData.value;
+      }
+    },
+    // Проверка формы на заполненность обязательных видимых полей
+    validateForm(formData, logFormValidity = true) {
+      console.groupCollapsed(
+        "Проверка формы на заполненность обязательных видимых полей"
+      );
+      let requiredFields = [];
+      formData.fields.forEach((field) => {
+        if (field.type === "select") {
+          if (field.values.length === 0 && field.required && field.visibility) {
+            requiredFields.push({ id: field.id, validity: false });
+          } else {
+            requiredFields.push({ id: field.id, validity: true });
+          }
+        } else if (
+          field.type === "input" &&
+          field.subtype === "file" &&
+          field.visibility
+        ) {
+          if (!field.file.base64 && field.required) {
+            requiredFields.push({ id: field.id, validity: false });
+          } else {
+            requiredFields.push({ id: field.id, validity: true });
+          }
+        } else {
+          if (!field.value && field.required && field.visibility) {
+            requiredFields.push({ id: field.id, validity: false });
+          } else {
+            requiredFields.push({ id: field.id, validity: true });
+          }
+        }
+      });
+      let invalidField = requiredFields.find(
+        (fieldShortData) => !fieldShortData.validity
+      );
+      if (logFormValidity) {
+        if (invalidField) {
+          console.log(
+            `Форма «${formData.title}» не валидна, так как не валидно поле ${invalidField.id}`
+          );
+        } else {
+          console.log(`Форма «${formData.title}» валидна`);
+        }
+      }
+      console.groupEnd();
+    },
+    // Поиск поля в форме по его идентификатору
+    findFieldInForm(formData, formFieldId) {
+      return formData.fields.find((formField) => formField.id === formFieldId);
+    },
+    // Установка полям формы видимости по идентификатору поля и значению видимости
+    changeFieldsVisibility(formData, changedFieldsArray) {
+      console.groupCollapsed("Поля с измененной видимостью");
+      changedFieldsArray.forEach((fieldShortData) => {
+        let changedField = this.findFieldInForm(formData, fieldShortData.id);
+        changedField.visibility = fieldShortData.visibility;
+        if (changedField.visibility) {
+          console.log(`Показано поле ${changedField.id}`);
+        } else {
+          console.log(`Скрыто поле ${changedField.id}`);
+        }
+      });
+      console.groupEnd();
+    },
+
+    // Нестандартная обработка форм
+    changeSettingsNotification(formData, newFormData) {
+      // Поиск редактируемого поля формы
+      let formField = this.findFieldInForm(formData, newFormData.id);
+      if (formField.id === "notification-need") {
+        if (newFormData.value) {
+          this.changeFieldsVisibility(formData, [
+            { id: "notification-start-immediately", visibility: true },
+            { id: "notification-finish-manual", visibility: true },
+            { id: "notification-text", visibility: true },
+            { id: "notification-font-size", visibility: true },
+            { id: "notification-color", visibility: true },
+          ]);
+        } else {
+          this.changeFieldsVisibility(formData, [
+            { id: "notification-start-immediately", visibility: false },
+            { id: "notification-start-date", visibility: false },
+            { id: "notification-finish-manual", visibility: false },
+            { id: "notification-finish-date", visibility: false },
+            { id: "notification-text", visibility: false },
+            { id: "notification-font-size", visibility: false },
+            { id: "notification-color", visibility: false },
+          ]);
+        }
+      } else if (formField.id === "notification-start-immediately") {
+        if (newFormData.value) {
+          this.changeFieldsVisibility(formData, [
+            { id: "notification-start-date", visibility: false },
+          ]);
+        } else {
+          this.changeFieldsVisibility(formData, [
+            { id: "notification-start-date", visibility: true },
+          ]);
+        }
+      } else if (formField.id === "notification-finish-manual") {
+        if (newFormData.value) {
+          this.changeFieldsVisibility(formData, [
+            { id: "notification-finish-date", visibility: false },
+          ]);
+        } else {
+          this.changeFieldsVisibility(formData, [
+            { id: "notification-finish-date", visibility: true },
+          ]);
+        }
+      } else {
+        this.changeForm(formData, newFormData);
+      }
+    },
+    changeSettingsServer(formData, newFormData) {
+      // Поиск редактируемого поля формы
+      let formField = this.findFieldInForm(formData, newFormData.id);
+      if (formField.id === "server-internal") {
+        if (newFormData.value) {
+          this.changeFieldsVisibility(formData, [
+            { id: "server-external-address", visibility: false },
+          ]);
+        } else {
+          this.changeFieldsVisibility(formData, [
+            { id: "server-external-address", visibility: true },
+          ]);
+        }
+      } else {
+        this.changeForm(formData, newFormData);
+      }
+    },
+    changeSettingsFooter(formData, newFormData) {
+      // Поиск редактируемого поля формы
+      let formField = this.findFieldInForm(formData, newFormData.id);
+      if (formField.id === "footer-link-01-name") {
+        if (newFormData.value) {
+          this.changeFieldsVisibility(formData, [
+            { id: "footer-link-01-url", visibility: true },
+          ]);
+        } else {
+          this.changeFieldsVisibility(formData, [
+            { id: "footer-link-01-url", visibility: false },
+          ]);
+        }
+      } else if (formField.id === "footer-link-02-name") {
+        if (newFormData.value) {
+          this.changeFieldsVisibility(formData, [
+            { id: "footer-link-02-url", visibility: true },
+          ]);
+        } else {
+          this.changeFieldsVisibility(formData, [
+            { id: "footer-link-02-url", visibility: false },
+          ]);
+        }
+      } else if (formField.id === "footer-link-03-name") {
+        if (newFormData.value) {
+          this.changeFieldsVisibility(formData, [
+            { id: "footer-link-03-url", visibility: true },
+          ]);
+        } else {
+          this.changeFieldsVisibility(formData, [
+            { id: "footer-link-03-url", visibility: false },
+          ]);
+        }
+      } else if (formField.id === "footer-copyright-need") {
+        if (newFormData.value) {
+          this.changeFieldsVisibility(formData, [
+            { id: "footer-copyright-text", visibility: true },
+          ]);
+        } else {
+          this.changeFieldsVisibility(formData, [
+            { id: "footer-copyright-text", visibility: false },
+          ]);
+        }
+      } else {
+        this.changeForm(formData, newFormData);
+      }
     },
   },
 };
