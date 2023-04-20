@@ -134,7 +134,10 @@
                 <button class="btn btn-outline-secondary">
                   Отменить изменения
                 </button>
-                <button class="btn btn-primary ml-3">
+                <button
+                  class="btn btn-primary ml-3"
+                  @click="$emit('set-config')"
+                >
                   Сохранить изменения
                 </button>
               </div>

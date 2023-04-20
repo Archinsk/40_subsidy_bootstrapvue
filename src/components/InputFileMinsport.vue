@@ -92,6 +92,9 @@ export default {
   },
   created() {
     this.inputValue = this.value;
+    this.file.name = this.fileData.name;
+    this.file.type = this.fileData.type;
+    this.file.base64 = this.fileData.base64;
   },
   mounted() {
     this.inputInstance = document.getElementById(this.idFull);
