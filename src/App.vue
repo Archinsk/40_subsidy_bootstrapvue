@@ -16,26 +16,27 @@
         :user="user"
         :theme="theme"
         :config="config"
+        :settings-form="settingsForm"
         @select-role="user.selectedRole = $event"
         @change-user-short-info="user.shortInfo = $event"
         @change-form-part1="
           changeFormWithValidate(
-            config.adminSettings.notification.form,
+            settingsForm.notification.form,
             $event,
             'changeSettingsNotification'
           )
         "
         @change-form-part2="
           changeFormWithValidate(
-            config.adminSettings.server.form,
+            settingsForm.server.form,
             $event,
             'changeSettingsServer'
           )
         "
-        @change-form-part3="changeForm(config.adminSettings.logo.form, $event)"
+        @change-form-part3="changeForm(settingsForm.logo.form, $event)"
         @change-form-part4="
           changeFormWithValidate(
-            config.adminSettings.footer.form,
+            settingsForm.footer.form,
             $event,
             'changeSettingsFooter'
           )
@@ -289,601 +290,48 @@ export default {
       config: {
         adminSettings: {
           notification: {
-            form: {
-              title: "Настройки уведомления",
-              validity: false,
-              horizontal: true,
-              horizontalWidth: {
-                label: {
-                  width: 4,
-                  responsive: "col-sm-5",
-                },
-                field: {
-                  width: 8,
-                  responsive: "col-sm-7",
-                },
-              },
-              fields: [
-                {
-                  id: "notification-need",
-                  label: "Разместить уведомление",
-                  type: "checkbox",
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  visibility: true,
-                  defaultValueLabel: "Выберите",
-                  horizontal: false,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: false,
-                },
-                {
-                  id: "notification-start-immediately",
-                  label: "Начало публикации сразу после сохранения",
-                  type: "checkbox",
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  disabled: false,
-                  visibility: false,
-                  defaultValueLabel: "Выберите",
-                  horizontal: false,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: false,
-                },
-                {
-                  id: "notification-start-date",
-                  label: "Дата публикации уведомления",
-                  type: "input",
-                  subtype: "datetime-local",
-                  width: 12,
-                  responsive: "",
-                  required: true,
-                  disabled: false,
-                  visibility: false,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "notification-finish-manual",
-                  label: "Снятие с публикации вручную",
-                  type: "checkbox",
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  disabled: false,
-                  defaultValueLabel: "Выберите",
-                  horizontal: false,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: false,
-                },
-                {
-                  id: "notification-finish-date",
-                  label: "Дата снятия уведомления с публикации",
-                  type: "input",
-                  subtype: "datetime-local",
-                  width: 12,
-                  responsive: "",
-                  required: true,
-                  disabled: false,
-                  visibility: false,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "notification-text",
-                  label: "Текст уведомления",
-                  type: "textarea",
-                  width: 12,
-                  responsive: "",
-                  required: true,
-                  disabled: false,
-                  visibility: false,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "notification-font-size",
-                  label: "Размер",
-                  type: "select",
-                  itemsList: [
-                    { id: 1, value: 1, label: "Нормальный" },
-                    { id: 2, value: 2, label: "Укрупненный" },
-                    { id: 3, value: 3, label: "Огромный" },
-                  ],
-                  width: 12,
-                  responsive: "",
-                  required: true,
-                  disabled: false,
-                  visibility: false,
-                  defaultValueLabel: "Выберите размер",
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  values: [],
-                },
-                {
-                  id: "notification-color",
-                  label: "Цвет уведомления",
-                  type: "select",
-                  itemsList: [
-                    { id: 1, value: 1, label: "Синий" },
-                    { id: 2, value: 2, label: "Серый" },
-                    { id: 3, value: 3, label: "Зелёный" },
-                    { id: 4, value: 4, label: "Красный" },
-                    { id: 5, value: 5, label: "Жёлтый" },
-                    { id: 6, value: 6, label: "Голубой" },
-                    { id: 7, value: 7, label: "Светлый" },
-                    { id: 8, value: 8, label: "Тёмный" },
-                  ],
-                  width: 12,
-                  responsive: "",
-                  required: true,
-                  disabled: false,
-                  visibility: false,
-                  defaultValueLabel: "Выберите цвет",
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  values: [],
-                },
-              ],
-            },
+            publishNeed: true,
+            publicationImmediately: false,
+            publicationStartDate: "2023-04-20T15:00",
+            publicationFinishManual: false,
+            publicationFinishDate: "2023-05-20T18:00",
+            notificationText: "Проводятся технические работы",
+            notificationFontSize: 1,
+            notificationColor: 4,
           },
           server: {
-            form: {
-              title: "Настройки уведомления",
-              validity: false,
-              horizontal: true,
-              horizontalWidth: {
-                label: {
-                  width: 4,
-                  responsive: "col-sm-5",
-                },
-                field: {
-                  width: 8,
-                  responsive: "col-sm-7",
-                },
-              },
-              fields: [
-                {
-                  id: "server-internal",
-                  label:
-                    "Интерфейс и серверная часть находятся на одном домене",
-                  type: "checkbox",
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  visibility: true,
-                  defaultValueLabel: "Выберите",
-                  horizontal: false,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: false,
-                },
-                {
-                  id: "server-external-address",
-                  label: "Адрес сервера открытого контура",
-                  type: "input",
-                  subtype: "text",
-                  width: 12,
-                  responsive: "",
-                  required: true,
-                  disabled: false,
-                  visibility: false,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-              ],
-            },
+            ownServer: false,
+            externalServerUri: "https://opensport.isands.ru/",
           },
           logo: {
-            form: {
-              title: "Настройки уведомления",
-              validity: false,
-              horizontal: true,
-              horizontalWidth: {
-                label: {
-                  width: 4,
-                  responsive: "col-sm-5",
-                },
-                field: {
-                  width: 8,
-                  responsive: "col-sm-7",
-                },
-              },
-              fields: [
-                {
-                  id: "logo-image-file",
-                  label: "Прикрепленные документы",
-                  type: "input",
-                  subtype: "file",
-                  comment: "Файл логотипа",
-                  button: {
-                    text: "Добавить документ",
-                    icon: {
-                      url: "/icons/paperclip.svg",
-                    },
-                  },
-                  file: {
-                    name: "",
-                    type: "image/jpeg",
-                    base64: "",
-                  },
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  visibility: true,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "logo-brand",
-                  label: "Наименование организации",
-                  type: "input",
-                  subtype: "text",
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  visibility: true,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "Информационные системы и сервисы",
-                },
-              ],
+            image: {
+              file: "/9j/4QR...eFz/2Q==",
+              fileName: "Line_Screen.jpg",
             },
+            logoBrand: "Информационные системы и сервисы",
           },
           footer: {
-            form: {
-              title: "Настройки футера",
-              validity: false,
-              horizontal: true,
-              horizontalWidth: {
-                label: {
-                  width: 4,
-                  responsive: "col-sm-5",
-                },
-                field: {
-                  width: 8,
-                  responsive: "col-sm-7",
-                },
+            contacts: {
+              phone: "8-383-354-1011",
+              email: "info@isands.ru",
+            },
+            links: [
+              {
+                name: "Новости",
+                url: "/news",
               },
-              fields: [
-                {
-                  id: "footer-phone",
-                  label: "Номер телефона",
-                  type: "input",
-                  subtype: "text",
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  visibility: true,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "footer-email",
-                  label: "Адрес электронной почты",
-                  type: "input",
-                  subtype: "text",
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  visibility: true,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "footer-link-01-name",
-                  label: "Наименование ссылки №1",
-                  type: "input",
-                  subtype: "text",
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  visibility: true,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "footer-link-01-url",
-                  label: "Адрес ссылки №1",
-                  type: "input",
-                  subtype: "text",
-                  width: 12,
-                  responsive: "",
-                  required: true,
-                  disabled: false,
-                  visibility: false,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "footer-link-02-name",
-                  label: "Наименование ссылки №2",
-                  type: "input",
-                  subtype: "text",
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  visibility: true,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "footer-link-02-url",
-                  label: "Наименование структуры/организации",
-                  type: "input",
-                  subtype: "text",
-                  width: 12,
-                  responsive: "",
-                  required: true,
-                  disabled: false,
-                  visibility: false,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "footer-link-03-name",
-                  label: "Наименование ссылки №3",
-                  type: "input",
-                  subtype: "text",
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  visibility: true,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "footer-link-03-url",
-                  label: "Адрес ссылки №3",
-                  type: "input",
-                  subtype: "text",
-                  width: 12,
-                  responsive: "",
-                  required: true,
-                  disabled: false,
-                  visibility: false,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-                {
-                  id: "footer-copyright-need",
-                  label: "Отображать копирайт",
-                  type: "checkbox",
-                  width: 12,
-                  responsive: "",
-                  required: false,
-                  visibility: true,
-                  defaultValueLabel: "Выберите",
-                  horizontal: false,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: false,
-                },
-                {
-                  id: "footer-copyright-text",
-                  label: "Текст копирайта",
-                  type: "input",
-                  subtype: "text",
-                  width: 12,
-                  responsive: "",
-                  required: true,
-                  disabled: false,
-                  visibility: true,
-                  horizontal: true,
-                  horizontalWidth: {
-                    label: {
-                      width: 4,
-                      responsive: "col-sm-5",
-                    },
-                    field: {
-                      width: 8,
-                      responsive: "col-sm-7",
-                    },
-                  },
-                  value: "",
-                },
-              ],
+              {
+                name: "Поддержка юридических лиц",
+                url: "/measures",
+              },
+              {
+                name: "Поддержка физических лиц",
+                url: "/measures",
+              },
+            ],
+            copyright: {
+              publication: true,
+              text: "© Информационные системы и сервисы, 2022",
             },
           },
         },
@@ -933,6 +381,605 @@ export default {
           copyright: {
             publication: true,
             text: "© Информационные системы и сервисы, 2022",
+          },
+        },
+      },
+      settingsForm: {
+        notification: {
+          form: {
+            title: "Настройки уведомления",
+            validity: false,
+            horizontal: true,
+            horizontalWidth: {
+              label: {
+                width: 4,
+                responsive: "col-sm-5",
+              },
+              field: {
+                width: 8,
+                responsive: "col-sm-7",
+              },
+            },
+            fields: [
+              {
+                id: "notification-need",
+                label: "Разместить уведомление",
+                type: "checkbox",
+                width: 12,
+                responsive: "",
+                required: false,
+                visibility: true,
+                defaultValueLabel: "Выберите",
+                horizontal: false,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: true,
+              },
+              {
+                id: "notification-start-immediately",
+                label: "Начало публикации сразу после сохранения",
+                type: "checkbox",
+                width: 12,
+                responsive: "",
+                required: false,
+                disabled: false,
+                visibility: false,
+                defaultValueLabel: "Выберите",
+                horizontal: false,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: false,
+              },
+              {
+                id: "notification-start-date",
+                label: "Дата публикации уведомления",
+                type: "input",
+                subtype: "datetime-local",
+                width: 12,
+                responsive: "",
+                required: true,
+                disabled: false,
+                visibility: false,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "2023-04-20T15:00",
+              },
+              {
+                id: "notification-finish-manual",
+                label: "Снятие с публикации вручную",
+                type: "checkbox",
+                width: 12,
+                responsive: "",
+                required: false,
+                disabled: false,
+                defaultValueLabel: "Выберите",
+                horizontal: false,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: false,
+              },
+              {
+                id: "notification-finish-date",
+                label: "Дата снятия уведомления с публикации",
+                type: "input",
+                subtype: "datetime-local",
+                width: 12,
+                responsive: "",
+                required: true,
+                disabled: false,
+                visibility: false,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "2023-05-20T18:00",
+              },
+              {
+                id: "notification-text",
+                label: "Текст уведомления",
+                type: "textarea",
+                width: 12,
+                responsive: "",
+                required: true,
+                disabled: false,
+                visibility: false,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "Проводятся технические работы",
+              },
+              {
+                id: "notification-font-size",
+                label: "Размер",
+                type: "select",
+                itemsList: [
+                  { id: 1, value: 1, label: "Нормальный" },
+                  { id: 2, value: 2, label: "Укрупненный" },
+                  { id: 3, value: 3, label: "Огромный" },
+                ],
+                width: 12,
+                responsive: "",
+                required: true,
+                disabled: false,
+                visibility: false,
+                defaultValueLabel: "Выберите размер",
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                values: [1],
+              },
+              {
+                id: "notification-color",
+                label: "Цвет уведомления",
+                type: "select",
+                itemsList: [
+                  { id: 1, value: 1, label: "Синий" },
+                  { id: 2, value: 2, label: "Серый" },
+                  { id: 3, value: 3, label: "Зелёный" },
+                  { id: 4, value: 4, label: "Красный" },
+                  { id: 5, value: 5, label: "Жёлтый" },
+                  { id: 6, value: 6, label: "Голубой" },
+                  { id: 7, value: 7, label: "Светлый" },
+                  { id: 8, value: 8, label: "Тёмный" },
+                ],
+                width: 12,
+                responsive: "",
+                required: true,
+                disabled: false,
+                visibility: false,
+                defaultValueLabel: "Выберите цвет",
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                values: [4],
+              },
+            ],
+          },
+        },
+        server: {
+          form: {
+            title: "Настройки уведомления",
+            validity: false,
+            horizontal: true,
+            horizontalWidth: {
+              label: {
+                width: 4,
+                responsive: "col-sm-5",
+              },
+              field: {
+                width: 8,
+                responsive: "col-sm-7",
+              },
+            },
+            fields: [
+              {
+                id: "server-internal",
+                label: "Интерфейс и серверная часть находятся на одном домене",
+                type: "checkbox",
+                width: 12,
+                responsive: "",
+                required: false,
+                visibility: true,
+                defaultValueLabel: "Выберите",
+                horizontal: false,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: false,
+              },
+              {
+                id: "server-external-address",
+                label: "Адрес сервера открытого контура",
+                type: "input",
+                subtype: "text",
+                width: 12,
+                responsive: "",
+                required: true,
+                disabled: false,
+                visibility: false,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "",
+              },
+            ],
+          },
+        },
+        logo: {
+          form: {
+            title: "Настройки уведомления",
+            validity: false,
+            horizontal: true,
+            horizontalWidth: {
+              label: {
+                width: 4,
+                responsive: "col-sm-5",
+              },
+              field: {
+                width: 8,
+                responsive: "col-sm-7",
+              },
+            },
+            fields: [
+              {
+                id: "logo-image-file",
+                label: "Прикрепленные документы",
+                type: "input",
+                subtype: "file",
+                comment: "Файл логотипа",
+                button: {
+                  text: "Добавить документ",
+                  icon: {
+                    url: "/icons/paperclip.svg",
+                  },
+                },
+                file: {
+                  name: "",
+                  type: "image/jpeg",
+                  base64: "",
+                },
+                width: 12,
+                responsive: "",
+                required: false,
+                visibility: true,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "",
+              },
+              {
+                id: "logo-brand",
+                label: "Наименование организации",
+                type: "input",
+                subtype: "text",
+                width: 12,
+                responsive: "",
+                required: false,
+                visibility: true,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "Информационные системы и сервисы",
+              },
+            ],
+          },
+        },
+        footer: {
+          form: {
+            title: "Настройки футера",
+            validity: false,
+            horizontal: true,
+            horizontalWidth: {
+              label: {
+                width: 4,
+                responsive: "col-sm-5",
+              },
+              field: {
+                width: 8,
+                responsive: "col-sm-7",
+              },
+            },
+            fields: [
+              {
+                id: "footer-phone",
+                label: "Номер телефона",
+                type: "input",
+                subtype: "text",
+                width: 12,
+                responsive: "",
+                required: false,
+                visibility: true,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "",
+              },
+              {
+                id: "footer-email",
+                label: "Адрес электронной почты",
+                type: "input",
+                subtype: "text",
+                width: 12,
+                responsive: "",
+                required: false,
+                visibility: true,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "",
+              },
+              {
+                id: "footer-link-01-name",
+                label: "Наименование ссылки №1",
+                type: "input",
+                subtype: "text",
+                width: 12,
+                responsive: "",
+                required: false,
+                visibility: true,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "",
+              },
+              {
+                id: "footer-link-01-url",
+                label: "Адрес ссылки №1",
+                type: "input",
+                subtype: "text",
+                width: 12,
+                responsive: "",
+                required: true,
+                disabled: false,
+                visibility: false,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "",
+              },
+              {
+                id: "footer-link-02-name",
+                label: "Наименование ссылки №2",
+                type: "input",
+                subtype: "text",
+                width: 12,
+                responsive: "",
+                required: false,
+                visibility: true,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "",
+              },
+              {
+                id: "footer-link-02-url",
+                label: "Наименование структуры/организации",
+                type: "input",
+                subtype: "text",
+                width: 12,
+                responsive: "",
+                required: true,
+                disabled: false,
+                visibility: false,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "",
+              },
+              {
+                id: "footer-link-03-name",
+                label: "Наименование ссылки №3",
+                type: "input",
+                subtype: "text",
+                width: 12,
+                responsive: "",
+                required: false,
+                visibility: true,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "",
+              },
+              {
+                id: "footer-link-03-url",
+                label: "Адрес ссылки №3",
+                type: "input",
+                subtype: "text",
+                width: 12,
+                responsive: "",
+                required: true,
+                disabled: false,
+                visibility: false,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "",
+              },
+              {
+                id: "footer-copyright-need",
+                label: "Отображать копирайт",
+                type: "checkbox",
+                width: 12,
+                responsive: "",
+                required: false,
+                visibility: true,
+                defaultValueLabel: "Выберите",
+                horizontal: false,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: false,
+              },
+              {
+                id: "footer-copyright-text",
+                label: "Текст копирайта",
+                type: "input",
+                subtype: "text",
+                width: 12,
+                responsive: "",
+                required: true,
+                disabled: false,
+                visibility: true,
+                horizontal: true,
+                horizontalWidth: {
+                  label: {
+                    width: 4,
+                    responsive: "col-sm-5",
+                  },
+                  field: {
+                    width: 8,
+                    responsive: "col-sm-7",
+                  },
+                },
+                value: "",
+              },
+            ],
           },
         },
       },
@@ -1405,7 +1452,7 @@ export default {
   },
 
   mounted: function () {
-    this.parseConfig(this.configResponse);
+    // this.parseConfig(this.configResponse);
   },
 };
 </script>

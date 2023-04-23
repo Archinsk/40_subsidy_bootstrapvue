@@ -31,7 +31,7 @@
                   >
                     <div>
                       <Form
-                        :form-data="config.adminSettings.notification.form"
+                        :form-data="settingsForm.notification.form"
                         @change-form="$emit('change-form-part1', $event)"
                       />
                     </div>
@@ -61,7 +61,7 @@
                   <Collapse id="serverCollapse" parent-id="settingsAccordion">
                     <div>
                       <Form
-                        :form-data="config.adminSettings.server.form"
+                        :form-data="settingsForm.server.form"
                         @change-form="$emit('change-form-part2', $event)"
                       />
                     </div>
@@ -91,7 +91,7 @@
                   <Collapse id="logoCollapse" parent-id="settingsAccordion">
                     <div>
                       <Form
-                        :form-data="config.adminSettings.logo.form"
+                        :form-data="settingsForm.logo.form"
                         @change-form="$emit('change-form-part3', $event)"
                       />
                     </div>
@@ -121,7 +121,7 @@
                   <Collapse id="footerCollapse" parent-id="settingsAccordion">
                     <div>
                       <Form
-                        :form-data="config.adminSettings.footer.form"
+                        :form-data="settingsForm.footer.form"
                         @change-form="$emit('change-form-part4', $event)"
                       />
                     </div>
@@ -157,7 +157,7 @@ import Form from "../components/universal/BS46Form";
 export default {
   name: "SettingsView",
   components: { Form, Collapse, CollapseButton, Card },
-  props: ["config"],
+  props: ["settingsForm"],
   data() {
     return {
       selectedItem: null,

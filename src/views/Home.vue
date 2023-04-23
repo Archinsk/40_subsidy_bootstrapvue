@@ -11,6 +11,16 @@
     <!--    <LoaderIsis />-->
     <main class="content">
       <div class="home-page">
+        <section v-if="notificationPublishing" id="notification" class="my-3">
+          <div class="container">
+            <Alert
+              :type="alertType"
+              class="font-weight-bold"
+              :style="alertFontStyle"
+              >{{ config.adminSettings.notification.notificationText }}</Alert
+            >
+          </div>
+        </section>
         <section v-show="!chatIsActive" class="slider">
           <div class="container">
             <SliderNew></SliderNew>
@@ -58,12 +68,14 @@ import ChatQuickQuestions from "@/components/ChatQuickQuestions";
 import NewsPreviewList from "@/components/NewsPreviewList";
 import Footer from "@/components/Footer";
 import axios from "axios";
+import Alert from "../components/universal/BS46Alert";
 // import LoaderIsis from "@/components/LoaderIsis";
 
 export default {
   name: "Home",
 
   components: {
+    Alert,
     // LoaderIsis,
     Header,
     SliderNew,
@@ -73,7 +85,7 @@ export default {
     Footer,
   },
 
-  props: ["url", "user", "unreadMessages", "theme"],
+  props: ["url", "user", "unreadMessages", "theme", "config"],
 
   data() {
     return {
@@ -116,6 +128,19 @@ export default {
       chatIsActive: false,
       flyingRobotUp: false,
       flyingRobotDown: false,
+      bootstrapThemeColors: [
+        "primary",
+        "secondary",
+        "success",
+        "danger",
+        "warning",
+        "info",
+        "light",
+        "dark",
+      ],
+      fontSizes: ["1rem", "1.5rem", "2rem"],
+      notificationStartDate: null,
+      notificationFinishDate: null,
     };
   },
 
@@ -126,6 +151,28 @@ export default {
       } else {
         return this.replics.filter((item) => item.id === 1);
       }
+    },
+    alertType: function () {
+      return this.bootstrapThemeColors[
+        this.config.adminSettings.notification.notificationColor - 1
+      ];
+    },
+    alertFontStyle: function () {
+      return {
+        fontSize:
+          this.fontSizes[
+            this.config.adminSettings.notification.notificationFontSize - 1
+          ],
+      };
+    },
+    notificationPublishing: function () {
+      const now = new Date();
+      const validDate =
+        (this.notificationStartDate < now &&
+          this.notificationFinishDate > now) ||
+        (this.notificationStartDate < now &&
+          this.config.adminSettings.notification.publicationFinishManual);
+      return this.config.adminSettings.notification.publishNeed && validDate;
     },
   },
 
@@ -210,6 +257,15 @@ export default {
       let cont = document.getElementById("chat-field-wrapper");
       cont.scrollTop = 0;
     },
+  },
+
+  created: function () {
+    this.notificationStartDate = new Date(
+      this.config.adminSettings.notification.publicationStartDate
+    );
+    this.notificationFinishDate = new Date(
+      this.config.adminSettings.notification.publicationFinishDate
+    );
   },
 
   updated: function () {
