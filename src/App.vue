@@ -421,7 +421,7 @@ export default {
                     responsive: "col-sm-7",
                   },
                 },
-                value: true,
+                value: false,
               },
               {
                 id: "notification-start-immediately",
@@ -467,7 +467,7 @@ export default {
                     responsive: "col-sm-7",
                   },
                 },
-                value: "2023-04-20T15:00",
+                value: "",
               },
               {
                 id: "notification-finish-manual",
@@ -512,7 +512,7 @@ export default {
                     responsive: "col-sm-7",
                   },
                 },
-                value: "2023-05-20T18:00",
+                value: "",
               },
               {
                 id: "notification-text",
@@ -534,7 +534,7 @@ export default {
                     responsive: "col-sm-7",
                   },
                 },
-                value: "Проводятся технические работы",
+                value: "",
               },
               {
                 id: "notification-font-size",
@@ -562,7 +562,7 @@ export default {
                     responsive: "col-sm-7",
                   },
                 },
-                values: [1],
+                values: [],
               },
               {
                 id: "notification-color",
@@ -595,7 +595,7 @@ export default {
                     responsive: "col-sm-7",
                   },
                 },
-                values: [4],
+                values: [],
               },
             ],
           },
@@ -694,7 +694,6 @@ export default {
                 },
                 file: {
                   name: "",
-                  type: "image/jpeg",
                   base64: "",
                 },
                 width: 12,
@@ -734,7 +733,7 @@ export default {
                     responsive: "col-sm-7",
                   },
                 },
-                value: "Информационные системы и сервисы",
+                value: "",
               },
             ],
           },
@@ -1051,7 +1050,7 @@ export default {
       console.groupCollapsed("Входные данные для изменения формы");
       console.log("Данные формы до внесения изменений");
       console.log(formData);
-      console.log("Поле с обновленными значениями");
+      console.log("Поле с новым значением");
       console.log(newFormData);
       console.groupEnd();
       // Поиск редактируемого поля формы
@@ -1156,6 +1155,7 @@ export default {
     changeSettingsNotification(formData, newFormData) {
       // Поиск редактируемого поля формы
       let formField = this.findFieldInForm(formData, newFormData.id);
+      // Дополнительные условия (переключение видимости/значений связанных полей)
       if (formField.id === "notification-need") {
         if (newFormData.value) {
           this.changeFieldsVisibility(formData, [
@@ -1196,9 +1196,9 @@ export default {
             { id: "notification-finish-date", visibility: true },
           ]);
         }
-      } else {
-        this.changeForm(formData, newFormData);
       }
+      // Стандартное изменение значения поля
+      this.changeForm(formData, newFormData);
     },
     changeSettingsServer(formData, newFormData) {
       // Поиск редактируемого поля формы
@@ -1213,9 +1213,8 @@ export default {
             { id: "server-external-address", visibility: true },
           ]);
         }
-      } else {
-        this.changeForm(formData, newFormData);
       }
+      this.changeForm(formData, newFormData);
     },
     changeSettingsFooter(formData, newFormData) {
       // Поиск редактируемого поля формы
@@ -1260,9 +1259,8 @@ export default {
             { id: "footer-copyright-text", visibility: false },
           ]);
         }
-      } else {
-        this.changeForm(formData, newFormData);
       }
+      this.changeForm(formData, newFormData);
     },
 
     // Запись конфигурации админки
@@ -1334,69 +1332,68 @@ export default {
     // Чтение админки
     parseConfig(configData) {
       // Уведомление
-      this.config.adminSettings.notification.form.fields[0].value =
+      this.settingsForm.notification.form.fields[0].value =
         configData.notification.publishNeed;
       if (configData.notification.publishNeed) {
-        this.config.adminSettings.notification.form.fields[1].visibility = true;
-        this.config.adminSettings.notification.form.fields[3].visibility = true;
-        this.config.adminSettings.notification.form.fields[5].visibility = true;
-        this.config.adminSettings.notification.form.fields[6].visibility = true;
-        this.config.adminSettings.notification.form.fields[7].visibility = true;
+        this.settingsForm.notification.form.fields[1].visibility = true;
+        this.settingsForm.notification.form.fields[3].visibility = true;
+        this.settingsForm.notification.form.fields[5].visibility = true;
+        this.settingsForm.notification.form.fields[6].visibility = true;
+        this.settingsForm.notification.form.fields[7].visibility = true;
       } else {
-        this.config.adminSettings.notification.form.fields[1].visibility = false;
-        this.config.adminSettings.notification.form.fields[3].visibility = false;
-        this.config.adminSettings.notification.form.fields[5].visibility = false;
-        this.config.adminSettings.notification.form.fields[6].visibility = false;
-        this.config.adminSettings.notification.form.fields[7].visibility = false;
+        this.settingsForm.notification.form.fields[1].visibility = false;
+        this.settingsForm.notification.form.fields[3].visibility = false;
+        this.settingsForm.notification.form.fields[5].visibility = false;
+        this.settingsForm.notification.form.fields[6].visibility = false;
+        this.settingsForm.notification.form.fields[7].visibility = false;
       }
-      this.config.adminSettings.notification.form.fields[1].value =
+      this.settingsForm.notification.form.fields[1].value =
         configData.notification.publicationImmediately;
       if (!configData.notification.publicationImmediately) {
-        this.config.adminSettings.notification.form.fields[2].visibility = true;
+        this.settingsForm.notification.form.fields[2].visibility = true;
       } else {
-        this.config.adminSettings.notification.form.fields[2].visibility = false;
+        this.settingsForm.notification.form.fields[2].visibility = false;
       }
-      this.config.adminSettings.notification.form.fields[2].value =
+      this.settingsForm.notification.form.fields[2].value =
         configData.notification.publicationStartDate;
-      this.config.adminSettings.notification.form.fields[3].value =
+      this.settingsForm.notification.form.fields[3].value =
         configData.notification.publicationFinishManual;
       if (!configData.notification.publicationFinishManual) {
-        this.config.adminSettings.notification.form.fields[4].visibility = true;
+        this.settingsForm.notification.form.fields[4].visibility = true;
       } else {
-        this.config.adminSettings.notification.form.fields[4].visibility = false;
+        this.settingsForm.notification.form.fields[4].visibility = false;
       }
-      this.config.adminSettings.notification.form.fields[4].value =
+      this.settingsForm.notification.form.fields[4].value =
         configData.notification.publicationFinishDate;
-      this.config.adminSettings.notification.form.fields[5].value =
+      this.settingsForm.notification.form.fields[5].value =
         configData.notification.notificationText;
-      this.config.adminSettings.notification.form.fields[6].values[0] =
+      this.settingsForm.notification.form.fields[6].values[0] =
         configData.notification.notificationFontSize;
-      this.config.adminSettings.notification.form.fields[7].values[0] =
+      this.settingsForm.notification.form.fields[7].values[0] =
         configData.notification.notificationColor;
 
       // Сервер
-      this.config.adminSettings.server.form.fields[0].value =
+      this.settingsForm.server.form.fields[0].value =
         configData.server.ownServer;
       if (!configData.server.ownServer) {
-        this.config.adminSettings.server.form.fields[1].visibility = true;
+        this.settingsForm.server.form.fields[1].visibility = true;
       } else {
-        this.config.adminSettings.server.form.fields[1].visibility = false;
+        this.settingsForm.server.form.fields[1].visibility = false;
       }
-      this.config.adminSettings.server.form.fields[1].value =
+      this.settingsForm.server.form.fields[1].value =
         configData.server.externalServerUri;
 
       // Лого
-      this.config.adminSettings.logo.form.fields[0].file.base64 =
+      this.settingsForm.logo.form.fields[0].file.base64 =
         configData.logo.image.file;
-      this.config.adminSettings.logo.form.fields[0].file.name =
+      this.settingsForm.logo.form.fields[0].file.name =
         configData.logo.image.fileName;
-      this.config.adminSettings.logo.form.fields[1].value =
-        configData.logo.logoBrand;
+      this.settingsForm.logo.form.fields[1].value = configData.logo.logoBrand;
 
       // Футер
-      this.config.adminSettings.footer.form.fields[0].value =
+      this.settingsForm.footer.form.fields[0].value =
         configData.footer.contacts.phone;
-      this.config.adminSettings.footer.form.fields[1].value =
+      this.settingsForm.footer.form.fields[1].value =
         configData.footer.contacts.email;
       if (configData.footer.links.length > 0) {
         if (
@@ -1404,55 +1401,55 @@ export default {
           configData.footer.links[0].name &&
           configData.footer.links[0].url
         ) {
-          this.config.adminSettings.footer.form.fields[2].value =
+          this.settingsForm.footer.form.fields[2].value =
             configData.footer.links[0].name;
-          this.config.adminSettings.footer.form.fields[3].value =
+          this.settingsForm.footer.form.fields[3].value =
             configData.footer.links[0].url;
-          this.config.adminSettings.footer.form.fields[3].visibility = true;
+          this.settingsForm.footer.form.fields[3].visibility = true;
         } else {
-          this.config.adminSettings.footer.form.fields[3].visibility = false;
+          this.settingsForm.footer.form.fields[3].visibility = false;
         }
         if (
           configData.footer.links[1] &&
           configData.footer.links[1].name &&
           configData.footer.links[1].url
         ) {
-          this.config.adminSettings.footer.form.fields[4].value =
+          this.settingsForm.footer.form.fields[4].value =
             configData.footer.links[1].name;
-          this.config.adminSettings.footer.form.fields[5].value =
+          this.settingsForm.footer.form.fields[5].value =
             configData.footer.links[1].url;
-          this.config.adminSettings.footer.form.fields[5].visibility = true;
+          this.settingsForm.footer.form.fields[5].visibility = true;
         } else {
-          this.config.adminSettings.footer.form.fields[5].visibility = false;
+          this.settingsForm.footer.form.fields[5].visibility = false;
         }
         if (
           configData.footer.links[2] &&
           configData.footer.links[2].name &&
           configData.footer.links[2].url
         ) {
-          this.config.adminSettings.footer.form.fields[6].value =
+          this.settingsForm.footer.form.fields[6].value =
             configData.footer.links[2].name;
-          this.config.adminSettings.footer.form.fields[7].value =
+          this.settingsForm.footer.form.fields[7].value =
             configData.footer.links[2].url;
-          this.config.adminSettings.footer.form.fields[7].visibility = true;
+          this.settingsForm.footer.form.fields[7].visibility = true;
         } else {
-          this.config.adminSettings.footer.form.fields[7].visibility = false;
+          this.settingsForm.footer.form.fields[7].visibility = false;
         }
       }
-      this.config.adminSettings.footer.form.fields[8].value =
+      this.settingsForm.footer.form.fields[8].value =
         configData.footer.copyright.publication;
       if (configData.footer.copyright.publication) {
-        this.config.adminSettings.footer.form.fields[9].visibility = true;
+        this.settingsForm.footer.form.fields[9].visibility = true;
       } else {
-        this.config.adminSettings.footer.form.fields[9].visibility = false;
+        this.settingsForm.footer.form.fields[9].visibility = false;
       }
-      this.config.adminSettings.footer.form.fields[9].value =
+      this.settingsForm.footer.form.fields[9].value =
         configData.footer.copyright.text;
     },
   },
 
   mounted: function () {
-    // this.parseConfig(this.configResponse);
+    this.parseConfig(this.config.adminSettings);
   },
 };
 </script>
