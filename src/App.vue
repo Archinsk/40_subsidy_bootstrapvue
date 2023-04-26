@@ -301,7 +301,7 @@ export default {
           },
           server: {
             ownServer: false,
-            externalServerUri: "https://opensport.isands.ru/",
+            externalServerUrl: "https://opensport.isands.ru/",
           },
           logo: {
             image: {
@@ -1010,6 +1010,116 @@ export default {
       });
       return sortedMessages.reverse();
     },
+
+    setConfigRequest: function () {
+      let setConfigRequest = {
+        notification: {
+          publishNeed: false,
+          publicationImmediately: true,
+          publicationStartDate: "",
+          publicationFinishManual: true,
+          publicationFinishDate: "",
+          notificationText: "",
+          notificationFontSize: 1,
+          notificationColor: 4,
+        },
+        server: {
+          ownServer: true,
+          externalServerUrl: "",
+        },
+        logo: {
+          image: {
+            file: "/9j/4QR...eFz/2Q==",
+            fileName: "Line_Screen.jpg",
+          },
+          logoBrand: "Информационные системы и сервисы",
+        },
+        footer: {
+          contacts: {
+            phone: "8-383-354-1011",
+            email: "info@isands.ru",
+          },
+          links: [
+            {
+              name: "Новости",
+              url: "/news",
+            },
+            {
+              name: "Поддержка юридических лиц",
+              url: "/measures",
+            },
+            {
+              name: "Поддержка физических лиц",
+              url: "/measures",
+            },
+          ],
+          copyright: {
+            publication: true,
+            text: "© Информационные системы и сервисы, 2022",
+          },
+        },
+      };
+      if (this.settingsForm.notification.form.fields[0].value) {
+        setConfigRequest.notification.publishNeed = true;
+        if (this.settingsForm.notification.form.fields[1].value) {
+          // Заменить на получение текущей даты
+          setConfigRequest.notification.publicationStartDate =
+            "2000-01-01T00:00";
+        } else {
+          setConfigRequest.notification.publicationImmediately = false;
+          setConfigRequest.notification.publicationStartDate =
+            this.settingsForm.notification.form.fields[2].value;
+        }
+        if (!this.settingsForm.notification.form.fields[3].value) {
+          setConfigRequest.notification.publicationFinishManual = false;
+          setConfigRequest.notification.publicationFinishDate =
+            this.settingsForm.notification.form.fields[4].value;
+        }
+        setConfigRequest.notification.notificationText =
+          this.settingsForm.notification.form.fields[5].value;
+        setConfigRequest.notification.notificationFontSize =
+          this.settingsForm.notification.form.fields[6].values[0];
+        setConfigRequest.notification.notificationColor =
+          this.settingsForm.notification.form.fields[7].values[0];
+      }
+
+      setConfigRequest.server = {
+        ownServer: this.settingsForm.server.form.fields[0].value,
+        externalServerUrl: this.settingsForm.server.form.fields[1].value,
+      };
+      setConfigRequest.logo = {
+        image: {
+          file: this.settingsForm.logo.form.fields[0].file.base64,
+          fileName: this.settingsForm.logo.form.fields[0].file.name,
+        },
+        logoBrand: this.settingsForm.logo.form.fields[1].value,
+      };
+      setConfigRequest.footer = {
+        contacts: {
+          phone: this.settingsForm.footer.form.fields[0].value,
+          email: this.settingsForm.footer.form.fields[1].value,
+        },
+        links: [
+          {
+            name: this.settingsForm.footer.form.fields[2].value,
+            url: this.settingsForm.footer.form.fields[3].value,
+          },
+          {
+            name: this.settingsForm.footer.form.fields[4].value,
+            url: this.settingsForm.footer.form.fields[5].value,
+          },
+          {
+            name: this.settingsForm.footer.form.fields[6].value,
+            url: this.settingsForm.footer.form.fields[7].value,
+          },
+        ],
+        copyright: {
+          publication: this.settingsForm.footer.form.fields[8].value,
+          text: this.settingsForm.footer.form.fields[9].value,
+        },
+      };
+      return setConfigRequest;
+    },
   },
 
   methods: {
@@ -1165,6 +1275,8 @@ export default {
             { id: "notification-font-size", visibility: true },
             { id: "notification-color", visibility: true },
           ]);
+          this.settingsForm.notification.form.fields[1].value = true;
+          this.settingsForm.notification.form.fields[3].value = true;
         } else {
           this.changeFieldsVisibility(formData, [
             { id: "notification-start-immediately", visibility: false },
@@ -1266,113 +1378,117 @@ export default {
     // Запись конфигурации админки
     setConfig() {
       console.log("Запись конфигурации");
-      const request = {
-        notification: {
-          publishNeed:
-            this.config.adminSettings.notification.form.fields[0].value,
-          publicationImmediately:
-            this.config.adminSettings.notification.form.fields[1].value,
-          publicationStartDate:
-            this.config.adminSettings.notification.form.fields[2].value,
-          publicationFinishManual:
-            this.config.adminSettings.notification.form.fields[3].value,
-          publicationFinishDate:
-            this.config.adminSettings.notification.form.fields[4].value,
-          notificationText:
-            this.config.adminSettings.notification.form.fields[5].value,
-          notificationFontSize:
-            this.config.adminSettings.notification.form.fields[6].values[0],
-          notificationColor:
-            this.config.adminSettings.notification.form.fields[7].values[0],
-        },
-        server: {
-          ownServer: this.config.adminSettings.server.form.fields[0].value,
-          externalServerUri:
-            this.config.adminSettings.server.form.fields[1].value,
-        },
-        logo: {
-          image: {
-            file: this.config.adminSettings.logo.form.fields[0].file.base64,
-            fileName: this.config.adminSettings.logo.form.fields[0].file.name,
-          },
-          logoBrand: this.config.adminSettings.logo.form.fields[1].value,
-        },
-        footer: {
-          contacts: {
-            phone: this.config.adminSettings.footer.form.fields[0].value,
-            email: this.config.adminSettings.footer.form.fields[1].value,
-          },
-          links: [
-            {
-              name: this.config.adminSettings.footer.form.fields[2].value,
-              url: this.config.adminSettings.footer.form.fields[3].value,
-            },
-            {
-              name: this.config.adminSettings.footer.form.fields[4].value,
-              url: this.config.adminSettings.footer.form.fields[5].value,
-            },
-            {
-              name: this.config.adminSettings.footer.form.fields[6].value,
-              url: this.config.adminSettings.footer.form.fields[7].value,
-            },
-          ],
-          copyright: {
-            publication: this.config.adminSettings.footer.form.fields[8].value,
-            text: this.config.adminSettings.footer.form.fields[9].value,
-          },
-        },
-      };
-      console.log(request);
-      axios.post(this.url + "/setConfig", request).then(() => {
-        console.log("Настройки системы изменены");
-        // this.resetForm(this.modals[0].form);
-      });
+      console.log(this.setConfigRequest);
+      axios
+        .post(this.url + "config/", this.setConfigRequest, {
+          withCredentials: true,
+        })
+        .then(() => {
+          this.getConfig();
+          console.log("Настройки системы изменены");
+        });
     },
 
     // Чтение админки
+    getConfig() {
+      axios.get(this.url + "config/").then((response) => {
+        this.parseConfig(response.data);
+        console.groupCollapsed("Конфигурация системы");
+        console.log(response.data);
+        console.groupEnd();
+      });
+    },
     parseConfig(configData) {
       // Уведомление
-      this.settingsForm.notification.form.fields[0].value =
-        configData.notification.publishNeed;
-      if (configData.notification.publishNeed) {
-        this.settingsForm.notification.form.fields[1].visibility = true;
+      const now = new Date();
+      // const notificationStartDate = new Date(
+      //   configData.notification.publicationStartDate
+      // );
+      let notificationFinishDate;
+      if (configData.notification.publicationFinishDate) {
+        notificationFinishDate = new Date(
+          configData.notification.publicationFinishDate
+        );
+      }
+      const validDate =
+        notificationFinishDate > now ||
+        (!configData.notification.publicationFinishDate &&
+          configData.notification.publicationFinishManual);
+      // const notificationActive =
+      //   notificationStartDate < now && notificationFinishDate > now;
+      const notificationPublishing =
+        configData.notification.publishNeed && validDate;
+      if (notificationPublishing) {
+        this.config.adminSettings.notification.publishNeed = true;
+        this.settingsForm.notification.form.fields[0].value = true;
+        this.settingsForm.notification.form.fields[1].visibility = false;
+        this.settingsForm.notification.form.fields[2].visibility = true;
         this.settingsForm.notification.form.fields[3].visibility = true;
         this.settingsForm.notification.form.fields[5].visibility = true;
         this.settingsForm.notification.form.fields[6].visibility = true;
         this.settingsForm.notification.form.fields[7].visibility = true;
       } else {
+        this.config.adminSettings.notification.publishNeed = false;
+        this.settingsForm.notification.form.fields[0].value = false;
         this.settingsForm.notification.form.fields[1].visibility = false;
+        this.settingsForm.notification.form.fields[2].visibility = false;
         this.settingsForm.notification.form.fields[3].visibility = false;
         this.settingsForm.notification.form.fields[5].visibility = false;
         this.settingsForm.notification.form.fields[6].visibility = false;
         this.settingsForm.notification.form.fields[7].visibility = false;
       }
+      this.config.adminSettings.notification.publicationImmediately =
+        configData.notification.publicationImmediately;
       this.settingsForm.notification.form.fields[1].value =
         configData.notification.publicationImmediately;
-      if (!configData.notification.publicationImmediately) {
-        this.settingsForm.notification.form.fields[2].visibility = true;
+      if (notificationPublishing) {
+        this.config.adminSettings.notification.publicationStartDate =
+          configData.notification.publicationStartDate;
+        this.settingsForm.notification.form.fields[2].value =
+          configData.notification.publicationStartDate;
       } else {
-        this.settingsForm.notification.form.fields[2].visibility = false;
+        this.config.adminSettings.notification.publicationStartDate = "";
+        this.settingsForm.notification.form.fields[2].value = "";
       }
-      this.settingsForm.notification.form.fields[2].value =
-        configData.notification.publicationStartDate;
+      this.config.adminSettings.notification.publicationFinishManual =
+        configData.notification.publicationFinishManual;
       this.settingsForm.notification.form.fields[3].value =
         configData.notification.publicationFinishManual;
-      if (!configData.notification.publicationFinishManual) {
+      if (
+        notificationPublishing &&
+        !configData.notification.publicationFinishManual
+      ) {
+        this.config.adminSettings.notification.publicationFinishDate =
+          configData.notification.publicationFinishDate;
+        this.settingsForm.notification.form.fields[4].value =
+          configData.notification.publicationFinishDate;
         this.settingsForm.notification.form.fields[4].visibility = true;
       } else {
+        this.config.adminSettings.notification.publicationFinishDate = "";
+        this.settingsForm.notification.form.fields[4].value = "";
         this.settingsForm.notification.form.fields[4].visibility = false;
       }
-      this.settingsForm.notification.form.fields[4].value =
-        configData.notification.publicationFinishDate;
-      this.settingsForm.notification.form.fields[5].value =
-        configData.notification.notificationText;
+      if (notificationPublishing) {
+        this.config.adminSettings.notification.notificationText =
+          configData.notification.notificationText;
+        this.settingsForm.notification.form.fields[5].value =
+          configData.notification.notificationText;
+      } else {
+        this.config.adminSettings.notification.notificationText = "";
+        this.settingsForm.notification.form.fields[5].value = "";
+      }
+
+      this.config.adminSettings.notification.notificationFontSize =
+        configData.notification.notificationFontSize;
       this.settingsForm.notification.form.fields[6].values[0] =
         configData.notification.notificationFontSize;
+      this.config.adminSettings.notification.notificationColor =
+        configData.notification.notificationColor;
       this.settingsForm.notification.form.fields[7].values[0] =
         configData.notification.notificationColor;
 
       // Сервер
+      this.config.adminSettings.server.ownServer = configData.server.ownServer;
       this.settingsForm.server.form.fields[0].value =
         configData.server.ownServer;
       if (!configData.server.ownServer) {
@@ -1380,19 +1496,29 @@ export default {
       } else {
         this.settingsForm.server.form.fields[1].visibility = false;
       }
+      this.config.adminSettings.server.externalServerUrl =
+        configData.server.externalServerUrl;
       this.settingsForm.server.form.fields[1].value =
-        configData.server.externalServerUri;
+        configData.server.externalServerUrl;
 
       // Лого
+      this.config.adminSettings.logo.image.file = configData.logo.image.file;
       this.settingsForm.logo.form.fields[0].file.base64 =
         configData.logo.image.file;
+      this.config.adminSettings.logo.image.fileName =
+        configData.logo.image.fileName;
       this.settingsForm.logo.form.fields[0].file.name =
         configData.logo.image.fileName;
+      this.config.adminSettings.logo.logoBrand = configData.logo.logoBrand;
       this.settingsForm.logo.form.fields[1].value = configData.logo.logoBrand;
 
       // Футер
+      this.config.adminSettings.footer.contacts.phone =
+        configData.footer.contacts.phone;
       this.settingsForm.footer.form.fields[0].value =
         configData.footer.contacts.phone;
+      this.config.adminSettings.footer.contacts.email =
+        configData.footer.contacts.email;
       this.settingsForm.footer.form.fields[1].value =
         configData.footer.contacts.email;
       if (configData.footer.links.length > 0) {
@@ -1401,8 +1527,12 @@ export default {
           configData.footer.links[0].name &&
           configData.footer.links[0].url
         ) {
+          this.config.adminSettings.footer.links[0].name =
+            configData.footer.links[0].name;
           this.settingsForm.footer.form.fields[2].value =
             configData.footer.links[0].name;
+          this.config.adminSettings.footer.links[0].url =
+            configData.footer.links[0].url;
           this.settingsForm.footer.form.fields[3].value =
             configData.footer.links[0].url;
           this.settingsForm.footer.form.fields[3].visibility = true;
@@ -1414,8 +1544,12 @@ export default {
           configData.footer.links[1].name &&
           configData.footer.links[1].url
         ) {
+          this.config.adminSettings.footer.links[1].name =
+            configData.footer.links[1].name;
           this.settingsForm.footer.form.fields[4].value =
             configData.footer.links[1].name;
+          this.config.adminSettings.footer.links[1].url =
+            configData.footer.links[1].url;
           this.settingsForm.footer.form.fields[5].value =
             configData.footer.links[1].url;
           this.settingsForm.footer.form.fields[5].visibility = true;
@@ -1427,8 +1561,12 @@ export default {
           configData.footer.links[2].name &&
           configData.footer.links[2].url
         ) {
+          this.config.adminSettings.footer.links[2].name =
+            configData.footer.links[2].name;
           this.settingsForm.footer.form.fields[6].value =
             configData.footer.links[2].name;
+          this.config.adminSettings.footer.links[2].url =
+            configData.footer.links[2].url;
           this.settingsForm.footer.form.fields[7].value =
             configData.footer.links[2].url;
           this.settingsForm.footer.form.fields[7].visibility = true;
@@ -1436,6 +1574,8 @@ export default {
           this.settingsForm.footer.form.fields[7].visibility = false;
         }
       }
+      this.config.adminSettings.footer.copyright.publication =
+        configData.footer.copyright.publication;
       this.settingsForm.footer.form.fields[8].value =
         configData.footer.copyright.publication;
       if (configData.footer.copyright.publication) {
@@ -1443,6 +1583,8 @@ export default {
       } else {
         this.settingsForm.footer.form.fields[9].visibility = false;
       }
+      this.config.adminSettings.footer.copyright.text =
+        configData.footer.copyright.text;
       this.settingsForm.footer.form.fields[9].value =
         configData.footer.copyright.text;
     },
@@ -1450,6 +1592,7 @@ export default {
 
   mounted: function () {
     this.parseConfig(this.config.adminSettings);
+    this.getConfig();
   },
 };
 </script>

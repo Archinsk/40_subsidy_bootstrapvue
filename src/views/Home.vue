@@ -171,6 +171,7 @@ export default {
         (this.notificationStartDate < now &&
           this.notificationFinishDate > now) ||
         (this.notificationStartDate < now &&
+          !this.notificationFinishDate &&
           this.config.adminSettings.notification.publicationFinishManual);
       return this.config.adminSettings.notification.publishNeed && validDate;
     },
@@ -263,9 +264,11 @@ export default {
     this.notificationStartDate = new Date(
       this.config.adminSettings.notification.publicationStartDate
     );
-    this.notificationFinishDate = new Date(
-      this.config.adminSettings.notification.publicationFinishDate
-    );
+    if (this.config.adminSettings.notification.publicationFinishDate) {
+      this.notificationFinishDate = new Date(
+        this.config.adminSettings.notification.publicationFinishDate
+      );
+    }
   },
 
   updated: function () {
