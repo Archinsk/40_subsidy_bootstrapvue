@@ -1,10 +1,14 @@
 <template>
   <ul class="contacts col-md-3">
-    <li>
-      <a href="tel:+73833541011" class="contacts__phone">8-383-354-1011</a>
+    <li v-if="contacts.phone">
+      <a :href="'tel:' + contacts.phone" class="contacts__phone">{{
+        contacts.phone
+      }}</a>
     </li>
-    <li>
-      <a href="mailto:info@isands.ru" class="contacts__mail">info@isands.ru</a>
+    <li v-if="contacts.email">
+      <a :href="'mailto:' + contacts.email" class="contacts__mail">{{
+        contacts.email
+      }}</a>
     </li>
   </ul>
 </template>
@@ -12,5 +16,6 @@
 <script>
 export default {
   name: "FooterContacts",
+  props: ["contacts"],
 };
 </script>

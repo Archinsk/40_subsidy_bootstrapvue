@@ -1,6 +1,7 @@
 <template>
   <div class="page-wrapper">
     <Header
+      :config="config"
       :url="url"
       :user="user"
       :unread-messages="unreadMessages"
@@ -11,7 +12,7 @@
     <main class="content">
       <slot></slot>
     </main>
-    <Footer :theme="theme" />
+    <Footer :theme="theme" :config="config" />
   </div>
 </template>
 

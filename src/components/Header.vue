@@ -3,12 +3,22 @@
     <div class="container">
       <b-navbar type="dark" :variant="theme">
         <b-navbar-brand class="logo" to="/">
+          <!--          <img-->
+          <!--            src="@/assets/iss_logo_white.svg"-->
+          <!--            class="d-inline-block align-top logo__image"-->
+          <!--            alt="logo"-->
+          <!--          />-->
           <img
-            src="@/assets/iss_logo_white.svg"
+            :src="
+              'data:' +
+              config.adminSettings.logo.image.type +
+              ';base64,' +
+              config.adminSettings.logo.image.file
+            "
             class="d-inline-block align-top logo__image"
             alt="logo"
           />
-          Информационные системы и сервисы
+          {{ config.adminSettings.logo.logoBrand }}
         </b-navbar-brand>
 
         <HeaderNav
@@ -56,6 +66,6 @@ export default {
   components: {
     HeaderNav,
   },
-  props: ["url", "user", "unreadMessages", "theme"],
+  props: ["config", "url", "user", "unreadMessages", "theme"],
 };
 </script>

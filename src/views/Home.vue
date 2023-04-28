@@ -1,6 +1,7 @@
 <template>
   <div class="page-wrapper">
     <Header
+      :config="config"
       :url="url"
       :theme="theme"
       :unread-messages="unreadMessages"
@@ -56,7 +57,7 @@
         </section>
       </div>
     </main>
-    <Footer v-show="!chatIsActive" :theme="theme" />
+    <Footer v-show="!chatIsActive" :theme="theme" :config="config" />
   </div>
 </template>
 

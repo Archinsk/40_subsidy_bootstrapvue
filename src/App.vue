@@ -1030,6 +1030,7 @@ export default {
         logo: {
           image: {
             file: "/9j/4QR...eFz/2Q==",
+            type: "image/jpeg",
             fileName: "Line_Screen.jpg",
           },
           logoBrand: "Информационные системы и сервисы",
@@ -1064,7 +1065,7 @@ export default {
         if (this.settingsForm.notification.form.fields[1].value) {
           // Заменить на получение текущей даты
           setConfigRequest.notification.publicationStartDate =
-            "2000-01-01T00:00";
+            this.convertDateToInputDateTime(new Date());
         } else {
           setConfigRequest.notification.publicationImmediately = false;
           setConfigRequest.notification.publicationStartDate =
@@ -1090,10 +1091,12 @@ export default {
       setConfigRequest.logo = {
         image: {
           file: this.settingsForm.logo.form.fields[0].file.base64,
+          type: this.settingsForm.logo.form.fields[0].file.type,
           fileName: this.settingsForm.logo.form.fields[0].file.name,
         },
         logoBrand: this.settingsForm.logo.form.fields[1].value,
       };
+
       setConfigRequest.footer = {
         contacts: {
           phone: this.settingsForm.footer.form.fields[0].value,
@@ -1537,6 +1540,10 @@ export default {
             configData.footer.links[0].url;
           this.settingsForm.footer.form.fields[3].visibility = true;
         } else {
+          this.config.adminSettings.footer.links[0].name = "";
+          this.settingsForm.footer.form.fields[2].value = "";
+          this.config.adminSettings.footer.links[0].url = "";
+          this.settingsForm.footer.form.fields[3].value = "";
           this.settingsForm.footer.form.fields[3].visibility = false;
         }
         if (
@@ -1554,6 +1561,10 @@ export default {
             configData.footer.links[1].url;
           this.settingsForm.footer.form.fields[5].visibility = true;
         } else {
+          this.config.adminSettings.footer.links[1].name = "";
+          this.settingsForm.footer.form.fields[4].value = "";
+          this.config.adminSettings.footer.links[1].url = "";
+          this.settingsForm.footer.form.fields[5].value = "";
           this.settingsForm.footer.form.fields[5].visibility = false;
         }
         if (
@@ -1571,6 +1582,10 @@ export default {
             configData.footer.links[2].url;
           this.settingsForm.footer.form.fields[7].visibility = true;
         } else {
+          this.config.adminSettings.footer.links[2].name = "";
+          this.settingsForm.footer.form.fields[6].value = "";
+          this.config.adminSettings.footer.links[2].url = "";
+          this.settingsForm.footer.form.fields[7].value = "";
           this.settingsForm.footer.form.fields[7].visibility = false;
         }
       }
@@ -1579,20 +1594,39 @@ export default {
       this.settingsForm.footer.form.fields[8].value =
         configData.footer.copyright.publication;
       if (configData.footer.copyright.publication) {
+        this.config.adminSettings.footer.copyright.text =
+          configData.footer.copyright.text;
+        this.settingsForm.footer.form.fields[9].value =
+          configData.footer.copyright.text;
         this.settingsForm.footer.form.fields[9].visibility = true;
       } else {
+        this.config.adminSettings.footer.copyright.text = "";
+        this.settingsForm.footer.form.fields[9].value = "";
         this.settingsForm.footer.form.fields[9].visibility = false;
       }
-      this.config.adminSettings.footer.copyright.text =
-        configData.footer.copyright.text;
-      this.settingsForm.footer.form.fields[9].value =
-        configData.footer.copyright.text;
+    },
+
+    // Преобразование даты к формату инпута datetime
+    convertDateToInputDateTime(date) {
+      console.log("convertDateToInputDateTime");
+      console.log(date);
+      // Thu Apr 27 2023 10:54:16 GMT+0700 (Новосибирск, стандартное время)
+      // 2000-01-02T00:00
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      const inputDateTime =
+        year + "-" + month + "-" + day + "T" + hours + ":" + minutes;
+      return inputDateTime;
     },
   },
 
   mounted: function () {
     this.parseConfig(this.config.adminSettings);
     this.getConfig();
+    this.convertDateToInputDateTime();
   },
 };
 </script>
