@@ -1,6 +1,7 @@
 <template>
   <router-view
     :url="url"
+    :dynamic-url="dynamicUrl"
     :user="user"
     :unread-messages="unreadMessages"
     :theme="theme"
@@ -13,6 +14,6 @@
 <script>
 export default {
   name: "EmptyLayout",
-  props: ["url", "user", "unreadMessages", "theme", "config"],
+  props: ["url", "dynamicUrl", "user", "unreadMessages", "theme", "config"],
 };
 </script>

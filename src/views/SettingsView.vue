@@ -32,7 +32,9 @@
                     <div>
                       <Form
                         :form-data="settingsForm.notification.form"
-                        @change-form="$emit('change-form-part1', $event)"
+                        @change-form="
+                          $emit('change-settings-form-part1', $event)
+                        "
                       />
                     </div>
                   </Collapse>
@@ -62,7 +64,9 @@
                     <div>
                       <Form
                         :form-data="settingsForm.server.form"
-                        @change-form="$emit('change-form-part2', $event)"
+                        @change-form="
+                          $emit('change-settings-form-part2', $event)
+                        "
                       />
                     </div>
                   </Collapse>
@@ -92,7 +96,9 @@
                     <div>
                       <Form
                         :form-data="settingsForm.logo.form"
-                        @change-form="$emit('change-form-part3', $event)"
+                        @change-form="
+                          $emit('change-settings-form-part3', $event)
+                        "
                       />
                     </div>
                   </Collapse>
@@ -122,7 +128,9 @@
                     <div>
                       <Form
                         :form-data="settingsForm.footer.form"
-                        @change-form="$emit('change-form-part4', $event)"
+                        @change-form="
+                          $emit('change-settings-form-part4', $event)
+                        "
                       />
                     </div>
                   </Collapse>
@@ -131,12 +139,10 @@
             </div>
             <div class="col-12">
               <div class="d-flex justify-content-end">
-                <button class="btn btn-outline-secondary">
-                  Отменить изменения
-                </button>
                 <button
-                  class="btn btn-primary ml-3"
+                  class="btn btn-primary"
                   @click="$emit('set-config')"
+                  :disabled="!settingsFormValidity"
                 >
                   Сохранить изменения
                 </button>
@@ -162,6 +168,16 @@ export default {
     return {
       selectedItem: null,
     };
+  },
+  computed: {
+    settingsFormValidity: function () {
+      return (
+        this.settingsForm.notification.form.validity &&
+        this.settingsForm.server.form.validity &&
+        this.settingsForm.logo.form.validity &&
+        this.settingsForm.footer.form.validity
+      );
+    },
   },
   methods: {
     selectAccordionItem(index) {

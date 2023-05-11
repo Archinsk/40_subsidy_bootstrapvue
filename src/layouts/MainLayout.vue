@@ -3,6 +3,7 @@
     <Header
       :config="config"
       :url="url"
+      :dynamic-url="dynamicUrl"
       :user="user"
       :unread-messages="unreadMessages"
       :theme="theme"
@@ -26,6 +27,6 @@ export default {
     Header,
     Footer,
   },
-  props: ["url", "user", "unreadMessages", "theme", "config"],
+  props: ["url", "dynamicUrl", "user", "unreadMessages", "theme", "config"],
 };
 </script>
