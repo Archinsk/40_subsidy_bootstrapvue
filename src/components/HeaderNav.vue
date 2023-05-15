@@ -193,7 +193,7 @@ export default {
 
   methods: {
     // Вход через ЕСИА
-    getLogin() {
+    /*getLogin() {
       axios(this.url + "auth/get-login", {
         withCredentials: true,
       })
@@ -217,7 +217,7 @@ export default {
           this.getUserId();
           this.getUserInfo();
         });
-    },
+    },*/
 
     // Вход по логину и паролю
     signInLocal() {
@@ -250,7 +250,7 @@ export default {
         });
     },
 
-    getUserId() {
+    /*getUserId() {
       axios(this.url + "auth/get-user", {
         withCredentials: true,
       }).then((response) => {
@@ -259,7 +259,7 @@ export default {
         console.groupEnd();
         this.userInfoFromResponse.shortInfo = response.data;
       });
-    },
+    },*/
 
     getUserInfo(hideModal = true) {
       axios(this.url + "core/get-user", {
@@ -416,8 +416,12 @@ export default {
     },
   },
 
-  mounted: function () {
-    this.getLogin();
+  created() {
+    console.log("Создан компонент HeaderNav");
+  },
+
+  mounted() {
+    console.log("Смонтирован компонент HeaderNav");
   },
 };
 </script>

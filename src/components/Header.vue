@@ -67,5 +67,13 @@ export default {
     HeaderNav,
   },
   props: ["config", "url", "user", "unreadMessages", "theme"],
+
+  created() {
+    console.log("Создан компонент Header");
+  },
+
+  mounted() {
+    console.log("Смонтирован компонент Header");
+  },
 };
 </script>

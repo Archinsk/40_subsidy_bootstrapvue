@@ -90,21 +90,84 @@ export default {
   data() {
     return {
       url: "https://open-newtemplate.isands.ru/api/",
-      staticUrl: "https://open-newtemplate.isands.ru/api/",
       // url: "https://open-demo.isands.ru/api/",
+      staticUrl: "https://open-newtemplate.isands.ru/api/",
+      esiaSignInUrl: "",
       user: {
+        auth: false,
         shortInfo: {
           userId: null,
+          orgId: null,
+          roleId: null,
           userName: "",
           typeAuth: "",
+          redirectUrl: "",
         },
         fullInfo: {
+          userId: null,
+          shortUserName: "",
           roles: [],
+          userOrganizations: [],
+          userData: {},
+          contacts: [],
+          addresses: null,
+          esiaDocuments: null,
+          other: {},
         },
         selectedRole: {
           id: null,
           key: "",
           label: "",
+        },
+        selectedOrg: {
+          id: null,
+          key: "",
+          label: "",
+        },
+        roleSelector: {
+          id: "userRoleSelector",
+          label: "",
+          type: "select",
+          itemsList: [],
+          width: 4,
+          responsive: "col-sm-3 col-md-2 mb-0 p-0",
+          defaultValueLabel: "Выберите роль",
+          horizontal: false,
+          horizontalWidth: {
+            label: {
+              width: 4,
+              responsive: "col-sm-5",
+            },
+            field: {
+              width: 8,
+              responsive: "col-sm-7",
+            },
+          },
+          values: [],
+        },
+        orgSelector: {
+          id: "orgRoleSelector",
+          label: "",
+          type: "select",
+          itemsList: [
+            { id: 1, value: 1, label: "Свидетельство о браке" },
+            { id: 2, value: 2, label: "Водительское удостоверение" },
+          ],
+          width: 12,
+          responsive: "col-sm-9 col-md-6 mb-0 p-0",
+          defaultValueLabel: "Выберите организацию",
+          horizontal: false,
+          horizontalWidth: {
+            label: {
+              width: 4,
+              responsive: "col-sm-5",
+            },
+            field: {
+              width: 8,
+              responsive: "col-sm-7",
+            },
+          },
+          values: [],
         },
       },
       theme: "primary",
@@ -1130,7 +1193,6 @@ export default {
     dynamicUrl: function () {
       let dynamicUrl;
       if (this.config.adminSettings.server.ownServer) {
-        // dynamicUrl = "/";
         dynamicUrl = this.staticUrl;
       } else {
         dynamicUrl =
@@ -1141,6 +1203,223 @@ export default {
   },
 
   methods: {
+    // Чтение админки
+    async getAppConfig() {
+      await axios.get(this.staticUrl + "config/").then((response) => {
+        this.parseConfig(response.data);
+        console.groupCollapsed("Конфигурация системы");
+        console.log(response.data);
+        console.groupEnd();
+      });
+    },
+    parseConfig(configData) {
+      // Уведомление
+      const now = new Date();
+      // const notificationStartDate = new Date(
+      //   configData.notification.publicationStartDate
+      // );
+      let notificationFinishDate;
+      if (configData.notification.publicationFinishDate) {
+        notificationFinishDate = new Date(
+          configData.notification.publicationFinishDate
+        );
+      }
+      const validDate =
+        notificationFinishDate > now ||
+        (!configData.notification.publicationFinishDate &&
+          configData.notification.publicationFinishManual);
+      // const notificationActive =
+      //   notificationStartDate < now && notificationFinishDate > now;
+      const notificationPublishing =
+        configData.notification.publishNeed && validDate;
+      if (notificationPublishing) {
+        this.config.adminSettings.notification.publishNeed = true;
+        this.settingsForm.notification.form.fields[0].value = true;
+        this.settingsForm.notification.form.fields[1].visibility = false;
+        this.settingsForm.notification.form.fields[2].visibility = true;
+        this.settingsForm.notification.form.fields[3].visibility = true;
+        this.settingsForm.notification.form.fields[5].visibility = true;
+        this.settingsForm.notification.form.fields[6].visibility = true;
+        this.settingsForm.notification.form.fields[7].visibility = true;
+      } else {
+        this.config.adminSettings.notification.publishNeed = false;
+        this.settingsForm.notification.form.fields[0].value = false;
+        this.settingsForm.notification.form.fields[1].visibility = false;
+        this.settingsForm.notification.form.fields[2].visibility = false;
+        this.settingsForm.notification.form.fields[3].visibility = false;
+        this.settingsForm.notification.form.fields[5].visibility = false;
+        this.settingsForm.notification.form.fields[6].visibility = false;
+        this.settingsForm.notification.form.fields[7].visibility = false;
+      }
+      this.config.adminSettings.notification.publicationImmediately =
+        configData.notification.publicationImmediately;
+      this.settingsForm.notification.form.fields[1].value =
+        configData.notification.publicationImmediately;
+      if (notificationPublishing) {
+        this.config.adminSettings.notification.publicationStartDate =
+          configData.notification.publicationStartDate;
+        this.settingsForm.notification.form.fields[2].value =
+          configData.notification.publicationStartDate;
+      } else {
+        this.config.adminSettings.notification.publicationStartDate = "";
+        this.settingsForm.notification.form.fields[2].value = "";
+      }
+      this.config.adminSettings.notification.publicationFinishManual =
+        configData.notification.publicationFinishManual;
+      this.settingsForm.notification.form.fields[3].value =
+        configData.notification.publicationFinishManual;
+      if (
+        notificationPublishing &&
+        !configData.notification.publicationFinishManual
+      ) {
+        this.config.adminSettings.notification.publicationFinishDate =
+          configData.notification.publicationFinishDate;
+        this.settingsForm.notification.form.fields[4].value =
+          configData.notification.publicationFinishDate;
+        this.settingsForm.notification.form.fields[4].visibility = true;
+      } else {
+        this.config.adminSettings.notification.publicationFinishDate = "";
+        this.settingsForm.notification.form.fields[4].value = "";
+        this.settingsForm.notification.form.fields[4].visibility = false;
+      }
+      if (notificationPublishing) {
+        this.config.adminSettings.notification.notificationText =
+          configData.notification.notificationText;
+        this.settingsForm.notification.form.fields[5].value =
+          configData.notification.notificationText;
+      } else {
+        this.config.adminSettings.notification.notificationText = "";
+        this.settingsForm.notification.form.fields[5].value = "";
+      }
+      this.config.adminSettings.notification.notificationFontSize =
+        configData.notification.notificationFontSize;
+      this.settingsForm.notification.form.fields[6].values[0] =
+        configData.notification.notificationFontSize;
+      this.config.adminSettings.notification.notificationColor =
+        configData.notification.notificationColor;
+      this.settingsForm.notification.form.fields[7].values[0] =
+        configData.notification.notificationColor;
+      this.validateForm(this.settingsForm.notification.form);
+
+      // Сервер
+      this.config.adminSettings.server.ownServer = configData.server.ownServer;
+      this.settingsForm.server.form.fields[0].value =
+        configData.server.ownServer;
+      if (!configData.server.ownServer) {
+        this.settingsForm.server.form.fields[1].visibility = true;
+      } else {
+        this.settingsForm.server.form.fields[1].visibility = false;
+      }
+      this.config.adminSettings.server.externalServerUrl =
+        configData.server.externalServerUrl;
+      this.settingsForm.server.form.fields[1].value =
+        configData.server.externalServerUrl;
+      this.validateForm(this.settingsForm.server.form);
+
+      // Лого
+      this.config.adminSettings.logo.image.file = configData.logo.image.file;
+      this.settingsForm.logo.form.fields[0].file.base64 =
+        configData.logo.image.file;
+      this.config.adminSettings.logo.image.fileName =
+        configData.logo.image.fileName;
+      this.settingsForm.logo.form.fields[0].file.name =
+        configData.logo.image.fileName;
+      this.config.adminSettings.logo.logoBrand = configData.logo.logoBrand;
+      this.settingsForm.logo.form.fields[1].value = configData.logo.logoBrand;
+      this.validateForm(this.settingsForm.logo.form);
+
+      // Футер
+      this.config.adminSettings.footer.contacts.phone =
+        configData.footer.contacts.phone;
+      this.settingsForm.footer.form.fields[0].value =
+        configData.footer.contacts.phone;
+      this.config.adminSettings.footer.contacts.email =
+        configData.footer.contacts.email;
+      this.settingsForm.footer.form.fields[1].value =
+        configData.footer.contacts.email;
+      if (configData.footer.links.length > 0) {
+        if (
+          configData.footer.links[0] &&
+          configData.footer.links[0].name &&
+          configData.footer.links[0].url
+        ) {
+          this.config.adminSettings.footer.links[0].name =
+            configData.footer.links[0].name;
+          this.settingsForm.footer.form.fields[2].value =
+            configData.footer.links[0].name;
+          this.config.adminSettings.footer.links[0].url =
+            configData.footer.links[0].url;
+          this.settingsForm.footer.form.fields[3].value =
+            configData.footer.links[0].url;
+          this.settingsForm.footer.form.fields[3].visibility = true;
+        } else {
+          this.config.adminSettings.footer.links[0].name = "";
+          this.settingsForm.footer.form.fields[2].value = "";
+          this.config.adminSettings.footer.links[0].url = "";
+          this.settingsForm.footer.form.fields[3].value = "";
+          this.settingsForm.footer.form.fields[3].visibility = false;
+        }
+        if (
+          configData.footer.links[1] &&
+          configData.footer.links[1].name &&
+          configData.footer.links[1].url
+        ) {
+          this.config.adminSettings.footer.links[1].name =
+            configData.footer.links[1].name;
+          this.settingsForm.footer.form.fields[4].value =
+            configData.footer.links[1].name;
+          this.config.adminSettings.footer.links[1].url =
+            configData.footer.links[1].url;
+          this.settingsForm.footer.form.fields[5].value =
+            configData.footer.links[1].url;
+          this.settingsForm.footer.form.fields[5].visibility = true;
+        } else {
+          this.config.adminSettings.footer.links[1].name = "";
+          this.settingsForm.footer.form.fields[4].value = "";
+          this.config.adminSettings.footer.links[1].url = "";
+          this.settingsForm.footer.form.fields[5].value = "";
+          this.settingsForm.footer.form.fields[5].visibility = false;
+        }
+        if (
+          configData.footer.links[2] &&
+          configData.footer.links[2].name &&
+          configData.footer.links[2].url
+        ) {
+          this.config.adminSettings.footer.links[2].name =
+            configData.footer.links[2].name;
+          this.settingsForm.footer.form.fields[6].value =
+            configData.footer.links[2].name;
+          this.config.adminSettings.footer.links[2].url =
+            configData.footer.links[2].url;
+          this.settingsForm.footer.form.fields[7].value =
+            configData.footer.links[2].url;
+          this.settingsForm.footer.form.fields[7].visibility = true;
+        } else {
+          this.config.adminSettings.footer.links[2].name = "";
+          this.settingsForm.footer.form.fields[6].value = "";
+          this.config.adminSettings.footer.links[2].url = "";
+          this.settingsForm.footer.form.fields[7].value = "";
+          this.settingsForm.footer.form.fields[7].visibility = false;
+        }
+      }
+      this.config.adminSettings.footer.copyright.publication =
+        configData.footer.copyright.publication;
+      this.settingsForm.footer.form.fields[8].value =
+        configData.footer.copyright.publication;
+      if (configData.footer.copyright.publication) {
+        this.config.adminSettings.footer.copyright.text =
+          configData.footer.copyright.text;
+        this.settingsForm.footer.form.fields[9].value =
+          configData.footer.copyright.text;
+        this.settingsForm.footer.form.fields[9].visibility = true;
+      } else {
+        this.config.adminSettings.footer.copyright.text = "";
+        this.settingsForm.footer.form.fields[9].value = "";
+        this.settingsForm.footer.form.fields[9].visibility = false;
+      }
+      this.validateForm(this.settingsForm.footer.form);
+    },
+
     assignUser(user) {
       this.user = user;
     },
@@ -1403,226 +1682,9 @@ export default {
           withCredentials: true,
         })
         .then(() => {
-          this.getConfig();
+          this.getAppConfig();
           console.log("Настройки системы изменены");
         });
-    },
-
-    // Чтение админки
-    getConfig() {
-      axios.get(this.staticUrl + "config/").then((response) => {
-        this.parseConfig(response.data);
-        console.groupCollapsed("Конфигурация системы");
-        console.log(response.data);
-        console.groupEnd();
-      });
-    },
-    parseConfig(configData) {
-      // Уведомление
-      const now = new Date();
-      // const notificationStartDate = new Date(
-      //   configData.notification.publicationStartDate
-      // );
-      let notificationFinishDate;
-      if (configData.notification.publicationFinishDate) {
-        notificationFinishDate = new Date(
-          configData.notification.publicationFinishDate
-        );
-      }
-      const validDate =
-        notificationFinishDate > now ||
-        (!configData.notification.publicationFinishDate &&
-          configData.notification.publicationFinishManual);
-      // const notificationActive =
-      //   notificationStartDate < now && notificationFinishDate > now;
-      const notificationPublishing =
-        configData.notification.publishNeed && validDate;
-      if (notificationPublishing) {
-        this.config.adminSettings.notification.publishNeed = true;
-        this.settingsForm.notification.form.fields[0].value = true;
-        this.settingsForm.notification.form.fields[1].visibility = false;
-        this.settingsForm.notification.form.fields[2].visibility = true;
-        this.settingsForm.notification.form.fields[3].visibility = true;
-        this.settingsForm.notification.form.fields[5].visibility = true;
-        this.settingsForm.notification.form.fields[6].visibility = true;
-        this.settingsForm.notification.form.fields[7].visibility = true;
-      } else {
-        this.config.adminSettings.notification.publishNeed = false;
-        this.settingsForm.notification.form.fields[0].value = false;
-        this.settingsForm.notification.form.fields[1].visibility = false;
-        this.settingsForm.notification.form.fields[2].visibility = false;
-        this.settingsForm.notification.form.fields[3].visibility = false;
-        this.settingsForm.notification.form.fields[5].visibility = false;
-        this.settingsForm.notification.form.fields[6].visibility = false;
-        this.settingsForm.notification.form.fields[7].visibility = false;
-      }
-      this.config.adminSettings.notification.publicationImmediately =
-        configData.notification.publicationImmediately;
-      this.settingsForm.notification.form.fields[1].value =
-        configData.notification.publicationImmediately;
-      if (notificationPublishing) {
-        this.config.adminSettings.notification.publicationStartDate =
-          configData.notification.publicationStartDate;
-        this.settingsForm.notification.form.fields[2].value =
-          configData.notification.publicationStartDate;
-      } else {
-        this.config.adminSettings.notification.publicationStartDate = "";
-        this.settingsForm.notification.form.fields[2].value = "";
-      }
-      this.config.adminSettings.notification.publicationFinishManual =
-        configData.notification.publicationFinishManual;
-      this.settingsForm.notification.form.fields[3].value =
-        configData.notification.publicationFinishManual;
-      if (
-        notificationPublishing &&
-        !configData.notification.publicationFinishManual
-      ) {
-        this.config.adminSettings.notification.publicationFinishDate =
-          configData.notification.publicationFinishDate;
-        this.settingsForm.notification.form.fields[4].value =
-          configData.notification.publicationFinishDate;
-        this.settingsForm.notification.form.fields[4].visibility = true;
-      } else {
-        this.config.adminSettings.notification.publicationFinishDate = "";
-        this.settingsForm.notification.form.fields[4].value = "";
-        this.settingsForm.notification.form.fields[4].visibility = false;
-      }
-      if (notificationPublishing) {
-        this.config.adminSettings.notification.notificationText =
-          configData.notification.notificationText;
-        this.settingsForm.notification.form.fields[5].value =
-          configData.notification.notificationText;
-      } else {
-        this.config.adminSettings.notification.notificationText = "";
-        this.settingsForm.notification.form.fields[5].value = "";
-      }
-      this.config.adminSettings.notification.notificationFontSize =
-        configData.notification.notificationFontSize;
-      this.settingsForm.notification.form.fields[6].values[0] =
-        configData.notification.notificationFontSize;
-      this.config.adminSettings.notification.notificationColor =
-        configData.notification.notificationColor;
-      this.settingsForm.notification.form.fields[7].values[0] =
-        configData.notification.notificationColor;
-      this.validateForm(this.settingsForm.notification.form);
-
-      // Сервер
-      this.config.adminSettings.server.ownServer = configData.server.ownServer;
-      this.settingsForm.server.form.fields[0].value =
-        configData.server.ownServer;
-      if (!configData.server.ownServer) {
-        this.settingsForm.server.form.fields[1].visibility = true;
-      } else {
-        this.settingsForm.server.form.fields[1].visibility = false;
-      }
-      this.config.adminSettings.server.externalServerUrl =
-        configData.server.externalServerUrl;
-      this.settingsForm.server.form.fields[1].value =
-        configData.server.externalServerUrl;
-      this.validateForm(this.settingsForm.server.form);
-
-      // Лого
-      this.config.adminSettings.logo.image.file = configData.logo.image.file;
-      this.settingsForm.logo.form.fields[0].file.base64 =
-        configData.logo.image.file;
-      this.config.adminSettings.logo.image.fileName =
-        configData.logo.image.fileName;
-      this.settingsForm.logo.form.fields[0].file.name =
-        configData.logo.image.fileName;
-      this.config.adminSettings.logo.logoBrand = configData.logo.logoBrand;
-      this.settingsForm.logo.form.fields[1].value = configData.logo.logoBrand;
-      this.validateForm(this.settingsForm.logo.form);
-
-      // Футер
-      this.config.adminSettings.footer.contacts.phone =
-        configData.footer.contacts.phone;
-      this.settingsForm.footer.form.fields[0].value =
-        configData.footer.contacts.phone;
-      this.config.adminSettings.footer.contacts.email =
-        configData.footer.contacts.email;
-      this.settingsForm.footer.form.fields[1].value =
-        configData.footer.contacts.email;
-      if (configData.footer.links.length > 0) {
-        if (
-          configData.footer.links[0] &&
-          configData.footer.links[0].name &&
-          configData.footer.links[0].url
-        ) {
-          this.config.adminSettings.footer.links[0].name =
-            configData.footer.links[0].name;
-          this.settingsForm.footer.form.fields[2].value =
-            configData.footer.links[0].name;
-          this.config.adminSettings.footer.links[0].url =
-            configData.footer.links[0].url;
-          this.settingsForm.footer.form.fields[3].value =
-            configData.footer.links[0].url;
-          this.settingsForm.footer.form.fields[3].visibility = true;
-        } else {
-          this.config.adminSettings.footer.links[0].name = "";
-          this.settingsForm.footer.form.fields[2].value = "";
-          this.config.adminSettings.footer.links[0].url = "";
-          this.settingsForm.footer.form.fields[3].value = "";
-          this.settingsForm.footer.form.fields[3].visibility = false;
-        }
-        if (
-          configData.footer.links[1] &&
-          configData.footer.links[1].name &&
-          configData.footer.links[1].url
-        ) {
-          this.config.adminSettings.footer.links[1].name =
-            configData.footer.links[1].name;
-          this.settingsForm.footer.form.fields[4].value =
-            configData.footer.links[1].name;
-          this.config.adminSettings.footer.links[1].url =
-            configData.footer.links[1].url;
-          this.settingsForm.footer.form.fields[5].value =
-            configData.footer.links[1].url;
-          this.settingsForm.footer.form.fields[5].visibility = true;
-        } else {
-          this.config.adminSettings.footer.links[1].name = "";
-          this.settingsForm.footer.form.fields[4].value = "";
-          this.config.adminSettings.footer.links[1].url = "";
-          this.settingsForm.footer.form.fields[5].value = "";
-          this.settingsForm.footer.form.fields[5].visibility = false;
-        }
-        if (
-          configData.footer.links[2] &&
-          configData.footer.links[2].name &&
-          configData.footer.links[2].url
-        ) {
-          this.config.adminSettings.footer.links[2].name =
-            configData.footer.links[2].name;
-          this.settingsForm.footer.form.fields[6].value =
-            configData.footer.links[2].name;
-          this.config.adminSettings.footer.links[2].url =
-            configData.footer.links[2].url;
-          this.settingsForm.footer.form.fields[7].value =
-            configData.footer.links[2].url;
-          this.settingsForm.footer.form.fields[7].visibility = true;
-        } else {
-          this.config.adminSettings.footer.links[2].name = "";
-          this.settingsForm.footer.form.fields[6].value = "";
-          this.config.adminSettings.footer.links[2].url = "";
-          this.settingsForm.footer.form.fields[7].value = "";
-          this.settingsForm.footer.form.fields[7].visibility = false;
-        }
-      }
-      this.config.adminSettings.footer.copyright.publication =
-        configData.footer.copyright.publication;
-      this.settingsForm.footer.form.fields[8].value =
-        configData.footer.copyright.publication;
-      if (configData.footer.copyright.publication) {
-        this.config.adminSettings.footer.copyright.text =
-          configData.footer.copyright.text;
-        this.settingsForm.footer.form.fields[9].value =
-          configData.footer.copyright.text;
-        this.settingsForm.footer.form.fields[9].visibility = true;
-      } else {
-        this.config.adminSettings.footer.copyright.text = "";
-        this.settingsForm.footer.form.fields[9].value = "";
-        this.settingsForm.footer.form.fields[9].visibility = false;
-      }
-      this.validateForm(this.settingsForm.footer.form);
     },
 
     // Преобразование даты к формату инпута datetime
@@ -1640,12 +1702,232 @@ export default {
         year + "-" + month + "-" + day + "T" + hours + ":" + minutes;
       return inputDateTime;
     },
+
+    // Базовые методы
+    convertArrayToSelectOptions(sourceArray, targetSelect, valueProp = "key") {
+      let itemsList = [];
+      console.log("convertArrayToSelectOptions");
+      console.log(sourceArray);
+      console.log(targetSelect);
+      sourceArray.forEach(function (arrayItem) {
+        let item = {};
+        item.id = arrayItem.id;
+        item.value = arrayItem[valueProp];
+        item.label = arrayItem.label;
+        itemsList.push(item);
+      });
+      console.log(itemsList);
+      targetSelect.itemsList = itemsList;
+    },
+
+    // Авторизация
+    async checkUserAuth() {
+      await axios(this.dynamicUrl + "auth/get-login", {
+        withCredentials: true,
+      })
+        .then((response) => {
+          console.log("checkAuth");
+          console.groupCollapsed(
+            "Пользователь не авторизован. Получена ссылка на авторизацию ЕСИА"
+          );
+          console.log(response.data);
+          console.groupEnd();
+          this.user.auth = false;
+          this.config.esiaSignInUrl = response.data.url;
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 406) {
+            console.log("checkAuth");
+            console.log("Пользователь уже авторизован");
+            this.user.auth = true;
+          } else {
+            console.log("checkAuth");
+            console.log("Непредвиденная ошибка при проверке авторизации");
+            this.user.auth = false;
+          }
+        });
+    },
+    async getUserShortInfo() {
+      await axios(this.dynamicUrl + "auth/get-user", {
+        withCredentials: true,
+      })
+        .then((response) => {
+          console.groupCollapsed("Сокращённые данные пользователя");
+          console.log(response.data);
+          console.groupEnd();
+          this.user.shortInfo = response.data;
+          if (response.data.roleId || response.data.orgId) {
+            this.user.roleSelector.values = [response.data.roleId];
+            this.user.orgSelector.values = [response.data.orgId];
+          }
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 404) {
+            console.log("Сокращенные данные пользователя не найдены");
+          } else {
+            console.log(
+              "Непредвиденная ошибка при запросе сокращенных данных пользователя"
+            );
+          }
+        });
+    },
+    async getUserFullInfo() {
+      await axios(this.dynamicUrl + "core/get-user", {
+        withCredentials: true,
+      })
+        .then((response) => {
+          console.groupCollapsed("Полные данные пользователя");
+          console.log(response.data);
+          console.groupEnd();
+          this.user.fullInfo = response.data;
+          if (response.data.roles.length) {
+            console.log("У пользователя есть роли");
+            this.convertArrayToSelectOptions(
+              response.data.roles,
+              this.user.roleSelector,
+              "id"
+            );
+            if (response.data.roles.length === 1) {
+              this.$refs["modal-auth"].hide();
+              this.signInWithRole(this.userInfoFromResponse.fullInfo.roles[0]);
+              console.groupCollapsed(
+                "Пользователь авторизован с единственной имеющейся ролью"
+              );
+              console.log(this.userInfoFromResponse.fullInfo.roles[0]);
+              console.groupEnd();
+            }
+          } else {
+            console.log("У пользователя отсутствуют роли");
+          }
+
+          this.convertArrayToSelectOptions(
+            response.data.userOrganizations,
+            this.user.orgSelector,
+            "id"
+          );
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 404) {
+            console.log(
+              "Ошибка при получении полных данных пользователя с закрытой части"
+            );
+          } else if (error.response && error.response.status === 401) {
+            console.log(
+              "Ошибка запроса полной данных пользователя неавторизованным пользователем"
+            );
+          } else {
+            console.log(
+              "Непредвиденная ошибка при запросе полных данных пользователя"
+            );
+          }
+        });
+    },
+
+    changeUserCurrentProfile() {},
+
+    async signInLocal() {
+      const request = {
+        login: this.authForm.login,
+        password: this.authForm.password,
+      };
+      await axios
+        .post(this.config.url + "api/auth/local-login", request, {
+          withCredentials: true,
+        })
+        .then(() => {
+          location.href = this.config.url;
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.authForm.authError.type = "password";
+            this.authForm.authError.text = "Неверно указан пароль!";
+          }
+          if (error.response.status === 404) {
+            this.authForm.authError.type = "login";
+            this.authForm.authError.text =
+              "Пользователь с указанным логином не зарегистрирован!";
+          }
+        });
+    },
+    async signInEsia() {
+      await this.checkAuth();
+      if (this.config.esiaSignInUrl) {
+        location.href = this.config.esiaSignInUrl;
+      }
+    },
+    signOut() {
+      if (this.config.user.shortInfo.typeAuth === "local") {
+        this.signOutLocal();
+      }
+      if (this.config.user.shortInfo.typeAuth === "esia") {
+        this.signOutEsia();
+      }
+    },
+    signOutLocal() {
+      axios(this.config.url + "api/auth/local-logout", {
+        withCredentials: true,
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            console.log("Локальный выход пользователя из системы");
+          }
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            console.log(
+              "Ошибка запроса локального выхода при поиске авторизованного пользователя"
+            );
+          } else {
+            console.log("Непредвиденная ошибка запроса локального выхода");
+          }
+        })
+        .then(() => {
+          location.href = this.config.url;
+        });
+    },
+    signOutEsia() {
+      axios(this.config.url + "api/auth/get-logout", {
+        withCredentials: true,
+      })
+        .then((response) => {
+          console.groupCollapsed("Получена ссылка на выход ЕСИА");
+          console.log(response.data);
+          console.groupEnd();
+          location.href = response.data.url;
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            console.log(
+              "Ошибка запроса на получение ссылки выхода ЕСИА при поиске авторизованного пользователя"
+            );
+          } else if (error.response && error.response.status === 404) {
+            console.log(
+              "Ошибка запроса на получение ссылки выхода ЕСИА при составлении ссылки со стороны закрытой части"
+            );
+          } else if (error.response && error.response.status === 500) {
+            console.log(
+              "Ошибка запроса на получение ссылки выхода ЕСИА со стороны открытой части при отправке запроса на закрытую часть"
+            );
+          } else {
+            console.log("Ошибка запроса на получение ссылки выхода ЕСИА");
+          }
+          location.href = this.config.url;
+        });
+    },
   },
 
-  mounted: function () {
-    this.parseConfig(this.config.adminSettings);
-    this.getConfig();
-    this.convertDateToInputDateTime();
+  created() {
+    console.log("Создан компонент App");
+  },
+
+  mounted: async function () {
+    console.log("Смонтирован компонент App");
+    await this.getAppConfig();
+    await this.checkUserAuth();
+    if (this.user.auth) {
+      this.getUserShortInfo();
+      this.getUserFullInfo();
+    }
   },
 };
 </script>

@@ -343,7 +343,12 @@ export default {
     },
   },
 
-  mounted: function () {
+  created() {
+    console.log("Создан компонент MeasuresView");
+  },
+
+  mounted() {
+    console.log("Смонтирован компонент MeasuresView");
     this.getTags();
     this.getServises();
   },
