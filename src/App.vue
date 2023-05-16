@@ -11,6 +11,9 @@
       @assign-user="assignUser($event)"
       @select-role="user.selectedRole = $event"
       @change-user-short-info="user.shortInfo = $event"
+      @sign-in-esia="signInEsia"
+      @sign-in-local="signInLocal"
+      @sign-out="signOut"
     >
       <router-view
         :url="dynamicUrl"
@@ -44,6 +47,7 @@
           )
         "
         @set-config="setConfig"
+        @sign-out="signOut"
       />
     </component>
     <b-modal
@@ -75,6 +79,112 @@
       >
         У вас отсутствуют уведомления!
       </div>
+    </b-modal>
+
+    <b-modal
+      id="auth"
+      ref="modal-auth"
+      :title="user.auth ? 'Выбор роли' : 'Авторизация'"
+      size="sm"
+      hide-footer
+      no-stacking
+      :hide-header-close="user.auth"
+      :no-close-on-backdrop="user.auth"
+      :no-close-on-esc="user.auth"
+    >
+      <template v-if="!user.auth">
+        <form @submit.prevent>
+          <div id="logAuth" class="form-label-group mb-0">
+            <input
+              autocomplete="on"
+              v-model.trim="authForm.login"
+              type="text"
+              id="inputLogin"
+              class="form-control"
+              placeholder="Login"
+            />
+            <label for="inputLogin" id="inputLoginLabel">Введите логин</label>
+          </div>
+          <small
+            v-if="authForm.authError.type === 'login'"
+            class="form-text text-danger"
+            >{{ authForm.authError.text }}</small
+          >
+          <div
+            class="form-label-group mt-3 mb-0 position-relative"
+            id="pasAuth"
+          >
+            <input
+              autocomplete="off"
+              v-model.trim="authForm.password"
+              :type="authForm.passwordVisibility ? 'text' : 'password'"
+              id="inputPassword"
+              class="form-control"
+              placeholder="Password"
+            />
+            <label for="inputPassword" id="inputPasswordLabel">Пароль</label>
+            <button
+              type="button"
+              class="btn position-absolute"
+              style="
+                top: 0.375rem;
+                right: 0.375rem;
+                padding-left: 0.375rem;
+                padding-right: 0.375rem;
+              "
+              @click="
+                authForm.passwordVisibility = !authForm.passwordVisibility
+              "
+            >
+              <span class="material-icons">
+                {{
+                  authForm.passwordVisibility ? "visibility_off" : "visibility"
+                }}
+              </span>
+            </button>
+          </div>
+          <small
+            v-if="authForm.authError.type === 'password'"
+            class="form-text text-danger"
+            >{{ authForm.authError.text }}</small
+          >
+          <a href="#" class="d-block mt-2 mb-3">Забыли пароль?</a>
+          <div class="row">
+            <div class="col">
+              <button
+                class="btn btn-primary btn-block"
+                :disabled="!authForm.login || !authForm.password"
+                @click="signInLocal"
+              >
+                Войти
+              </button>
+            </div>
+            <div class="col">
+              <button class="btn btn-outline-primary btn-block">Отмена</button>
+            </div>
+          </div>
+          <hr />
+          <p class="mb-3">Авторизоваться через портал государственных услуг</p>
+          <button class="btn btn-primary btn-block" @click="signInEsia">
+            <img
+              src="assets/gu_icon.svg"
+              style="height: 1.5rem; padding: 0.125rem"
+              class="mr-2"
+              alt=""
+            />Войти с помощью ЕСИА
+          </button>
+        </form>
+      </template>
+      <template v-else-if="user.fullInfo.roles.length > 1">
+        <button
+          v-for="role in user.fullInfo.roles"
+          :key="role.id"
+          class="btn btn-outline-primary btn-block"
+          @click="changeUserCurrentProfile(role, true)"
+        >
+          {{ role.label }}
+        </button>
+      </template>
     </b-modal>
   </div>
 </template>
@@ -168,6 +278,15 @@ export default {
             },
           },
           values: [],
+        },
+      },
+      authForm: {
+        login: "",
+        password: "",
+        passwordVisibility: false,
+        authError: {
+          type: "",
+          text: "",
         },
       },
       theme: "primary",
@@ -1703,6 +1822,8 @@ export default {
       return inputDateTime;
     },
 
+    //---Здесь-начинается-рефакторинг-методов-с-динамическим-эндпоинтом-----------
+
     // Базовые методы
     convertArrayToSelectOptions(sourceArray, targetSelect, valueProp = "key") {
       let itemsList = [];
@@ -1726,7 +1847,6 @@ export default {
         withCredentials: true,
       })
         .then((response) => {
-          console.log("checkAuth");
           console.groupCollapsed(
             "Пользователь не авторизован. Получена ссылка на авторизацию ЕСИА"
           );
@@ -1737,11 +1857,9 @@ export default {
         })
         .catch((error) => {
           if (error.response && error.response.status === 406) {
-            console.log("checkAuth");
             console.log("Пользователь уже авторизован");
             this.user.auth = true;
           } else {
-            console.log("checkAuth");
             console.log("Непредвиденная ошибка при проверке авторизации");
             this.user.auth = false;
           }
@@ -1780,31 +1898,6 @@ export default {
           console.log(response.data);
           console.groupEnd();
           this.user.fullInfo = response.data;
-          if (response.data.roles.length) {
-            console.log("У пользователя есть роли");
-            this.convertArrayToSelectOptions(
-              response.data.roles,
-              this.user.roleSelector,
-              "id"
-            );
-            if (response.data.roles.length === 1) {
-              this.$refs["modal-auth"].hide();
-              this.signInWithRole(this.userInfoFromResponse.fullInfo.roles[0]);
-              console.groupCollapsed(
-                "Пользователь авторизован с единственной имеющейся ролью"
-              );
-              console.log(this.userInfoFromResponse.fullInfo.roles[0]);
-              console.groupEnd();
-            }
-          } else {
-            console.log("У пользователя отсутствуют роли");
-          }
-
-          this.convertArrayToSelectOptions(
-            response.data.userOrganizations,
-            this.user.orgSelector,
-            "id"
-          );
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
@@ -1823,19 +1916,43 @@ export default {
         });
     },
 
-    changeUserCurrentProfile() {},
+    async changeUserCurrentProfile(orgId = 0, roleId = 0) {
+      axios
+        .put(
+          this.dynamicUrl +
+            "core/put-metadata?orgId=" +
+            orgId +
+            "&roleId=" +
+            roleId,
+          "",
+          {
+            withCredentials: true,
+          }
+        )
+        .then((response) => {
+          this.user.shortInfo = response.data;
+          // this.user.selectedRole = role;
+          // if (hideModal) {
+          //   this.$refs["modal-auth"].hide();
+          // }
+          // this.cleanSignInForm();
+          // console.log('Пользователь авторизован с ролью "' + role.label + '"');
+          console.log("Пользователь авторизован с какой-то ролью");
+        });
+    },
 
     async signInLocal() {
+      console.log("Локальный вход");
       const request = {
         login: this.authForm.login,
         password: this.authForm.password,
       };
       await axios
-        .post(this.config.url + "api/auth/local-login", request, {
+        .post(this.dynamicUrl + "auth/local-login", request, {
           withCredentials: true,
         })
         .then(() => {
-          location.href = this.config.url;
+          location.href = "/";
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -1850,21 +1967,24 @@ export default {
         });
     },
     async signInEsia() {
-      await this.checkAuth();
+      await this.checkUserAuth();
       if (this.config.esiaSignInUrl) {
         location.href = this.config.esiaSignInUrl;
       }
     },
     signOut() {
-      if (this.config.user.shortInfo.typeAuth === "local") {
+      console.log("Выхожу");
+      if (this.user.shortInfo.typeAuth === "local") {
+        console.log("Выхожу локально");
         this.signOutLocal();
       }
-      if (this.config.user.shortInfo.typeAuth === "esia") {
+      if (this.user.shortInfo.typeAuth === "esia") {
+        console.log("Выхожу через ЕСИА");
         this.signOutEsia();
       }
     },
     signOutLocal() {
-      axios(this.config.url + "api/auth/local-logout", {
+      axios(this.dynamicUrl + "auth/local-logout", {
         withCredentials: true,
       })
         .then((response) => {
@@ -1882,11 +2002,11 @@ export default {
           }
         })
         .then(() => {
-          location.href = this.config.url;
+          location.href = "/";
         });
     },
     signOutEsia() {
-      axios(this.config.url + "api/auth/get-logout", {
+      axios(this.dynamicUrl + "auth/get-logout", {
         withCredentials: true,
       })
         .then((response) => {
@@ -1925,8 +2045,26 @@ export default {
     await this.getAppConfig();
     await this.checkUserAuth();
     if (this.user.auth) {
-      this.getUserShortInfo();
-      this.getUserFullInfo();
+      Promise.all([this.getUserShortInfo(), this.getUserFullInfo()]).then(
+        () => {
+          // Заполнение пунктов селектора организаций
+          if (this.user.fullInfo.userOrganizations.length > 0) {
+            this.convertArrayToSelectOptions(
+              this.user.fullInfo.userOrganizations,
+              this.user.orgSelector,
+              "id"
+            );
+          }
+          // Заполнение пунктов селектора ролей
+          if (this.user.fullInfo.roles.length > 0) {
+            this.convertArrayToSelectOptions(
+              this.user.fullInfo.roles,
+              this.user.roleSelector,
+              "id"
+            );
+          }
+        }
+      );
     }
   },
 };

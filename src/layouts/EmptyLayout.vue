@@ -8,6 +8,7 @@
     :config="config"
     @assign-user="$emit('assign-user', $event)"
     @select-role="$emit('select-role', $event)"
+    @sign-out="$emit('sign-out')"
   />
 </template>
 
