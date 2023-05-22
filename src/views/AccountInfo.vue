@@ -62,9 +62,10 @@
                   class="form-control"
                   id="exampleFormControlSelect1"
                   @change="
-                    setRole(
-                      selectRoleById(user.fullInfo.roles, selectedUserRole)
-                    )
+                    $emit('change-user-current-profile', {
+                      orgId: 0,
+                      roleId: selectedUserRole,
+                    })
                   "
                 >
                   <option
@@ -87,7 +88,6 @@
 
 <script>
 import Applications from "@/components/Applications";
-import axios from "axios";
 
 export default {
   name: "AccountInfo",
@@ -96,7 +96,7 @@ export default {
     Applications,
   },
 
-  props: ["url", "user", "theme"],
+  props: ["user", "theme"],
 
   data() {
     return {
@@ -155,29 +155,6 @@ export default {
         this.xhrResponse = xhr.response;
       };
       xhr.send();
-    },
-
-    selectRoleById(roles, roleId) {
-      for (let i = 0; i < roles.length; i++) {
-        if (roleId === roles[i].id) {
-          console.groupCollapsed("Пользователь уже авторизован с ролью");
-          console.log(roles[i]);
-          console.groupEnd();
-          return roles[i];
-        }
-      }
-    },
-
-    setRole(role) {
-      axios
-        .put(this.url + "core/put-metadata?orgId=0&roleId=" + role.id, "", {
-          withCredentials: true,
-        })
-        .then((response) => {
-          this.$emit("change-user-short-info", response.data);
-          this.$emit("select-role", role);
-          console.log('Роль пользователя изменена на "' + role.label + '"');
-        });
     },
   },
 

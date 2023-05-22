@@ -48,6 +48,9 @@
         "
         @set-config="setConfig"
         @sign-out="signOut"
+        @change-user-current-profile="
+          changeUserCurrentProfile($event.orgSelector, $event.roleId)
+        "
       />
     </component>
     <b-modal
