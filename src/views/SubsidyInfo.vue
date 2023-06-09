@@ -408,8 +408,11 @@ export default {
       if (!this.measure.id) {
         return false;
       } else {
+        console.log("-----|-----|-----");
+        console.log(this.measure);
+        console.log(this.user);
         for (let i = 0; i < this.measure.roles.length; i++) {
-          if (this.user.selectedRole.id === this.measure.roles[i].id) {
+          if (this.user.shortInfo.roleId === this.measure.roles[i].id) {
             return true;
           }
         }
@@ -721,13 +724,21 @@ export default {
 
   watch: {
     measure: function () {
-      if (this.measure.newDescription) {
+      if (
+        this.measure.newDescription &&
+        this.measure.newDescription.chapters.length
+      ) {
         this.createMeasureInfo();
       }
     },
   },
 
+  created() {
+    console.log("Создан SubsidyInfo");
+  },
+
   mounted: function () {
+    console.log("Смонтирован SubsidyInfo");
     this.getMeasure();
   },
 };
