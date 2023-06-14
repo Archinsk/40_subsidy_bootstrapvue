@@ -54,30 +54,31 @@
                 </div>
               </div>
               <div class="term align-items-center">
-                <label class="term-title" for="exampleFormControlSelect1">
-                  Текущая роль:
-                </label>
-                <select
-                  v-model="selectedUserRole"
-                  class="form-control"
-                  id="exampleFormControlSelect1"
-                  @change="
-                    $emit('change-user-current-profile', {
-                      orgId: 0,
-                      roleId: selectedUserRole,
-                    })
-                  "
-                >
-                  <option
-                    v-for="role of user.fullInfo.roles"
-                    :key="role.id"
-                    :value="role.id"
-                    :selected="role.id === user.selectedRole.roleId"
-                  >
-                    {{ role.label }}
-                  </option>
-                </select>
+                <div class="term-title">
+                  Текущая роль:<span class="dotted-line"></span>
+                </div>
+                <Select
+                  v-if="userRoles.length"
+                  :items-list="user.roleSelector.itemsList"
+                  default-value-label="Выберите роль"
+                  :values="[user.shortInfo.roleId]"
+                  @change="$emit('change-user-role', $event[0])"
+                />
+                <div v-else>отсутствует</div>
               </div>
+              <div class="term">
+                <div class="term-title">
+                  Текущая организация:<span class="dotted-line"></span>
+                </div>
+              </div>
+              <Select
+                v-if="userOrganizations.length"
+                :items-list="user.orgSelector.itemsList"
+                :values="user.shortInfo.orgId ? [user.shortInfo.orgId] : []"
+                default-value-label="Выберите организацию"
+                @change="$emit('change-user-organization', $event[0])"
+              />
+              <div v-else>отсутствует</div>
             </div>
           </section>
         </b-tab>
@@ -88,24 +89,17 @@
 
 <script>
 import Applications from "@/components/Applications";
+import Select from "../components/universal/Forms/BS46Select";
 
 export default {
   name: "AccountInfo",
 
   components: {
+    Select,
     Applications,
   },
 
-  props: ["user", "theme"],
-
-  data() {
-    return {
-      xhrResponse: [],
-      page: 1,
-      pageSize: 10,
-      selectedUserRole: this.user.selectedRole.id,
-    };
-  },
+  props: ["user", "theme", "url"],
 
   computed: {
     userFullName: function () {
@@ -127,39 +121,26 @@ export default {
       }
       return fullName;
     },
-  },
-
-  methods: {
-    changePageSize(itemsPerPage) {
-      console.log(itemsPerPage);
-      this.pageSize = itemsPerPage;
-      this.changeItemsCount();
+    userOrganizations: function () {
+      if (this.user.fullInfo.userOrganizations.length > 0) {
+        return this.user.fullInfo.userOrganizations.map((org) => {
+          org.value = org.id;
+          return org;
+        });
+      } else {
+        return [];
+      }
     },
-    changePage(page) {
-      console.log(page);
-      this.page = page;
-      this.changeItemsCount();
+    userRoles: function () {
+      if (this.user.fullInfo.roles.length > 0) {
+        return this.user.fullInfo.roles.map((role) => {
+          role.value = role.id;
+          return role;
+        });
+      } else {
+        return [];
+      }
     },
-    changeItemsCount() {
-      console.log("Апдейт");
-      const xhr = new XMLHttpRequest();
-      let request =
-        "https://www.d-skills.ru/40_subsidy_bootstrapvue/requests.php?page=" +
-        this.page +
-        "&pageSize=" +
-        this.pageSize;
-      xhr.open("GET", request);
-      xhr.responseType = "json";
-      xhr.onload = () => {
-        console.log(xhr.response);
-        this.xhrResponse = xhr.response;
-      };
-      xhr.send();
-    },
-  },
-
-  updated() {
-    this.selectedUserRole = this.user.selectedRole.id;
   },
 };
 </script>

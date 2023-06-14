@@ -51,6 +51,12 @@
         @change-user-current-profile="
           changeUserCurrentProfile($event.orgSelector, $event.roleId)
         "
+        @change-user-role="
+          changeUserCurrentProfile(user.shortInfo.orgId, $event)
+        "
+        @change-user-organization="
+          changeUserCurrentProfile($event, user.shortInfo.roleId)
+        "
       />
     </component>
     <b-modal
@@ -1421,7 +1427,7 @@ export default {
         configData.notification.notificationColor;
       this.settingsForm.notification.form.fields[7].values[0] =
         configData.notification.notificationColor;
-      this.validateForm(this.settingsForm.notification.form);
+      // this.validateForm(this.settingsForm.notification.form);
 
       // Сервер
       this.config.adminSettings.server.ownServer = configData.server.ownServer;
@@ -1436,7 +1442,7 @@ export default {
         configData.server.externalServerUrl;
       this.settingsForm.server.form.fields[1].value =
         configData.server.externalServerUrl;
-      this.validateForm(this.settingsForm.server.form);
+      // this.validateForm(this.settingsForm.server.form);
 
       // Лого
       this.config.adminSettings.logo.image.file = configData.logo.image.file;
@@ -1448,7 +1454,7 @@ export default {
         configData.logo.image.fileName;
       this.config.adminSettings.logo.logoBrand = configData.logo.logoBrand;
       this.settingsForm.logo.form.fields[1].value = configData.logo.logoBrand;
-      this.validateForm(this.settingsForm.logo.form);
+      // this.validateForm(this.settingsForm.logo.form);
 
       // Футер
       this.config.adminSettings.footer.contacts.phone =
@@ -1539,7 +1545,7 @@ export default {
         this.settingsForm.footer.form.fields[9].value = "";
         this.settingsForm.footer.form.fields[9].visibility = false;
       }
-      this.validateForm(this.settingsForm.footer.form);
+      // this.validateForm(this.settingsForm.footer.form);
     },
 
     assignUser(user) {
@@ -1830,9 +1836,6 @@ export default {
     // Базовые методы
     convertArrayToSelectOptions(sourceArray, targetSelect, valueProp = "key") {
       let itemsList = [];
-      console.log("convertArrayToSelectOptions");
-      console.log(sourceArray);
-      console.log(targetSelect);
       sourceArray.forEach(function (arrayItem) {
         let item = {};
         item.id = arrayItem.id;
@@ -1840,7 +1843,6 @@ export default {
         item.label = arrayItem.label;
         itemsList.push(item);
       });
-      console.log(itemsList);
       targetSelect.itemsList = itemsList;
     },
 
@@ -1868,6 +1870,99 @@ export default {
           }
         });
     },
+    signOut() {
+      if (this.user.shortInfo.typeAuth === "local") {
+        this.signOutLocal();
+      }
+      if (this.user.shortInfo.typeAuth === "esia") {
+        this.signOutEsia();
+      }
+    },
+    // Локальная авторизация
+    async signInLocal() {
+      console.log("Локальный вход");
+      const request = {
+        login: this.authForm.login,
+        password: this.authForm.password,
+      };
+      await axios
+        .post(this.dynamicUrl + "auth/local-login", request, {
+          withCredentials: true,
+        })
+        .then(() => {
+          location.href = "/";
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.authForm.authError.type = "password";
+            this.authForm.authError.text = "Неверно указан пароль!";
+          }
+          if (error.response.status === 404) {
+            this.authForm.authError.type = "login";
+            this.authForm.authError.text =
+              "Пользователь с указанным логином не зарегистрирован!";
+          }
+        });
+    },
+    async signOutLocal() {
+      await axios(this.dynamicUrl + "auth/local-logout", {
+        withCredentials: true,
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            console.log("Осуществлён локальный выход пользователя из системы");
+          }
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            console.log(
+              "Ошибка запроса локального выхода при поиске авторизованного пользователя"
+            );
+          } else {
+            console.log("Непредвиденная ошибка запроса локального выхода");
+          }
+        })
+        .then(() => {
+          location.href = "/";
+        });
+    },
+    // Авторизация ЕСИА
+    async signInEsia() {
+      await this.checkUserAuth();
+      if (this.config.esiaSignInUrl) {
+        location.href = this.config.esiaSignInUrl;
+      }
+    },
+    async signOutEsia() {
+      await axios(this.dynamicUrl + "auth/get-logout", {
+        withCredentials: true,
+      })
+        .then((response) => {
+          console.groupCollapsed("Получена ссылка на выход ЕСИА");
+          console.log(response.data);
+          console.groupEnd();
+          location.href = response.data.url;
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            console.log(
+              "Ошибка запроса на получение ссылки выхода ЕСИА при поиске авторизованного пользователя"
+            );
+          } else if (error.response && error.response.status === 404) {
+            console.log(
+              "Ошибка запроса на получение ссылки выхода ЕСИА при составлении ссылки со стороны закрытой части"
+            );
+          } else if (error.response && error.response.status === 500) {
+            console.log(
+              "Ошибка запроса на получение ссылки выхода ЕСИА со стороны открытой части при отправке запроса на закрытую часть"
+            );
+          } else {
+            console.log("Ошибка запроса на получение ссылки выхода ЕСИА");
+          }
+          location.href = "/";
+        });
+    },
+    // Информация о пользователе
     async getUserShortInfo() {
       await axios(this.dynamicUrl + "auth/get-user", {
         withCredentials: true,
@@ -1918,7 +2013,7 @@ export default {
           }
         });
     },
-
+    // Ролевая модель пользователя
     async changeUserCurrentProfile(orgId = 0, roleId = 0) {
       axios
         .put(
@@ -1934,107 +2029,8 @@ export default {
         )
         .then((response) => {
           this.user.shortInfo = response.data;
-          // this.user.selectedRole = role;
-          // if (hideModal) {
-          //   this.$refs["modal-auth"].hide();
-          // }
-          // this.cleanSignInForm();
-          // console.log('Пользователь авторизован с ролью "' + role.label + '"');
-          console.log("Пользователь авторизован с какой-то ролью");
-        });
-    },
-
-    async signInLocal() {
-      console.log("Локальный вход");
-      const request = {
-        login: this.authForm.login,
-        password: this.authForm.password,
-      };
-      await axios
-        .post(this.dynamicUrl + "auth/local-login", request, {
-          withCredentials: true,
-        })
-        .then(() => {
-          location.href = "/";
-        })
-        .catch((error) => {
-          if (error.response.status === 401) {
-            this.authForm.authError.type = "password";
-            this.authForm.authError.text = "Неверно указан пароль!";
-          }
-          if (error.response.status === 404) {
-            this.authForm.authError.type = "login";
-            this.authForm.authError.text =
-              "Пользователь с указанным логином не зарегистрирован!";
-          }
-        });
-    },
-    async signInEsia() {
-      await this.checkUserAuth();
-      if (this.config.esiaSignInUrl) {
-        location.href = this.config.esiaSignInUrl;
-      }
-    },
-    signOut() {
-      console.log("Выхожу");
-      if (this.user.shortInfo.typeAuth === "local") {
-        console.log("Выхожу локально");
-        this.signOutLocal();
-      }
-      if (this.user.shortInfo.typeAuth === "esia") {
-        console.log("Выхожу через ЕСИА");
-        this.signOutEsia();
-      }
-    },
-    signOutLocal() {
-      axios(this.dynamicUrl + "auth/local-logout", {
-        withCredentials: true,
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            console.log("Локальный выход пользователя из системы");
-          }
-        })
-        .catch((error) => {
-          if (error.response && error.response.status === 401) {
-            console.log(
-              "Ошибка запроса локального выхода при поиске авторизованного пользователя"
-            );
-          } else {
-            console.log("Непредвиденная ошибка запроса локального выхода");
-          }
-        })
-        .then(() => {
-          location.href = "/";
-        });
-    },
-    signOutEsia() {
-      axios(this.dynamicUrl + "auth/get-logout", {
-        withCredentials: true,
-      })
-        .then((response) => {
-          console.groupCollapsed("Получена ссылка на выход ЕСИА");
-          console.log(response.data);
-          console.groupEnd();
-          location.href = response.data.url;
-        })
-        .catch((error) => {
-          if (error.response && error.response.status === 401) {
-            console.log(
-              "Ошибка запроса на получение ссылки выхода ЕСИА при поиске авторизованного пользователя"
-            );
-          } else if (error.response && error.response.status === 404) {
-            console.log(
-              "Ошибка запроса на получение ссылки выхода ЕСИА при составлении ссылки со стороны закрытой части"
-            );
-          } else if (error.response && error.response.status === 500) {
-            console.log(
-              "Ошибка запроса на получение ссылки выхода ЕСИА со стороны открытой части при отправке запроса на закрытую часть"
-            );
-          } else {
-            console.log("Ошибка запроса на получение ссылки выхода ЕСИА");
-          }
-          location.href = this.config.url;
+          console.log("Изменен текущий профиль пользователя");
+          console.log(`Id организации - ${orgId}, id роли - ${roleId}`);
         });
     },
   },
