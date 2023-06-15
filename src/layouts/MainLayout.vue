@@ -8,7 +8,6 @@
       :unread-messages="unreadMessages"
       :theme="theme"
       @assign-user="$emit('assign-user', $event)"
-      @select-role="$emit('select-role', $event)"
       @sign-in-esia="$emit('sign-in-esia')"
       @sign-in-local="$emit('sign-in-local')"
       @sign-out="$emit('sign-out')"

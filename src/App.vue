@@ -9,7 +9,6 @@
       :theme="theme"
       :config="config"
       @assign-user="assignUser($event)"
-      @select-role="user.selectedRole = $event"
       @change-user-short-info="user.shortInfo = $event"
       @sign-in-esia="signInEsia"
       @sign-in-local="signInLocal"
@@ -22,7 +21,6 @@
         :theme="theme"
         :config="config"
         :settings-form="settingsForm"
-        @select-role="user.selectedRole = $event"
         @change-user-short-info="user.shortInfo = $event"
         @change-settings-form-part1="
           changeFormWithValidate(
@@ -48,9 +46,6 @@
         "
         @set-config="setConfig"
         @sign-out="signOut"
-        @change-user-current-profile="
-          changeUserCurrentProfile($event.orgSelector, $event.roleId)
-        "
         @change-user-role="
           changeUserCurrentProfile(user.shortInfo.orgId, $event)
         "
@@ -106,7 +101,7 @@
           <div id="logAuth" class="form-label-group mb-0">
             <input
               autocomplete="on"
-              v-model.trim="authForm.login"
+              v-model.trim="auth.form.login"
               type="text"
               id="inputLogin"
               class="form-control"
@@ -115,9 +110,9 @@
             <label for="inputLogin" id="inputLoginLabel">Введите логин</label>
           </div>
           <small
-            v-if="authForm.authError.type === 'login'"
+            v-if="auth.form.authError.type === 'login'"
             class="form-text text-danger"
-            >{{ authForm.authError.text }}</small
+            >{{ auth.form.authError.text }}</small
           >
           <div
             class="form-label-group mt-3 mb-0 position-relative"
@@ -125,8 +120,8 @@
           >
             <input
               autocomplete="off"
-              v-model.trim="authForm.password"
-              :type="authForm.passwordVisibility ? 'text' : 'password'"
+              v-model.trim="auth.form.password"
+              :type="auth.form.passwordVisibility ? 'text' : 'password'"
               id="inputPassword"
               class="form-control"
               placeholder="Password"
@@ -142,27 +137,27 @@
                 padding-right: 0.375rem;
               "
               @click="
-                authForm.passwordVisibility = !authForm.passwordVisibility
+                auth.form.passwordVisibility = !auth.form.passwordVisibility
               "
             >
               <span class="material-icons">
                 {{
-                  authForm.passwordVisibility ? "visibility_off" : "visibility"
+                  auth.form.passwordVisibility ? "visibility_off" : "visibility"
                 }}
               </span>
             </button>
           </div>
           <small
-            v-if="authForm.authError.type === 'password'"
+            v-if="auth.form.authError.type === 'password'"
             class="form-text text-danger"
-            >{{ authForm.authError.text }}</small
+            >{{ auth.form.authError.text }}</small
           >
           <a href="#" class="d-block mt-2 mb-3">Забыли пароль?</a>
           <div class="row">
             <div class="col">
               <button
                 class="btn btn-primary btn-block"
-                :disabled="!authForm.login || !authForm.password"
+                :disabled="!auth.form.login || !auth.form.password"
                 @click="signInLocal"
               >
                 Войти
@@ -233,69 +228,16 @@ export default {
           esiaDocuments: null,
           other: {},
         },
-        selectedRole: {
-          id: null,
-          key: "",
-          label: "",
-        },
-        selectedOrg: {
-          id: null,
-          key: "",
-          label: "",
-        },
-        roleSelector: {
-          id: "userRoleSelector",
-          label: "",
-          type: "select",
-          itemsList: [],
-          width: 4,
-          responsive: "col-sm-3 col-md-2 mb-0 p-0",
-          defaultValueLabel: "Выберите роль",
-          horizontal: false,
-          horizontalWidth: {
-            label: {
-              width: 4,
-              responsive: "col-sm-5",
-            },
-            field: {
-              width: 8,
-              responsive: "col-sm-7",
-            },
-          },
-          values: [],
-        },
-        orgSelector: {
-          id: "orgRoleSelector",
-          label: "",
-          type: "select",
-          itemsList: [
-            { id: 1, value: 1, label: "Свидетельство о браке" },
-            { id: 2, value: 2, label: "Водительское удостоверение" },
-          ],
-          width: 12,
-          responsive: "col-sm-9 col-md-6 mb-0 p-0",
-          defaultValueLabel: "Выберите организацию",
-          horizontal: false,
-          horizontalWidth: {
-            label: {
-              width: 4,
-              responsive: "col-sm-5",
-            },
-            field: {
-              width: 8,
-              responsive: "col-sm-7",
-            },
-          },
-          values: [],
-        },
       },
-      authForm: {
-        login: "",
-        password: "",
-        passwordVisibility: false,
-        authError: {
-          type: "",
-          text: "",
+      auth: {
+        form: {
+          login: "",
+          password: "",
+          passwordVisibility: false,
+          authError: {
+            type: "",
+            text: "",
+          },
         },
       },
       theme: "primary",
@@ -1857,16 +1799,22 @@ export default {
           );
           console.log(response.data);
           console.groupEnd();
-          this.user.auth = false;
           this.config.esiaSignInUrl = response.data.url;
         })
         .catch((error) => {
           if (error.response && error.response.status === 406) {
             console.log("Пользователь уже авторизован");
             this.user.auth = true;
+          } else if (error.response && error.response.status === 404) {
+            console.log(
+              "Ошибка при составлении ссылки на вход ЕСИА со стороны закрытой части при проверке авторизации"
+            );
+          } else if (error.response && error.response.status === 500) {
+            console.log(
+              "Ошибка со стороны открытой части при отправке запроса получения ссылки на вход ЕСИА на закрытую часть при проверке авторизации"
+            );
           } else {
             console.log("Непредвиденная ошибка при проверке авторизации");
-            this.user.auth = false;
           }
         });
     },
@@ -1880,10 +1828,9 @@ export default {
     },
     // Локальная авторизация
     async signInLocal() {
-      console.log("Локальный вход");
       const request = {
-        login: this.authForm.login,
-        password: this.authForm.password,
+        login: this.auth.form.login,
+        password: this.auth.form.password,
       };
       await axios
         .post(this.dynamicUrl + "auth/local-login", request, {
@@ -1894,13 +1841,45 @@ export default {
         })
         .catch((error) => {
           if (error.response.status === 401) {
-            this.authForm.authError.type = "password";
-            this.authForm.authError.text = "Неверно указан пароль!";
-          }
-          if (error.response.status === 404) {
-            this.authForm.authError.type = "login";
-            this.authForm.authError.text =
+            this.auth.form.authError.type = "password";
+            this.auth.form.authError.text = "Неверно указан пароль!";
+            console.log("Неверно указан пароль при локальной авторизации");
+          } else if (error.response.status === 404) {
+            this.auth.form.authError.type = "login";
+            this.auth.form.authError.text =
               "Пользователь с указанным логином не зарегистрирован!";
+            console.log(
+              "Не найден пользователь с указанным логином при локальной авторизации"
+            );
+          } else if (error.response.status === 406) {
+            this.auth.form.authError.type = "client";
+            this.auth.form.authError.text =
+              "Пользователь уже авторизован. Повторная авторизация не требуется";
+            console.log(
+              "Попытка авторизованного пользователя авторизоваться локально ещё раз"
+            );
+          } else if (error.response.status === 500) {
+            this.auth.form.authError.type = "server";
+            this.auth.form.authError.text =
+              "Произошла ошибка при выполнении запроса авторизации. Пожалуйста обратитесь к администратору системы. Код ошибки - 500";
+            console.log(
+              "Ошибка открытого контура при выполнении запроса локальной авторизации на закрытый контур"
+            );
+          } else if (error.response.status === 501) {
+            this.auth.form.authError.type = "server";
+            this.auth.form.authError.text =
+              "Произошла ошибка при выполнении запроса авторизации. Пожалуйста обратитесь к администратору системы. Код ошибки - 501";
+            console.log(
+              "Ошибка закрытого контура при выполнении запроса локальной авторизации"
+            );
+          } else {
+            this.auth.form.authError.type = "server";
+            this.auth.form.authError.text =
+              "Произошла ошибка при выполнении запроса авторизации. Пожалуйста обратитесь к администратору системы. Код ошибки - " +
+              error.response.status;
+            console.log(
+              "Непредвиденная ошибка при выполнении запроса локальной авторизации"
+            );
           }
         });
     },
@@ -1916,7 +1895,7 @@ export default {
         .catch((error) => {
           if (error.response && error.response.status === 401) {
             console.log(
-              "Ошибка запроса локального выхода при поиске авторизованного пользователя"
+              "Ошибка поиска авторизованного пользователя при локальном выходе"
             );
           } else {
             console.log("Непредвиденная ошибка запроса локального выхода");
@@ -1931,6 +1910,8 @@ export default {
       await this.checkUserAuth();
       if (this.config.esiaSignInUrl) {
         location.href = this.config.esiaSignInUrl;
+      } else {
+        console.log("Ссылка на форму авторизации ЕСИА не получена с сервера");
       }
     },
     async signOutEsia() {
@@ -1960,6 +1941,9 @@ export default {
             console.log("Ошибка запроса на получение ссылки выхода ЕСИА");
           }
           location.href = "/";
+        })
+        .then(() => {
+          location.href = "/";
         });
     },
     // Информация о пользователе
@@ -1972,10 +1956,6 @@ export default {
           console.log(response.data);
           console.groupEnd();
           this.user.shortInfo = response.data;
-          if (response.data.roleId || response.data.orgId) {
-            this.user.roleSelector.values = [response.data.roleId];
-            this.user.orgSelector.values = [response.data.orgId];
-          }
         })
         .catch((error) => {
           if (error.response && error.response.status === 404) {
@@ -2015,22 +1995,30 @@ export default {
     },
     // Ролевая модель пользователя
     async changeUserCurrentProfile(orgId = 0, roleId = 0) {
+      const query = "?orgId=" + orgId + "&roleId=" + roleId;
       axios
-        .put(
-          this.dynamicUrl +
-            "core/put-metadata?orgId=" +
-            orgId +
-            "&roleId=" +
-            roleId,
-          "",
-          {
-            withCredentials: true,
-          }
-        )
+        .put(this.dynamicUrl + "core/put-metadata" + query, "", {
+          withCredentials: true,
+        })
         .then((response) => {
           this.user.shortInfo = response.data;
           console.log("Изменен текущий профиль пользователя");
           console.log(`Id организации - ${orgId}, id роли - ${roleId}`);
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            console.log(
+              "Ошибка поиска текущего пользователя при попытке изменения его текущего профиля"
+            );
+          } else if (error.response && error.response.status === 500) {
+            console.log(
+              "Ошибка добавления данных в БД при попытке изменения текущего профиля пользователя"
+            );
+          } else {
+            console.log(
+              "Непредвиденная ошибка попытке изменения текущего профиля пользователя"
+            );
+          }
         });
     },
   },
@@ -2046,22 +2034,7 @@ export default {
     if (this.user.auth) {
       Promise.all([this.getUserShortInfo(), this.getUserFullInfo()]).then(
         () => {
-          // Заполнение пунктов селектора организаций
-          if (this.user.fullInfo.userOrganizations.length > 0) {
-            this.convertArrayToSelectOptions(
-              this.user.fullInfo.userOrganizations,
-              this.user.orgSelector,
-              "id"
-            );
-          }
-          // Заполнение пунктов селектора ролей
-          if (this.user.fullInfo.roles.length > 0) {
-            this.convertArrayToSelectOptions(
-              this.user.fullInfo.roles,
-              this.user.roleSelector,
-              "id"
-            );
-          }
+          console.log("Данные пользователя загружены");
         }
       );
     }

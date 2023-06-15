@@ -59,7 +59,7 @@
                 </div>
                 <Select
                   v-if="userRoles.length"
-                  :items-list="user.roleSelector.itemsList"
+                  :items-list="userRoles"
                   default-value-label="Выберите роль"
                   :values="[user.shortInfo.roleId]"
                   @change="$emit('change-user-role', $event[0])"
@@ -73,7 +73,7 @@
               </div>
               <Select
                 v-if="userOrganizations.length"
-                :items-list="user.orgSelector.itemsList"
+                :items-list="userOrganizations"
                 :values="user.shortInfo.orgId ? [user.shortInfo.orgId] : []"
                 default-value-label="Выберите организацию"
                 @change="$emit('change-user-organization', $event[0])"
