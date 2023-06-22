@@ -12,13 +12,13 @@
               :tags="tags"
               :selected-items="selectedFilters"
               :theme="theme"
-              @search-measures="searchMeasures($event)"
-              @filter-changed="selectedFilters = $event"
-              @filter="getServises"
-              @clear-filter="clearFilter"
-              @select-esia="selectEsia"
-              @chat-activation="chatActivation"
             ></MeasuresFilter>
+            <!--            @search-measures="searchMeasures($event)"-->
+            <!--            @filter-changed="selectedFilters = $event"-->
+            <!--            @filter="getServises"-->
+            <!--            @clear-filter="clearFilter"-->
+            <!--            @select-esia="selectEsia"-->
+            <!--            @chat-activation="chatActivation"-->
           </div>
           <div class="col-12 col-md-9">
             <MeasuresCardsList
@@ -341,10 +341,6 @@ export default {
         return this.replics.filter((item) => item.id === 1);
       }
     },
-  },
-
-  created() {
-    console.log("Создан компонент MeasuresView");
   },
 
   mounted() {
